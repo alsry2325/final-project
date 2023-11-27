@@ -10,5 +10,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ApprovalRepository extends JpaRepository<Approver, Long> {
 
     /* 1. 받은 결재 목록 조회 */
-    Page<Approver> findByApprovalStatus(Pageable pageable, ApprovalStatusType approvalStatusType);
+//    Page<Approver> findByApprovalStatus(Pageable pageable, ApprovalStatusType approvalStatusType);
 }
