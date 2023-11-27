@@ -14,6 +14,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType.ACTIVATE;
 
 @Service
@@ -40,5 +43,9 @@ public class ApprovalService {
 
     /* 2. 새 결재 작성(결재 등록) */
     public void save(ApprovalCreateRequest approvalCreateRequest, CustomUser customUser) {
+
+        List<Approver> approvers = new ArrayList<>();
+
+//        for(int i = 0; i < approvalCreateRequest);
     }
 }
