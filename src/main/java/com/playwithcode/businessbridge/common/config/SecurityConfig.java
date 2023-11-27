@@ -15,9 +15,6 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-
-
-
     /* CORS(Cross Origin Resource Sharing) : 교차 출처 자원 공유
     * 보안상 웹 브라우저는 다른 도메인에서 서버의 자원을 요청하는 경우 막아 놓았음.
     * 기본적으로 서버에서 클라이언트를 대상으로 리소스 허용 여부를 결정함. */
@@ -36,8 +33,6 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
     }
-
-
 
 }
 
