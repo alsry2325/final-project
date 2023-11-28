@@ -1,5 +1,6 @@
 package com.playwithcode.businessbridge.approval.domain;
 
+import com.playwithcode.businessbridge.approval.domain.type.DocFormType;
 import com.playwithcode.businessbridge.approval.domain.type.DocStatusType;
 import com.playwithcode.businessbridge.member.domain.Employee;
 import lombok.AccessLevel;
@@ -32,7 +33,7 @@ public class Approval {
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "approvalCode")
-    private List<Approver> approverMember;                            // 결재자
+    private List<Approver> approverMember;                      // 결재자
 
     private LocalDateTime draftDateTime;                        // 기안일시
 
@@ -40,7 +41,7 @@ public class Approval {
 
     @ManyToOne
     @JoinColumn(name = "draftMember")
-    private Employee draftMember;                         // 기안자
+    private Employee draftMember;                               // 기안자
 
     @Column(nullable = false)
     @Enumerated(value = STRING)
@@ -56,21 +57,26 @@ public class Approval {
     private LocalDateTime registDateTime;                       // 등록일시
 
     @Column(nullable = false)
-    private String docForm;                                     // 문서양식(지출결의서, 업무기안서)
+    private DocFormType docForm;                                     // 문서양식(지출결의서, 업무기안서)
 
     @Column(nullable = false)
     private String title;                                       // 제목
 
-    public Approval(List<Approver> approverMember, Employee draftMember, String title, String docForm) {
+    @OneToMany
+    @JoinColumn(name = "approvalCode")
+    private List<File> file;                                    // 첨부파일
+
+
+    public Approval(List<Approver> approverMember, Employee draftMember, String title, DocFormType docForm) {
         this.approverMember = approverMember;
         this.draftMember = draftMember;
         this.title = title;
         this.docForm = docForm;
     }
 
-    // 첨부파일
 
-    public static Approval of(List<Approver> approverMember, Employee draftMember, String title, String docForm) {
+
+    public static Approval of(List<Approver> approverMember, Employee draftMember, String title, DocFormType docForm) {
         return new Approval(
                 approverMember, draftMember, title, docForm
         );

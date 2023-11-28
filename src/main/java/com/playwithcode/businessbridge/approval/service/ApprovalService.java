@@ -5,6 +5,7 @@ import com.playwithcode.businessbridge.approval.domain.Approver;
 import com.playwithcode.businessbridge.approval.domain.BusinessDraft;
 import com.playwithcode.businessbridge.approval.domain.repository.ApprovalRepository;
 import com.playwithcode.businessbridge.approval.domain.repository.BusinessDraftRepository;
+import com.playwithcode.businessbridge.approval.domain.type.DocFormType;
 import com.playwithcode.businessbridge.approval.dto.request.BusinessDraftCreateRequest;
 import com.playwithcode.businessbridge.approval.dto.response.ReceivedApprovalResponse;
 import com.playwithcode.businessbridge.common.exception.NotFoundException;
@@ -54,19 +55,6 @@ public class ApprovalService {
     public void save(BusinessDraftCreateRequest businessDraftRequest,
                      MultipartFile attachFile, Employee LoginUser) {
 
-//        Approval approval = approvalRepository.findById(
-//                businessDraftCreateRequest.getApprovalCode())
-//                .orElseThrow(() -> new NotFoundException(NOT_FOUND_APPROVAL_CODE));
-//
-//        final BusinessDraft newBusinessDraft = BusinessDraft.of(
-//                approval,
-//                businessDraftCreateRequest.getBusinessDraftContent()
-//        );
-//
-//        businessDraftRepository.save(newBusinessDraft);
-
-//        List<Approver> approvers = new ArrayList<>();
-
         // 결재자 엔터티 추가
         List<Approver> approverMember = new ArrayList<>();
         for(int i = 0; i < businessDraftRequest.getApproverMember().size(); i++) {
@@ -82,10 +70,10 @@ public class ApprovalService {
                 approverMember,
                 LoginUser,
                 businessDraftRequest.getTitle(),
-                "업무기안서"
+                DocFormType.valueOf("businessDraft")
         );
 
-        // ㅇ
+        // 업무기안서 엔티티 추가
         final BusinessDraft newBusinessDraft = BusinessDraft.of(
                 newApproval,
                 businessDraftRequest.getBusinessDraftContent()
