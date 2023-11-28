@@ -4,6 +4,7 @@ package com.playwithcode.businessbridge.common.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.playwithcode.businessbridge.login.filter.CustomUsernamePasswordAuthenticationFilter;
 import com.playwithcode.businessbridge.login.handler.LoginFailureHandler;
+import com.playwithcode.businessbridge.login.handler.LoginSuccessHandler;
 import com.playwithcode.businessbridge.login.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -100,7 +101,9 @@ public class SecurityConfig {
     public LoginFailureHandler loginFailureHandler() {
         return new LoginFailureHandler(objectMapper);
     }
-
+    /* 로그인 성공 핸들러 빈 등록  jwtService 넘겨줘야함*/
+    @Bean
+    public LoginSuccessHandler loginSuccessHandler() { return new LoginSuccessHandler(); }
 
     /* 1.로그인 필터 빈 등록 */
     @Bean
@@ -111,6 +114,8 @@ public class SecurityConfig {
         customUsernamePasswordAuthenticationFilter.setAuthenticationManager(authenticationManager());
         /* 로그인 실패 핸들링 */
         customUsernamePasswordAuthenticationFilter.setAuthenticationFailureHandler(loginFailureHandler());
+        /* 로그인 성공 핸들링 */
+        customUsernamePasswordAuthenticationFilter.setAuthenticationSuccessHandler(loginSuccessHandler());
 
         return customUsernamePasswordAuthenticationFilter;
     }
