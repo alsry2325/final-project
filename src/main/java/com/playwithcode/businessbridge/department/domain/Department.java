@@ -18,9 +18,9 @@ public class Department {
 
     @Id
     @GeneratedValue(strategy = IDENTITY) //MYSQL을 쓸때 PK하나씩 자동으로 생성
-    private Long  depatmentCode;  //부서코드
+    private Long  departmentCode;  //부서코드
     @Column(nullable = false)
-    private String depatmentName;  //부서이름
+    private String departmentName;  //부서이름
     @Column
     private Long  upperDepartmentCode;  //상위부서
 }
