@@ -2,6 +2,6 @@ package com.playwithcode.businessbridge.member.domain.type;
 
 public enum EmplyRole {
 
-    USER,
-    ADMIN
+    USER, //유저
+    ADMIN //관리자
 }
