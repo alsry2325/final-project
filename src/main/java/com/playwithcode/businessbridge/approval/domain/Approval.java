@@ -57,7 +57,7 @@ public class Approval {
     private LocalDateTime registDateTime;                       // 등록일시
 
     @Column(nullable = false)
-    private DocFormType docForm;                                     // 문서양식(지출결의서, 업무기안서)
+    private DocFormType docForm;                                // 문서양식(지출결의서, 업무기안서)
 
     @Column(nullable = false)
     private String title;                                       // 제목

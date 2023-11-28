@@ -1,6 +1,7 @@
 package com.playwithcode.businessbridge.approval.presentation;
 
 import com.playwithcode.businessbridge.approval.dto.request.BusinessDraftCreateRequest;
+import com.playwithcode.businessbridge.approval.dto.request.ExpenseReportCreateRequest;
 import com.playwithcode.businessbridge.approval.dto.response.ReceivedApprovalResponse;
 import com.playwithcode.businessbridge.approval.service.ApprovalService;
 import com.playwithcode.businessbridge.common.paging.Pagination;
@@ -42,9 +43,20 @@ public class ApprovalController {
     @PostMapping("/regist-business-draft")
     public ResponseEntity<Void> save(@RequestPart @Valid BusinessDraftCreateRequest businessDraftCreateRequest,
                                      @RequestPart(required = false) final MultipartFile attachFile,
-                                     @AuthenticationPrincipal Employee LoginUser){
+                                     @AuthenticationPrincipal Employee loginUser){
 
-        approvalService.save(businessDraftCreateRequest, attachFile, LoginUser);
+        approvalService.businessDraftSave(businessDraftCreateRequest, attachFile, loginUser);
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    /* 3. 지출결의서 등록(새 결재 등록) */
+    @PostMapping("/regist-expense_report")
+    public ResponseEntity<Void> save(@RequestPart @Valid ExpenseReportCreateRequest expenseReportRequest,
+                                     @RequestPart(required = false) final MultipartFile attachFile,
+                                     @AuthenticationPrincipal Employee loginUser){
+
+        approvalService.expenseReportSave(expenseReportRequest, attachFile, loginUser);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

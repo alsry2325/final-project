@@ -13,16 +13,29 @@ import java.util.List;
 public class ExpenseReport {
 
     @Id
-    private Long expenseReportCode;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long expenseReportCode;                             // 지출 결의서 코드
 
     @OneToOne
     @JoinColumn(name = "approvalCode")
-    private Approval approval;
+    private Approval approvalCode;                                  // 전자결재코드
 
     @Column(nullable = false)
-    private Long totalAmount;
+    private Long totalExpenditure;                                   // 총지출금액
 
     @OneToMany
     @JoinColumn(name = "expenseReportCode")
-    private List<ExpenseReportDetail> expenseReportDetail;
+    private List<ExpenseReportDetail> expenseReportDetail;      // 지출 상세
+
+    public ExpenseReport(Approval approvalCode, Long totalExpenditure, List<ExpenseReportDetail> expenseReportDetail) {
+        this.approvalCode = approvalCode;
+        this.totalExpenditure = totalExpenditure;
+        this.expenseReportDetail = expenseReportDetail;
+    }
+
+    public static ExpenseReport of(Approval approvalCode, Long totalExpenditure, List<ExpenseReportDetail> expenseReportDetail){
+        return new ExpenseReport(
+                approvalCode, totalExpenditure, expenseReportDetail
+        );
+    }
 }

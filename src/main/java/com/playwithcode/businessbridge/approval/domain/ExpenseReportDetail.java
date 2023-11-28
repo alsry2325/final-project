@@ -3,10 +3,7 @@ package com.playwithcode.businessbridge.approval.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "tbl_expense_report_detail")
@@ -15,12 +12,15 @@ import javax.persistence.Table;
 public class ExpenseReportDetail {
 
     @Id
-    private Long expenseDetailCode;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long expenseDetailCode;         // 지출 결의 상세 코드
 
     @Column(nullable = false)
-    private String item;
-    @Column(nullable = false)
-    private Long amount;
+    private String item;                    // 적요
 
-    private String note;
+    @Column(nullable = false)
+    private Long amount;                    // 금액
+
+    private String note;                    // 비고
+
 }

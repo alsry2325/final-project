@@ -3,10 +3,12 @@ package com.playwithcode.businessbridge.approval.service;
 import com.playwithcode.businessbridge.approval.domain.Approval;
 import com.playwithcode.businessbridge.approval.domain.Approver;
 import com.playwithcode.businessbridge.approval.domain.BusinessDraft;
+import com.playwithcode.businessbridge.approval.domain.ExpenseReport;
 import com.playwithcode.businessbridge.approval.domain.repository.ApprovalRepository;
 import com.playwithcode.businessbridge.approval.domain.repository.BusinessDraftRepository;
 import com.playwithcode.businessbridge.approval.domain.type.DocFormType;
 import com.playwithcode.businessbridge.approval.dto.request.BusinessDraftCreateRequest;
+import com.playwithcode.businessbridge.approval.dto.request.ExpenseReportCreateRequest;
 import com.playwithcode.businessbridge.approval.dto.response.ReceivedApprovalResponse;
 import com.playwithcode.businessbridge.common.exception.NotFoundException;
 import com.playwithcode.businessbridge.jwt.CustomUser;
@@ -52,8 +54,8 @@ public class ApprovalService {
 //    }
 
     /* 2. 업무기안서 등록(결재 등록) */
-    public void save(BusinessDraftCreateRequest businessDraftRequest,
-                     MultipartFile attachFile, Employee LoginUser) {
+    public void businessDraftSave(BusinessDraftCreateRequest businessDraftRequest,
+                     MultipartFile attachFile, Employee loginUser) {
 
         // 결재자 엔터티 추가
         List<Approver> approverMember = new ArrayList<>();
@@ -68,7 +70,7 @@ public class ApprovalService {
         // 전자결재 엔터티 추가
         Approval newApproval = Approval.of(
                 approverMember,
-                LoginUser,
+                loginUser,
                 businessDraftRequest.getTitle(),
                 DocFormType.valueOf("businessDraft")
         );
@@ -83,4 +85,36 @@ public class ApprovalService {
 
     }
 
+    /* 지출 결의서 등록 */
+    public void expenseReportSave(ExpenseReportCreateRequest expenseReportRequest, MultipartFile attachFile, Employee loginUser) {
+
+        // 결재자 엔터티 추가
+        List<Approver> approverMember = new ArrayList<>();
+        for(int i = 0; i < expenseReportRequest.getApproverMember().size(); i++) {
+            if(i == 0) {
+                approverMember.add(Approver.of(expenseReportRequest.getApproverMember().get(i), i+1L, ACTIVATE));
+            } else {
+                approverMember.add(Approver.of(expenseReportRequest.getApproverMember().get(i), i+1L, WAITING));
+            }
+        }
+
+        // 전자결재 엔터티 추가
+        Approval newApproval = Approval.of(
+                approverMember,
+                loginUser,
+                expenseReportRequest.getTitle(),
+                DocFormType.valueOf("expenseReport")
+        );
+
+        // 지출 결의서 상세 엔터티 추가
+
+
+
+        // 지출 결의서 엔터티 추가
+//        final ExpenseReport newExpenseReport = ExpenseReport.of(
+//                newApproval,
+//                expenseReportRequest.getTotalExpenditure(),
+//                // 지출결의서 상세 엔터티
+//        );
+    }
 }
