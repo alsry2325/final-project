@@ -1,13 +1,20 @@
 package com.playwithcode.businessbridge.common.config;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.playwithcode.businessbridge.login.filter.CustomUsernamePasswordAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -20,8 +27,10 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final ObjectMapper objectMapper;
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
 
         return http
                 // CSRF 설정 비활성화
@@ -62,6 +71,35 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
+    }
+
+    /* 패스워드 인코딩 */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    /*2. 인증 매니저 빈 등록 =>
+   로그인 시 사용할 password encode 설정,
+   로그인 시 유저 조회하는 메소드를 가진 Service 클래스 설정 */
+    @Bean
+    public AuthenticationManager authenticationManager() {
+
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(passwordEncoder());
+
+        return new ProviderManager(provider);
+    }
+
+    /* 1.로그인 필터 빈 등록 */
+    @Bean
+    public CustomUsernamePasswordAuthenticationFilter customUsernamePasswordAuthenticationFilter() {
+        CustomUsernamePasswordAuthenticationFilter customUsernamePasswordAuthenticationFilter
+                = new CustomUsernamePasswordAuthenticationFilter(objectMapper);
+        /* 사용할 인증 매니저 설정 */
+        customUsernamePasswordAuthenticationFilter.setAuthenticationManager(authenticationManager());
+
+        return customUsernamePasswordAuthenticationFilter;
     }
 
 }
