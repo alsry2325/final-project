@@ -14,7 +14,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static com.playwithcode.businessbridge.member.domain.type.EmplyStatus.JOIN;
@@ -52,7 +51,7 @@ public class Employee {
     private Department department;  //부서코드
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "departmentCode")
+    @JoinColumn(name = "positionCode")
     private EmployeeRank position; //직급코드
 
     @CreatedDate
