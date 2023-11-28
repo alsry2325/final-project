@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 public class ConflictException extends CustomException {
 
-//    public ConflictException(final ExceptionCode exceptionCode) {
-//        super(exceptionCode);
-//    }
+    public ConflictException(final ExceptionCode exceptionCode) {
+        super(exceptionCode);
+    }
 }

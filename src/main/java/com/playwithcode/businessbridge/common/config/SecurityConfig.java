@@ -3,6 +3,8 @@ package com.playwithcode.businessbridge.common.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.playwithcode.businessbridge.login.filter.CustomUsernamePasswordAuthenticationFilter;
+import com.playwithcode.businessbridge.login.handler.LoginFailureHandler;
+import com.playwithcode.businessbridge.login.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 
@@ -28,6 +30,7 @@ import java.util.Arrays;
 public class SecurityConfig {
 
     private final ObjectMapper objectMapper;
+    private final LoginService loginService;
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -45,9 +48,11 @@ public class SecurityConfig {
                 // 클라이언트가 외부 도메인을 요청하는 경우 웹 브라우저에서 자체적으로 사전 요청(preflight)이 일어남
                 // 이 때 OPTIONS 메서드로 서버에 사전 요청을 보내 권한을 확인함 permitAll(): 비로그인 형태에서도 볼수있게
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/member/test").permitAll()
+                .antMatchers("/emp/employee/login").permitAll()
                 .anyRequest().authenticated() //그외 다른 기능들은 로그인 된 상태에서만 사용가능
                 .and()
+                // 로그인 필터 설정
+                .addFilterBefore(customUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class) //기본필터 앞에 커스텀 필터를 끼워넣음
                 // 교차 출처 자원 공유 설정
                 .cors()
                 .and()
@@ -87,9 +92,15 @@ public class SecurityConfig {
 
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder());
-
+        provider.setUserDetailsService(loginService);
         return new ProviderManager(provider);
     }
+    /* 로그인 실패 핸들러 빈 등록 */
+    @Bean
+    public LoginFailureHandler loginFailureHandler() {
+        return new LoginFailureHandler(objectMapper);
+    }
+
 
     /* 1.로그인 필터 빈 등록 */
     @Bean
@@ -98,6 +109,8 @@ public class SecurityConfig {
                 = new CustomUsernamePasswordAuthenticationFilter(objectMapper);
         /* 사용할 인증 매니저 설정 */
         customUsernamePasswordAuthenticationFilter.setAuthenticationManager(authenticationManager());
+        /* 로그인 실패 핸들링 */
+        customUsernamePasswordAuthenticationFilter.setAuthenticationFailureHandler(loginFailureHandler());
 
         return customUsernamePasswordAuthenticationFilter;
     }
