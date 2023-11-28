@@ -1,6 +1,7 @@
 package com.playwithcode.businessbridge.approval.dto.request;
 
-import com.playwithcode.businessbridge.approval.domain.ApprovalMember;
+import com.playwithcode.businessbridge.approval.domain.Approver;
+import com.playwithcode.businessbridge.member.domain.Employee;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +19,8 @@ public class BusinessDraftCreateRequest {
     @NotBlank
     private final String title;
     @NotEmpty
-    private final List<ApprovalMember> approverMember;
+    private final List<Long> approverMember;
+//    private final List<Approver> approverMember;
 
 
 }

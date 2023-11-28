@@ -12,6 +12,7 @@ import javax.persistence.*;
 public class BusinessDraft {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long businessDraftCode;
 
     @OneToOne(cascade = CascadeType.PERSIST)

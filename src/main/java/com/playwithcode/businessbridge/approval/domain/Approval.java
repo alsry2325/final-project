@@ -1,6 +1,7 @@
 package com.playwithcode.businessbridge.approval.domain;
 
 import com.playwithcode.businessbridge.approval.domain.type.DocStatusType;
+import com.playwithcode.businessbridge.member.domain.Employee;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +32,7 @@ public class Approval {
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "approvalCode")
-    private List<Approver> approver ;                            // 결재자
+    private List<Approver> approverMember;                            // 결재자
 
     private LocalDateTime draftDateTime;                        // 기안일시
 
@@ -39,11 +40,11 @@ public class Approval {
 
     @ManyToOne
     @JoinColumn(name = "draftMember")
-    private ApprovalMember draftMember;                         // 기안자
+    private Employee draftMember;                         // 기안자
 
     @Column(nullable = false)
     @Enumerated(value = STRING)
-    private DocStatusType status = DocStatusType.WAITING;       // 문서 상태
+    private DocStatusType docStatus = DocStatusType.WAITING;       // 문서 상태
     // 대기(WAITING), 회수(COLLECT), 진행중(PROCEEDING), 반려(RETURN), 승인(ADMISSION)
 
     private LocalDateTime compltDateTime;                       // 완료일시
@@ -60,8 +61,8 @@ public class Approval {
     @Column(nullable = false)
     private String title;                                       // 제목
 
-    public Approval(List<Approver> approver, ApprovalMember draftMember, String title, String docForm) {
-        this.approver = approver;
+    public Approval(List<Approver> approverMember, Employee draftMember, String title, String docForm) {
+        this.approverMember = approverMember;
         this.draftMember = draftMember;
         this.title = title;
         this.docForm = docForm;
@@ -69,9 +70,9 @@ public class Approval {
 
     // 첨부파일
 
-    public static Approval of(List<Approver> approver, ApprovalMember draftMember, String title, String docForm) {
+    public static Approval of(List<Approver> approverMember, Employee draftMember, String title, String docForm) {
         return new Approval(
-                approver, draftMember, title, docForm
+                approverMember, draftMember, title, docForm
         );
     }
 }

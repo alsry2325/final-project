@@ -1,6 +1,7 @@
 package com.playwithcode.businessbridge.approval.domain;
 
 import com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType;
+import com.playwithcode.businessbridge.member.domain.Employee;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,11 +19,14 @@ import static lombok.AccessLevel.PROTECTED;
 public class Approver {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long approverCode;                // 결재자 코드(PK)
 
-    @ManyToOne
-    @JoinColumn(name = "approverMember")
-    private ApprovalMember approverMember;      // 결재자
+//    @ManyToOne
+//    @JoinColumn(name = "approverMember")
+//    private Employee approverMember;      // 결재자
+
+    private Long approverMember;
 
     private LocalDateTime approvalDateTime;     // 결재 일시
 
@@ -34,21 +38,22 @@ public class Approver {
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
-    private ApprovalStatusType status = ApprovalStatusType.WAITING; // 결재 상태
+    private ApprovalStatusType approvalStatus; // 결재 상태
     // 대기(WAITING), 활성화(ACTIVATE), 완료(COMPLETE), 반려(RETURN)
 
     @Column(nullable = false)
     private Long approvalOrder;                 // 결재 순번
 
-    public Approver(ApprovalMember approverMember, Long approvalOrder, ApprovalStatusType status) {
+    public Approver(Long approverMember, Long approvalOrder, ApprovalStatusType approvalStatus) {
         this.approverMember = approverMember;
         this.approvalOrder = approvalOrder;
-        this.status  =status;
+        this.approvalStatus  =approvalStatus;
     }
 
-    public static Approver of(ApprovalMember approverMember, Long approvalOrder, ApprovalStatusType status) {
+
+    public static Approver of(Long approverMember, Long approvalOrder, ApprovalStatusType approvalStatus) {
         return new Approver(
-                approverMember, approvalOrder, status
+                approverMember, approvalOrder, approvalStatus
         );
     }
 }
