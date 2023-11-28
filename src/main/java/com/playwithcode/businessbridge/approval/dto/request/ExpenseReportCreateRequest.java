@@ -23,5 +23,5 @@ public class ExpenseReportCreateRequest {
     private final List<Long> amount;            // 금액
 
     private final List<String> note;            // 비고
-
+    // 적요, 금액, 비고를 합쳐서 한 행으로 리스트를 받아야할 것 같은데..!!!
 }

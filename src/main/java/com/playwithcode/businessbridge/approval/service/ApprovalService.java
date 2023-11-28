@@ -1,9 +1,6 @@
 package com.playwithcode.businessbridge.approval.service;
 
-import com.playwithcode.businessbridge.approval.domain.Approval;
-import com.playwithcode.businessbridge.approval.domain.Approver;
-import com.playwithcode.businessbridge.approval.domain.BusinessDraft;
-import com.playwithcode.businessbridge.approval.domain.ExpenseReport;
+import com.playwithcode.businessbridge.approval.domain.*;
 import com.playwithcode.businessbridge.approval.domain.repository.ApprovalRepository;
 import com.playwithcode.businessbridge.approval.domain.repository.BusinessDraftRepository;
 import com.playwithcode.businessbridge.approval.domain.type.DocFormType;
@@ -107,10 +104,13 @@ public class ApprovalService {
         );
 
         // 지출 결의서 상세 엔터티 추가
-
-
-
-        // 지출 결의서 엔터티 추가
+//        List<ExpenseReportDetail> expenseReportDetail = new ArrayList<>();
+//        for (int i = 0; i < expenseReportRequest.; i++) {
+//
+//        }
+//
+//
+//        // 지출 결의서 엔터티 추가
 //        final ExpenseReport newExpenseReport = ExpenseReport.of(
 //                newApproval,
 //                expenseReportRequest.getTotalExpenditure(),
