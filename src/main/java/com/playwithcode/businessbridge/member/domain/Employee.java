@@ -23,7 +23,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
-@Table(name = "tbl_member")
+@Table(name = "tbl_employee")
 @Getter
 @NoArgsConstructor(access = PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
@@ -71,7 +71,8 @@ public class Employee {
     @Enumerated(value = STRING)
     @Column(nullable = false)
     private TmpryPwdStus tmpryPwdStus= TEMPORARY ; //임시번호상태
-
+    @Enumerated(value = STRING)
+    @Column(nullable = false)
     private EmplyRole emplyRole; //권한
 
     private  LocalDateTime retirementDate; //퇴사일
