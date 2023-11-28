@@ -2,12 +2,13 @@ package com.playwithcode.businessbridge.approval.service;
 
 import com.playwithcode.businessbridge.approval.domain.Approval;
 import com.playwithcode.businessbridge.approval.domain.Approver;
+import com.playwithcode.businessbridge.approval.domain.BusinessDraft;
 import com.playwithcode.businessbridge.approval.domain.repository.ApprovalRepository;
-import com.playwithcode.businessbridge.approval.dto.request.ApprovalCreateRequest;
-import com.playwithcode.businessbridge.approval.dto.response.ReceivedApprovalResponse;
+import com.playwithcode.businessbridge.approval.domain.repository.BusinessDraftRepository;
+import com.playwithcode.businessbridge.approval.dto.request.BusinessDraftCreateRequest;
+import com.playwithcode.businessbridge.common.exception.NotFoundException;
 import com.playwithcode.businessbridge.jwt.CustomUser;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType.ACTIVATE;
+import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.NOT_FOUND_APPROVAL_CODE;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +26,7 @@ import static com.playwithcode.businessbridge.approval.domain.type.ApprovalStatu
 public class ApprovalService {
 
     private final ApprovalRepository approvalRepository;
+    private final BusinessDraftRepository businessDraftRepository;
 
     private Pageable getPageable(final Integer page){
         return PageRequest.of(page - 1, 10,
@@ -41,11 +43,30 @@ public class ApprovalService {
 //        return approvals.map(approval -> ReceivedApprovalResponse.from(approval.getApproval()));
 //    }
 
-    /* 2. 새 결재 작성(결재 등록) */
-    public void save(ApprovalCreateRequest approvalCreateRequest, CustomUser customUser) {
+    /* 2. 업무기안서 등록(결재 등록) */
+    public void save(BusinessDraftCreateRequest businessDraftCreateRequest, CustomUser customUser) {
 
-        List<Approver> approvers = new ArrayList<>();
+//        Approval approval = approvalRepository.findById(
+//                businessDraftCreateRequest.getApprovalCode())
+//                .orElseThrow(() -> new NotFoundException(NOT_FOUND_APPROVAL_CODE));
+//
+//        final BusinessDraft newBusinessDraft = BusinessDraft.of(
+//                approval,
+//                businessDraftCreateRequest.getBusinessDraftContent()
+//        );
+//
+//        businessDraftRepository.save(newBusinessDraft);
 
-//        for(int i = 0; i < approvalCreateRequest);
+//        List<Approver> approvers = new ArrayList<>();
+
+        // 전자결재에 추가 결재자에 추가,,
+//        Approval newApproval = Approval.of(
+//                businessDraftCreateRequest.getApproverMember(),
+//                customUser,
+//                businessDraftCreateRequest.getTitle(),
+//                "업무기안서"
+//        );
+
     }
+
 }

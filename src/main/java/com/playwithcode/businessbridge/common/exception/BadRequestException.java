@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 public class BadRequestException extends CustomException {
 
-//    public BadRequestException(final ExceptionCode exceptionCode) {
-//        super(exceptionCode);
-//    }
+    public BadRequestException(final ExceptionCode exceptionCode) {
+        super(exceptionCode);
+    }
 }

@@ -1,14 +1,9 @@
 package com.playwithcode.businessbridge.approval.presentation;
 
-import com.playwithcode.businessbridge.approval.dto.request.ApprovalCreateRequest;
-import com.playwithcode.businessbridge.approval.dto.response.ReceivedApprovalResponse;
+import com.playwithcode.businessbridge.approval.dto.request.BusinessDraftCreateRequest;
 import com.playwithcode.businessbridge.approval.service.ApprovalService;
-import com.playwithcode.businessbridge.common.paging.Pagination;
-import com.playwithcode.businessbridge.common.paging.PagingButtonInfo;
-import com.playwithcode.businessbridge.common.paging.PagingResponse;
 import com.playwithcode.businessbridge.jwt.CustomUser;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -36,12 +31,12 @@ public class ApprovalController {
 //        return ResponseEntity.ok(pagingResponse);
 //    }
 
-    /* 2. 새 결재 작성(결재 등록) */
-    @PostMapping("/regist-approval")
-    public ResponseEntity<Void> save(@RequestBody @Valid ApprovalCreateRequest approvalCreateRequest,
+    /* 2. 업무기안서 등록(결재 등록) */
+    @PostMapping("/regist-business-draft")
+    public ResponseEntity<Void> save(@RequestBody @Valid BusinessDraftCreateRequest businessDraftCreateRequest,
                                      @AuthenticationPrincipal CustomUser customUser){
 
-        approvalService.save(approvalCreateRequest, customUser);
+        approvalService.save(businessDraftCreateRequest, customUser);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static lombok.AccessLevel.PROTECTED;
 
@@ -36,10 +37,18 @@ public class Approver {
     private ApprovalStatusType status = ApprovalStatusType.WAITING; // 결재 상태
     // 대기(WAITING), 활성화(ACTIVATE), 완료(COMPLETE), 반려(RETURN)
 
-    @ManyToOne
-    @JoinColumn(name = "approvalCode")
-    private Approval approval;                  // 전자결재 코드
-
     @Column(nullable = false)
     private Long approvalOrder;                 // 결재 순번
+
+    public Approver(ApprovalMember approverMember, Long approvalOrder, ApprovalStatusType status) {
+        this.approverMember = approverMember;
+        this.approvalOrder = approvalOrder;
+        this.status  =status;
+    }
+
+    public static Approver of(ApprovalMember approverMember, Long approvalOrder, ApprovalStatusType status) {
+        return new Approver(
+                approverMember, approvalOrder, status
+        );
+    }
 }

@@ -5,10 +5,14 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.bytebuddy.asm.Advice;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.naming.AuthenticationException;
 import javax.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -18,11 +22,16 @@ import static lombok.AccessLevel.PROTECTED;
 @Table(name = "tbl_approval")
 @Getter
 @NoArgsConstructor(access = PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
 public class Approval {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long approvalCode;                                  // 전자결재코드
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "approvalCode")
+    private List<Approver> approver ;                            // 결재자
 
     private LocalDateTime draftDateTime;                        // 기안일시
 
@@ -41,6 +50,7 @@ public class Approval {
 
     private LocalDateTime collectionDateTime;                   // 회수일시
 
+    @CreatedDate
     @Column(nullable = false)
     private LocalDateTime registDateTime;                       // 등록일시
 
@@ -50,5 +60,18 @@ public class Approval {
     @Column(nullable = false)
     private String title;                                       // 제목
 
+    public Approval(List<Approver> approver, ApprovalMember draftMember, String title, String docForm) {
+        this.approver = approver;
+        this.draftMember = draftMember;
+        this.title = title;
+        this.docForm = docForm;
+    }
+
     // 첨부파일
+
+    public static Approval of(List<Approver> approver, ApprovalMember draftMember, String title, String docForm) {
+        return new Approval(
+                approver, draftMember, title, docForm
+        );
+    }
 }
