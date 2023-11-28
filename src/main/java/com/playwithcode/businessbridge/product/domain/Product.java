@@ -25,6 +25,7 @@ import static lombok.AccessLevel.PROTECTED;
 public class Product {
 
     @Id
+    @Column(nullable = false)
     private BigInteger productCode;
 
     @Column(nullable = false)
@@ -51,7 +52,6 @@ public class Product {
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private Date productRegDt;
-
 
     @LastModifiedDate
     @Column(nullable = false)
