@@ -21,7 +21,7 @@ public class ReceivedApprovalResponse {
     public static ReceivedApprovalResponse from(final Approval approval){
 
         return new ReceivedApprovalResponse(
-                approval.getDocForm(),
+                approval.getDocForm().getValue(),
                 approval.getDraftMember().getEmplyName(),
                 approval.getTitle(),
                 approval.getDraftDateTime()
