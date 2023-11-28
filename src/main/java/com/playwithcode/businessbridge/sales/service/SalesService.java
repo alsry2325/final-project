@@ -26,7 +26,7 @@ public class SalesService {
     /* 1. 영업 목록 조회 : 페이징 */
     @Transactional(readOnly = true)
     public Page<SalesResponse> getAllSales(final Integer page) {
-        Page<Sales> sales = SalesRepository.findAll(getPageable(page));
+        Page<Sales> sales = SalesRepository.find(getPageable(page));
 
     }
 
