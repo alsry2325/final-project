@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping({"/member"})
+@RequestMapping({"/emp/employee"})
 @RequiredArgsConstructor
 public class MemberController {
 
@@ -19,5 +19,10 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.CREATED).build();  //상태코드 201 응답
     }
 
+//    /* 마이페이지 조회*/
+//    @GetMapping("/mypage")
+//    public  ResponseEntity<> mypage(){
+//
+//    }
 
 }
