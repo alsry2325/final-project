@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.*;
@@ -71,6 +72,7 @@ public class AddressBookService {
     }
 
     /* 4. 직원 수정(관리자) */
+    /* TODO 수정 완료 시 modifiedAt 현재 시간과 날짜로 수정될 수 있도록 처리해주어야 함 */
     public void update(final Long emplyCode, final MultipartFile emplyImg, final AddressBookUpdateRequest addressBookRequest) {
 
         AddressBook addressBook = addressBookRepository.findByEmplyCode(emplyCode)
@@ -99,8 +101,14 @@ public class AddressBookService {
                 addressBook.getEmplyPhoneNumber(),
                 addressBook.getEmplyInternalNumber()
         );
-
     }
+
+    /* 5. 사원 삭제(관리자) */
+    public void delete(final Long emplyCode) {
+
+        addressBookRepository.deleteById(emplyCode);
+    }
+
 
 }
 

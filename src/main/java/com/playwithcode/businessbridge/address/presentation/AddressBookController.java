@@ -64,4 +64,14 @@ public class AddressBookController {
 
         return ResponseEntity.created(URI.create("/address-management/" + emplyCode)).build();
     }
+
+    /* 5. 주소록 삭제(관리자) */
+    @DeleteMapping("/address-book/{emplyCode}")
+    public ResponseEntity<Void> delete(@PathVariable final Long emplyCode) {
+
+        addressBookService.delete(emplyCode);
+
+        return ResponseEntity.noContent().build();
+    }
+
 }
