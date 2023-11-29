@@ -17,15 +17,25 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-
+    private final JwtService jwtService;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
         /* 로그인 성공 후 저장 된 인증 객체에서 정보를 꺼낸다. */
         Map<String, String> employeeInfo = getEmployeeInfo(authentication);
         log.info("로그인 성공 후 인증 객체에서 꺼낸 정보 : {}", employeeInfo);
+        /* access token과 refresh token 생성 */
+        String accessToken = jwtService.createAccessToken(employeeInfo);
+        String refreshToken = jwtService.createRefreshToken();
 
 
+        /* 응답 헤더에 발급 된 토큰을 담는다. */
+        response.setHeader("Access-Token", accessToken);
+        response.setHeader("Refresh-Token", refreshToken);
+        response.setStatus(HttpServletResponse.SC_OK); //상태 성공 200
+
+        /* 발급한 refresh token을 DB에 저장해 둔다. */
+        jwtService.updateRefreshToken(employeeInfo.get("emplyId"), refreshToken);
     }
 
     private Map<String, String> getEmployeeInfo(Authentication authentication) {

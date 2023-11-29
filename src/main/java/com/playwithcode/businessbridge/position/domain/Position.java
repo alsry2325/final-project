@@ -12,7 +12,8 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED) //기본생성자
 @Getter
 @Table(name = "tbl_position")
-public class EmployeeRank {
+public class Position {
+
 
         @Id
         @GeneratedValue(strategy = IDENTITY) //MYSQL을 쓸때 PK하나씩 자동으로 생성
