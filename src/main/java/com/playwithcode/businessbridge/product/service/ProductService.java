@@ -6,6 +6,7 @@ import com.playwithcode.businessbridge.product.domain.Product;
 import com.playwithcode.businessbridge.product.domain.repository.ProductRepository;
 import com.playwithcode.businessbridge.product.domain.type.ProductCategoryType;
 import com.playwithcode.businessbridge.product.domain.type.ProductStateType;
+import com.playwithcode.businessbridge.product.dto.response.AdminProductResponse;
 import com.playwithcode.businessbridge.product.dto.response.CustomerProductResponse;
 import com.playwithcode.businessbridge.product.dto.response.CustomerProductsResponse;
 import lombok.RequiredArgsConstructor;
@@ -89,16 +90,24 @@ public class ProductService {//Repository에 있는 기능들을 불러올거임
 
     }
 
-    //상품 상세 조회 - productCode로 상품 1개 조회, 주문 불가 상품 제외
-//  @Transactional(readOnly = true)
-//    public CustomerProductResponse getProductSales(final BigInteger productCode){
-//
-//        Product product = productRepository.findByProductCodeAndProductState(productCode, SALES)
-//                .orElseThrow(() -> new BadRequestException(NOT_FOUND_EMPLY_CODE));
-//
-//        return CustomerProductResponse.from(product);
-//  }
-    //상품상세 조회 -productCode로 상품1개 조회, 주문불가 상품 포함
+//상품 상세 조회 - productCode로 상품 1개 조회, 주문 불가 상품 제외
+  @Transactional(readOnly = true)
+    public CustomerProductResponse getProductSales(final BigInteger productCode){
+
+        Product product = productRepository.findByProductCodeAndProductState(productCode, SALES)
+                .orElseThrow(() -> new BadRequestException(NOT_FOUND_EMPLY_CODE));
+
+        return CustomerProductResponse.from(product);
+  }
+   // 상품상세 조회 -productCode로 상품1개 조회, 주문불가 상품 포함
+    @Transactional(readOnly = true)
+    public AdminProductResponse getAllProductState(final BigInteger productCode){
+        Product product = productRepository.findByProductCodeAndProductStateNot(productCode, DELETED)
+                .orElseThrow(() -> new BadRequestException(NOT_FOUND_EMPLY_CODE));
+
+        return AdminProductResponse.from(product);
+
+    }
 
 }
 

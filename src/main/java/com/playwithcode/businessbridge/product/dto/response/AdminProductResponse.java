@@ -11,7 +11,8 @@ import static lombok.AccessLevel.PRIVATE;
 
 @Getter
 @RequiredArgsConstructor(access = PRIVATE)
-public class CustomerProductsResponse {
+public class AdminProductResponse {
+
 
     private final BigInteger productCode;
 
@@ -34,13 +35,10 @@ public class CustomerProductsResponse {
 
     private final BigInteger taxCnt;
 
+    private final String productNote;
 
-
-
-
-
-    public static CustomerProductsResponse from(final Product product) {
-        return  new CustomerProductsResponse(
+    public static AdminProductResponse from(final Product product) {
+        return new AdminProductResponse(
                 product.getProductCode(),
                 product.getProductCategory(),
                 product.getProductName(),
@@ -48,9 +46,11 @@ public class CustomerProductsResponse {
                 product.getProductCnt(),
                 product.getProductPrice(),
                 product.getProvideValue(),
-                product.getTaxCnt()
+                product.getTaxCnt(),
+                product.getProductNote()
 
         );
 
     }
+
 }
