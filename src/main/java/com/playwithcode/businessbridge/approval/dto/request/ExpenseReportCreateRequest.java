@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -15,13 +16,8 @@ public class ExpenseReportCreateRequest {
     private final List<Long> approverMember;    // 결재자들
     @NotBlank
     private final String title;                 // 제목
-    @NotBlank
+    @NotNull
     private final Long totalExpenditure;        // 총지출금액
-    @NotEmpty
-    private final List<String> item;            // 적요
-    @NotEmpty
-    private final List<Long> amount;            // 금액
 
-    private final List<String> note;            // 비고
-    // 적요, 금액, 비고를 합쳐서 한 행으로 리스트를 받아야할 것 같은데..!!!
+    private final List<ExpenseReportDetailCreateRequest> expenseReportDetailCreateRequests; // 지출결의서 상세
 }

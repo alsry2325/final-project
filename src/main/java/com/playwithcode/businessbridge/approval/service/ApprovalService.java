@@ -3,15 +3,15 @@ package com.playwithcode.businessbridge.approval.service;
 import com.playwithcode.businessbridge.approval.domain.*;
 import com.playwithcode.businessbridge.approval.domain.repository.ApprovalRepository;
 import com.playwithcode.businessbridge.approval.domain.repository.BusinessDraftRepository;
+import com.playwithcode.businessbridge.approval.domain.repository.ExpenseReportRepository;
 import com.playwithcode.businessbridge.approval.domain.type.DocFormType;
 import com.playwithcode.businessbridge.approval.dto.request.BusinessDraftCreateRequest;
 import com.playwithcode.businessbridge.approval.dto.request.ExpenseReportCreateRequest;
-import com.playwithcode.businessbridge.approval.dto.response.ReceivedApprovalResponse;
-import com.playwithcode.businessbridge.common.exception.NotFoundException;
-import com.playwithcode.businessbridge.jwt.CustomUser;
+import com.playwithcode.businessbridge.approval.dto.request.ExpenseReportDetailCreateRequest;
+import com.playwithcode.businessbridge.common.util.FileUploadUtils;
 import com.playwithcode.businessbridge.member.domain.Employee;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,11 +21,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
 import static com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType.ACTIVATE;
 import static com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType.WAITING;
-import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.NOT_FOUND_APPROVAL_CODE;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +33,12 @@ public class ApprovalService {
 
     private final ApprovalRepository approvalRepository;
     private final BusinessDraftRepository businessDraftRepository;
+    private final ExpenseReportRepository expenseReportRepository;
+
+    @Value("http://localhost/approvalFiles/")
+    private String FILE_URL;
+    @Value("src/main/resources/upload/approvalFiles")
+    private String FILE_DIR;
 
     private Pageable getPageable(final Integer page){
         return PageRequest.of(page - 1, 10,
@@ -50,9 +55,13 @@ public class ApprovalService {
 //        return approvals.map(approval -> ReceivedApprovalResponse.from(approval));
 //    }
 
-    /* 2. 업무기안서 등록(결재 등록) */
+    private String getRandomName() {
+        return UUID.randomUUID().toString().replace("-", "");
+    }
+
+    /* 2-1. 업무기안서 등록(결재 등록) */
     public void businessDraftSave(BusinessDraftCreateRequest businessDraftRequest,
-                     MultipartFile attachFile, Employee loginUser) {
+                     List<MultipartFile> attachFiles, Employee loginUser) {
 
         // 결재자 엔터티 추가
         List<Approver> approverMember = new ArrayList<>();
@@ -64,12 +73,26 @@ public class ApprovalService {
             }
         }
 
+        // 전달 된 파일을 서버의 지정 경로에 저장
+        List<File> files = new ArrayList<>();
+
+        for( MultipartFile attachFile : attachFiles ) {
+            String replaceFileName = FileUploadUtils.saveFile(FILE_DIR, getRandomName(), attachFile);
+            files.add(File.of(
+                    attachFile.getOriginalFilename(),
+                    "/upload/approvalFiles/",
+                    replaceFileName,
+                    attachFile.getOriginalFilename().substring(attachFile.getOriginalFilename().lastIndexOf("."))
+            ));
+        }
+
         // 전자결재 엔터티 추가
         Approval newApproval = Approval.of(
                 approverMember,
                 loginUser,
                 businessDraftRequest.getTitle(),
-                DocFormType.valueOf("businessDraft")
+                DocFormType.BUSINESS_DRAFT,
+                files
         );
 
         // 업무기안서 엔티티 추가
@@ -82,17 +105,31 @@ public class ApprovalService {
 
     }
 
-    /* 지출 결의서 등록 */
-    public void expenseReportSave(ExpenseReportCreateRequest expenseReportRequest, MultipartFile attachFile, Employee loginUser) {
+
+    /* 2-2. 지출 결의서 등록(결재 등록) */
+    public void expenseReportSave(ExpenseReportCreateRequest expenseReportRequest, List<MultipartFile> attachFiles, Employee loginUser) {
 
         // 결재자 엔터티 추가
         List<Approver> approverMember = new ArrayList<>();
-        for(int i = 0; i < expenseReportRequest.getApproverMember().size(); i++) {
-            if(i == 0) {
-                approverMember.add(Approver.of(expenseReportRequest.getApproverMember().get(i), i+1L, ACTIVATE));
+        for (int i = 0; i < expenseReportRequest.getApproverMember().size(); i++) {
+            if (i == 0) {
+                approverMember.add(Approver.of(expenseReportRequest.getApproverMember().get(i), i + 1L, ACTIVATE));
             } else {
-                approverMember.add(Approver.of(expenseReportRequest.getApproverMember().get(i), i+1L, WAITING));
+                approverMember.add(Approver.of(expenseReportRequest.getApproverMember().get(i), i + 1L, WAITING));
             }
+        }
+
+        // 전달 된 파일을 서버의 지정 경로에 저장
+        List<File> files = new ArrayList<>();
+
+        for( MultipartFile attachFile : attachFiles ) {
+            String replaceFileName = FileUploadUtils.saveFile(FILE_DIR, getRandomName(), attachFile);
+            files.add(File.of(
+                    attachFile.getOriginalFilename(),
+                    "/upload/approvalFiles/",
+                    replaceFileName,
+                    attachFile.getOriginalFilename().substring(attachFile.getOriginalFilename().lastIndexOf("."))
+            ));
         }
 
         // 전자결재 엔터티 추가
@@ -100,21 +137,35 @@ public class ApprovalService {
                 approverMember,
                 loginUser,
                 expenseReportRequest.getTitle(),
-                DocFormType.valueOf("expenseReport")
+                DocFormType.EXPENSE_REPORT,
+                files
         );
 
         // 지출 결의서 상세 엔터티 추가
-//        List<ExpenseReportDetail> expenseReportDetail = new ArrayList<>();
-//        for (int i = 0; i < expenseReportRequest.; i++) {
-//
+        List<ExpenseReportDetail> expenseReportDetails = new ArrayList<>();
+//        for (int i = 0; i < expenseReportRequest.getExpenseReportDetailCreateRequests().size(); i++) {
+//            expenseReportDetails.add(ExpenseReportDetail.of(
+//                    expenseReportRequest.getExpenseReportDetailCreateRequests().get(i).getItem(),
+//                    expenseReportRequest.getExpenseReportDetailCreateRequests().get(i).getAmount(),
+//                    expenseReportRequest.getExpenseReportDetailCreateRequests().get(i).getNote()
+//            ));
 //        }
-//
-//
-//        // 지출 결의서 엔터티 추가
-//        final ExpenseReport newExpenseReport = ExpenseReport.of(
-//                newApproval,
-//                expenseReportRequest.getTotalExpenditure(),
-//                // 지출결의서 상세 엔터티
-//        );
+
+        for(ExpenseReportDetailCreateRequest expenseDetailRequest : expenseReportRequest.getExpenseReportDetailCreateRequests()){
+            expenseReportDetails.add(ExpenseReportDetail.of(
+                    expenseDetailRequest.getItem(),
+                    expenseDetailRequest.getAmount(),
+                    expenseDetailRequest.getNote()
+            ));
+        }
+
+            // 지출 결의서 엔터티 추가
+            final ExpenseReport newExpenseReport = ExpenseReport.of(
+                    newApproval,
+                    expenseReportRequest.getTotalExpenditure(),
+                    expenseReportDetails
+            );
+        expenseReportRepository.save(newExpenseReport);
+
     }
 }

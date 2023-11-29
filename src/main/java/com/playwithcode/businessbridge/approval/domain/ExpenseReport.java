@@ -16,14 +16,14 @@ public class ExpenseReport {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long expenseReportCode;                             // 지출 결의서 코드
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "approvalCode")
     private Approval approvalCode;                                  // 전자결재코드
 
     @Column(nullable = false)
     private Long totalExpenditure;                                   // 총지출금액
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "expenseReportCode")
     private List<ExpenseReportDetail> expenseReportDetail;      // 지출 상세
 

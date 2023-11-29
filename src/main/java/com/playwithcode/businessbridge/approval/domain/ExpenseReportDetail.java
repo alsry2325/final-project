@@ -23,4 +23,16 @@ public class ExpenseReportDetail {
 
     private String note;                    // 비고
 
+    public ExpenseReportDetail(String item, Long amount, String note) {
+        this.item = item;
+        this.amount = amount;
+        this.note = note;
+    }
+
+
+    public static ExpenseReportDetail of(String item, Long amount, String note){
+        return new ExpenseReportDetail(
+                item, amount, note
+        );
+    }
 }

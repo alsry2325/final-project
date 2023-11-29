@@ -12,6 +12,10 @@ public enum ExceptionCode {
      * 규칙 :       // **파트 예외처리
      *
      */
+    /* 파일 저장 예외처리 */
+    FAIL_TO_UPLOAD_FILE(1001, "파일 저장에 실패했습니다."),
+    FILE_TO_DELETE_FILE(1002, "파일 삭제에 실패했습니다."),
+
     /* 로그인파트 예외처리 */
     FAIL_LOGIN(4000, "로그인에 실패하였습니다."),
 

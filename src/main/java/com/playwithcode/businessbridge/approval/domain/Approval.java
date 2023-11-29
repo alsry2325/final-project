@@ -57,28 +57,30 @@ public class Approval {
     private LocalDateTime registDateTime;                       // 등록일시
 
     @Column(nullable = false)
+    @Enumerated(value = STRING)
     private DocFormType docForm;                                // 문서양식(지출결의서, 업무기안서)
 
     @Column(nullable = false)
     private String title;                                       // 제목
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "approvalCode")
     private List<File> file;                                    // 첨부파일
 
 
-    public Approval(List<Approver> approverMember, Employee draftMember, String title, DocFormType docForm) {
+    public Approval(List<Approver> approverMember, Employee draftMember, String title, DocFormType docForm, List<File> file) {
         this.approverMember = approverMember;
         this.draftMember = draftMember;
         this.title = title;
         this.docForm = docForm;
+        this.file = file;
     }
 
 
 
-    public static Approval of(List<Approver> approverMember, Employee draftMember, String title, DocFormType docForm) {
+    public static Approval of(List<Approver> approverMember, Employee draftMember, String title, DocFormType docForm, List<File> file) {
         return new Approval(
-                approverMember, draftMember, title, docForm
+                approverMember, draftMember, title, docForm, file
         );
     }
 }
