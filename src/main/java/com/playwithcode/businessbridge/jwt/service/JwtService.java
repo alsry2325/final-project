@@ -123,7 +123,7 @@ public class JwtService {
                  .ifPresent(employee -> { //일치하면
                     String reIssuedRefreshToken = reIssuedRefreshToken(employee); //재발급해서 디비에 업데이트
                     String accessToken = createAccessToken(  //새로운 토큰
-                    Map.of("memberId", employee.getEmplyId(), "memberRole", employee.getEmplyRole().name())
+                    Map.of("emplyId", employee.getEmplyId(), "emplyRole", employee.getEmplyRole().name())
             );
             response.setHeader("Access-Token", accessToken); //사용자 응답으로 넘어감
             response.setHeader("Refresh-Token", reIssuedRefreshToken);
