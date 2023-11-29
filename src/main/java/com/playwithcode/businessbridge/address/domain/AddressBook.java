@@ -53,6 +53,7 @@ public class AddressBook {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;    //입사일
 
+    @Column(nullable = false)
     private String emplyPhoto;
 
     @LastModifiedDate
@@ -65,10 +66,30 @@ public class AddressBook {
 
     private  String emplyOffice;        //소속
 
-    private EmplyRole emplyRole;                        //권한
+    private String emplyRole;                        //권한
 
     private  LocalDateTime retirementDate;              //퇴사일
 
     private  String refreshToken;
+
+    /* 프로필 수정 로직 */
+
+    public void updateEmplyPhoto(String emplyPhoto) {
+        this.emplyPhoto = emplyPhoto;
+    }
+
+    public void update(String emplyName, String emplyOffice, String emplyEmail,
+                       Department department, Position position, String emplyPhoneNumber,
+                       String emplyInternalNumber) {
+        this.emplyName = emplyName;
+        this.emplyOffice = emplyOffice;
+        this.emplyEmail = emplyEmail;
+        this.department = department;
+        this. position = position;
+        this.emplyPhoneNumber = emplyPhoneNumber;
+        this.emplyInternalNumber = emplyInternalNumber;
+    }
+
+
 
 }

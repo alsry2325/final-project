@@ -1,5 +1,6 @@
 package com.playwithcode.businessbridge.address.presentation;
 
+import com.playwithcode.businessbridge.address.dto.request.AddressBookUpdateRequest;
 import com.playwithcode.businessbridge.address.dto.response.AddressBookResponse;
 import com.playwithcode.businessbridge.address.service.AddressBookService;
 import com.playwithcode.businessbridge.common.paging.Pagenation;
@@ -9,6 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.Valid;
+import java.net.URI;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,5 +52,16 @@ public class AddressBookController {
         final AddressBookResponse addressBookResponse = addressBookService.getAddressBookInfo(emplyCode);
 
         return ResponseEntity.ok(addressBookResponse);
+    }
+
+    /* 4. 주소록 수정(관리자) */
+    @PutMapping("/address-book/{emplyCode}")
+    public ResponseEntity<Void> update(@PathVariable final Long emplyCode,
+                                       @RequestPart @Valid final AddressBookUpdateRequest addressBookRequest,
+                                       @RequestPart(required = false) final MultipartFile emplyImg) {
+
+        addressBookService.update(emplyCode, emplyImg, addressBookRequest);
+
+        return ResponseEntity.created(URI.create("/address-management/" + emplyCode)).build();
     }
 }
