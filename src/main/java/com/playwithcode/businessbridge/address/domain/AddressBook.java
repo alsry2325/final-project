@@ -90,4 +90,8 @@ public class AddressBook {
         this.emplyInternalNumber = emplyInternalNumber;
     }
 
+    public void setModifiedAt(LocalDateTime modifiedAt) {
+        this.modifiedAt = modifiedAt;
+    }
+
 }
