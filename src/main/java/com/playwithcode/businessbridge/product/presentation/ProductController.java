@@ -3,11 +3,13 @@ package com.playwithcode.businessbridge.product.presentation;
 import com.playwithcode.businessbridge.common.paging.Pagenation;
 import com.playwithcode.businessbridge.common.paging.PagingButtonInfo;
 import com.playwithcode.businessbridge.common.paging.PagingResponse;
+import com.playwithcode.businessbridge.product.domain.type.ProductCategoryType;
 import com.playwithcode.businessbridge.product.dto.response.CustomerProductsResponse;
 import com.playwithcode.businessbridge.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
@@ -35,9 +37,9 @@ public class ProductController {
 
     @GetMapping("/products/categories/{categoryCode}")
     public ResponseEntity<PagingResponse> getProductsByCategory(
-            @RequestParam(defaultValue = "1") final Integer page, @PathVariable final BigInteger categoryCode){
+            @RequestParam(defaultValue = "1") final Integer page, @PathVariable final ProductCategoryType productCategory){
 
-        final Page<CustomerProductsResponse> products = productService.getProductsByCategory(page, categoryCode);
+        final Page<CustomerProductsResponse> products = productService.getProductsByCategory(page, productCategory);
         final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(products);
         final PagingResponse pagingResponse = PagingResponse.of(products.getContent(), pagingButtonInfo);
 

@@ -1,7 +1,12 @@
 package com.playwithcode.businessbridge.product.service;
 
+import com.playwithcode.businessbridge.common.exception.BadRequestException;
+import com.playwithcode.businessbridge.common.exception.type.ExceptionCode;
 import com.playwithcode.businessbridge.product.domain.Product;
 import com.playwithcode.businessbridge.product.domain.repository.ProductRepository;
+import com.playwithcode.businessbridge.product.domain.type.ProductCategoryType;
+import com.playwithcode.businessbridge.product.domain.type.ProductStateType;
+import com.playwithcode.businessbridge.product.dto.response.CustomerProductResponse;
 import com.playwithcode.businessbridge.product.dto.response.CustomerProductsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -13,7 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.math.BigInteger;
+import java.util.Optional;
 
+import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.NOT_FOUND_EMPLY_CODE;
 import static com.playwithcode.businessbridge.product.domain.type.ProductStateType.DELETED;
 import static com.playwithcode.businessbridge.product.domain.type.ProductStateType.SALES;
 
@@ -58,10 +65,10 @@ public class ProductService {//Repository에 있는 기능들을 불러올거임
 
     //상품목록조회 - 카테고리 기준, 페이징, 주문불가 상품 제외
 
-    @Transactional(readOnly = true )
-    public Page<CustomerProductsResponse> getProductsByCategory(final Integer page, final BigInteger categoryCode) {
+    @Transactional(readOnly = true)
+    public Page<CustomerProductsResponse> getProductsByCategory(final Integer page, final ProductCategoryType productCategory) {
 
-        Page<Product> products = productRepository.findByProductCategoryAndProductState(getPageable(page),categoryCode, SALES);
+        Page<Product> products = productRepository.findByProductCategoryAndProductState(getPageable(page), productCategory, SALES);
 
         return products.map(product -> CustomerProductsResponse.from(product));
 
@@ -81,4 +88,17 @@ public class ProductService {//Repository에 있는 기능들을 불러올거임
 
 
     }
+
+    //상품 상세 조회 - productCode로 상품 1개 조회, 주문 불가 상품 제외
+//  @Transactional(readOnly = true)
+//    public CustomerProductResponse getProductSales(final BigInteger productCode){
+//
+//        Product product = productRepository.findByProductCodeAndProductState(productCode, SALES)
+//                .orElseThrow(() -> new BadRequestException(NOT_FOUND_EMPLY_CODE));
+//
+//        return CustomerProductResponse.from(product);
+//  }
+    //상품상세 조회 -productCode로 상품1개 조회, 주문불가 상품 포함
+
 }
+

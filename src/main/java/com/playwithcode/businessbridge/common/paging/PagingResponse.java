@@ -3,20 +3,14 @@ package com.playwithcode.businessbridge.common.paging;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-
 @Getter
 @RequiredArgsConstructor
 public class PagingResponse {
 
-
     private final Object data;
     private final PagingButtonInfo pageInfo;
 
-
-
-
     public static PagingResponse of(Object data, PagingButtonInfo pagingButtonInfo) {
-         return new PagingResponse(data, pagingButtonInfo);
+        return new PagingResponse(data, pagingButtonInfo);
     }
 }

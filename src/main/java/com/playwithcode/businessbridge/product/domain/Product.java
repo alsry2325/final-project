@@ -1,5 +1,6 @@
 package com.playwithcode.businessbridge.product.domain;
 
+import com.playwithcode.businessbridge.product.domain.type.ProductCategoryType;
 import com.playwithcode.businessbridge.product.domain.type.ProductStateType;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.Date;
 
+import static com.playwithcode.businessbridge.product.domain.type.ProductCategoryType.PRINTER;
 import static com.playwithcode.businessbridge.product.domain.type.ProductStateType.SALES;
 import static javax.persistence.EnumType.STRING;
 import static lombok.AccessLevel.PROTECTED;
@@ -46,8 +48,9 @@ public class Product {
     @Column(nullable = false)
     private BigInteger taxCnt;
 
+    @Enumerated(value = STRING)
     @Column(nullable = false)
-    private BigInteger productCategory;
+    private ProductCategoryType productCategory;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
