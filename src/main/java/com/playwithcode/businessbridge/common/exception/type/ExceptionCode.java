@@ -19,6 +19,9 @@ public enum ExceptionCode {
 
     /* 로그인파트 예외처리 */
     FAIL_LOGIN(4000, "로그인에 실패하였습니다."),
+    NOT_FOUND_MEMBER_ID(4002, "아이디에 해당하는 유저가 없습니다."),
+    UNAUTHORIZED(4001, "인증 되지 않은 요청입니다."),
+    ACCESS_DENIED(4003, "허가 되지 않은 요청입니다."),
 
     /* 주소록 예외처리 */
     NOT_FOUND_EMPLY_CODE(5001, "사원 코드에 해당하는 사원이 존재하지 않습니다."),
@@ -27,6 +30,5 @@ public enum ExceptionCode {
 
     private final int code;
     private final String message;
-
 
 }
