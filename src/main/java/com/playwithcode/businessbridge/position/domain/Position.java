@@ -14,7 +14,6 @@ import static lombok.AccessLevel.PROTECTED;
 @Table(name = "tbl_position")
 public class Position {
 
-
         @Id
         @GeneratedValue(strategy = IDENTITY) //MYSQL을 쓸때 PK하나씩 자동으로 생성
         private Long positionCode;
