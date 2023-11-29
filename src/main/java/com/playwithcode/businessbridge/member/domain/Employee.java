@@ -5,7 +5,7 @@ import com.playwithcode.businessbridge.department.domain.Department;
 import com.playwithcode.businessbridge.member.domain.type.EmplyRole;
 import com.playwithcode.businessbridge.member.domain.type.EmplyStatus;
 import com.playwithcode.businessbridge.member.domain.type.TmpryPwdStus;
-import com.playwithcode.businessbridge.position.domain.EmployeeRank;
+import com.playwithcode.businessbridge.position.domain.Position;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -52,7 +52,7 @@ public class Employee {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "positionCode")
-    private EmployeeRank position; //직급코드
+    private Position position; //직급코드
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -67,7 +67,7 @@ public class Employee {
     @Column(nullable = false)
     private EmplyStatus emplyStatus = JOIN; //사원상태
 
-    private  String emplyOffice; //소속
+    private  String emplyOffice="(주)비즈니스브릿지"; //소속
     @Enumerated(value = STRING)
     @Column(nullable = false)
     private TmpryPwdStus tmpryPwdStus= TEMPORARY ; //임시번호상태
@@ -78,4 +78,9 @@ public class Employee {
     private  LocalDateTime retirementDate; //퇴사일
 
     private  String refreshToken; //리프레쉬토큰
- }
+
+    public void updateRefreshToken(String refreshToken) {
+        //기존에 있던걸 변경
+        this.refreshToken = refreshToken;
+    }
+}
