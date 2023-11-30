@@ -32,12 +32,21 @@ public class ProductCreateRequest {
 
     //세액
     private final Long taxCnt;
+
+
+
+
+    //상품 카테고리
+    private final ProductCategoryType productCategory;
+
+    //상품번호
+    private final String productNum;
+
+
     @NotBlank
     //비고
     private final String productNote;
 
-    //상품 카테고리
-    private final ProductCategoryType productCategory;
 
 
 }

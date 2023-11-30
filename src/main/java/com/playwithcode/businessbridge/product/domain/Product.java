@@ -72,7 +72,7 @@ public class Product {
     private ProductStateType productState = SALES;
 
 
-    public Product(String productName, String productStandard, Long productCnt, Long productPrice, Long provideValue, Long taxCnt, String productNote) {
+    public Product(String productName, String productStandard, Long productCnt, Long productPrice, Long provideValue, Long taxCnt, ProductCategoryType productCategory,String productNum, String productNote) {
         this.productCategory = productCategory;
         this.productName = productName;
         this.productStandard = productStandard;
@@ -80,14 +80,17 @@ public class Product {
         this.productPrice = productPrice;
         this.provideValue = provideValue;
         this.taxCnt = taxCnt;
+        this.productCategory = productCategory;
+        this.productNum = productNum;
         this.productNote = productNote;
     }
 
 
     public static Product of(
-            final ProductCategoryType productCategory,
+
             final String productName, final Long productCnt, final String productStandard,
-            final Long productPrice, final Long provideValue, final Long taxCnt, final String productNote
+            final Long productPrice, final Long provideValue, final Long taxCnt, final ProductCategoryType productCategory
+            ,final  String productNum,final String productNote
     ) {
         return new Product(
 
@@ -98,6 +101,8 @@ public class Product {
                 productPrice,
                 provideValue,
                 taxCnt,
+                productCategory,
+                productNum,
                 productNote
 
         );

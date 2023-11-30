@@ -113,13 +113,14 @@ public class ProductService {//Repository에 있는 기능들을 불러올거임
 
 
         final Product newproduct = Product.of(
-                productRequest.getProductCategory(),
                 productRequest.getProductName(),
                 productRequest.getProductCnt(),
                 productRequest.getProductStandard(),
                 productRequest.getProductPrice(),
                 productRequest.getProvideValue(),
                 productRequest.getTaxCnt(),
+                productRequest.getProductCategory(),
+                productRequest.getProductNum(),
                 productRequest.getProductNote()
         );
 
