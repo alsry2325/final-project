@@ -52,6 +52,8 @@ public class ApprovalService {
                 Sort.by("approvalCode"));
     }
 
+    /* -------------------------------------------------- 결재 등록 -------------------------------------------------- */
+
     private String getRandomName() {
         return UUID.randomUUID().toString().replace("-", "");
     }
@@ -101,6 +103,8 @@ public class ApprovalService {
         businessDraftRepository.save(newBusinessDraft);
 
     }
+
+    /* -------------------------------------------------- 목록 조회 -------------------------------------------------- */
 
 
     /* 1-2. 지출 결의서 등록(결재 등록) */

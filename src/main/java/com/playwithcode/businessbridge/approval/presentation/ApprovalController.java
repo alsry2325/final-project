@@ -29,6 +29,8 @@ public class ApprovalController {
 
     private final ApprovalService approvalService;
 
+    /* -------------------------------------------------- 결재 등록 -------------------------------------------------- */
+
     /* 1-1. 업무기안서 등록(결재 등록) */
     @PostMapping("/regist-business-draft")
     public ResponseEntity<Void> save(@RequestPart @Valid BusinessDraftCreateRequest businessDraftRequest,
@@ -61,6 +63,8 @@ public class ApprovalController {
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+    /* -------------------------------------------------- 목록 조회 -------------------------------------------------- */
 
     /* 2. 기안한 문서함 목록 조회 - 상태별 조회, 페이징 */
     @GetMapping("/draft-docs/{docStatus}")
@@ -105,5 +109,13 @@ public class ApprovalController {
         return ResponseEntity.ok(pagingResponse);
     }
 
+    /* 5. 받은 결재 목록 조회 - 상태별 조회, 페이징 */
+    @GetMapping("/receive-approvals")
+    public ResponseEntity<PagingResponse> getReceiveApprovals(
+            @RequestParam(defaultValue = "1") final Integer page,
+            @AuthenticationPrincipal CustomUser customUser,
+            @PathVariable String DocStatus){
 
+        return null;
+    }
 }
