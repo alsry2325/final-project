@@ -26,7 +26,10 @@ public enum ExceptionCode {
     /* 주소록 예외처리 */
     NOT_FOUND_EMPLY_CODE(5001, "사원 코드에 해당하는 사원이 존재하지 않습니다."),
     NOT_FOUND_DEPARTMENT_CODE(5002, "부서 코드에 해당하는 부서가 존재하지 않습니다."),
-    NOT_FOUND_POSITION_CODE(5003, "직급 코드에 해당하는 직급이 존재하지 않습니다.");
+    NOT_FOUND_POSITION_CODE(5003, "직급 코드에 해당하는 직급이 존재하지 않습니다."),
+
+    /* 전자결재 파트 예외처리 */
+    NOT_FOUND_APPROVAL_CODE(7001, "전자결재 코드에 해당하는 결재가 존재하지 않습니다.");
 
     private final int code;
     private final String message;

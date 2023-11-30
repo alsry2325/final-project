@@ -61,8 +61,7 @@ public class Employee {
     private String emplyPhoto;  //사원이미지
 
     @LastModifiedDate
-    @Column(nullable = false)
-    private String modifiedAt; //수정일
+    private LocalDateTime modifiedAt; //수정일
     @Enumerated(value = STRING)
     @Column(nullable = false)
     private EmplyStatus emplyStatus = JOIN; //사원상태
