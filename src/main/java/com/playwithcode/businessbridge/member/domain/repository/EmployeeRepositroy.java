@@ -9,4 +9,6 @@ public interface EmployeeRepositroy extends JpaRepository<Employee,Long> {
 
     Optional<Employee> findByEmplyId(String emplyId); //Optional: 있거나 없거나
 
+    Optional<Employee> findByRefreshToken(String refreshToken);
+
 }

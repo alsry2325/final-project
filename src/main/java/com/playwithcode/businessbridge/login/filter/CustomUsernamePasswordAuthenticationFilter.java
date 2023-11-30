@@ -53,6 +53,7 @@ public class CustomUsernamePasswordAuthenticationFilter extends AbstractAuthenti
         String memberId = bodyMap.get(USERNAME);
         String memberPassword = bodyMap.get(PASSWORD);
 
+
         // 인증 토큰에 memberId, memberPassword 세팅
         UsernamePasswordAuthenticationToken authenticationToken
                 = new UsernamePasswordAuthenticationToken(memberId, memberPassword);

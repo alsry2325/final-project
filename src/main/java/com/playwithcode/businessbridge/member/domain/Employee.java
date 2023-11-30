@@ -61,13 +61,12 @@ public class Employee {
     private String emplyPhoto;  //사원이미지
 
     @LastModifiedDate
-    @Column(nullable = false)
-    private String modifiedAt; //수정일
+    private LocalDateTime modifiedAt; //수정일
     @Enumerated(value = STRING)
     @Column(nullable = false)
     private EmplyStatus emplyStatus = JOIN; //사원상태
 
-    private  String emplyOffice; //소속
+    private  String emplyOffice="(주)비즈니스브릿지"; //소속
     @Enumerated(value = STRING)
     @Column(nullable = false)
     private TmpryPwdStus tmpryPwdStus= TEMPORARY ; //임시번호상태
@@ -78,4 +77,9 @@ public class Employee {
     private  LocalDateTime retirementDate; //퇴사일
 
     private  String refreshToken; //리프레쉬토큰
- }
+
+    public void updateRefreshToken(String refreshToken) {
+        //기존에 있던걸 변경
+        this.refreshToken = refreshToken;
+    }
+}
