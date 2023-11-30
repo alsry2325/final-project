@@ -3,7 +3,7 @@ package com.playwithcode.businessbridge.note.domain.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum RecipientStatusType {
+public enum RecipientStatus {
 
     /* 일반, 보관, 휴지통, 삭제 */
 
@@ -14,15 +14,15 @@ public enum RecipientStatusType {
 
     private final String value;
 
-    RecipientStatusType(String value) {
+    RecipientStatus(String value) {
         this.value = value;
     }
 
     @JsonCreator
-    public static RecipientStatusType from(String value) {
-        for(RecipientStatusType recipientStatusType : RecipientStatusType.values()) {
-            if (recipientStatusType.getValue().equals(value)) {
-                return recipientStatusType;
+    public static RecipientStatus from(String value) {
+        for(RecipientStatus recipientStatus : RecipientStatus.values()) {
+            if (recipientStatus.getValue().equals(value)) {
+                return recipientStatus;
             }
         }
         return null;

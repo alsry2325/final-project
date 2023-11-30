@@ -1,8 +1,8 @@
 package com.playwithcode.businessbridge.note.domain;
 
 import com.playwithcode.businessbridge.member.domain.Employee;
-import com.playwithcode.businessbridge.note.domain.type.RecipientStatusType;
-import com.playwithcode.businessbridge.note.domain.type.SenderStatusType;
+import com.playwithcode.businessbridge.note.domain.type.RecipientStatus;
+import com.playwithcode.businessbridge.note.domain.type.SenderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,8 +13,8 @@ import javax.persistence.*;
 
 import java.time.LocalDateTime;
 
-import static com.playwithcode.businessbridge.note.domain.type.RecipientStatusType.RCVR_NORMAL;
-import static com.playwithcode.businessbridge.note.domain.type.SenderStatusType.SNDR_NORMAL;
+import static com.playwithcode.businessbridge.note.domain.type.RecipientStatus.RCVR_NORMAL;
+import static com.playwithcode.businessbridge.note.domain.type.SenderStatus.SNDR_NORMAL;
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -32,12 +32,10 @@ public class Note {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sender", referencedColumnName = "emplyCode")
-    @Column(nullable = false)
     private Employee sender;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipient", referencedColumnName = "emplyCode")
-    @Column(nullable = false)
     private Employee recipient;
 
     @Column(nullable = false)
@@ -50,18 +48,19 @@ public class Note {
     @Column(nullable = false)
     private LocalDateTime sentAt;
 
-    private LocalDateTime reatAt;
+    private LocalDateTime readAt;
 
     @Enumerated(value = STRING)
     @Column(nullable = false)
-    private RecipientStatusType recipientStatusType = RCVR_NORMAL;
+    private RecipientStatus recipientStatus = RCVR_NORMAL;
 
     @Enumerated(value = STRING)
     @Column(nullable = false)
-    private SenderStatusType senderStatusType = SNDR_NORMAL;
+    private SenderStatus senderStatus = SNDR_NORMAL;
 
-    private LocalDateTime senderDeletedAt;          // 발신자 휴지통 이후 삭제 (완전 삭제)
+    private LocalDateTime senderTrashAt;          // 발신자 휴지통 이후 삭제 (완전 삭제)
 
-    private LocalDateTime recipientDeletedAt;       // 수신자 휴지통 이후 삭제 (완전 삭제)
+    private LocalDateTime recipientTrashAt;       // 수신자 휴지통 이후 삭제 (완전 삭제)
+
 
 }
