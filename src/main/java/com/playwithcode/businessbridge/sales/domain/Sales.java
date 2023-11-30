@@ -9,6 +9,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
+
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -23,15 +25,18 @@ public class Sales {
     @GeneratedValue(strategy = IDENTITY) //MYSQL을 쓸 떄 PK하나씩 자동으로 생성
     private Long salesCode; //영업코드
 
-    @Column(nullable = false)
-    private String salesName; // 영업이름
-
     @ManyToOne
     @JoinColumn(name = "salesMember")
-    private Employee employee; // 영업담당자
+    private Employee employee;
 
     @Column(nullable = false)
     private String accountName; // 거래처명
+
+    @Column(nullable = false)
+    private String salesName; // 거래처명
+
+    @Column(nullable = false)
+    private String salesStatus; // 거래처명
 
     @Column(nullable = false)
     private String salesWay; //영업형태
@@ -41,10 +46,42 @@ public class Sales {
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;    //등록일
+    private LocalDateTime createdAt; //등록일
 
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime modifiedAt; //수정일
+
+    @Column(nullable = false)
+    private String customerRating; //고객등급
+
+    /*
+    @OneToMany(mappedBy = "sales", fetch = FetchType.LAZY)
+    private List<Progress> progressList;
+    */
+
+    public Sales(String salesName, String salesType, String accountName, String salesWay, String salesStatus, Employee employee, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+        this.salesName = salesName;
+        this.salesType = salesType;
+        this.accountName = accountName;
+        this.salesStatus = salesStatus;
+        this.salesWay = salesWay;
+        this.employee = employee;
+        this.createdAt = createdAt;
+        this.modifiedAt = modifiedAt;
+    }
+
+    public static Sales of(
+            final String salesName
+            , final String salesType
+            , final String accountName
+            , final String salesWay
+            , final String salesStatus
+            , final Employee employee
+            , final LocalDateTime createdAt
+            , final LocalDateTime modifiedAt
+    ) {
+        return new Sales(salesName, salesType, accountName, salesWay, salesStatus, employee, createdAt, modifiedAt);
+    }
 
 }
