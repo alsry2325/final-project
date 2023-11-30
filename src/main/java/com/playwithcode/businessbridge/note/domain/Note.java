@@ -62,5 +62,12 @@ public class Note {
 
     private LocalDateTime recipientTrashAt;       // 수신자 휴지통 이후 삭제 (완전 삭제)
 
+    public String getSenderName() {
+        if (sender != null) {
+            return sender.getEmplyName();
+        }
+        return null;
+    }
+
 
 }
