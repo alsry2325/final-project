@@ -16,7 +16,7 @@ import static com.playwithcode.businessbridge.common.exception.type.ExceptionCod
 
 /* 로그인 실패 처리 핸들러 */
 @RequiredArgsConstructor
-public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+public class  LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
     private final ObjectMapper objectMapper;
 
