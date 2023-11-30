@@ -1,6 +1,7 @@
 import {useDispatch} from "react-redux";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {callLoginAPI} from "../../../apis/EmployeeAPICalls";
 
 function LoginForm(){
 
@@ -16,6 +17,8 @@ function LoginForm(){
     }
 
     const onClickLoginHandler = () => {
+
+          dispatch(callLoginAPI({ loginRequest : form }));
 
     }
 
