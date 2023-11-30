@@ -10,6 +10,7 @@ import com.playwithcode.businessbridge.approval.dto.request.BusinessDraftCreateR
 import com.playwithcode.businessbridge.approval.dto.request.ExpenseReportCreateRequest;
 import com.playwithcode.businessbridge.approval.dto.request.ExpenseReportDetailCreateRequest;
 import com.playwithcode.businessbridge.approval.dto.response.DraftListResponse;
+import com.playwithcode.businessbridge.approval.dto.response.ReceiveListResponse;
 import com.playwithcode.businessbridge.common.util.FileUploadUtils;
 import com.playwithcode.businessbridge.jwt.CustomUser;
 import com.playwithcode.businessbridge.member.domain.Employee;
@@ -187,5 +188,17 @@ public class ApprovalService {
         Page<Approval> approvals = approvalRepository.findByDraftMemberEmplyCodeAndDocStatusLike(getPageable(page), customUser.getEmplyCode(), TEMP_STORAGE);
 
         return approvals.map(approval -> DraftListResponse.from(approval));
+    }
+
+    /* 5. 받은 결재 목록 조회 - 상태별 조회, 페이징 */
+    public Page<ReceiveListResponse> getReceivedApprovals(Integer page, String docStatus, CustomUser customUser) {
+
+        DocStatusType docStatusType = DocStatusType.valueOf(docStatus);
+
+        Page<Approval> approvals
+                = approvalRepository.findByApproverMemberApproverCodeAndApproverMemberApprovalStatusAndDocStatus
+                    (getPageable(page), customUser.getEmplyCode(), ACTIVATE, docStatusType);
+
+        return approvals.map(approval -> ReceiveListResponse.from(approval));
     }
 }

@@ -20,13 +20,9 @@ public class Approver {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long approverCode;                // 결재자 코드(PK)
+    private Long approverCode;                  // 결재자 코드(PK)
 
-//    @ManyToOne
-//    @JoinColumn(name = "approverMember")
-//    private Employee approverMember;      // 결재자
-
-    private Long approverMember;
+    private Long approverMember;                // 결재자
 
     private LocalDateTime approvalDateTime;     // 결재 일시
 
@@ -38,7 +34,7 @@ public class Approver {
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
-    private ApprovalStatusType approvalStatus; // 결재 상태
+    private ApprovalStatusType approvalStatus;  // 결재 상태
     // 대기(WAITING), 활성화(ACTIVATE), 완료(COMPLETE), 반려(RETURN)
 
     @Column(nullable = false)

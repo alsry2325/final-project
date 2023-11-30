@@ -12,12 +12,12 @@ import static lombok.AccessLevel.PRIVATE;
 @Getter
 public class DraftListResponse {
 
-    private final String docStatus;                 // 결재 상태
+    private final String docStatus;                 // 문서 상태
     private final String docForm;                   // 문서 양식
     private final String title;                     // 제목
-    private final Integer fileCount;                  // 첨부파일
-    private final Long docNo;                       //문서번호
-    private final LocalDateTime draftDateTime;      // 기안일
+    private final Integer fileCount;                // 첨부파일
+    private final Long docNo;                       //문서 번호
+    private final LocalDateTime draftDateTime;      // 기안일시
 
     public static DraftListResponse from(final Approval approval){
 

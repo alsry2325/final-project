@@ -3,6 +3,7 @@ package com.playwithcode.businessbridge.approval.presentation;
 import com.playwithcode.businessbridge.approval.dto.request.BusinessDraftCreateRequest;
 import com.playwithcode.businessbridge.approval.dto.request.ExpenseReportCreateRequest;
 import com.playwithcode.businessbridge.approval.dto.response.DraftListResponse;
+import com.playwithcode.businessbridge.approval.dto.response.ReceiveListResponse;
 import com.playwithcode.businessbridge.approval.service.ApprovalService;
 import com.playwithcode.businessbridge.common.paging.Pagenation;
 import com.playwithcode.businessbridge.common.paging.PagingButtonInfo;
@@ -110,12 +111,17 @@ public class ApprovalController {
     }
 
     /* 5. 받은 결재 목록 조회 - 상태별 조회, 페이징 */
-    @GetMapping("/receive-approvals")
+    @GetMapping("/receive-approvals/{docStatus}")
     public ResponseEntity<PagingResponse> getReceiveApprovals(
             @RequestParam(defaultValue = "1") final Integer page,
             @AuthenticationPrincipal CustomUser customUser,
-            @PathVariable String DocStatus){
+            @PathVariable String docStatus){
 
-        return null;
+        final Page<ReceiveListResponse> approvals = approvalService.getReceivedApprovals(page, docStatus, customUser);
+
+        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(approvals);
+        final PagingResponse pagingResponse = PagingResponse.of(approvals.getContent(), pagingButtonInfo);
+
+        return ResponseEntity.ok(pagingResponse);
     }
 }
