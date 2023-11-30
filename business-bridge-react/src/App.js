@@ -9,9 +9,9 @@ function App() {
   return (
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={ <Layout/> }>
-              <Route index element={<Main/>}></Route>
-          </Route>
+            <Route path="/" element={ <Layout/> }>
+                <Route index element={<Main/>}></Route>
+            </Route>
             <Route path="emp/employee">
                 <Route path="login" element={ <Login/> }/>
                 <Route path="findpassword" element={<FindPassword/> }/>
