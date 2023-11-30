@@ -17,5 +17,10 @@ public interface AddressBookRepository extends JpaRepository<AddressBook, Long> 
     /* 3. 직원 상세 조회 */
     Optional<AddressBook> findByEmplyCode(Long emplyCode);
 
+    /* 4. 직원 수정(관리자) */
+
+    /* 5. 직원 삭제(관리자) */
+
+
 }
 
