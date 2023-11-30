@@ -6,6 +6,7 @@ import com.playwithcode.businessbridge.common.paging.PagingResponse;
 import com.playwithcode.businessbridge.product.domain.Product;
 import com.playwithcode.businessbridge.product.domain.type.ProductCategoryType;
 import com.playwithcode.businessbridge.product.domain.type.ProductStateType;
+import com.playwithcode.businessbridge.product.dto.request.ProductCreateRequest;
 import com.playwithcode.businessbridge.product.dto.response.AdminProductResponse;
 import com.playwithcode.businessbridge.product.dto.response.CustomerProductResponse;
 import com.playwithcode.businessbridge.product.dto.response.CustomerProductsResponse;
@@ -16,7 +17,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.math.BigInteger;
+import java.net.URI;
 import java.util.Optional;
 
 @RestController
@@ -86,6 +89,13 @@ public class ProductController {
 
         return ResponseEntity.ok(adminProductResponse);
     }
+    //상품 등록
+    @PostMapping("/products")
+    public ResponseEntity<Void>save(@Valid final ProductCreateRequest productRequest){
 
+        final BigInteger productCode = productService.save(productRequest);
+
+        return ResponseEntity.created(URI.create("products/regist/" + productCode)).build();
+    }
 
 }

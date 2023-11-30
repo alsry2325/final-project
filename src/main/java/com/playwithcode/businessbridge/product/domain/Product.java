@@ -2,7 +2,6 @@ package com.playwithcode.businessbridge.product.domain;
 
 import com.playwithcode.businessbridge.product.domain.type.ProductCategoryType;
 import com.playwithcode.businessbridge.product.domain.type.ProductStateType;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -14,9 +13,9 @@ import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.Date;
 
-import static com.playwithcode.businessbridge.product.domain.type.ProductCategoryType.PRINTER;
 import static com.playwithcode.businessbridge.product.domain.type.ProductStateType.SALES;
 import static javax.persistence.EnumType.STRING;
+import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
@@ -27,7 +26,7 @@ import static lombok.AccessLevel.PROTECTED;
 public class Product {
 
     @Id
-    @Column(nullable = false)
+    @GeneratedValue(strategy = IDENTITY)//auto-increment처리
     private BigInteger productCode;
 
     @Column(nullable = false)
@@ -73,5 +72,30 @@ public class Product {
     private ProductStateType productState = SALES;
 
 
+    public Product(String productName, String productStandard, BigInteger productCnt, BigInteger productPrice, BigInteger provideValue, BigInteger taxCnt, String productNote) {
+        this.productName = productName;
+        this.productStandard = productStandard;
+        this.productCnt = productCnt;
+        this.productPrice = productPrice;
+        this.provideValue = provideValue;
+        this.taxCnt = taxCnt;
+        this.productNote = productNote;
+    }
 
+    public static Product of(
+            final String productName, final BigInteger productCnt, final String productStandard,
+            final BigInteger productPrice, final BigInteger provideValue, final BigInteger taxCnt, final String productNote
+            ) {
+        return new Product(
+                productName,
+                productStandard,
+                productCnt,
+                productPrice,
+                provideValue,
+                taxCnt,
+                productNote
+
+        );
+
+    }
 }
