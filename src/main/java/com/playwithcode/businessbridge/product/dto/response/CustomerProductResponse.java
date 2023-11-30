@@ -18,7 +18,7 @@ public class CustomerProductResponse {//상세조회
 
 
 
-    private final BigInteger productCode;
+    private final Long productCode;
 
 
     private final ProductCategoryType productCategory;
@@ -29,16 +29,16 @@ public class CustomerProductResponse {//상세조회
     private final String productStandard;
 
 
-    private final BigInteger productCnt;
+    private final Long productCnt;
 
 
-    private final BigInteger productPrice;
+    private final Long productPrice;
 
 
-    private final  BigInteger provideValue;
+    private final  Long provideValue;
 
 
-    private final BigInteger taxCnt;
+    private final Long taxCnt;
 
 
 

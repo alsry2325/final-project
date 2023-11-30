@@ -31,4 +31,6 @@ public interface ProductRepository extends JpaRepository<Product,BigInteger> {
 
   //  상품상세 조회 -productCode로 상품1개 조회, 주문불가 상품 포함
     Optional<Product> findByProductCodeAndProductStateNot(BigInteger productCode, ProductStateType productCategory);
+
+
 }

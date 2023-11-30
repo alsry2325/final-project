@@ -6,19 +6,25 @@ import com.playwithcode.businessbridge.common.paging.PagingResponse;
 import com.playwithcode.businessbridge.product.domain.Product;
 import com.playwithcode.businessbridge.product.domain.type.ProductCategoryType;
 import com.playwithcode.businessbridge.product.domain.type.ProductStateType;
+import com.playwithcode.businessbridge.product.dto.request.ProductCreateRequest;
+import com.playwithcode.businessbridge.product.dto.request.ProductUpdateRequest;
 import com.playwithcode.businessbridge.product.dto.response.AdminProductResponse;
 import com.playwithcode.businessbridge.product.dto.response.CustomerProductResponse;
 import com.playwithcode.businessbridge.product.dto.response.CustomerProductsResponse;
 import com.playwithcode.businessbridge.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.math.BigInteger;
+import java.net.URI;
 import java.util.Optional;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/emp")
@@ -86,6 +92,24 @@ public class ProductController {
 
         return ResponseEntity.ok(adminProductResponse);
     }
+    //상품 등록
+    @PostMapping("/products")
+    public ResponseEntity<Void>save(@RequestBody @Valid final ProductCreateRequest productRequest){
 
+        final Long productCode = productService.save(productRequest);
+
+        log.info("productRequest : {} ",productRequest);
+
+        return ResponseEntity.created(URI.create("products/regist/" + productCode)).build();
+    }
+
+//
+//    //상품수정
+//    @PutMapping("products/{productCode}")
+//    public ResponseEntity<Void> update(@RequestBody @Valid final ProductUpdateRequest productRequest) {
+//
+//        return ResponseEntity.created(URI.create("products/modify/"+ productCode)).build();
+//
+//    }
 
 }
