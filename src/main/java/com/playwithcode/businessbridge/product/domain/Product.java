@@ -10,7 +10,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 import static com.playwithcode.businessbridge.product.domain.type.ProductStateType.SALES;
@@ -27,7 +26,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)//auto-increment처리
-    private BigInteger productCode;
+    private Long productCode;
 
     @Column(nullable = false)
     private String productName;
@@ -36,16 +35,16 @@ public class Product {
     private String productStandard;
 
     @Column(nullable = false)
-    private BigInteger productCnt;
+    private Long productCnt;
 
     @Column(nullable = false)
-    private BigInteger productPrice;
+    private Long productPrice;
 
     @Column(nullable = false)
-    private BigInteger provideValue;
+    private Long provideValue;
 
-    @Column(nullable = false)
-    private BigInteger taxCnt;
+    @Column
+    private Long taxCnt;
 
     @Enumerated(value = STRING)
     @Column(nullable = false)
@@ -63,8 +62,9 @@ public class Product {
     @Column(nullable = false)
     private String productNum;
 
+
     @Column(nullable = false)
-    private  String productNote;
+    private String productNote;
 
 
     @Enumerated(value = STRING)
@@ -72,7 +72,8 @@ public class Product {
     private ProductStateType productState = SALES;
 
 
-    public Product(String productName, String productStandard, BigInteger productCnt, BigInteger productPrice, BigInteger provideValue, BigInteger taxCnt, String productNote) {
+    public Product(String productName, String productStandard, Long productCnt, Long productPrice, Long provideValue, Long taxCnt, String productNote) {
+        this.productCategory = productCategory;
         this.productName = productName;
         this.productStandard = productStandard;
         this.productCnt = productCnt;
@@ -82,11 +83,15 @@ public class Product {
         this.productNote = productNote;
     }
 
+
     public static Product of(
-            final String productName, final BigInteger productCnt, final String productStandard,
-            final BigInteger productPrice, final BigInteger provideValue, final BigInteger taxCnt, final String productNote
-            ) {
+            final ProductCategoryType productCategory,
+            final String productName, final Long productCnt, final String productStandard,
+            final Long productPrice, final Long provideValue, final Long taxCnt, final String productNote
+    ) {
         return new Product(
+
+
                 productName,
                 productStandard,
                 productCnt,

@@ -109,10 +109,11 @@ public class ProductService {//Repository에 있는 기능들을 불러올거임
 
     @Transactional
     //상픔 등록
-    public BigInteger save(final ProductCreateRequest productRequest) {
+    public Long save(final ProductCreateRequest productRequest) {
+
 
         final Product newproduct = Product.of(
-
+                productRequest.getProductCategory(),
                 productRequest.getProductName(),
                 productRequest.getProductCnt(),
                 productRequest.getProductStandard(),

@@ -1,5 +1,6 @@
 package com.playwithcode.businessbridge.product.dto.request;
 
+import com.playwithcode.businessbridge.product.domain.type.ProductCategoryType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -15,25 +16,28 @@ public class ProductCreateRequest {
     @NotBlank
     //상품명
     private final String productName;
-    @NotBlank
+
     //수량
-    private final BigInteger productCnt;
+    private final Long productCnt;
     @NotBlank
     //규격
     private final String productStandard;
-    @NotBlank
-    //단가
-    private final BigInteger productPrice;
-    @NotBlank
-    //공급가액
-    private  final BigInteger provideValue;
 
-    @NotBlank
+    //단가
+    private final Long productPrice;
+
+    //공급가액
+    private  final Long provideValue;
+
+
     //세액
-    private final BigInteger taxCnt;
+    private final Long taxCnt;
     @NotBlank
     //비고
     private final String productNote;
+
+    //상품 카테고리
+    private final ProductCategoryType productCategory;
 
 
 }
