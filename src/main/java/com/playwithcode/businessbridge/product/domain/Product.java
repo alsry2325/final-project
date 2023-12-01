@@ -73,7 +73,7 @@ public class Product {
 
 
     public Product(String productName, String productStandard, Long productCnt, Long productPrice, Long provideValue, Long taxCnt, ProductCategoryType productCategory,String productNum, String productNote) {
-        this.productCategory = productCategory;
+
         this.productName = productName;
         this.productStandard = productStandard;
         this.productCnt = productCnt;
@@ -93,8 +93,6 @@ public class Product {
             ,final  String productNum,final String productNote
     ) {
         return new Product(
-
-
                 productName,
                 productStandard,
                 productCnt,
@@ -107,5 +105,17 @@ public class Product {
 
         );
 
+    }
+
+    public void update(ProductCategoryType productCategory, String productName, Long productCnt, String productStandard, Long productPrice, Long provideValue, Long taxCnt, String productNote, ProductStateType productState) {
+        this.productCategory = productCategory;
+        this.productName = productName;
+        this.productCnt = productCnt;
+        this.productStandard = productStandard;
+        this.productPrice = productPrice;
+        this.provideValue = provideValue;
+        this.taxCnt = taxCnt;
+        this.productNote = productNote;
+        this.productState = productState;
     }
 }

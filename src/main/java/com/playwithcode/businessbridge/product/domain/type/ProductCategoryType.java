@@ -32,6 +32,4 @@ public enum ProductCategoryType {
     public String getValue(){ return  value;}
 
 
-
-
 }
