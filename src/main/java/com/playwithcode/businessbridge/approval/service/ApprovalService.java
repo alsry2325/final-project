@@ -214,17 +214,17 @@ public class ApprovalService {
     }
 
     /* 5. 받은 결재 목록 조회 - 상태별 조회, 페이징 */
-//    @Transactional(readOnly = true)
-//    public Page<ReceiveListResponse> getReceivedApprovals(Integer page, String docStatus, CustomUser customUser) {
-//
-//        DocStatusType docStatusType = DocStatusType.valueOf(docStatus);
-//
-//        Page<Approval> approvals
-//                = approvalRepository.findApprovals
-//                    (getPageable(page), customUser.getEmplyCode(), ACTIVATE, docStatusType);
-//
-//        return approvals.map(approval -> ReceiveListResponse.from(approval));
-//    }
+    @Transactional(readOnly = true)
+    public Page<ReceiveListResponse> getReceivedApprovals(Integer page, String docStatus, CustomUser customUser) {
+
+        DocStatusType docStatusType = DocStatusType.valueOf(docStatus);
+
+        Page<Approval> approvals
+                = approvalRepository.findApprovals
+                    (getPageable(page), customUser.getEmplyCode(), docStatusType);
+
+        return approvals.map(approval -> ReceiveListResponse.from(approval));
+    }
 
 
 }

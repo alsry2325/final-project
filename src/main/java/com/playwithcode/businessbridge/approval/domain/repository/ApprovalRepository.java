@@ -28,11 +28,13 @@ public interface ApprovalRepository extends JpaRepository<Approval, Long> {
 //    Page<Approval> findByApproverMemberApproverCodeAndApproverMemberApprovalStatusAndDocStatus
 //    (Pageable pageable, Long emplyCode, ApprovalStatusType approvalStatusType, DocStatusType docStatusType);
 
-//    @Query("SELECT a FROM Approval a " +
-//            "JOIN a.approverMember approver " +
-//            "WHERE approver.approverMember = :emplyCode " +
-//            "AND approver.approvalStatus = 'ACTIVATE' " +
-//            "AND a.docStatus IN :docStatusList")
-//    Page<Approval> findApprovals
-//    (Pageable pageable, Long emplyCode, ApprovalStatusType approvalStatusType, DocStatusType docStatusType);
+    @Query("SELECT a FROM Approval a " +
+            "JOIN a.approverMember approver " +
+            "WHERE approver.approverMember.emplyCode = :emplyCode " +
+            "AND approver.approvalStatus = 'ACTIVATE' " +
+            "AND a.docStatus IN :docStatusType")
+    Page<Approval> findApprovals(
+            Pageable pageable,
+            @Param("emplyCode") Long emplyCode,
+            @Param("docStatusType")DocStatusType docStatusType);
 }
