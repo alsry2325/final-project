@@ -22,7 +22,9 @@ public class Approver {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long approverCode;                  // 결재자 코드(PK)
 
-    private Long approverMember;                // 결재자
+    @ManyToOne
+    @JoinColumn(name = "approverMember")
+    private Employee approverMember;           // 결재자의 사원 코드
 
     private LocalDateTime approvalDateTime;     // 결재 일시
 
@@ -40,14 +42,14 @@ public class Approver {
     @Column(nullable = false)
     private Long approvalOrder;                 // 결재 순번
 
-    public Approver(Long approverMember, Long approvalOrder, ApprovalStatusType approvalStatus) {
+    public Approver(Employee approverMember, Long approvalOrder, ApprovalStatusType approvalStatus) {
         this.approverMember = approverMember;
         this.approvalOrder = approvalOrder;
         this.approvalStatus  =approvalStatus;
     }
 
 
-    public static Approver of(Long approverMember, Long approvalOrder, ApprovalStatusType approvalStatus) {
+    public static Approver of(Employee approverMember, Long approvalOrder, ApprovalStatusType approvalStatus) {
         return new Approver(
                 approverMember, approvalOrder, approvalStatus
         );

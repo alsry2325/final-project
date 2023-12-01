@@ -14,6 +14,7 @@ import com.playwithcode.businessbridge.approval.dto.response.ReceiveListResponse
 import com.playwithcode.businessbridge.common.util.FileUploadUtils;
 import com.playwithcode.businessbridge.jwt.CustomUser;
 import com.playwithcode.businessbridge.member.domain.Employee;
+import com.playwithcode.businessbridge.member.domain.repository.EmployeeRepositroy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -31,8 +32,7 @@ import java.util.UUID;
 
 import static com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType.ACTIVATE;
 import static com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType.WAITING;
-import static com.playwithcode.businessbridge.approval.domain.type.DocStatusType.COLLECT;
-import static com.playwithcode.businessbridge.approval.domain.type.DocStatusType.TEMP_STORAGE;
+import static com.playwithcode.businessbridge.approval.domain.type.DocStatusType.*;
 
 @Service
 @RequiredArgsConstructor
@@ -42,6 +42,7 @@ public class ApprovalService {
     private final ApprovalRepository approvalRepository;
     private final BusinessDraftRepository businessDraftRepository;
     private final ExpenseReportRepository expenseReportRepository;
+    private final EmployeeRepositroy employeeRepositroy;
 
     @Value("http://localhost/approvalFiles/")
     private String FILE_URL;
@@ -61,15 +62,19 @@ public class ApprovalService {
 
     /* 1-1. 업무기안서 등록(결재 등록) */
     public void businessDraftSave(BusinessDraftCreateRequest businessDraftRequest,
-                                  List<MultipartFile> attachFiles, Employee loginUser) {
+                                  List<MultipartFile> attachFiles, CustomUser customUser) {
 
         // 결재자 엔터티 추가
         List<Approver> approverMember = new ArrayList<>();
         for(int i = 0; i < businessDraftRequest.getApproverMember().size(); i++) {
+
+            Employee approver = employeeRepositroy.getReferenceById(businessDraftRequest.getApproverMember().get(i));
+
             if(i == 0) {
-                approverMember.add(Approver.of(businessDraftRequest.getApproverMember().get(i), i+1L, ACTIVATE));
+                approverMember.add(Approver.of(approver, i+1L, ACTIVATE));
+                // 생성하는 DTO에서 Long타입으로 정보를 받아오는데 저장되는 of메소드에서 approver의 타입은 Employee임
             } else {
-                approverMember.add(Approver.of(businessDraftRequest.getApproverMember().get(i), i+1L, WAITING));
+                approverMember.add(Approver.of(approver, i+1L, WAITING));
             }
         }
 
@@ -86,10 +91,12 @@ public class ApprovalService {
             ));
         }
 
+        Employee draftMember = employeeRepositroy.getReferenceById(customUser.getEmplyCode());
+
         // 전자결재 엔터티 추가
         Approval newApproval = Approval.of(
                 approverMember,
-                loginUser,
+                draftMember,
                 businessDraftRequest.getTitle(),
                 DocFormType.BUSINESS_DRAFT,
                 files
@@ -102,22 +109,21 @@ public class ApprovalService {
         );
 
         businessDraftRepository.save(newBusinessDraft);
-
     }
 
-    /* -------------------------------------------------- 목록 조회 -------------------------------------------------- */
-
-
     /* 1-2. 지출 결의서 등록(결재 등록) */
-    public void expenseReportSave(ExpenseReportCreateRequest expenseReportRequest, List<MultipartFile> attachFiles, Employee loginUser) {
+    public void expenseReportSave(ExpenseReportCreateRequest expenseReportRequest, List<MultipartFile> attachFiles, CustomUser customUser) {
 
         // 결재자 엔터티 추가
         List<Approver> approverMember = new ArrayList<>();
         for (int i = 0; i < expenseReportRequest.getApproverMember().size(); i++) {
+
+            Employee approver = employeeRepositroy.getReferenceById(expenseReportRequest.getApproverMember().get(i));
+
             if (i == 0) {
-                approverMember.add(Approver.of(expenseReportRequest.getApproverMember().get(i), i + 1L, ACTIVATE));
+                approverMember.add(Approver.of(approver, i + 1L, ACTIVATE));
             } else {
-                approverMember.add(Approver.of(expenseReportRequest.getApproverMember().get(i), i + 1L, WAITING));
+                approverMember.add(Approver.of(approver, i + 1L, WAITING));
             }
         }
 
@@ -134,10 +140,12 @@ public class ApprovalService {
             ));
         }
 
+        Employee draftMember = employeeRepositroy.getReferenceById(customUser.getEmplyCode());
+
         // 전자결재 엔터티 추가
         Approval newApproval = Approval.of(
                 approverMember,
-                loginUser,
+                draftMember,
                 expenseReportRequest.getTitle(),
                 DocFormType.EXPENSE_REPORT,
                 files
@@ -163,9 +171,21 @@ public class ApprovalService {
         expenseReportRepository.save(newExpenseReport);
     }
 
-    /* 2. 기안한 결재 목록 조회 */
+    /* -------------------------------------------------- 목록 조회 -------------------------------------------------- */
+
+    /* 2-1. 기안한 문서함 목록 전체 조회 - 페이징 */
     @Transactional(readOnly = true)
-    public Page<DraftListResponse> getDraftApprovals(final Integer page, String docStatus, CustomUser customUser) {
+    public Page<DraftListResponse> getDraftApprovals(Integer page, CustomUser customUser) {
+
+        Page<Approval> approvals = approvalRepository.findByDraftMemberEmplyCodeAndDocStatusNotLikeAndDocStatusNotLike(
+                getPageable(page), customUser.getEmplyCode(), COLLECT, TEMP_STORAGE);
+
+        return approvals.map(approval -> DraftListResponse.from(approval));
+    }
+
+    /* 2-2. 기안한 문서함 목록 상태별 조회, 페이징 */
+    @Transactional(readOnly = true)
+    public Page<DraftListResponse> getDraftApprovalsByStatus(final Integer page, String docStatus, CustomUser customUser) {
 
         DocStatusType docStatusType = DocStatusType.valueOf(docStatus);
 
@@ -174,7 +194,9 @@ public class ApprovalService {
         return approvals.map(approval -> DraftListResponse.from(approval));
     }
 
-    /* 3. 기안 회수함 목록 조회 - 상태별 조회, 페이징 */
+
+    /* 3. 기안 회수함 목록 조회 - 페이징 */
+    @Transactional(readOnly = true)
     public Page<DraftListResponse> getCollectDraftApprovals(Integer page, CustomUser customUser) {
 
         Page<Approval> approvals = approvalRepository.findByDraftMemberEmplyCodeAndDocStatusLike(getPageable(page), customUser.getEmplyCode(), COLLECT);
@@ -183,6 +205,7 @@ public class ApprovalService {
     }
 
     /* 4. 임시 저장한 목록 조회 - 페이징 */
+    @Transactional(readOnly = true)
     public Page<DraftListResponse> getTempSaveDraftApprovals(Integer page, CustomUser customUser) {
 
         Page<Approval> approvals = approvalRepository.findByDraftMemberEmplyCodeAndDocStatusLike(getPageable(page), customUser.getEmplyCode(), TEMP_STORAGE);
@@ -191,14 +214,17 @@ public class ApprovalService {
     }
 
     /* 5. 받은 결재 목록 조회 - 상태별 조회, 페이징 */
-    public Page<ReceiveListResponse> getReceivedApprovals(Integer page, String docStatus, CustomUser customUser) {
+//    @Transactional(readOnly = true)
+//    public Page<ReceiveListResponse> getReceivedApprovals(Integer page, String docStatus, CustomUser customUser) {
+//
+//        DocStatusType docStatusType = DocStatusType.valueOf(docStatus);
+//
+//        Page<Approval> approvals
+//                = approvalRepository.findApprovals
+//                    (getPageable(page), customUser.getEmplyCode(), ACTIVATE, docStatusType);
+//
+//        return approvals.map(approval -> ReceiveListResponse.from(approval));
+//    }
 
-        DocStatusType docStatusType = DocStatusType.valueOf(docStatus);
 
-        Page<Approval> approvals
-                = approvalRepository.findByApproverMemberApproverCodeAndApproverMemberApprovalStatusAndDocStatus
-                    (getPageable(page), customUser.getEmplyCode(), ACTIVATE, docStatusType);
-
-        return approvals.map(approval -> ReceiveListResponse.from(approval));
-    }
 }

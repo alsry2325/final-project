@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
@@ -24,6 +25,8 @@ public class ReceiveListResponse {
 
     public static ReceiveListResponse from(final Approval approval){
 
+//        Optional<Approver> approver = approval.getApproverMember().stream().filter(member -> member.getApproverMember() == 1L).findFirst();
+
         return new ReceiveListResponse(
                 approval.getDocStatus().getValue(),
                 approval.getDocForm().getValue(),
@@ -33,7 +36,6 @@ public class ReceiveListResponse {
                 approval.getDocNo(),
                 approval.getDraftDateTime(),
                 approval.getApproverMember().get(0).getApprovalDateTime()
-                // 로그인 한 결재자가 결재한 일시를 입력하고싶다면 get()에서 어떻게 적어야할쥐
         );
     }
 }
