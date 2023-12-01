@@ -13,8 +13,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class NoteSendRequest {
 
-    /* TODO : 일단 부서 없이 진행 */
-
     @NotNull
     private final String noteTitle;
     @NotNull

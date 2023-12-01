@@ -40,10 +40,15 @@ public class NoteService {
         note.setNoteContent(noteSendRequest.getNoteContent());
 
         Long sender = customUser.getEmplyCode();
-        Employee recipient = employeeRepository.findById(noteSendRequest.getRecipient()).orElse(null);
         note.setSender(sender);
+
+        Employee recipient = employeeRepository.findById(noteSendRequest.getRecipient()).orElse(null);
         note.setRecipient(recipient);
+
         note.setSentAt(noteSendRequest.getSentAt());
+
+        /* 부서 정보, 이름 등 필요한 정보는 엔티티에 삽입 하는 게 아닌 조회할 때 필요한 정보이므로 이곳에 작성하지 않는다. */
+
         return note;
     }
 

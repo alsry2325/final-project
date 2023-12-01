@@ -26,7 +26,7 @@ public class NoteController {
     @PostMapping("notes/send")
     public ResponseEntity<String> sendNote(@RequestBody NoteSendRequest noteSendRequest,
                                            @AuthenticationPrincipal CustomUser customUser){
-        /* 사용자가 입력한 정보가 noteSendRequest에 담겨서 넘어온다. */
+        // 사용자가 입력한 정보가 noteSendRequest에 담겨서 넘어온다.
         noteService.sendNote(noteSendRequest, customUser);
         return ResponseEntity.ok("쪽지 발송에 성공하였습니다.");
     }
