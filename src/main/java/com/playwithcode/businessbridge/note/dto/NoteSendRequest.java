@@ -17,22 +17,13 @@ public class NoteSendRequest {
 
     @NotNull
     private final String noteTitle;
-    @NotNull @NotBlank
+    @NotNull
     private final Long sender;
-    @NotNull @NotBlank
+    @NotNull
     private final Long recipient;
     @NotNull
     private final LocalDateTime sentAt;
     @NotNull
     private final String noteContent;
 
-    public static NoteSendRequest toDto(Note note) {
-        return new NoteSendRequest(
-                note.getNoteTitle(),
-                note.getSender().getEmplyCode(),
-                note.getRecipient().getEmplyCode(),
-                note.getSentAt(),
-                note.getNoteContent()
-        );
-    }
 }

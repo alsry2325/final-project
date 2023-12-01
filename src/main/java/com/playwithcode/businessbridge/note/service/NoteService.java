@@ -1,5 +1,6 @@
 package com.playwithcode.businessbridge.note.service;
 
+import com.playwithcode.businessbridge.jwt.CustomUser;
 import com.playwithcode.businessbridge.member.domain.Employee;
 import com.playwithcode.businessbridge.member.domain.repository.EmployeeRepository;
 import com.playwithcode.businessbridge.note.domain.Note;
@@ -28,16 +29,17 @@ public class NoteService {
 
     /* 1. 쪽지 발송(DB 저장) */
     /* NoteSendRequest를 Note 엔티티로 변환하여 save 메소드를 통해 DB에 저장한다. */
-    public void sendNote(NoteSendRequest noteSendRequest) {
-        Note note = convertToNoteEntity(noteSendRequest);
+    public void sendNote(NoteSendRequest noteSendRequest, CustomUser customUser) {
+        Note note = convertToNoteEntity(noteSendRequest, customUser);
         noteRepository.save(note);
     }
 
-    private Note convertToNoteEntity(NoteSendRequest noteSendRequest) {
+    private Note convertToNoteEntity(NoteSendRequest noteSendRequest, CustomUser customUser) {
         Note note = new Note();
         note.setNoteTitle(noteSendRequest.getNoteTitle());
         note.setNoteContent(noteSendRequest.getNoteContent());
-        Employee sender = employeeRepository.findById(noteSendRequest.getSender()).orElse(null);
+
+        Long sender = customUser.getEmplyCode();
         Employee recipient = employeeRepository.findById(noteSendRequest.getRecipient()).orElse(null);
         note.setSender(sender);
         note.setRecipient(recipient);

@@ -30,9 +30,12 @@ public class Note {
     @GeneratedValue(strategy = IDENTITY)
     private Long noteNo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sender", referencedColumnName = "emplyCode")
-    private Employee sender;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "sender", referencedColumnName = "emplyCode")
+//    private Employee sender;
+
+    @Column
+    private Long sender;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipient", referencedColumnName = "emplyCode")
@@ -61,13 +64,6 @@ public class Note {
     private LocalDateTime senderTrashAt;          // 발신자 휴지통 이후 삭제 (완전 삭제)
 
     private LocalDateTime recipientTrashAt;       // 수신자 휴지통 이후 삭제 (완전 삭제)
-
-    public String getSenderName() {
-        if (sender != null) {
-            return sender.getEmplyName();
-        }
-        return null;
-    }
 
 
 }
