@@ -1,11 +1,11 @@
 package com.playwithcode.businessbridge.product.domain.type;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum ProductStateType {
 
     SALES("sales"),
-    SUSPENSION("suspension"),
     DISCONTINUED("discontinued"),
     DELETED("deleted");
 
@@ -22,6 +22,6 @@ public enum ProductStateType {
         }
         return null;
     }
-    @JsonCreator
+    @JsonValue
     public String getValue(){ return  value;}
 }

@@ -86,7 +86,7 @@ public class ProductController {
     //상품 상세 조회 -productCode로 상품 1개 조회, 주문 불가 상품 포함
 
     @GetMapping("/products-allstate/{productCode}")
-    public ResponseEntity<AdminProductResponse> getAllProductState(@PathVariable final BigInteger productCode){
+    public ResponseEntity<AdminProductResponse> getAllProductState(@PathVariable final Long productCode){
 
         final AdminProductResponse adminProductResponse = productService.getAllProductState(productCode);
 
@@ -103,13 +103,19 @@ public class ProductController {
         return ResponseEntity.created(URI.create("products/regist/" + productCode)).build();
     }
 
-//
-//    //상품수정
-//    @PutMapping("products/{productCode}")
-//    public ResponseEntity<Void> update(@RequestBody @Valid final ProductUpdateRequest productRequest) {
-//
-//        return ResponseEntity.created(URI.create("products/modify/"+ productCode)).build();
-//
-//    }
+
+    //상품수정
+    @PutMapping("products/{productCode}")
+    public ResponseEntity<Void> update(@PathVariable final  Long productCode,
+                                       @RequestBody  @Valid final ProductUpdateRequest productRequest) {
+        log.info("productRequest : {} ",productRequest);
+
+
+        productService.update(productCode,productRequest);
+
+
+        return ResponseEntity.created(URI.create("products/modify/"+ productCode)).build();
+
+    }
 
 }
