@@ -16,6 +16,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,7 +41,7 @@ public class ApprovalController {
                                      @RequestPart(required = false) List<MultipartFile> attachFiles,
                                      @AuthenticationPrincipal CustomUser customUser){
 
-        log.info("customUser : {}", customUser);      // 왜 null일까,,
+        log.info("customUser : {}", customUser);
 
         if (attachFiles == null) {
             // 첨부 파일이 제공되지 않았을 경우, null 참조 오류를 방지하기 위해 빈 목록을 생성
@@ -125,14 +127,27 @@ public class ApprovalController {
         return ResponseEntity.ok(pagingResponse);
     }
 
-    /* 5. 받은 결재 목록 조회 - 상태별 조회, 페이징 */
-    @GetMapping("/receive-approvals/{docStatus}")
+    /* 5-1. 받은 결재 목록 조회 - 상태 전체 조회, 페이징 */
+    @GetMapping("/receive-approvals/all")
     public ResponseEntity<PagingResponse> getReceiveApprovals(
+            @RequestParam(defaultValue = "1") final Integer page,
+            @AuthenticationPrincipal CustomUser customUser
+    ){
+        Page<ReceiveListResponse> approvals = approvalService.getReceivedApprovals(page, customUser);
+
+        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(approvals);
+        final PagingResponse pagingResponse = PagingResponse.of(approvals.getContent(), pagingButtonInfo);
+
+        return ResponseEntity.ok(pagingResponse);
+    }
+    /* 5-2. 받은 결재 목록 조회 - 상태별 조회, 페이징 */
+    @GetMapping("/receive-approvals/{docStatus}")
+    public ResponseEntity<PagingResponse> getReceiveApprovalsByStatus(
             @RequestParam(defaultValue = "1") final Integer page,
             @AuthenticationPrincipal CustomUser customUser,
             @PathVariable String docStatus){
 
-        final Page<ReceiveListResponse> approvals = approvalService.getReceivedApprovals(page, docStatus, customUser);
+        final Page<ReceiveListResponse> approvals = approvalService.getReceivedApprovalsByStatus(page, docStatus, customUser);
 
         final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(approvals);
         final PagingResponse pagingResponse = PagingResponse.of(approvals.getContent(), pagingButtonInfo);

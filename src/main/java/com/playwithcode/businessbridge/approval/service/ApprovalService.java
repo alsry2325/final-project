@@ -213,9 +213,18 @@ public class ApprovalService {
         return approvals.map(approval -> DraftListResponse.from(approval));
     }
 
-    /* 5. 받은 결재 목록 조회 - 상태별 조회, 페이징 */
+    /* 5-1. 받은 결재 목록 조회 - 상태 전체 조회, 페이징 */
     @Transactional(readOnly = true)
-    public Page<ReceiveListResponse> getReceivedApprovals(Integer page, String docStatus, CustomUser customUser) {
+    public Page<ReceiveListResponse> getReceivedApprovals(Integer page, CustomUser customUser) {
+
+        Page<Approval> approvals = approvalRepository.findApprovals(getPageable(page), customUser.getEmplyCode());
+
+        return approvals.map(approval -> ReceiveListResponse.from(approval));
+    }
+
+    /* 5-2. 받은 결재 목록 조회 - 상태별 조회, 페이징 */
+    @Transactional(readOnly = true)
+    public Page<ReceiveListResponse> getReceivedApprovalsByStatus(Integer page, String docStatus, CustomUser customUser) {
 
         DocStatusType docStatusType = DocStatusType.valueOf(docStatus);
 
@@ -225,6 +234,7 @@ public class ApprovalService {
 
         return approvals.map(approval -> ReceiveListResponse.from(approval));
     }
+
 
 
 }

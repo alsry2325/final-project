@@ -22,12 +22,18 @@ public interface ApprovalRepository extends JpaRepository<Approval, Long> {
     Page<Approval> findByDraftMemberEmplyCodeAndDocStatusNotLikeAndDocStatusNotLike
     (Pageable pageable, Long emplyCode, DocStatusType docStatusType1, DocStatusType docStatusType2);
 
+    /* 4. 임시 저장한 목록 조회 - 페이징 */
     Page<Approval> findByDraftMemberEmplyCodeAndDocStatusLike(Pageable pageable, Long emplyCode, DocStatusType docStatusType);
 
-    /* 5. 받은 결재 목록 조회 - 상태별 조회, 페이징 */
-//    Page<Approval> findByApproverMemberApproverCodeAndApproverMemberApprovalStatusAndDocStatus
-//    (Pageable pageable, Long emplyCode, ApprovalStatusType approvalStatusType, DocStatusType docStatusType);
+    /* 5-1. 받은 결재 목록 조회 - 상태 전체 조회, 페이징 */
+    @Query("SELECT a FROM Approval a " +
+            "JOIN a.approverMember approver " +
+            "WHERE approver.approverMember.emplyCode = :emplyCode " +
+            "AND approver.approvalStatus = 'ACTIVATE' or approver.approvalStatus = 'PENDING' " +
+            "AND a.docStatus = 'WAITING' or a.docStatus = 'PROCEEDING'")
+    Page<Approval> findApprovals(Pageable pageable, @Param("emplyCode") Long emplyCode);
 
+    /* 5-2. 받은 결재 목록 조회 - 상태별 조회, 페이징 */
     @Query("SELECT a FROM Approval a " +
             "JOIN a.approverMember approver " +
             "WHERE approver.approverMember.emplyCode = :emplyCode " +
