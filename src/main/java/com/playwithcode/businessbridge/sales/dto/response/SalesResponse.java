@@ -12,7 +12,7 @@ import static lombok.AccessLevel.PRIVATE;
 
 @Getter
 @RequiredArgsConstructor(access = PRIVATE)
-public class SalesListResponse {
+public class SalesResponse {
 
     private final Long salesCode;
     private final String salesName;
@@ -21,22 +21,20 @@ public class SalesListResponse {
     private final String accountName;
     private final String salesMember;
     private final String salesStatus;
-    private final String customerRating;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private final LocalDateTime createdAt;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private final LocalDateTime modifiedAt;
-    
-    public static SalesListResponse from(Sales sales) {
-        return new SalesListResponse(
+
+    public static SalesResponse from(Sales sales) {
+        return new SalesResponse(
     		sales.getSalesCode(),
     		sales.getSalesName(),
     		sales.getSalesType(),
     		sales.getSalesWay(),
     		sales.getAccountName(),
-    		sales.getEmployee().getEmplyName(),
     		sales.getSalesStatus(),
-    		sales.getCustomerRating(),
+    		sales.getEmployee().getEmplyName(),
     		sales.getCreatedAt(),
     		sales.getModifiedAt()
         );
