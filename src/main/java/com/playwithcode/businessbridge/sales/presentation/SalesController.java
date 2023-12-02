@@ -94,7 +94,7 @@ public class SalesController {
     	salesService.delete(salesCode);
     	//return ResponseEntity.noContent().build();
     	Map<String, Object> body = new HashMap<String, Object>();
-    	body.put("message", "삭제하였습니다.");
+    	body.put("message", "삭제하였습니다..");
     	return ResponseEntity.ok(body);
     }
     
