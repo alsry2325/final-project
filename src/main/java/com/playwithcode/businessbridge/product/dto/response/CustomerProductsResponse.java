@@ -5,15 +5,13 @@ import com.playwithcode.businessbridge.product.domain.type.ProductCategoryType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.math.BigInteger;
-
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter
 @RequiredArgsConstructor(access = PRIVATE)
 public class CustomerProductsResponse {
 
-    private final BigInteger productCode;
+    private final Long productCode;
 
     private final ProductCategoryType productCategory;
 
@@ -23,16 +21,16 @@ public class CustomerProductsResponse {
     private final String productStandard;
 
 
-    private final BigInteger productCnt;
+    private final Long productCnt;
 
 
-    private final BigInteger productPrice;
+    private final Long productPrice;
 
 
-    private final  BigInteger provideValue;
+    private final  Long provideValue;
 
 
-    private final BigInteger taxCnt;
+    private final Long taxCnt;
 
 
 
