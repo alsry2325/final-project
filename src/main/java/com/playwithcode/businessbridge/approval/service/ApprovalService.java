@@ -4,6 +4,7 @@ import com.playwithcode.businessbridge.approval.domain.*;
 import com.playwithcode.businessbridge.approval.domain.repository.ApprovalRepository;
 import com.playwithcode.businessbridge.approval.domain.repository.BusinessDraftRepository;
 import com.playwithcode.businessbridge.approval.domain.repository.ExpenseReportRepository;
+import com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType;
 import com.playwithcode.businessbridge.approval.domain.type.DocFormType;
 import com.playwithcode.businessbridge.approval.domain.type.DocStatusType;
 import com.playwithcode.businessbridge.approval.dto.request.BusinessDraftCreateRequest;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType.ACTIVATE;
+import static com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType.*;
 import static com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType.WAITING;
 import static com.playwithcode.businessbridge.approval.domain.type.DocStatusType.*;
 
@@ -245,9 +246,26 @@ public class ApprovalService {
     }
 
 
-
     /* 7-1. 결재한 문서함 - 전체 조회, 페이징 */
+    public Page<ReceiveListResponse> getApproveApprovals(Integer page, CustomUser customUser) {
+
+        Page<Approval> approvals = approvalRepository.findByApproverMember(getPageable(page), customUser.getEmplyCode());
+
+        return approvals.map(approval -> ReceiveListResponse.from(approval));
+    }
+
+
     /* 7-2. 결재한 문서함 - 상태별 조회, 페이징 */
+    public Page<ReceiveListResponse> getApproveApprovalsByStatus(Integer page, CustomUser customUser, String docStatus) {
+
+        DocStatusType docStatusType = DocStatusType.valueOf(docStatus);
+
+        Page<Approval> approvals = approvalRepository.findByApproverMember(getPageable(page), customUser.getEmplyCode(), docStatusType);
+
+        return approvals.map(approval -> ReceiveListResponse.from(approval));
+    }
+
+
 
 
 }

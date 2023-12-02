@@ -172,7 +172,34 @@ public class ApprovalController {
     }
 
     /* 7-1. 결재한 문서함 - 전체 조회, 페이징 */
-    /* 7-2. 결재한 문서함 - 상태별 조회, 페이징 */
+    @GetMapping("/approve-docs/all")
+    public ResponseEntity<PagingResponse> getApproveApprovals(
+            @RequestParam(defaultValue = "1") final Integer page,
+            @AuthenticationPrincipal CustomUser customUser
+    ){
 
+        final Page<ReceiveListResponse> approvals = approvalService.getApproveApprovals(page,customUser);
+
+        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(approvals);
+        final PagingResponse pagingResponse = PagingResponse.of(approvals.getContent(), pagingButtonInfo);
+
+        return ResponseEntity.ok(pagingResponse);
+    }
+
+    /* 7-2. 결재한 문서함 - 상태별 조회, 페이징 */
+    @GetMapping("/approve-docs/{docStatus}")
+    public ResponseEntity<PagingResponse> getApproveApprovalsByStatus(
+            @RequestParam(defaultValue = "1") final Integer page,
+            @AuthenticationPrincipal CustomUser customUser,
+            @PathVariable String docStatus
+    ){
+
+        final Page<ReceiveListResponse> approvals = approvalService.getApproveApprovalsByStatus(page,customUser, docStatus);
+
+        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(approvals);
+        final PagingResponse pagingResponse = PagingResponse.of(approvals.getContent(), pagingButtonInfo);
+
+        return ResponseEntity.ok(pagingResponse);
+    }
 
 }

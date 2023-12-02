@@ -34,7 +34,7 @@ public interface ApprovalRepository extends JpaRepository<Approval, Long> {
             @Param("emplyCode") Long emplyCode,
             @Param("docStatusType")DocStatusType docStatusType);
 
-    /* 3. 받은 결재 목록 조회 */
+    /* 3. 받을 결재 목록 조회 */
     @Query("SELECT a FROM Approval a " +
             "JOIN a.approverMember approver " +
             "WHERE approver.approverMember.emplyCode = :emplyCode " +
@@ -53,5 +53,17 @@ public interface ApprovalRepository extends JpaRepository<Approval, Long> {
     Page<Approval> findByDraftMemberEmplyCodeAndDocStatusLike(Pageable pageable, Long emplyCode, DocStatusType docStatusType);
 
     /* 7-1. 결재한 문서함 - 전체 조회, 페이징 */
+    @Query("SELECT a FROM Approval a " +
+            "JOIN a.approverMember approver " +
+            "WHERE approver.approverMember.emplyCode = :emplyCode " +
+            "AND approver.approvalStatus = 'APPROVAL' or approver.approvalStatus = 'RETURN'")
+    Page<Approval> findByApproverMember(Pageable pageable, Long emplyCode);
+
     /* 7-2. 결재한 문서함 - 상태별 조회, 페이징 */
+    @Query("SELECT a FROM Approval a " +
+            "JOIN a.approverMember approver " +
+            "WHERE approver.approverMember.emplyCode = :emplyCode " +
+            "AND approver.approvalStatus = 'APPROVAL' or approver.approvalStatus = 'RETURN'" +
+            "AND a.docStatus IN :docStatusType")
+    Page<Approval> findByApproverMember(Pageable pageable, Long emplyCode, DocStatusType docStatusType);
 }
