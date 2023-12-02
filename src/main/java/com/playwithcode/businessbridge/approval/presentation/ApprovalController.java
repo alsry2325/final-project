@@ -71,7 +71,50 @@ public class ApprovalController {
 
     /* -------------------------------------------------- 목록 조회 -------------------------------------------------- */
 
-    /* 2-1. 기안한 문서함 목록 전체 조회 - 페이징 */
+    /* 2-1. 받은 결재 목록 조회 - 상태 전체 조회, 페이징 */
+    @GetMapping("/receive-approvals/all")
+    public ResponseEntity<PagingResponse> getReceiveApprovals(
+            @RequestParam(defaultValue = "1") final Integer page,
+            @AuthenticationPrincipal CustomUser customUser
+    ){
+        Page<ReceiveListResponse> approvals = approvalService.getReceivedApprovals(page, customUser);
+
+        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(approvals);
+        final PagingResponse pagingResponse = PagingResponse.of(approvals.getContent(), pagingButtonInfo);
+
+        return ResponseEntity.ok(pagingResponse);
+    }
+
+    /* 2-2. 받은 결재 목록 조회 - 상태별 조회, 페이징 */
+    @GetMapping("/receive-approvals/{docStatus}")
+    public ResponseEntity<PagingResponse> getReceiveApprovalsByStatus(
+            @RequestParam(defaultValue = "1") final Integer page,
+            @AuthenticationPrincipal CustomUser customUser,
+            @PathVariable String docStatus){
+
+        final Page<ReceiveListResponse> approvals = approvalService.getReceivedApprovalsByStatus(page, docStatus, customUser);
+
+        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(approvals);
+        final PagingResponse pagingResponse = PagingResponse.of(approvals.getContent(), pagingButtonInfo);
+
+        return ResponseEntity.ok(pagingResponse);
+    }
+
+    /* 3. 받을 결재 목록 조회 */
+    @GetMapping("/upcoming-approvals")
+    public ResponseEntity<PagingResponse> getUpcomingApprovals(
+            @RequestParam(defaultValue = "1") final Integer page,
+            @AuthenticationPrincipal CustomUser customUser){
+
+        final Page<ReceiveListResponse> approvals = approvalService.getUpcomingApprovals(page, customUser);
+        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(approvals);
+        final PagingResponse pagingResponse = PagingResponse.of(approvals.getContent(), pagingButtonInfo);
+
+        return ResponseEntity.ok(pagingResponse);
+    }
+
+
+    /* 4-1. 기안한 문서함 목록 전체 조회 - 페이징 */
     @GetMapping("/draft-docs/all")
     public ResponseEntity<PagingResponse> getDraftApprovals(
             @RequestParam(defaultValue = "1") final Integer page,
@@ -84,7 +127,8 @@ public class ApprovalController {
 
         return ResponseEntity.ok(pagingResponse);
     }
-    /* 2-2. 기안한 문서함 목록 조회 - 상태별 조회, 페이징 */
+
+    /* 4-2. 기안한 문서함 목록 조회 - 상태별 조회, 페이징 */
     @GetMapping("/draft-docs/{docStatus}")
     public ResponseEntity<PagingResponse> getDraftApprovalsByStatus(
             @RequestParam(defaultValue = "1") final Integer page,
@@ -99,7 +143,7 @@ public class ApprovalController {
         return ResponseEntity.ok(pagingResponse);
     }
 
-    /* 3. 기안 회수함 목록 조회 - 페이징 */
+    /* 5. 기안 회수함 목록 조회 - 페이징 */
     @GetMapping("/collect-draft-docs")
     public ResponseEntity<PagingResponse> getCollectApprovals(
             @RequestParam(defaultValue = "1") final Integer page,
@@ -113,7 +157,7 @@ public class ApprovalController {
         return ResponseEntity.ok(pagingResponse);
     }
 
-    /* 4. 임시 저장한 목록 조회 - 페이징 */
+    /* 6. 임시 저장한 목록 조회 - 페이징 */
     @GetMapping("/tempSave-draft-docs")
     public ResponseEntity<PagingResponse> getTempSaveApprovals(
             @RequestParam(defaultValue = "1") final Integer page,
@@ -127,31 +171,8 @@ public class ApprovalController {
         return ResponseEntity.ok(pagingResponse);
     }
 
-    /* 5-1. 받은 결재 목록 조회 - 상태 전체 조회, 페이징 */
-    @GetMapping("/receive-approvals/all")
-    public ResponseEntity<PagingResponse> getReceiveApprovals(
-            @RequestParam(defaultValue = "1") final Integer page,
-            @AuthenticationPrincipal CustomUser customUser
-    ){
-        Page<ReceiveListResponse> approvals = approvalService.getReceivedApprovals(page, customUser);
+    /* 7-1. 결재한 문서함 - 전체 조회, 페이징 */
+    /* 7-2. 결재한 문서함 - 상태별 조회, 페이징 */
 
-        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(approvals);
-        final PagingResponse pagingResponse = PagingResponse.of(approvals.getContent(), pagingButtonInfo);
 
-        return ResponseEntity.ok(pagingResponse);
-    }
-    /* 5-2. 받은 결재 목록 조회 - 상태별 조회, 페이징 */
-    @GetMapping("/receive-approvals/{docStatus}")
-    public ResponseEntity<PagingResponse> getReceiveApprovalsByStatus(
-            @RequestParam(defaultValue = "1") final Integer page,
-            @AuthenticationPrincipal CustomUser customUser,
-            @PathVariable String docStatus){
-
-        final Page<ReceiveListResponse> approvals = approvalService.getReceivedApprovalsByStatus(page, docStatus, customUser);
-
-        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(approvals);
-        final PagingResponse pagingResponse = PagingResponse.of(approvals.getContent(), pagingButtonInfo);
-
-        return ResponseEntity.ok(pagingResponse);
-    }
 }
