@@ -2,6 +2,7 @@ package com.playwithcode.businessbridge.approval.domain.repository;
 
 import com.playwithcode.businessbridge.approval.domain.Approval;
 import com.playwithcode.businessbridge.approval.domain.Approver;
+import com.playwithcode.businessbridge.approval.domain.BusinessDraft;
 import com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType;
 import com.playwithcode.businessbridge.approval.domain.type.DocStatusType;
 import com.playwithcode.businessbridge.approval.service.ApprovalService;
@@ -12,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
+import java.util.Optional;
 
 public interface ApprovalRepository extends JpaRepository<Approval, Long> {
 
@@ -66,4 +69,6 @@ public interface ApprovalRepository extends JpaRepository<Approval, Long> {
             "AND approver.approvalStatus = 'APPROVAL' or approver.approvalStatus = 'RETURN'" +
             "AND a.docStatus IN :docStatusType")
     Page<Approval> findByApproverMember(Pageable pageable, Long emplyCode, DocStatusType docStatusType);
+
+
 }

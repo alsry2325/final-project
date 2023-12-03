@@ -10,8 +10,11 @@ import com.playwithcode.businessbridge.approval.domain.type.DocStatusType;
 import com.playwithcode.businessbridge.approval.dto.request.BusinessDraftCreateRequest;
 import com.playwithcode.businessbridge.approval.dto.request.ExpenseReportCreateRequest;
 import com.playwithcode.businessbridge.approval.dto.request.ExpenseReportDetailCreateRequest;
+import com.playwithcode.businessbridge.approval.dto.response.BusinessDraftResponse;
 import com.playwithcode.businessbridge.approval.dto.response.DraftListResponse;
+import com.playwithcode.businessbridge.approval.dto.response.ExpenseReportResponse;
 import com.playwithcode.businessbridge.approval.dto.response.ReceiveListResponse;
+import com.playwithcode.businessbridge.common.exception.NotFoundException;
 import com.playwithcode.businessbridge.common.util.FileUploadUtils;
 import com.playwithcode.businessbridge.jwt.CustomUser;
 import com.playwithcode.businessbridge.member.domain.Employee;
@@ -33,7 +36,10 @@ import java.util.UUID;
 
 import static com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType.*;
 import static com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType.WAITING;
+import static com.playwithcode.businessbridge.approval.domain.type.DocFormType.BUSINESS_DRAFT;
+import static com.playwithcode.businessbridge.approval.domain.type.DocFormType.EXPENSE_REPORT;
 import static com.playwithcode.businessbridge.approval.domain.type.DocStatusType.*;
+import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.NOT_FOUND_APPROVAL_CODE;
 
 @Service
 @RequiredArgsConstructor
@@ -99,7 +105,7 @@ public class ApprovalService {
                 approverMember,
                 draftMember,
                 businessDraftRequest.getTitle(),
-                DocFormType.BUSINESS_DRAFT,
+                BUSINESS_DRAFT,
                 files
         );
 
@@ -265,7 +271,24 @@ public class ApprovalService {
         return approvals.map(approval -> ReceiveListResponse.from(approval));
     }
 
+    /* -------------------------------------------------- 상세 조회 -------------------------------------------------- */
 
+    /* 8. 업무기안서 상세 조회 */
+    @Transactional(readOnly = true)
+    public BusinessDraftResponse getBusinessDraft(final Long approvalCode) {
 
+        BusinessDraft businessDraft = businessDraftRepository.findApprovalByApprovalApprovalCodeAndApprovalDocFormLike(approvalCode, BUSINESS_DRAFT)
+                .orElseThrow(() -> new NotFoundException(NOT_FOUND_APPROVAL_CODE));
 
+        return BusinessDraftResponse.from(businessDraft);
+    }
+
+    /* 9. 지출결의서 상세 조회 */
+    public ExpenseReportResponse getExpenseReport(Long approvalCode) {
+
+        ExpenseReport expenseReport = expenseReportRepository.findByApprovalApprovalCodeAndApprovalDocFormLike(approvalCode, EXPENSE_REPORT)
+                .orElseThrow(() -> new NotFoundException(NOT_FOUND_APPROVAL_CODE));
+
+        return ExpenseReportResponse.from(expenseReport);
+    }
 }

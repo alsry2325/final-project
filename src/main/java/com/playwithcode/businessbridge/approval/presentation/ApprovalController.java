@@ -2,7 +2,9 @@ package com.playwithcode.businessbridge.approval.presentation;
 
 import com.playwithcode.businessbridge.approval.dto.request.BusinessDraftCreateRequest;
 import com.playwithcode.businessbridge.approval.dto.request.ExpenseReportCreateRequest;
+import com.playwithcode.businessbridge.approval.dto.response.BusinessDraftResponse;
 import com.playwithcode.businessbridge.approval.dto.response.DraftListResponse;
+import com.playwithcode.businessbridge.approval.dto.response.ExpenseReportResponse;
 import com.playwithcode.businessbridge.approval.dto.response.ReceiveListResponse;
 import com.playwithcode.businessbridge.approval.service.ApprovalService;
 import com.playwithcode.businessbridge.common.paging.Pagenation;
@@ -202,4 +204,23 @@ public class ApprovalController {
         return ResponseEntity.ok(pagingResponse);
     }
 
+    /* -------------------------------------------------- 상세 조회 -------------------------------------------------- */
+
+    /* 8. 업무기안서 상세 조회 */
+    @GetMapping("/document/businessDraft/{approvalCode}")
+    public ResponseEntity<BusinessDraftResponse> getBusinessDraft(@PathVariable final Long approvalCode){
+
+        final BusinessDraftResponse businessDraftResponse = approvalService.getBusinessDraft(approvalCode);
+
+        return ResponseEntity.ok(businessDraftResponse);
+    }
+
+    /* 9. 지출결의서 상세 조회 */
+    @GetMapping("/document/expenseReport/{approvalCode}")
+    public ResponseEntity<ExpenseReportResponse> getExpenseReport(@PathVariable final Long approvalCode){
+
+        final ExpenseReportResponse expenseReportResponse = approvalService.getExpenseReport(approvalCode);
+
+        return ResponseEntity.ok(expenseReportResponse);
+    }
 }
