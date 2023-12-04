@@ -85,6 +85,7 @@ public class Approval {
     public void update(List<Approver> approvers, String title, List<File> files) {
         this.approverMember = approvers;
         this.title = title;
+//        this.docStatus = docStatus;
         this.file = files;
     }
 }
