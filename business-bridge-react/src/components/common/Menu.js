@@ -1,4 +1,5 @@
 import {NavLink} from "react-router-dom";
+import {isAdmin} from "../../utils/TokenUtils";
 function Menu() {
 
     return (
@@ -48,11 +49,16 @@ function Menu() {
                             고객관계관리
                         </NavLink>
                     </li>
-                    <li className="NavbarElement">
+                    { isAdmin() && <li className="NavbarElement">
                         <NavLink className="link" to="/sign-in">
-                            캘린더
+                            상품관리
                         </NavLink>
-                    </li>
+                    </li>}
+                    { isAdmin() && <li className="NavbarElement">
+                        <NavLink className="link" to="/sign-in">
+                            사원관리
+                        </NavLink>
+                    </li>}
                 </ul>
             </div>
         </>

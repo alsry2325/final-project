@@ -1,9 +1,11 @@
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import {ImCross} from "react-icons/im";
 import {GiHamburgerMenu} from "react-icons/gi";
 import {useState} from "react";
+import {isAdmin, isLogin, removeToken} from "../../utils/TokenUtils";
 function Header({clicked, isClicked}){
 
+    const navigate = useNavigate();
     const [isMenuVisible, setMenuVisible] = useState(false);
     const handleClicked = () => {
         isClicked(!clicked);
@@ -12,6 +14,15 @@ function Header({clicked, isClicked}){
     const handleClick  = () => {
         setMenuVisible((prevVisible) => !prevVisible);
     };
+
+    const onClickLogoutHandler = () => {
+        removeToken();
+        window.location.replace("/emp/employee/login");
+    }
+
+    const onClickMypageHandler = () => {
+        navigate('/emp/employee/mypage');
+    }
 
     return (
            <div className="Nav">
@@ -62,16 +73,16 @@ function Header({clicked, isClicked}){
                            견적서 관리
                        </NavLink>
                    </li>
-                   <li className="NavElements">
+                   { isAdmin() &&  <li className="NavElements">
                        <NavLink className="Link" to="/contact-us">
                            상품 관리
                        </NavLink>
-                   </li>
-                   <li className="NavElements">
+                   </li>}
+                   { isAdmin() && <li className="NavElements">
                        <NavLink className="Link" to="/contact-us">
                            사원 관리
                        </NavLink>
-                   </li>
+                   </li>}
                    <li className="NavName">
                        <p>이름사원님</p>
                    </li>
@@ -85,13 +96,15 @@ function Header({clicked, isClicked}){
                            <div className="menu">
                                <ul className="NavbarWrapper">
                                    <li className="menu-Link">
-                                       <NavLink className="menu-Link" to="/">
+                                       <span className="menu-Link"
+                                                onClick={onClickMypageHandler}>
                                            기본정보
-                                       </NavLink>
+                                       </span>
                                    </li>
                                    <li className="menu-Link">
                                        <span
                                            className="menu-Link"
+                                           onClick={onClickLogoutHandler}
                                        >
                                            로그아웃
                                        </span>
@@ -107,6 +120,7 @@ function Header({clicked, isClicked}){
                ) : (
                    <ImCross onClick={handleClicked} className="Icon" />
                )}
+               { isLogin() }
            </div>
        );
 
