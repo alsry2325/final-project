@@ -92,7 +92,7 @@ public class ApprovalService {
             String replaceFileName = FileUploadUtils.saveFile(FILE_DIR, getRandomName(), attachFile);
             files.add(File.of(
                     attachFile.getOriginalFilename(),
-                    "/upload/approvalFiles/",
+                    FILE_URL + replaceFileName,
                     replaceFileName,
                     attachFile.getOriginalFilename().substring(attachFile.getOriginalFilename().lastIndexOf("."))
             ));
@@ -141,7 +141,7 @@ public class ApprovalService {
             String replaceFileName = FileUploadUtils.saveFile(FILE_DIR, getRandomName(), attachFile);
             files.add(File.of(
                     attachFile.getOriginalFilename(),
-                    "/upload/approvalFiles/",
+                    FILE_URL + replaceFileName,
                     replaceFileName,
                     attachFile.getOriginalFilename().substring(attachFile.getOriginalFilename().lastIndexOf("."))
             ));

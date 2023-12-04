@@ -27,6 +27,7 @@ public class ExpenseReportResponse {
     private final List<String> item;                            // 적요
     private final List<Long> amount;                            // 금액
     private final List<String> note;                            // 비고
+    private final List<String> attachFiles;                     // 첨부파일
     private final List<String> approverImg;                     // 결재자 프로필 이미지
     private final List<String> approvalOpinion;                 // 결재 의견
 
@@ -66,6 +67,10 @@ public class ExpenseReportResponse {
         List<String> notes = expenseReport.getExpenseReportDetail()
                 .stream().map(detail -> detail.getNote()).collect(Collectors.toList());
 
+        // 첨부파일
+        List<String> attachFiles = expenseReport.getApproval().getFile()
+                .stream().map(file -> file.getPathName()).collect(Collectors.toList());
+
         return new ExpenseReportResponse(
                 expenseReport.getApproval().getTitle(),
                 expenseReport.getApproval().getDocForm().getValue(),
@@ -81,6 +86,7 @@ public class ExpenseReportResponse {
                 items,
                 amounts,
                 notes,
+                attachFiles,
                 approverImgs,
                 approvalOpinions
         );

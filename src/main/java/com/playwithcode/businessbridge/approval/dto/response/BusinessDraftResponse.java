@@ -25,7 +25,7 @@ public class BusinessDraftResponse {
     private final LocalDateTime draftDateTime;              // 기안 일시
     private final Long DocNo;                               // 문서 번호
     private final String businessDraftContent;              // 내용
-//    private final List<File> attachFile;                    // 첨부파일         ?!!
+    private final List<String> attachFile;                  // 첨부파일
     private final List<String> approverImg;                 // 결재자 프로필 이미지
     private final List<String> approvalOpinion;             // 결재 의견
 
@@ -57,6 +57,10 @@ public class BusinessDraftResponse {
                 .stream().map(approver -> approver.getApprovalOpinion())
                 .collect(Collectors.toList());
 
+        // 첨부파일
+        List<String> attachFiles = businessDraft.getApproval().getFile()
+                .stream().map(file -> file.getPathName()).collect(Collectors.toList());
+
         return new BusinessDraftResponse(
                 businessDraft.getApproval().getTitle(),
                 businessDraft.getApproval().getDocForm().getValue(),
@@ -69,7 +73,7 @@ public class BusinessDraftResponse {
                 businessDraft.getApproval().getDraftDateTime(),
                 businessDraft.getApproval().getDocNo(),
                 businessDraft.getBusinessDraftContent(),
-//                businessDraft.getApproval().getFile(),
+                attachFiles,
                 approverImgs,
                 approvalOpinions
         );

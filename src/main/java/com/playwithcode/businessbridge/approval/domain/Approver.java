@@ -30,10 +30,6 @@ public class Approver {
 
     private String approvalOpinion;             // 결재 의견
 
-    private LocalDateTime returnDateTime;       // 반려 일시
-
-    private String ReturnOpinion;               // 반려 의견
-
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private ApprovalStatusType approvalStatus;  // 결재 상태
