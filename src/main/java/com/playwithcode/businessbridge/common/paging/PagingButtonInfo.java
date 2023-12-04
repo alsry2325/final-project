@@ -11,6 +11,4 @@ public class PagingButtonInfo {
 	private final int startPage;
 	private final int endPage;
 	private final int maxPage;
-	
-
 }

@@ -12,7 +12,7 @@ public enum DocStatusType {
     WAITING("대기"),
     PROCEEDING("진행중"),
     RETURN("반려"),
-    ADMISSION("완료");
+    COMPLETE("완료");
 
     private final String value;
 

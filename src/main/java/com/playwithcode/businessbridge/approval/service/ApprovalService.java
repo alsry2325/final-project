@@ -4,13 +4,17 @@ import com.playwithcode.businessbridge.approval.domain.*;
 import com.playwithcode.businessbridge.approval.domain.repository.ApprovalRepository;
 import com.playwithcode.businessbridge.approval.domain.repository.BusinessDraftRepository;
 import com.playwithcode.businessbridge.approval.domain.repository.ExpenseReportRepository;
+import com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType;
 import com.playwithcode.businessbridge.approval.domain.type.DocFormType;
 import com.playwithcode.businessbridge.approval.domain.type.DocStatusType;
 import com.playwithcode.businessbridge.approval.dto.request.BusinessDraftCreateRequest;
 import com.playwithcode.businessbridge.approval.dto.request.ExpenseReportCreateRequest;
 import com.playwithcode.businessbridge.approval.dto.request.ExpenseReportDetailCreateRequest;
+import com.playwithcode.businessbridge.approval.dto.response.BusinessDraftResponse;
 import com.playwithcode.businessbridge.approval.dto.response.DraftListResponse;
+import com.playwithcode.businessbridge.approval.dto.response.ExpenseReportResponse;
 import com.playwithcode.businessbridge.approval.dto.response.ReceiveListResponse;
+import com.playwithcode.businessbridge.common.exception.NotFoundException;
 import com.playwithcode.businessbridge.common.util.FileUploadUtils;
 import com.playwithcode.businessbridge.jwt.CustomUser;
 import com.playwithcode.businessbridge.member.domain.Employee;
@@ -30,9 +34,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType.ACTIVATE;
+import static com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType.*;
 import static com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType.WAITING;
+import static com.playwithcode.businessbridge.approval.domain.type.DocFormType.BUSINESS_DRAFT;
+import static com.playwithcode.businessbridge.approval.domain.type.DocFormType.EXPENSE_REPORT;
 import static com.playwithcode.businessbridge.approval.domain.type.DocStatusType.*;
+import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.NOT_FOUND_APPROVAL_CODE;
 
 @Service
 @RequiredArgsConstructor
@@ -85,7 +92,7 @@ public class ApprovalService {
             String replaceFileName = FileUploadUtils.saveFile(FILE_DIR, getRandomName(), attachFile);
             files.add(File.of(
                     attachFile.getOriginalFilename(),
-                    "/upload/approvalFiles/",
+                    FILE_URL + replaceFileName,
                     replaceFileName,
                     attachFile.getOriginalFilename().substring(attachFile.getOriginalFilename().lastIndexOf("."))
             ));
@@ -98,7 +105,7 @@ public class ApprovalService {
                 approverMember,
                 draftMember,
                 businessDraftRequest.getTitle(),
-                DocFormType.BUSINESS_DRAFT,
+                BUSINESS_DRAFT,
                 files
         );
 
@@ -134,7 +141,7 @@ public class ApprovalService {
             String replaceFileName = FileUploadUtils.saveFile(FILE_DIR, getRandomName(), attachFile);
             files.add(File.of(
                     attachFile.getOriginalFilename(),
-                    "/upload/approvalFiles/",
+                    FILE_URL + replaceFileName,
                     replaceFileName,
                     attachFile.getOriginalFilename().substring(attachFile.getOriginalFilename().lastIndexOf("."))
             ));
@@ -173,7 +180,38 @@ public class ApprovalService {
 
     /* -------------------------------------------------- 목록 조회 -------------------------------------------------- */
 
-    /* 2-1. 기안한 문서함 목록 전체 조회 - 페이징 */
+    /* 2-1. 받은 결재 목록 조회 - 상태 전체 조회, 페이징 */
+    @Transactional(readOnly = true)
+    public Page<ReceiveListResponse> getReceivedApprovals(Integer page, CustomUser customUser) {
+
+        Page<Approval> approvals = approvalRepository.findApprovals(getPageable(page), customUser.getEmplyCode());
+
+        return approvals.map(approval -> ReceiveListResponse.from(approval));
+    }
+
+    /* 2-2. 받은 결재 목록 조회 - 상태별 조회, 페이징 */
+    @Transactional(readOnly = true)
+    public Page<ReceiveListResponse> getReceivedApprovalsByStatus(Integer page, String docStatus, CustomUser customUser) {
+
+        DocStatusType docStatusType = DocStatusType.valueOf(docStatus);
+
+        Page<Approval> approvals
+                = approvalRepository.findApprovals
+                (getPageable(page), customUser.getEmplyCode(), docStatusType);
+
+        return approvals.map(approval -> ReceiveListResponse.from(approval));
+    }
+
+    /* 3. 받을 결재 목록 조회 */
+    @Transactional(readOnly = true)
+    public Page<ReceiveListResponse> getUpcomingApprovals(Integer page, CustomUser customUser) {
+
+        Page<Approval> approvals = approvalRepository.findApprovalsByApproverMember(getPageable(page), customUser.getEmplyCode());
+
+        return approvals.map(approval -> ReceiveListResponse.from(approval));
+    }
+
+    /* 4-1. 기안한 문서함 목록 전체 조회 - 페이징 */
     @Transactional(readOnly = true)
     public Page<DraftListResponse> getDraftApprovals(Integer page, CustomUser customUser) {
 
@@ -183,7 +221,7 @@ public class ApprovalService {
         return approvals.map(approval -> DraftListResponse.from(approval));
     }
 
-    /* 2-2. 기안한 문서함 목록 상태별 조회, 페이징 */
+    /* 4-2. 기안한 문서함 목록 상태별 조회, 페이징 */
     @Transactional(readOnly = true)
     public Page<DraftListResponse> getDraftApprovalsByStatus(final Integer page, String docStatus, CustomUser customUser) {
 
@@ -195,7 +233,7 @@ public class ApprovalService {
     }
 
 
-    /* 3. 기안 회수함 목록 조회 - 페이징 */
+    /* 5. 기안 회수함 목록 조회 - 페이징 */
     @Transactional(readOnly = true)
     public Page<DraftListResponse> getCollectDraftApprovals(Integer page, CustomUser customUser) {
 
@@ -204,7 +242,7 @@ public class ApprovalService {
         return approvals.map(approval -> DraftListResponse.from(approval));
     }
 
-    /* 4. 임시 저장한 목록 조회 - 페이징 */
+    /* 6. 임시 저장한 목록 조회 - 페이징 */
     @Transactional(readOnly = true)
     public Page<DraftListResponse> getTempSaveDraftApprovals(Integer page, CustomUser customUser) {
 
@@ -213,18 +251,44 @@ public class ApprovalService {
         return approvals.map(approval -> DraftListResponse.from(approval));
     }
 
-    /* 5. 받은 결재 목록 조회 - 상태별 조회, 페이징 */
-    @Transactional(readOnly = true)
-    public Page<ReceiveListResponse> getReceivedApprovals(Integer page, String docStatus, CustomUser customUser) {
 
-        DocStatusType docStatusType = DocStatusType.valueOf(docStatus);
+    /* 7-1. 결재한 문서함 - 전체 조회, 페이징 */
+    public Page<ReceiveListResponse> getApproveApprovals(Integer page, CustomUser customUser) {
 
-        Page<Approval> approvals
-                = approvalRepository.findApprovals
-                    (getPageable(page), customUser.getEmplyCode(), docStatusType);
+        Page<Approval> approvals = approvalRepository.findByApproverMember(getPageable(page), customUser.getEmplyCode());
 
         return approvals.map(approval -> ReceiveListResponse.from(approval));
     }
 
 
+    /* 7-2. 결재한 문서함 - 상태별 조회, 페이징 */
+    public Page<ReceiveListResponse> getApproveApprovalsByStatus(Integer page, CustomUser customUser, String docStatus) {
+
+        DocStatusType docStatusType = DocStatusType.valueOf(docStatus);
+
+        Page<Approval> approvals = approvalRepository.findByApproverMember(getPageable(page), customUser.getEmplyCode(), docStatusType);
+
+        return approvals.map(approval -> ReceiveListResponse.from(approval));
+    }
+
+    /* -------------------------------------------------- 상세 조회 -------------------------------------------------- */
+
+    /* 8. 업무기안서 상세 조회 */
+    @Transactional(readOnly = true)
+    public BusinessDraftResponse getBusinessDraft(final Long approvalCode) {
+
+        BusinessDraft businessDraft = businessDraftRepository.findApprovalByApprovalApprovalCodeAndApprovalDocFormLike(approvalCode, BUSINESS_DRAFT)
+                .orElseThrow(() -> new NotFoundException(NOT_FOUND_APPROVAL_CODE));
+
+        return BusinessDraftResponse.from(businessDraft);
+    }
+
+    /* 9. 지출결의서 상세 조회 */
+    public ExpenseReportResponse getExpenseReport(Long approvalCode) {
+
+        ExpenseReport expenseReport = expenseReportRepository.findByApprovalApprovalCodeAndApprovalDocFormLike(approvalCode, EXPENSE_REPORT)
+                .orElseThrow(() -> new NotFoundException(NOT_FOUND_APPROVAL_CODE));
+
+        return ExpenseReportResponse.from(expenseReport);
+    }
 }
