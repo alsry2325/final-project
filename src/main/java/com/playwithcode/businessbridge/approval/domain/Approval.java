@@ -37,11 +37,11 @@ public class Approval {
 
     private LocalDateTime draftDateTime;                        // 기안일시
 
-    private Long docNo;                                         // 문서 번호(문서 상태 승인 시 생성)
+    private Long docNo;                                         // 문서 번호(문서 상태 완료 시 생성)
 
     @ManyToOne
     @JoinColumn(name = "draftMember")
-    private Employee draftMember;                               // 기안자
+    private Employee draftMember;                                // 기안자
 
     @Column(nullable = false)
     @Enumerated(value = STRING)
@@ -49,7 +49,7 @@ public class Approval {
     // 대기(WAITING), 회수(COLLECT), 진행중(PROCEEDING), 반려(RETURN), 승인(ADMISSION)
 
     private LocalDateTime compltDateTime;                       // 완료일시
-    // 완료 일시는 필요 없을지도,,
+
     private LocalDateTime collectionDateTime;                   // 회수일시
 
     @CreatedDate
@@ -76,11 +76,15 @@ public class Approval {
         this.file = file;
     }
 
-
-
     public static Approval of(List<Approver> approverMember, Employee draftMember, String title, DocFormType docForm, List<File> file) {
         return new Approval(
                 approverMember, draftMember, title, docForm, file
         );
+    }
+
+    public void update(List<Approver> approvers, String title, List<File> files) {
+        this.approverMember = approvers;
+        this.title = title;
+        this.file = files;
     }
 }

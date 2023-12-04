@@ -1,6 +1,7 @@
 package com.playwithcode.businessbridge.approval.presentation;
 
 import com.playwithcode.businessbridge.approval.dto.request.BusinessDraftCreateRequest;
+import com.playwithcode.businessbridge.approval.dto.request.BusinessDraftUpdateRequest;
 import com.playwithcode.businessbridge.approval.dto.request.ExpenseReportCreateRequest;
 import com.playwithcode.businessbridge.approval.dto.response.BusinessDraftResponse;
 import com.playwithcode.businessbridge.approval.dto.response.DraftListResponse;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.Collections;
 import java.util.List;
 
@@ -226,4 +228,13 @@ public class ApprovalController {
 
     /* -------------------------------------------------- 결재 수정 -------------------------------------------------- */
 
+    /* 10. 업무기안서 수정 */
+    @PutMapping("/document/businessDraft/{approvalCode}")
+    public ResponseEntity<Void> businessdraftUpdate(@PathVariable final Long approvalCode,
+                                                    @RequestPart @Valid final BusinessDraftUpdateRequest businessDraftUpdate,
+                                                    @RequestPart(required = false) final List<MultipartFile> attachFiles){
+        approvalService.update(approvalCode, attachFiles, businessDraftUpdate);
+
+        return ResponseEntity.created(URI.create("/document/businessDraft/" + approvalCode)).build();
+    }
 }

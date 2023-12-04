@@ -44,10 +44,10 @@ public class Approver {
         this.approvalStatus  =approvalStatus;
     }
 
-
     public static Approver of(Employee approverMember, Long approvalOrder, ApprovalStatusType approvalStatus) {
         return new Approver(
                 approverMember, approvalOrder, approvalStatus
         );
     }
+
 }
