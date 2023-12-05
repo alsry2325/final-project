@@ -41,35 +41,35 @@ authRequest.interceptors.response.use(
             response : { status }
         } = error;
 
-        // if(status === 401) {
-        //     const originRequest = config;
-        //     // refresh token 전달하여 토큰 재발급 요청
-        //     const response = await postRefreshToken();
-        //
-        //     console.log("response : ", response);
-        //
-        //     if(response.status === 200) {
-        //         // 토큰 재발급에 성공했을 때
-        //         saveToken(response.headers);
-        //         // 실패했던 요청을 다시 요청
-        //         originRequest.headers['Access-Token'] = getAccessTokenHeader();
-        //         return axios(originRequest);
-        //     }
-        // }
+        if(status === 401) {
+            const originRequest = config;
+            // refresh token 전달하여 토큰 재발급 요청
+            const response = await postRefreshToken();
+
+            console.log("response : ", response);
+
+            if(response.status === 200) {
+                // 토큰 재발급에 성공했을 때
+                saveToken(response.headers);
+                // 실패했던 요청을 다시 요청
+                originRequest.headers['Access-Token'] = getAccessTokenHeader();
+                return axios(originRequest);
+            }
+        }
 
         return Promise.reject(error);
     });
 
 
-// /* refresh token 전달하여 토큰 재발급 요청하는 api */
-// export async function postRefreshToken() {
-//
-//     return await request(
-//         'POST',
-//         '/api/v1/refresh-token',
-//         { 'Refresh-Token' : getRefreshTokenHeader() }
-//     );
-// }
+/* refresh token 전달하여 토큰 재발급 요청하는 api */
+export async function postRefreshToken() {
+
+    return await request(
+        'POST',
+        '/api/v1/refresh-token',
+        { 'Refresh-Token' : getRefreshTokenHeader() }
+    );
+}
 
 
 

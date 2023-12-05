@@ -4,6 +4,7 @@ import {useState} from "react";
 import Menu from "../components/common/Menu";
 import '../css/Menu.css'
 
+
 function Layout() {
     const[clicked,isClicked] = useState(false)
     return (

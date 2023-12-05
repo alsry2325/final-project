@@ -1,6 +1,6 @@
-import { request} from "./Api";
+import {authRequest, request} from "./Api";
 import {saveToken} from "../utils/TokenUtils";
-import {loginFailure, loginSuccess} from "../modules/EmployeeModule";
+import {getMyPage, loginFailure, loginSuccess} from "../modules/EmployeeModule";
 import {toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -29,7 +29,21 @@ export const callLoginAPI = ({loginRequest}) => {
     }
 }
 
+export const callEmployeeAPI = () => {
 
+    return async (dispatch, getState) => {
+
+        try {
+            const result = await authRequest.get("/emp/employee/mypage");
+            console.log('callMemberAPI result : ', result);
+            if (result.status === 200) {
+                dispatch(getMyPage(result));
+            }
+        } catch (error) {
+            console.error('Error in callEmployeeAPI:', error);
+        }
+    }
+}
 
 
 
