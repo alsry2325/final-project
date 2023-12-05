@@ -17,9 +17,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.playwithcode.businessbridge.note.domain.type.RecipientStatus.RCVR_NORMAL;
-import static com.playwithcode.businessbridge.note.domain.type.RecipientStatus.RCVR_STORAGE;
+import static com.playwithcode.businessbridge.note.domain.type.RecipientStatus.*;
 import static com.playwithcode.businessbridge.note.domain.type.SenderStatus.SNDR_NORMAL;
+import static com.playwithcode.businessbridge.note.domain.type.SenderStatus.SNDR_TRASH;
 
 @Service
 @RequiredArgsConstructor
@@ -85,6 +85,23 @@ public class NoteService {
         return notes.map(note -> NoteResponse.from(note));
     }
 
+    /* 5. 휴지통 조회(수신자) */
+    @Transactional(readOnly = true)
+    public Page<NoteResponse> getRecipientTrash(Integer page, CustomUser customUser) {
+
+        Page<Note> notes = noteRepository.findByRecipientEmplyCodeAndRecipientStatus(getPageable(page), customUser.getEmplyCode(), RCVR_TRASH);
+
+        return notes.map(note -> NoteResponse.from(note));
+    }
+
+    /* 6. 휴지통 조회(발신자) */
+    @Transactional(readOnly = true)
+    public Page<NoteResponse> getSenderTrash(Integer page, CustomUser customUser) {
+
+        Page<Note> notes = noteRepository.findBySenderEmplyCodeAndSenderStatus(getPageable(page), customUser.getEmplyCode(), SNDR_TRASH);
+
+        return notes.map(note -> NoteResponse.from(note));
+    }
 
     /* 쪽지 삭제(DB 삭제) */
     public boolean deleteNoteBySenderAndRecipient(Long noteNo) {

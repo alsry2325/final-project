@@ -73,6 +73,32 @@ public class NoteController {
         return ResponseEntity.ok(pagingResponse);
     }
 
+    /* 5. 휴지통 조회(수신자) */
+    @GetMapping("notes/recipient/trash")
+    public ResponseEntity<PagingResponse> getRecipientTrash(
+            @RequestParam(defaultValue = "1") final Integer page,
+            @AuthenticationPrincipal CustomUser customUser
+    ) {
+        final Page<NoteResponse> notes = noteService.getRecipientTrash(page, customUser);
+        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(notes);
+        final PagingResponse pagingResponse = PagingResponse.of(notes.getContent(), pagingButtonInfo);
+
+        return ResponseEntity.ok(pagingResponse);
+    }
+
+    /* 6. 휴지통 조회(수신자) */
+    @GetMapping("notes/sender/trash")
+    public ResponseEntity<PagingResponse> getSenderTrash(
+            @RequestParam(defaultValue = "1") final Integer page,
+            @AuthenticationPrincipal CustomUser customUser
+    ) {
+        final Page<NoteResponse> notes = noteService.getSenderTrash(page, customUser);
+        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(notes);
+        final PagingResponse pagingResponse = PagingResponse.of(notes.getContent(), pagingButtonInfo);
+
+        return ResponseEntity.ok(pagingResponse);
+    }
+
 
     /* 쪽지 삭제 */
     @DeleteMapping("/notes/{noteNo}")

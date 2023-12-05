@@ -18,10 +18,9 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     Page<Note> findBySenderEmplyCodeAndSenderStatus(Pageable pageable, Long emplyCode, SenderStatus senderStatus);
 
     /* 4. 보관 쪽지함 조회(수신자) */
-
     /* 5. 휴지통 조회(수신자) */
-
     /* 6. 휴지통 조회(발신자) */
+
 
 
     /* 쪽지 삭제(DB 삭제, 수신자 삭제 = 발신자 삭제 ) */
