@@ -19,7 +19,7 @@ function FindPasswordForm() {
 
                     />
                     <div className="login-btn"
-                    >임시 비밀번호전송 dfdf</div>
+                    >임시 비밀번호전송</div>
 
                 </div>
             </div>

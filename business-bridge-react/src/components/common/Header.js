@@ -1,12 +1,20 @@
 import {Link, NavLink, useNavigate} from "react-router-dom";
 import {ImCross} from "react-icons/im";
 import {GiHamburgerMenu} from "react-icons/gi";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {isAdmin, isLogin, removeToken} from "../../utils/TokenUtils";
+import {useDispatch, useSelector} from "react-redux";
+import {callEmployeeAPI} from "../../apis/EmployeeAPICalls";
 function Header({clicked, isClicked}){
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [isMenuVisible, setMenuVisible] = useState(false);
+    const { myPageInfo } = useSelector(state => state.memberReducer);
+    useEffect(() => {
+        dispatch(callEmployeeAPI());
+    }, []);
+
     const handleClicked = () => {
         isClicked(!clicked);
         console.log("clicked")
@@ -25,6 +33,8 @@ function Header({clicked, isClicked}){
     }
 
     return (
+        <>
+            { myPageInfo &&
            <div className="Nav">
                <ul className="NavbarWrapper">
                    <li className="NavLogo">
@@ -84,7 +94,7 @@ function Header({clicked, isClicked}){
                        </NavLink>
                    </li>}
                    <li className="NavName">
-                       <p>이름사원님</p>
+                       <p>{myPageInfo.emplyName}{myPageInfo.position}님</p>
                    </li>
                    <li
                        onClick={handleClick}
@@ -120,8 +130,9 @@ function Header({clicked, isClicked}){
                ) : (
                    <ImCross onClick={handleClicked} className="Icon" />
                )}
-               { isLogin() }
            </div>
+            }
+        </>
        );
 
 }

@@ -1,6 +1,15 @@
 import {NavLink} from "react-router-dom";
 import {isAdmin} from "../../utils/TokenUtils";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {callEmployeeAPI} from "../../apis/EmployeeAPICalls";
 function Menu() {
+
+    const dispatch = useDispatch();
+    const { myPageInfo } = useSelector(state => state.memberReducer);
+    useEffect(() => {
+        dispatch(callEmployeeAPI());
+    }, []);
 
     return (
         <>
@@ -12,7 +21,7 @@ function Menu() {
                         </NavLink>
                     </li>
                     <li className="NavbarElement">
-                        <strong>정민교사원님</strong>
+                        <strong>{myPageInfo.emplyName}{myPageInfo.position}</strong>
                     </li>
                     <li className="NavbarElement">
                         <NavLink className="link" to="/">
