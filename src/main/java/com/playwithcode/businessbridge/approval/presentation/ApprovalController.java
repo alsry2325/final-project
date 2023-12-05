@@ -230,7 +230,7 @@ public class ApprovalController {
     /* -------------------------------------------------- 결재 수정 -------------------------------------------------- */
 
     /* 10. 업무기안서 수정 */
-    @PutMapping("/document/businessDraft/{approvalCode}")
+    @PutMapping("/update/businessDraft/{approvalCode}")
     public ResponseEntity<Void> businessdraftUpdate(@PathVariable final Long approvalCode,
                                                     @RequestPart @Valid final BusinessDraftUpdateRequest businessDraftUpdate,
                                                     @RequestPart(required = false) final List<MultipartFile> attachFiles){
@@ -240,7 +240,7 @@ public class ApprovalController {
     }
 
     /* 11. 지출결의서 수정 */
-    @PutMapping("document/expenseReport/{approvalCode}")
+    @PutMapping("/update/expenseReport/{approvalCode}")
     public ResponseEntity<Void> expenseReportUpdate(@PathVariable final Long approvalCode,
                                                     @RequestPart @Valid final ExpenseReportUpdateRequest expenseReportUpdate,
                                                     @RequestPart(required = false) final List<MultipartFile> attachFiles){
@@ -248,4 +248,19 @@ public class ApprovalController {
 
         return ResponseEntity.created(URI.create("/document/expenseReport/" + approvalCode)).build();
     }
+
+    /* -------------------------------------------------- 문서 회수  -------------------------------------------------- */
+
+    /* 12. 문서 회수 */
+//    @PatchMapping("/collect/{approvalCode}")
+//    public ResponseEntity<Void> collectApproval(@PathVariable final Long approvalCode){
+//
+//        approvalService.collectApproval(approvalCode);
+//
+//        return
+//    }
+
+    /* -------------------------------------------------- 결재자  -------------------------------------------------- */
+
+    /* 13. 결재자 결재 - 승인(결재), 반려, 보류 */
 }

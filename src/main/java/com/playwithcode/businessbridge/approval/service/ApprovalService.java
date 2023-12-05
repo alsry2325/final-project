@@ -105,6 +105,7 @@ public class ApprovalService {
         // 전자결재 엔터티 추가
         Approval newApproval = Approval.of(
                 approverMember,
+                businessDraftRequest.getDocStatus(),
                 draftMember,
                 businessDraftRequest.getTitle(),
                 BUSINESS_DRAFT,
@@ -154,6 +155,7 @@ public class ApprovalService {
         // 전자결재 엔터티 추가
         Approval newApproval = Approval.of(
                 approverMember,
+                expenseReportRequest.getDocStatus(),
                 draftMember,
                 expenseReportRequest.getTitle(),
                 DocFormType.EXPENSE_REPORT,
@@ -345,7 +347,7 @@ public class ApprovalService {
         businessDraft.getApproval().update(
                 approverMember,
                 businessDraftUpdate.getTitle(),
-//                businessDraftUpdate.getDocStatus(),
+                businessDraftUpdate.getDocStatus(),
                 files
         );
 
@@ -402,7 +404,7 @@ public class ApprovalService {
         expenseReport.getApproval().update(
                 approverMember,
                 expenseReportUpdate.getTitle(),
-//                expenseReportUpdate.getDocStatus(),
+                expenseReportUpdate.getDocStatus(),
                 files
         );
 
@@ -422,4 +424,16 @@ public class ApprovalService {
         // 지출결의서
         expenseReport.update(expenseReportUpdate.getTotalExpenditure());
     }
+
+    /* -------------------------------------------------- 문서 회수  -------------------------------------------------- */
+
+    /* 12. 문서 회수 */
+//    public void collectApproval(Long approvalCode) {
+//        // 해당 결재를 조회
+//        approvalRepository.findByApprovalCode(approvalCode);
+//        // 상태 업데이트, 문서의 상태가 대기일 때만 회수로 업데이트
+//
+//
+//
+//    }
 }

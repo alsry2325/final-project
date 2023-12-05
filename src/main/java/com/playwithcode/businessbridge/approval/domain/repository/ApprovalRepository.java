@@ -70,5 +70,6 @@ public interface ApprovalRepository extends JpaRepository<Approval, Long> {
             "AND a.docStatus IN :docStatusType")
     Page<Approval> findByApproverMember(Pageable pageable, Long emplyCode, DocStatusType docStatusType);
 
-
+    /* 12. 문서 회수 */
+    void findByApprovalCode(Long approvalCode);
 }

@@ -1,5 +1,6 @@
 package com.playwithcode.businessbridge.approval.dto.request;
 
+import com.playwithcode.businessbridge.approval.domain.type.DocStatusType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -20,4 +21,7 @@ public class ExpenseReportCreateRequest {
     private final Long totalExpenditure;        // 총지출금액
 
     private final List<ExpenseReportDetailCreateRequest> expenseReportDetailCreateRequests; // 지출결의서 상세
+
+    private final DocStatusType docStatus;          // 문서상태(임시저장, 등록)
+
 }

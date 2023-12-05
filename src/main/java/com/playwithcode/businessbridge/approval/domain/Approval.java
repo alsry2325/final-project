@@ -45,8 +45,9 @@ public class Approval {
 
     @Column(nullable = false)
     @Enumerated(value = STRING)
-    private DocStatusType docStatus = DocStatusType.WAITING;       // 문서 상태
-    // 대기(WAITING), 회수(COLLECT), 진행중(PROCEEDING), 반려(RETURN), 승인(ADMISSION)
+    private DocStatusType docStatus;                            // 문서 상태
+    // TEMP_STORAGE(임시저장),WAITING(대기),PROCEEDING(진행중),RETURN(반려),COMPLETE(완료)
+    // COLLECT(회수),
 
     private LocalDateTime compltDateTime;                       // 완료일시
 
@@ -68,24 +69,29 @@ public class Approval {
     private List<File> file;                                    // 첨부파일
 
 
-    public Approval(List<Approver> approverMember, Employee draftMember, String title, DocFormType docForm, List<File> file) {
+    public Approval(List<Approver> approverMember,DocStatusType docStatus, Employee draftMember, String title, DocFormType docForm, List<File> file) {
         this.approverMember = approverMember;
+        this.docStatus = docStatus;
         this.draftMember = draftMember;
         this.title = title;
         this.docForm = docForm;
         this.file = file;
     }
 
-    public static Approval of(List<Approver> approverMember, Employee draftMember, String title, DocFormType docForm, List<File> file) {
+    public static Approval of(List<Approver> approverMember,DocStatusType docStatus, Employee draftMember, String title, DocFormType docForm, List<File> file) {
         return new Approval(
-                approverMember, draftMember, title, docForm, file
+                approverMember, docStatus, draftMember, title, docForm, file
         );
     }
 
-    public void update(List<Approver> approvers, String title, List<File> files) {
+    public void update(List<Approver> approvers, String title, DocStatusType docStatus, List<File> files) {
         this.approverMember = approvers;
         this.title = title;
-//        this.docStatus = docStatus;
+        this.docStatus = docStatus;
         this.file = files;
+    }
+
+    public void docStatusUpdate(DocStatusType docStatus){
+        this.docStatus = docStatus;
     }
 }
