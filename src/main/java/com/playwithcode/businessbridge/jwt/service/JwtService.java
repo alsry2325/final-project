@@ -3,7 +3,7 @@ package com.playwithcode.businessbridge.jwt.service;
 import com.playwithcode.businessbridge.common.exception.NotFoundException;
 import com.playwithcode.businessbridge.jwt.CustomUser;
 import com.playwithcode.businessbridge.member.domain.Employee;
-import com.playwithcode.businessbridge.member.domain.repository.EmployeeRepositroy;
+import com.playwithcode.businessbridge.member.domain.repository.EmployeeRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -40,14 +40,14 @@ public class JwtService {
     @Value("${jwt.refresh.expiration}")
     private Long refreshTokenExpirationPeriod;
     private final Key key;
-    private final EmployeeRepositroy employeeRepositroy;
+    private final EmployeeRepository employeeRepositroy;
 
     private static final String ACCESS_TOKEN_SUBJECT = "AccessToken";
     private static final String REFRESH_TOKEN_SUBJECT = "RefreshToken";
     //토큰 구별을 하기위해
     private static final String BEARER = "Bearer ";
 
-    public JwtService(@Value("${jwt.secret}") String secretKey, EmployeeRepositroy employeeRepositroy) {
+    public JwtService(@Value("${jwt.secret}") String secretKey, EmployeeRepository employeeRepositroy) {
          //.yml쪽 비밀키를 읽어와  BASE64로 인코딩 된 문자열
         byte[] keyBytes = Decoders.BASE64.decode(secretKey); //바이트 배열로 만듬
         this.key = Keys.hmacShaKeyFor(keyBytes);       //인증키를 만들어줌

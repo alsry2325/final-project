@@ -28,6 +28,9 @@ public enum ExceptionCode {
     NOT_FOUND_DEPARTMENT_CODE(5002, "부서 코드에 해당하는 부서가 존재하지 않습니다."),
     NOT_FOUND_POSITION_CODE(5003, "직급 코드에 해당하는 직급이 존재하지 않습니다."),
 
+    /* 쪽지 예외처리 */
+    NOT_FOUND_NOTE_NO(6001, "쪽지를 찾을 수 없습니다."),
+
     /* 전자결재 파트 예외처리 */
     NOT_FOUND_APPROVAL_CODE(7001, "전자결재 코드에 해당하는 결재가 존재하지 않습니다.");
 
