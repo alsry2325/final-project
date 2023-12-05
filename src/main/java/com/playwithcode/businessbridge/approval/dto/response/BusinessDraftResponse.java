@@ -23,7 +23,7 @@ public class BusinessDraftResponse {
     private final String drafterName;                       // 기안자 이름
     private final String departmentName;                    // 기안자 부서
     private final LocalDateTime draftDateTime;              // 기안 일시
-    private final Long DocNo;                               // 문서 번호
+    private final int DocNo;                                // 문서 번호
     private final String businessDraftContent;              // 내용
     private final List<String> attachFile;                  // 첨부파일
     private final List<String> approverImg;                 // 결재자 프로필 이미지

@@ -19,7 +19,7 @@ public class ReceiveListResponse {
     private final String emplyName;                     // 기안자 이름
     private final String title;                         // 제목
     private final Integer fileCount;                    // 첨부파일
-    private final Long DocNo;                           // 문서 번호
+    private final int DocNo;                            // 문서 번호
     private final LocalDateTime draftDateTime;          // 기안 일시
     private final LocalDateTime approvalDateTime;       // 결재 일시
 

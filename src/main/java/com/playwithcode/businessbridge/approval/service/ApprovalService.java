@@ -2,7 +2,6 @@ package com.playwithcode.businessbridge.approval.service;
 
 import com.playwithcode.businessbridge.approval.domain.*;
 import com.playwithcode.businessbridge.approval.domain.repository.*;
-import com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType;
 import com.playwithcode.businessbridge.approval.domain.type.DocFormType;
 import com.playwithcode.businessbridge.approval.domain.type.DocStatusType;
 import com.playwithcode.businessbridge.approval.dto.request.*;
@@ -14,7 +13,7 @@ import com.playwithcode.businessbridge.common.exception.NotFoundException;
 import com.playwithcode.businessbridge.common.util.FileUploadUtils;
 import com.playwithcode.businessbridge.jwt.CustomUser;
 import com.playwithcode.businessbridge.member.domain.Employee;
-import com.playwithcode.businessbridge.member.domain.repository.EmployeeRepositroy;
+import com.playwithcode.businessbridge.member.domain.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,22 +21,22 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType.*;
 import static com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType.WAITING;
 import static com.playwithcode.businessbridge.approval.domain.type.DocFormType.BUSINESS_DRAFT;
 import static com.playwithcode.businessbridge.approval.domain.type.DocFormType.EXPENSE_REPORT;
 import static com.playwithcode.businessbridge.approval.domain.type.DocStatusType.*;
-import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.NOT_FOUND_APPROVAL_CODE;
+import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.*;
 
 @Slf4j
 @Service
@@ -50,7 +49,7 @@ public class ApprovalService {
     private final BusinessDraftRepository businessDraftRepository;
     private final ExpenseReportRepository expenseReportRepository;
     private final ExpenseReportDetailRepository expenseReportDetailRepository;
-    private final EmployeeRepositroy employeeRepositroy;
+    private final EmployeeRepository employeeRepository;
     private final FileRepository fileRepository;
 
     @Value("http://localhost/approvalFiles/")
@@ -77,7 +76,7 @@ public class ApprovalService {
         List<Approver> approverMember = new ArrayList<>();
         for(int i = 0; i < businessDraftRequest.getApprover().size(); i++) {
 
-            Employee approver = employeeRepositroy.getReferenceById(businessDraftRequest.getApprover().get(i));
+            Employee approver = employeeRepository.getReferenceById(businessDraftRequest.getApprover().get(i));
 
             if(i == 0) {
                 approverMember.add(Approver.of(approver, i+1L, ACTIVATE));
@@ -100,7 +99,7 @@ public class ApprovalService {
             ));
         }
 
-        Employee draftMember = employeeRepositroy.getReferenceById(customUser.getEmplyCode());
+        Employee draftMember = employeeRepository.getReferenceById(customUser.getEmplyCode());
 
         // 전자결재 엔터티 추가
         Approval newApproval = Approval.of(
@@ -128,7 +127,7 @@ public class ApprovalService {
         List<Approver> approverMember = new ArrayList<>();
         for (int i = 0; i < expenseReportRequest.getApproverMember().size(); i++) {
 
-            Employee approver = employeeRepositroy.getReferenceById(expenseReportRequest.getApproverMember().get(i));
+            Employee approver = employeeRepository.getReferenceById(expenseReportRequest.getApproverMember().get(i));
 
             if (i == 0) {
                 approverMember.add(Approver.of(approver, i + 1L, ACTIVATE));
@@ -150,7 +149,7 @@ public class ApprovalService {
             ));
         }
 
-        Employee draftMember = employeeRepositroy.getReferenceById(customUser.getEmplyCode());
+        Employee draftMember = employeeRepository.getReferenceById(customUser.getEmplyCode());
 
         // 전자결재 엔터티 추가
         Approval newApproval = Approval.of(
@@ -334,7 +333,7 @@ public class ApprovalService {
         // 결재자 엔터티 추가
         for(int i = 0; i < businessDraftUpdate.getApprovers().size(); i++) {
 
-            Employee approver = employeeRepositroy.getReferenceById(businessDraftUpdate.getApprovers().get(i));
+            Employee approver = employeeRepository.getReferenceById(businessDraftUpdate.getApprovers().get(i));
 
             if(i == 0) {
                 approverMember.add(Approver.of(approver, i+1L, ACTIVATE));
@@ -391,7 +390,7 @@ public class ApprovalService {
         // 결재자 엔터티 추가
         for(int i = 0; i < expenseReportUpdate.getApprovers().size(); i++) {
 
-            Employee approver = employeeRepositroy.getReferenceById(expenseReportUpdate.getApprovers().get(i));
+            Employee approver = employeeRepository.getReferenceById(expenseReportUpdate.getApprovers().get(i));
 
             if(i == 0) {
                 approverMember.add(Approver.of(approver, i+1L, ACTIVATE));
@@ -428,12 +427,68 @@ public class ApprovalService {
     /* -------------------------------------------------- 문서 회수  -------------------------------------------------- */
 
     /* 12. 문서 회수 */
-//    public void collectApproval(Long approvalCode) {
-//        // 해당 결재를 조회
-//        approvalRepository.findByApprovalCode(approvalCode);
-//        // 상태 업데이트, 문서의 상태가 대기일 때만 회수로 업데이트
+    public void collectApproval(Long approvalCode, CustomUser customUser) {
+        // 해당 결재를 조회
+        Approval approval = approvalRepository.findByApprovalCodeAndDraftMemberEmplyCode(approvalCode, customUser.getEmplyCode())
+                .orElseThrow(() -> new NotFoundException(NOT_FOUND_MY_APPROVAL));
+
+        if(approval.getDocStatus().equals(DocStatusType.WAITING)){
+            approval.collect(
+                    COLLECT,
+                    LocalDateTime.now()
+            );
+        } else{
+            new NotFoundException(NOT_FOUND_COLLECT_DOCUMENT);
+        }
+    }
+
+    /* -------------------------------------------------- 결재자  -------------------------------------------------- */
+
+    /* 13. 결재자 결재 - 승인 */
+    public void confirmApproval(Long approvalCode, Long approverCode, CustomUser customUser, ApprovalRequest approvalRequest) {
+
+        Approval approval = approvalRepository.findById(approvalCode)
+                .orElseThrow(() -> new NotFoundException(ALREADY_CONFIRM_DOC));
+
+//        approval.getApproverMember().forEach(approver -> {
+//            approver.getApproverMember().
+//        });
+
+
+        int currentYear = LocalDateTime.now().getYear();
+        int startNo = 1;
+        String docNoFormat = String.format("05d",startNo);
+        int currentDocNo = Integer.parseInt(currentYear + docNoFormat);
+
+        if(customUser.getEmplyCode().equals(approval.getApproverMember().get(0))){
+            // 로그인 한 결재자가 첫번째 결재자인 경우
+        }
+
+//        for (int i = 0; i < approval.getApproverMember().size(); i++) {
 //
+//            if(i == 0){
+//                approval.approve(PROCEEDING);
 //
-//
-//    }
+//            } else if (i == approval.getApproverMember().size() - 1) {
+//                approval.done(
+//                        COMPLETE,
+//                        LocalDateTime.now(),
+//                        currentDocNo
+//                );
+//                startNo++;
+//            } else{
+//                // 두번째 결재자인 경우
+//            }
+//        }
+
+        // 전자결재
+        // 마지막 결재자 일 때 docNo, 완료일시 생성
+        // 첫번째 결재자 일 때 결재 docStatus WAITING -> PROCEEDING o
+
+        // 결재자 변경
+        // 활성화 된 결재자의 approvalStatus ACTIVATE -> APPROVAL 혹은 RETURN(화면에서 받아지는 대로)
+        // 결재자 approvalDateTime, approvalOpinion 생성
+        // 다음 결재자 approvalStatus(WAITING -> ACTIVATE) 마지막 결재자일 때는 X
+
+    }
 }

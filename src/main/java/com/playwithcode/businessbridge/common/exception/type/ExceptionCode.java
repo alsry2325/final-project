@@ -29,7 +29,10 @@ public enum ExceptionCode {
     NOT_FOUND_POSITION_CODE(5003, "직급 코드에 해당하는 직급이 존재하지 않습니다."),
 
     /* 전자결재 파트 예외처리 */
-    NOT_FOUND_APPROVAL_CODE(7001, "전자결재 코드에 해당하는 결재가 존재하지 않습니다.");
+    NOT_FOUND_APPROVAL_CODE(7001, "전자결재 코드에 해당하는 결재가 존재하지 않습니다."),
+    NOT_FOUND_MY_APPROVAL(7002, "기안한 문서가 존재하지 않습니다."),
+    NOT_FOUND_COLLECT_DOCUMENT(7003, "회수할 문서가 존재하지 않습니다."),
+    ALREADY_CONFIRM_DOC(7004, "이미 결재한 문서입니다.");
 
     private final int code;
     private final String message;

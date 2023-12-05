@@ -1,9 +1,6 @@
 package com.playwithcode.businessbridge.approval.presentation;
 
-import com.playwithcode.businessbridge.approval.dto.request.BusinessDraftCreateRequest;
-import com.playwithcode.businessbridge.approval.dto.request.BusinessDraftUpdateRequest;
-import com.playwithcode.businessbridge.approval.dto.request.ExpenseReportCreateRequest;
-import com.playwithcode.businessbridge.approval.dto.request.ExpenseReportUpdateRequest;
+import com.playwithcode.businessbridge.approval.dto.request.*;
 import com.playwithcode.businessbridge.approval.dto.response.BusinessDraftResponse;
 import com.playwithcode.businessbridge.approval.dto.response.DraftListResponse;
 import com.playwithcode.businessbridge.approval.dto.response.ExpenseReportResponse;
@@ -251,16 +248,27 @@ public class ApprovalController {
 
     /* -------------------------------------------------- 문서 회수  -------------------------------------------------- */
 
-    /* 12. 문서 회수 */
-//    @PatchMapping("/collect/{approvalCode}")
-//    public ResponseEntity<Void> collectApproval(@PathVariable final Long approvalCode){
-//
-//        approvalService.collectApproval(approvalCode);
-//
-//        return
-//    }
+    /* 12. 기안 문서 회수 */
+    @PatchMapping("/collect/{approvalCode}")
+    public ResponseEntity<Void> collectApproval(@PathVariable final Long approvalCode,
+                                                @AuthenticationPrincipal CustomUser customUser){
+
+        approvalService.collectApproval(approvalCode, customUser);
+
+        return ResponseEntity.created(URI.create("/document/" + approvalCode)).build();
+    }
 
     /* -------------------------------------------------- 결재자  -------------------------------------------------- */
 
-    /* 13. 결재자 결재 - 승인(결재), 반려, 보류 */
+    /* 13. 결재자 결재 - 승인 */
+    @PatchMapping("/confirm/{approvalCode}")
+    public ResponseEntity<Void> confirmApproval(@PathVariable final Long approvalCode,
+                                                @AuthenticationPrincipal CustomUser customUser,
+                                                @RequestBody ApprovalRequest approvalRequest){
+
+//        approvalService.confirmApproval(approvalCode, customUser, approvalRequest);
+
+        return null;
+    }
+
 }

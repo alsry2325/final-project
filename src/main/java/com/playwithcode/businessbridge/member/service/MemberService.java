@@ -1,9 +1,8 @@
 package com.playwithcode.businessbridge.member.service;
 
 import com.playwithcode.businessbridge.common.exception.BadRequestException;
-import com.playwithcode.businessbridge.common.exception.type.ExceptionCode;
 import com.playwithcode.businessbridge.member.domain.Employee;
-import com.playwithcode.businessbridge.member.domain.repository.EmployeeRepositroy;
+import com.playwithcode.businessbridge.member.domain.repository.EmployeeRepository;
 import com.playwithcode.businessbridge.member.dto.response.MypageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,12 +15,12 @@ import static com.playwithcode.businessbridge.common.exception.type.ExceptionCod
 @Transactional
 public class MemberService {
 
-    private final EmployeeRepositroy employeeRepositroy;
+    private final EmployeeRepository employeeRepository;
 
    @Transactional(readOnly = true)
     public MypageResponse getMyPage(String emplyId) {
 
-            final Employee employee = employeeRepositroy.findByEmplyId(emplyId)
+            final Employee employee = employeeRepository.findByEmplyId(emplyId)
                     .orElseThrow(()->new BadRequestException(NOT_FOUND_MEMBER_ID));
 
             return  MypageResponse.from(employee);

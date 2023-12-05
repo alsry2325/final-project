@@ -50,4 +50,12 @@ public class Approver {
         );
     }
 
+    public void approval(
+            ApprovalStatusType approvalStatus, LocalDateTime approvalDateTime,
+            String approvalOpinion, Long approvalOrder){
+        this.approvalStatus = approvalStatus;
+        this.approvalDateTime = approvalDateTime;
+        this.approvalOpinion = approvalOpinion;
+        this.approvalOrder = approvalOrder;
+    }
 }
