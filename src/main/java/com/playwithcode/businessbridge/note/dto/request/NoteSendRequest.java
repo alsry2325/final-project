@@ -1,4 +1,4 @@
-package com.playwithcode.businessbridge.note.dto;
+package com.playwithcode.businessbridge.note.dto.request;
 
 import com.playwithcode.businessbridge.note.domain.Note;
 import lombok.AllArgsConstructor;
