@@ -7,12 +7,12 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum DocStatusType {
     // 결재 문서 상태 타입
 
-    COLLECT("collect"),
-    TEMP_STORAGE("tempStorage"),
-    WAITING("waiting"),
-    PROCEEDING("proceeding"),
-    RETURN("return"),
-    ADMISSION("admission");
+    COLLECT("회수"),
+    TEMP_STORAGE("임시저장"),
+    WAITING("대기"),
+    PROCEEDING("진행중"),
+    RETURN("반려"),
+    COMPLETE("완료");
 
     private final String value;
 

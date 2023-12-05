@@ -17,6 +17,4 @@ public class BusinessDraftCreateRequest {
     private final String title;                     // 제목
     @NotEmpty
     private final List<Long> approverMember;        // 결재자들
-
-
 }

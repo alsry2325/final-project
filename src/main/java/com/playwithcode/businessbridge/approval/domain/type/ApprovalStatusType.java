@@ -6,10 +6,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum ApprovalStatusType {
     // 결재자의 결재 상태 타입
 
-    WAITING("waiting"),     // 대기
-    ACTIVATE("activate"),   // 활성화
-    COMPLETE("complete"),   // 완료
-    RETURN("return");       // 반려
+    WAITING("대기"),
+    ACTIVATE("활성화"),
+    PENDING("보류"),
+    APPROVAL("승인"),
+    RETURN("반려");
 
     private final String value;
 

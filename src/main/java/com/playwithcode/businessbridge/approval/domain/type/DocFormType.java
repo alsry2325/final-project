@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum DocFormType {
 
-    BUSINESS_DRAFT("businessDraft"),
-    EXPENSE_REPORT("expenseReport");
+    BUSINESS_DRAFT("업무기안서"),
+    EXPENSE_REPORT("지출결의서");
 
     private final String value;
 
