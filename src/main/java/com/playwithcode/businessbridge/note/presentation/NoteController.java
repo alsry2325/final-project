@@ -60,6 +60,20 @@ public class NoteController {
         return ResponseEntity.ok(pagingResponse);
     }
 
+    /* 4. 보관 쪽지함 조회(수신자) */
+    @GetMapping("notes/recipient/storage")
+    public ResponseEntity<PagingResponse> getRecipientStorage(
+            @RequestParam(defaultValue = "1") final Integer page,
+            @AuthenticationPrincipal CustomUser customUser
+    ) {
+        final Page<NoteResponse> notes = noteService.getRecipientStorage(page, customUser);
+        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(notes);
+        final PagingResponse pagingResponse = PagingResponse.of(notes.getContent(), pagingButtonInfo);
+
+        return ResponseEntity.ok(pagingResponse);
+    }
+
+
     /* 쪽지 삭제 */
     @DeleteMapping("/notes/{noteNo}")
     public ResponseEntity<Void> deleteNoteBySenderAndRecipient(@PathVariable Long noteNo) {

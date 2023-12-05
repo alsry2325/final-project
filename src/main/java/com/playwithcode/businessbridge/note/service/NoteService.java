@@ -17,6 +17,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.playwithcode.businessbridge.note.domain.type.RecipientStatus.RCVR_NORMAL;
+import static com.playwithcode.businessbridge.note.domain.type.RecipientStatus.RCVR_STORAGE;
+import static com.playwithcode.businessbridge.note.domain.type.SenderStatus.SNDR_NORMAL;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -54,20 +58,29 @@ public class NoteService {
         return note;
     }
 
-    /* 2. 받은 쪽지함 조회(로그인 = 수신자) */
+    /* 2. 받은 쪽지함 조회(로그인 = 수신자, 일반 상태) */
     @Transactional(readOnly = true)
     public Page<NoteResponse> getRecipientNote(Integer page, CustomUser customUser) {
 
-        Page<Note> notes = noteRepository.findByRecipientEmplyCode(getPageable(page), customUser.getEmplyCode());
+        Page<Note> notes = noteRepository.findByRecipientEmplyCodeAndRecipientStatus(getPageable(page), customUser.getEmplyCode(), RCVR_NORMAL);
 
         return notes.map(note -> NoteResponse.from(note));
     }
 
-    /* 3. 보낸 쪽지함 조회(로그인 = 발신자) */
+    /* 3. 보낸 쪽지함 조회(로그인 = 발신자, 일반 상태) */
     @Transactional(readOnly = true)
     public Page<NoteResponse> getSenderNote(Integer page, CustomUser customUser) {
 
-        Page<Note> notes = noteRepository.findBySenderEmplyCode(getPageable(page), customUser.getEmplyCode());
+        Page<Note> notes = noteRepository.findBySenderEmplyCodeAndSenderStatus(getPageable(page), customUser.getEmplyCode(), SNDR_NORMAL);
+
+        return notes.map(note -> NoteResponse.from(note));
+    }
+
+    /* 4. 보관 쪽지함 조회(수신자) */
+    @Transactional(readOnly = true)
+    public Page<NoteResponse> getRecipientStorage(Integer page, CustomUser customUser) {
+
+        Page<Note> notes = noteRepository.findByRecipientEmplyCodeAndRecipientStatus(getPageable(page), customUser.getEmplyCode(), RCVR_STORAGE);
 
         return notes.map(note -> NoteResponse.from(note));
     }

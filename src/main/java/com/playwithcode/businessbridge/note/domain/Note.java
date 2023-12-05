@@ -34,9 +34,6 @@ public class Note {
     @JoinColumn(name = "sender", referencedColumnName = "emplyCode")
     private Employee sender;
 
-//    @Column
-//    private Long sender;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipient", referencedColumnName = "emplyCode")
     private Employee recipient;
