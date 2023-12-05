@@ -13,7 +13,7 @@ public class NoteResponseWithEmplyName {
 
     private final Long noteCode;
     private final Long recipient;
-    private final String senderName;
+    private final String emplyName;
     private final String noteTitle;
     private final String noteContent;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

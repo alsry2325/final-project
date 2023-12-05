@@ -7,6 +7,7 @@ import com.playwithcode.businessbridge.common.paging.PagingResponse;
 import com.playwithcode.businessbridge.jwt.CustomUser;
 import com.playwithcode.businessbridge.note.dto.request.NoteSendRequest;
 import com.playwithcode.businessbridge.note.dto.response.NoteResponse;
+import com.playwithcode.businessbridge.note.dto.response.NoteResponseWithEmplyName;
 import com.playwithcode.businessbridge.note.service.NoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -93,6 +94,18 @@ public class NoteController {
             @AuthenticationPrincipal CustomUser customUser
     ) {
         final Page<NoteResponse> notes = noteService.getSenderTrash(page, customUser);
+        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(notes);
+        final PagingResponse pagingResponse = PagingResponse.of(notes.getContent(), pagingButtonInfo);
+
+        return ResponseEntity.ok(pagingResponse);
+    }
+
+    /* 7. 발신자명 기준 검색 */
+    @GetMapping("/notes/search")
+    public ResponseEntity<PagingResponse> getSenderName(
+            @RequestParam(defaultValue = "1") final Integer page, @RequestParam final String emplyName) {
+
+        final Page<NoteResponseWithEmplyName> notes = noteService.getSenderName(page, emplyName);
         final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(notes);
         final PagingResponse pagingResponse = PagingResponse.of(notes.getContent(), pagingButtonInfo);
 

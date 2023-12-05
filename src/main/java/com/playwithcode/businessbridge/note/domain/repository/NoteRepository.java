@@ -29,10 +29,7 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     /*받은 쪽지함 검색 -----------------------------------------------------------------------*/
 
     /* 7. 발신자명 기준 검색 */
-    @Query("SELECT n.sender.emplyCode FROM Note n WHERE n.sender.emplyName = :emplyName")
-    Page<Long> findEmplyCodesByEmplyName(@Param("emplyName") String emplyName, Pageable pageable);
-
-
+   Page<Note> findBySenderEmplyName(Pageable pageable, String emplyName);
     /*보낸 쪽지함 검색 -----------------------------------------------------------------------*/
 
     /* 쪽지 삭제(DB 삭제, 수신자 삭제 = 발신자 삭제 ) */

@@ -9,6 +9,7 @@ import com.playwithcode.businessbridge.note.domain.type.RecipientStatus;
 import com.playwithcode.businessbridge.note.domain.type.SenderStatus;
 import com.playwithcode.businessbridge.note.dto.request.NoteSendRequest;
 import com.playwithcode.businessbridge.note.dto.response.NoteResponse;
+import com.playwithcode.businessbridge.note.dto.response.NoteResponseWithEmplyName;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -107,6 +108,13 @@ public class NoteService {
     /*받은 쪽지함 검색 -----------------------------------------------------------------------*/
 
     /* 7. 발신자명 기준 검색 */
+    @Transactional(readOnly = true)
+    public Page<NoteResponseWithEmplyName> getSenderName(final Integer page, final String emplyName) {
+
+        Page<Note> notes = noteRepository.findBySenderEmplyName(getPageable(page), emplyName);
+
+        return notes.map(note -> NoteResponseWithEmplyName.from(note));
+    }
 
     /* 쪽지 삭제(DB 삭제) */
     public boolean deleteNoteBySenderAndRecipient(Long noteNo) {
