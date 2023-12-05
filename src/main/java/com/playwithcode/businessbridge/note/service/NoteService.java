@@ -107,8 +107,8 @@ public class NoteService {
     public boolean deleteNoteBySenderAndRecipient(Long noteNo) {
         Note note = noteRepository.findById(noteNo).orElse(null);
 
-        if (note != null && note.getSenderStatus() == SenderStatus.SNDR_DELETE &&
-                note.getRecipientStatus() == RecipientStatus.RCVR_DELETE) {
+        if (note != null && note.getSenderStatus() == SNDR_TRASH &&
+                note.getRecipientStatus() == RCVR_TRASH) {
             deleteNoteFromDB(note);
             return true;
         }

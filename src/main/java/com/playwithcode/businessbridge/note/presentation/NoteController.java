@@ -101,6 +101,11 @@ public class NoteController {
 
 
     /* 쪽지 삭제 */
+    /* TODO : 휴지통에서도 삭제를 눌렀을 때
+    *  1. 내 화면에서는 쪽지가 삭제된다.
+    *  2. 수신자 상태와 발신자 상태를 모두 비교한다.
+    *  3. 비교된 상태가 전부 TRASH라면 DB에서 삭제한다. */
+
     @DeleteMapping("/notes/{noteNo}")
     public ResponseEntity<Void> deleteNoteBySenderAndRecipient(@PathVariable Long noteNo) {
         boolean isDeleted = noteService.deleteNoteBySenderAndRecipient(noteNo);
