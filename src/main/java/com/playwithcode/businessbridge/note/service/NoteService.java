@@ -41,10 +41,10 @@ public class NoteService {
         note.setNoteTitle(noteSendRequest.getNoteTitle());
         note.setNoteContent(noteSendRequest.getNoteContent());
 
-        Long sender = customUser.getEmplyCode();
+        Employee sender = employeeRepository.getReferenceById(customUser.getEmplyCode());
         note.setSender(sender);
 
-        Employee recipient = employeeRepository.findById(noteSendRequest.getRecipient()).orElse(null);
+        Employee recipient = employeeRepository.getReferenceById(noteSendRequest.getRecipient());
         note.setRecipient(recipient);
 
         note.setSentAt(noteSendRequest.getSentAt());

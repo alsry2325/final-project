@@ -25,7 +25,7 @@ public class NoteResponse {
         return new NoteResponse(
                 note.getNoteNo(),
                 note.getRecipient().getEmplyCode(),
-                note.getSender(),
+                note.getSender().getEmplyCode(),
                 note.getNoteTitle(),
                 note.getNoteContent(),
                 note.getSentAt(),
