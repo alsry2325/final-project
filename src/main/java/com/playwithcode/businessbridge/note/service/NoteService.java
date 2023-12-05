@@ -103,6 +103,11 @@ public class NoteService {
         return notes.map(note -> NoteResponse.from(note));
     }
 
+
+    /*받은 쪽지함 검색 -----------------------------------------------------------------------*/
+
+    /* 7. 발신자명 기준 검색 */
+
     /* 쪽지 삭제(DB 삭제) */
     public boolean deleteNoteBySenderAndRecipient(Long noteNo) {
         Note note = noteRepository.findById(noteNo).orElse(null);
