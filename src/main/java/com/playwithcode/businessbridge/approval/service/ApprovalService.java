@@ -444,7 +444,7 @@ public class ApprovalService {
 
     /* -------------------------------------------------- 결재자  -------------------------------------------------- */
 
-    /* 13. 결재자 결재 - 승인 */
+    /* 13. 결재자 결재 - 승인, 반려? */
     public void confirmApproval(Long approvalCode, Long approverCode, CustomUser customUser, ApprovalRequest approvalRequest) {
 
         Approval approval = approvalRepository.findById(approvalCode)
@@ -462,6 +462,7 @@ public class ApprovalService {
 
         if(customUser.getEmplyCode().equals(approval.getApproverMember().get(0))){
             // 로그인 한 결재자가 첫번째 결재자인 경우
+            approval.approve(PROCEEDING);       // 문서 상태 진행중으로 업데이트
         }
 
 //        for (int i = 0; i < approval.getApproverMember().size(); i++) {
@@ -489,6 +490,17 @@ public class ApprovalService {
         // 활성화 된 결재자의 approvalStatus ACTIVATE -> APPROVAL 혹은 RETURN(화면에서 받아지는 대로)
         // 결재자 approvalDateTime, approvalOpinion 생성
         // 다음 결재자 approvalStatus(WAITING -> ACTIVATE) 마지막 결재자일 때는 X
+    }
+
+    /* 14. 결재자 결재 - 보류 */
+    public void pendingApproval(Long approvalCode) {
+
+        Approval approval = approvalRepository.findById(approvalCode)
+                .orElseThrow(() -> new NotFoundException(NOT_FOUND_APPROVAL_CODE));
+
+        // 결재자들 중 현재 로그인하고 활성화 된 결재 상태를 PENDING으로 변경
 
     }
+
+
 }

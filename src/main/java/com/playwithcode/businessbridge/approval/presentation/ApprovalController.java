@@ -1,16 +1,14 @@
 package com.playwithcode.businessbridge.approval.presentation;
 
 import com.playwithcode.businessbridge.approval.dto.request.*;
-import com.playwithcode.businessbridge.approval.dto.response.BusinessDraftResponse;
-import com.playwithcode.businessbridge.approval.dto.response.DraftListResponse;
-import com.playwithcode.businessbridge.approval.dto.response.ExpenseReportResponse;
-import com.playwithcode.businessbridge.approval.dto.response.ReceiveListResponse;
+import com.playwithcode.businessbridge.approval.dto.response.*;
 import com.playwithcode.businessbridge.approval.service.ApprovalService;
 import com.playwithcode.businessbridge.common.paging.Pagenation;
 import com.playwithcode.businessbridge.common.paging.PagingButtonInfo;
 import com.playwithcode.businessbridge.common.paging.PagingResponse;
 import com.playwithcode.businessbridge.jwt.CustomUser;
 import com.playwithcode.businessbridge.member.domain.Employee;
+import com.playwithcode.businessbridge.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -34,6 +32,7 @@ import java.util.List;
 public class ApprovalController {
 
     private final ApprovalService approvalService;
+    private final MemberService memberService;
 
     /* -------------------------------------------------- 결재 등록 -------------------------------------------------- */
 
@@ -260,7 +259,7 @@ public class ApprovalController {
 
     /* -------------------------------------------------- 결재자  -------------------------------------------------- */
 
-    /* 13. 결재자 결재 - 승인 */
+    /* 13. 결재자 결재 - 승인, 반려? */
     @PatchMapping("/confirm/{approvalCode}")
     public ResponseEntity<Void> confirmApproval(@PathVariable final Long approvalCode,
                                                 @AuthenticationPrincipal CustomUser customUser,
@@ -271,4 +270,21 @@ public class ApprovalController {
         return null;
     }
 
+    /* 14. 결재자 결재 - 보류 */
+    @PatchMapping("/pending/{approvalCode}")
+    public ResponseEntity<Void> pendingApproval(@PathVariable final Long approvalCode){
+
+        approvalService.pendingApproval(approvalCode);
+
+        return null;
+    }
+
+    /* -------------------------------------------------- 직원 조회  -------------------------------------------------- */
+    /* 15. 모달창 결재자 선택 직원 조회 */
+    @GetMapping("/allEmployeeList")
+    public ResponseEntity<List<AllEmployeeResponse>> getAllEmployeeList(){
+        List<AllEmployeeResponse> allEmployeeResponse = memberService.getAllEmployeeList();
+
+        return ResponseEntity.ok(allEmployeeResponse);
+    }
 }
