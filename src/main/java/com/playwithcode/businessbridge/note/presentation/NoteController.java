@@ -6,7 +6,7 @@ import com.playwithcode.businessbridge.common.paging.PagingButtonInfo;
 import com.playwithcode.businessbridge.common.paging.PagingResponse;
 import com.playwithcode.businessbridge.jwt.CustomUser;
 import com.playwithcode.businessbridge.note.dto.request.NoteSendRequest;
-import com.playwithcode.businessbridge.note.dto.response.NoteRecipientResponse;
+import com.playwithcode.businessbridge.note.dto.response.NoteResponse;
 import com.playwithcode.businessbridge.note.service.NoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +40,20 @@ public class NoteController {
             @RequestParam(defaultValue = "1") final Integer page,
             @AuthenticationPrincipal CustomUser customUser
     ) {
-        final Page<NoteRecipientResponse> notes = noteService.getRecipientNote(page, customUser);
+        final Page<NoteResponse> notes = noteService.getRecipientNote(page, customUser);
+        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(notes);
+        final PagingResponse pagingResponse = PagingResponse.of(notes.getContent(), pagingButtonInfo);
+
+        return ResponseEntity.ok(pagingResponse);
+    }
+
+    /* 3. 보낸 쪽지함 조회(로그인 = 발신자) */
+    @GetMapping("notes/sender")
+    public ResponseEntity<PagingResponse> getSenderNote(
+            @RequestParam(defaultValue = "1") final Integer page,
+            @AuthenticationPrincipal CustomUser customUser
+    ) {
+        final Page<NoteResponse> notes = noteService.getSenderNote(page, customUser);
         final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(notes);
         final PagingResponse pagingResponse = PagingResponse.of(notes.getContent(), pagingButtonInfo);
 

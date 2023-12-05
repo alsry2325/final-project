@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @RequiredArgsConstructor
-public class NoteRecipientResponse {
+public class NoteResponse {
 
     private final Long noteCode;
     private final Long recipient;
@@ -21,8 +21,8 @@ public class NoteRecipientResponse {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private final LocalDateTime readAt;
 
-    public static NoteRecipientResponse from(Note note) {
-        return new NoteRecipientResponse(
+    public static NoteResponse from(Note note) {
+        return new NoteResponse(
                 note.getNoteNo(),
                 note.getRecipient().getEmplyCode(),
                 note.getSender(),
@@ -32,6 +32,4 @@ public class NoteRecipientResponse {
                 note.getReadAt()
         );
     }
-
-
 }

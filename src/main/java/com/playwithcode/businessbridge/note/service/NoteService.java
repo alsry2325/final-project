@@ -8,7 +8,7 @@ import com.playwithcode.businessbridge.note.domain.repository.NoteRepository;
 import com.playwithcode.businessbridge.note.domain.type.RecipientStatus;
 import com.playwithcode.businessbridge.note.domain.type.SenderStatus;
 import com.playwithcode.businessbridge.note.dto.request.NoteSendRequest;
-import com.playwithcode.businessbridge.note.dto.response.NoteRecipientResponse;
+import com.playwithcode.businessbridge.note.dto.response.NoteResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -56,11 +56,20 @@ public class NoteService {
 
     /* 2. 받은 쪽지함 조회(로그인 = 수신자) */
     @Transactional(readOnly = true)
-    public Page<NoteRecipientResponse> getRecipientNote(Integer page, CustomUser customUser) {
+    public Page<NoteResponse> getRecipientNote(Integer page, CustomUser customUser) {
 
         Page<Note> notes = noteRepository.findByRecipientEmplyCode(getPageable(page), customUser.getEmplyCode());
 
-        return notes.map(note -> NoteRecipientResponse.from(note));
+        return notes.map(note -> NoteResponse.from(note));
+    }
+
+    /* 3. 보낸 쪽지함 조회(로그인 = 발신자) */
+    @Transactional(readOnly = true)
+    public Page<NoteResponse> getSenderNote(Integer page, CustomUser customUser) {
+
+        Page<Note> notes = noteRepository.findBySenderEmplyCode(getPageable(page), customUser.getEmplyCode());
+
+        return notes.map(note -> NoteResponse.from(note));
     }
 
 

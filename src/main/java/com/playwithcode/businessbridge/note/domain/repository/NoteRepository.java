@@ -17,6 +17,9 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     /* 2. 받은 쪽지함 조회(로그인 = 수신자) */
     Page<Note> findByRecipientEmplyCode(Pageable pageable, Long emplyCode);
 
+    /* 3. 보낸 쪽지함 조회(로그인 = 발신자) */
+    Page<Note> findBySenderEmplyCode(Pageable pageable, Long emplyCode);
+
     /* 쪽지 삭제(DB 삭제) */
 
 }
