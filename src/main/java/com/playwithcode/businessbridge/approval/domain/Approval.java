@@ -49,7 +49,7 @@ public class Approval {
     // 대기(WAITING), 회수(COLLECT), 진행중(PROCEEDING), 반려(RETURN), 승인(ADMISSION)
 
     private LocalDateTime compltDateTime;                       // 완료일시
-
+    // 완료 일시는 필요 없을지도,,
     private LocalDateTime collectionDateTime;                   // 회수일시
 
     @CreatedDate

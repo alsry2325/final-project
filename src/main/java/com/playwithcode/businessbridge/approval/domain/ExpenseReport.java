@@ -18,7 +18,7 @@ public class ExpenseReport {
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "approvalCode")
-    private Approval approvalCode;                                  // 전자결재코드
+    private Approval approval;                                  // 전자결재코드
 
     @Column(nullable = false)
     private Long totalExpenditure;                                   // 총지출금액
@@ -27,15 +27,15 @@ public class ExpenseReport {
     @JoinColumn(name = "expenseReportCode")
     private List<ExpenseReportDetail> expenseReportDetail;      // 지출 상세
 
-    public ExpenseReport(Approval approvalCode, Long totalExpenditure, List<ExpenseReportDetail> expenseReportDetail) {
-        this.approvalCode = approvalCode;
+    public ExpenseReport(Approval approval, Long totalExpenditure, List<ExpenseReportDetail> expenseReportDetail) {
+        this.approval = approval;
         this.totalExpenditure = totalExpenditure;
         this.expenseReportDetail = expenseReportDetail;
     }
 
-    public static ExpenseReport of(Approval approvalCode, Long totalExpenditure, List<ExpenseReportDetail> expenseReportDetail){
+    public static ExpenseReport of(Approval approval, Long totalExpenditure, List<ExpenseReportDetail> expenseReportDetail){
         return new ExpenseReport(
-                approvalCode, totalExpenditure, expenseReportDetail
+                approval, totalExpenditure, expenseReportDetail
         );
     }
 }
