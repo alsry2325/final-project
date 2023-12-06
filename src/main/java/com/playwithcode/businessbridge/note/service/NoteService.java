@@ -164,14 +164,23 @@ public class NoteService {
 
     /* 13. 수신자 쪽지 상세 조회 */
     @Transactional(readOnly = true)
-    public NoteResponse getRecipientNoteinfo(final Long noteNo) {
+    public NoteResponse getRecipientNoteinfo(CustomUser customUser, final Long noteNo) {
 
-        Note note = noteRepository.findByNoteNoAndRicipientStatusNot(noteNo, RCVR_DELETE)
+        Note note = noteRepository.findByRecipientEmplyCodeAndNoteNoAndRecipientStatusNot(customUser.getEmplyCode(), noteNo, RCVR_DELETE)
                 .orElseThrow(() -> new NotFoundException(ExceptionCode.NOT_FOUND_NOTE_NO));
 
         return NoteResponse.from(note);
     }
 
+    /* 14. 발신자 쪽지 상세 조회 */
+    @Transactional(readOnly = true)
+    public NoteResponse getSenderNoteinfo(CustomUser customUser, final Long noteNo) {
+
+        Note note = noteRepository.findBySenderEmplyCodeAndNoteNoAndRecipientStatusNot(customUser.getEmplyCode(), noteNo, RCVR_DELETE)
+                .orElseThrow(() -> new NotFoundException(ExceptionCode.NOT_FOUND_NOTE_NO));
+
+        return NoteResponse.from(note);
+    }
 
     /* 쪽지 삭제(DB 삭제) */
     public boolean deleteNoteBySenderAndRecipient(Long noteNo) {

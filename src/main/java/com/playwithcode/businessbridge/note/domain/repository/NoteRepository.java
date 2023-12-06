@@ -71,11 +71,12 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
 
     /* 쪽지 상세 조회  -----------------------------------------------------------------------------------------------*/
     /* 13. 수신자 쪽지 상세 조회 */
-    Optional<Note> findByNoteNoAndRicipientStatusNot(Long noteNo, RecipientStatus recipientStatus);
+    Optional<Note> findByRecipientEmplyCodeAndNoteNoAndRecipientStatusNot(Long emplyCode, Long noteNo, RecipientStatus recipientStatus);
 
     /* 14. 발신자 쪽지 상세 조회 */
+    Optional<Note> findBySenderEmplyCodeAndNoteNoAndRecipientStatusNot(Long emplyCode, Long noteNo, RecipientStatus recipientStatus);
 
-    /* 쪽지 삭제(DB 삭제, 수신자 삭제 = 발신자 삭제 ) -------------------------------------------------------------------*/
+    /* 15. 쪽지 삭제(DB 삭제, 수신자 삭제 = 발신자 삭제 ) -------------------------------------------------------------------*/
 
 }
 

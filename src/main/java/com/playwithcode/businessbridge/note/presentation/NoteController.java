@@ -186,9 +186,22 @@ public class NoteController {
 
     /* 13. 수신자 쪽지 상세 조회 */
     @GetMapping("/notes/recipient/{noteNo}")
-    public ResponseEntity<NoteResponse> getRecipientNoteinfo(@PathVariable final Long noteNo) {
+    public ResponseEntity<NoteResponse> getRecipientNoteinfo(
+            @PathVariable final Long noteNo,
+            @AuthenticationPrincipal CustomUser customUser) {
 
-        final NoteResponse noteResponse = noteService.getRecipientNoteinfo(noteNo);
+        final NoteResponse noteResponse = noteService.getRecipientNoteinfo(customUser, noteNo);
+
+        return ResponseEntity.ok(noteResponse);
+    }
+
+    /* 14. 발신자 쪽지 상세 조회 */
+    @GetMapping("/notes/sender/{noteNo}")
+    public ResponseEntity<NoteResponse> getSenderNoteinfo(
+            @PathVariable final Long noteNo,
+            @AuthenticationPrincipal CustomUser customUser) {
+
+        final NoteResponse noteResponse = noteService.getSenderNoteinfo(customUser, noteNo);
 
         return ResponseEntity.ok(noteResponse);
     }
@@ -197,7 +210,7 @@ public class NoteController {
     /* TODO : 휴지통에서도 삭제를 눌렀을 때
     *  1. 내 화면에서는 쪽지가 삭제된다.
     *  2. 수신자 상태와 발신자 상태를 모두 비교한다.
-    *  3. 비교된 상태가 전부 TRASH라면 DB에서 삭제한다. */
+    *  3. 비교된 상태가 전부 DELETE라면 DB에서 삭제한다. */
 
     @DeleteMapping("/notes/{noteNo}")
     public ResponseEntity<Void> deleteNoteBySenderAndRecipient(@PathVariable Long noteNo) {
