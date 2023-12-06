@@ -22,7 +22,7 @@ public class ExpenseReportResponse {
     private final String drafterName;                           // 기안자
     private final String departmentName;                        // 기안자 부서
     private final LocalDateTime draftDateTime;                  // 기안 일시
-    private final int docNo;                                    // 문서 번호
+    private final Long docNo;                                    // 문서 번호
     private final Long totalExpenditure;                        // 총지출 금액
     private final List<String> item;                            // 적요
     private final List<Long> amount;                            // 금액

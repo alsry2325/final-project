@@ -37,7 +37,7 @@ public class Approval {
 
     private LocalDateTime draftDateTime;                        // 기안일시(등록일시로 퉁쳐?)
 
-    private int docNo;                                         // 문서 번호(문서 상태 완료 시 생성)
+    private Long docNo;                                         // 문서 번호(문서 상태 완료 시 생성)
 
     @ManyToOne
     @JoinColumn(name = "draftMember")
@@ -100,9 +100,14 @@ public class Approval {
         this.docStatus = docStatus;
     }
 
-    public void done(DocStatusType docStatus, LocalDateTime compltDateTime, int docNo){
+    public void done(DocStatusType docStatus, LocalDateTime compltDateTime, Long docNo){
         this.docStatus = docStatus;
         this.compltDateTime = compltDateTime;
         this.docNo = docNo;
+    }
+
+    public void returned(DocStatusType docStatus, LocalDateTime compltDateTime){
+        this.docStatus = docStatus;
+        this.compltDateTime = compltDateTime;
     }
 }

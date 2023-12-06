@@ -11,6 +11,6 @@ public class ApprovalRequest {
 
     private final ApprovalStatusType approvalStatus;        // 결재 상태
 
-    private final String ApprovalOpinion;                   // 결재 의견
+    private final String approvalOpinion;                   // 결재 의견
 
 }

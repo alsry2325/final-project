@@ -2,6 +2,7 @@ package com.playwithcode.businessbridge.approval.service;
 
 import com.playwithcode.businessbridge.approval.domain.*;
 import com.playwithcode.businessbridge.approval.domain.repository.*;
+import com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType;
 import com.playwithcode.businessbridge.approval.domain.type.DocFormType;
 import com.playwithcode.businessbridge.approval.domain.type.DocStatusType;
 import com.playwithcode.businessbridge.approval.dto.request.*;
@@ -25,7 +26,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +36,7 @@ import static com.playwithcode.businessbridge.approval.domain.type.ApprovalStatu
 import static com.playwithcode.businessbridge.approval.domain.type.DocFormType.BUSINESS_DRAFT;
 import static com.playwithcode.businessbridge.approval.domain.type.DocFormType.EXPENSE_REPORT;
 import static com.playwithcode.businessbridge.approval.domain.type.DocStatusType.*;
+import static com.playwithcode.businessbridge.approval.domain.type.DocStatusType.RETURN;
 import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.*;
 
 @Slf4j
@@ -444,55 +445,92 @@ public class ApprovalService {
 
     /* -------------------------------------------------- 결재자  -------------------------------------------------- */
 
+    /* - 문서 번호 생성 */
+    private long docNoFormat() {
+
+        int currentYear = LocalDateTime.now().getYear();
+
+        List<Approval> compltDoc = approvalRepository.findByDocStatus(COMPLETE);
+        // 올 해 완료 된 문서의 합계
+        int setdocNo = compltDoc.size() + 1;
+
+        String docNoFormat = String.format("%05d",setdocNo);
+        int currentDocNo = Integer.parseInt(currentYear + docNoFormat);
+        return currentDocNo;
+    }
+
     /* 13. 결재자 결재 - 승인, 반려? */
-    public void confirmApproval(Long approvalCode, Long approverCode, CustomUser customUser, ApprovalRequest approvalRequest) {
+    public void confirmApproval(Long approvalCode, CustomUser customUser, ApprovalRequest approvalRequest) {
 
         Approval approval = approvalRepository.findById(approvalCode)
                 .orElseThrow(() -> new NotFoundException(ALREADY_CONFIRM_DOC));
 
-//        approval.getApproverMember().forEach(approver -> {
-//            approver.getApproverMember().
-//        });
 
+        List<Approver> approvers = approval.getApproverMember();
+        int approvalCount = approvers.size();
 
-        int currentYear = LocalDateTime.now().getYear();
-        int startNo = 1;
-        String docNoFormat = String.format("05d",startNo);
-        int currentDocNo = Integer.parseInt(currentYear + docNoFormat);
-
-        if(customUser.getEmplyCode().equals(approval.getApproverMember().get(0))){
-            // 로그인 한 결재자가 첫번째 결재자인 경우
-            approval.approve(PROCEEDING);       // 문서 상태 진행중으로 업데이트
+        Approver userApprover = null;       // 결재자 = 로그인한 사람
+        Approver nextApprover = null;       // 다음 결재자
+        for(int i = 0; i < approvalCount; i++) {
+            if(approvers.get(i).getApproverMember().getEmplyCode().equals(customUser.getEmplyCode())){
+                userApprover = approvers.get(i);
+                if(i < approvalCount - 1) {
+                    nextApprover = approvers.get(i+1);
+                }
+                break;
+            }
         }
 
-//        for (int i = 0; i < approval.getApproverMember().size(); i++) {
-//
-//            if(i == 0){
-//                approval.approve(PROCEEDING);
-//
-//            } else if (i == approval.getApproverMember().size() - 1) {
-//                approval.done(
-//                        COMPLETE,
-//                        LocalDateTime.now(),
-//                        currentDocNo
-//                );
-//                startNo++;
-//            } else{
-//                // 두번째 결재자인 경우
-//            }
-//        }
+        log.info("order: {}", userApprover.getApprovalOrder());
 
-        // 전자결재
-        // 마지막 결재자 일 때 docNo, 완료일시 생성
-        // 첫번째 결재자 일 때 결재 docStatus WAITING -> PROCEEDING o
+        // 로그인 한 결재자의 결재 상태를 변경하고 결재에 대한 일시와 의견 추가
+        if(approval.getDocStatus().equals(DocStatusType.WAITING) || approval.getDocStatus().equals(PROCEEDING)) {
+            userApprover.approval(
+                    approvalRequest.getApprovalStatus(),
+                    LocalDateTime.now(),
+                    approvalRequest.getApprovalOpinion()
+            );
+        }
 
-        // 결재자 변경
-        // 활성화 된 결재자의 approvalStatus ACTIVATE -> APPROVAL 혹은 RETURN(화면에서 받아지는 대로)
-        // 결재자 approvalDateTime, approvalOpinion 생성
-        // 다음 결재자 approvalStatus(WAITING -> ACTIVATE) 마지막 결재자일 때는 X
+        // 다음 결재자가 존재한다면 다음 결재자의 결재 상태를 활성화 시켜줌
+        if(nextApprover != null) {
+            if (approvalRequest.getApprovalStatus().equals(CONFIRM)){
+                nextApprover.statusUpdate(
+                        ACTIVATE
+                );
+            }
+
+        }
+
+        // 결재 문서 상태 변경
+        if(userApprover.getApprovalOrder() == 1){                           // 로그인 한 결재자가 첫번째 결재자인 경우
+            if(approvalRequest.getApprovalStatus().equals(ApprovalStatusType.RETURN)){
+                approval.returned(
+                        RETURN,
+                        LocalDateTime.now()
+                );
+            } else {
+                approval.approve(PROCEEDING);                                   // 문서 상태 진행중으로 업데이트
+            }
+
+        } else if (userApprover.getApprovalOrder() == approvalCount) {      // 현재 결재가 마지막 결재인 경우
+            if (approvalRequest.getApprovalStatus().equals(ApprovalStatusType.RETURN)){
+                approval.returned(
+                        RETURN,
+                        LocalDateTime.now()
+                );
+            }else {
+                approval.done(
+                        COMPLETE,
+                        LocalDateTime.now(),
+                        docNoFormat()
+                );
+            }
+       }
     }
 
-    /* 14. 결재자 결재 - 보류 */
+
+    /* 15. 결재자 결재 - 보류 */
     public void pendingApproval(Long approvalCode) {
 
         Approval approval = approvalRepository.findById(approvalCode)
@@ -501,6 +539,7 @@ public class ApprovalService {
         // 결재자들 중 현재 로그인하고 활성화 된 결재 상태를 PENDING으로 변경
 
     }
+
 
 
 }

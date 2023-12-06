@@ -259,18 +259,17 @@ public class ApprovalController {
 
     /* -------------------------------------------------- 결재자  -------------------------------------------------- */
 
-    /* 13. 결재자 결재 - 승인, 반려? */
+    /* 13. 결재자 결재 - 승인 */
     @PatchMapping("/confirm/{approvalCode}")
     public ResponseEntity<Void> confirmApproval(@PathVariable final Long approvalCode,
                                                 @AuthenticationPrincipal CustomUser customUser,
                                                 @RequestBody ApprovalRequest approvalRequest){
-
-//        approvalService.confirmApproval(approvalCode, customUser, approvalRequest);
+        approvalService.confirmApproval(approvalCode, customUser, approvalRequest);
 
         return null;
     }
 
-    /* 14. 결재자 결재 - 보류 */
+    /* 15. 결재자 결재 - 보류 */
     @PatchMapping("/pending/{approvalCode}")
     public ResponseEntity<Void> pendingApproval(@PathVariable final Long approvalCode){
 

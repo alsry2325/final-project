@@ -52,10 +52,13 @@ public class Approver {
 
     public void approval(
             ApprovalStatusType approvalStatus, LocalDateTime approvalDateTime,
-            String approvalOpinion, Long approvalOrder){
+            String approvalOpinion){
         this.approvalStatus = approvalStatus;
         this.approvalDateTime = approvalDateTime;
         this.approvalOpinion = approvalOpinion;
-        this.approvalOrder = approvalOrder;
+    }
+
+    public void statusUpdate(ApprovalStatusType approvalStatus){
+        this.approvalStatus = approvalStatus;
     }
 }

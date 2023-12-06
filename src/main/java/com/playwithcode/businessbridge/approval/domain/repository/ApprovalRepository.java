@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ApprovalRepository extends JpaRepository<Approval, Long> {
@@ -71,4 +72,6 @@ public interface ApprovalRepository extends JpaRepository<Approval, Long> {
     /* 13. 결재자 결재 - 승인 */
     Optional<Approval> findByApprovalCodeAndApproverMemberAndDocStatusLike(Long approvalCode, Long emplyCode, ApprovalStatusType docStatus);
 
+
+    List<Approval> findByDocStatus(DocStatusType docStatusType);
 }
