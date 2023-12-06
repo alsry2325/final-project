@@ -22,13 +22,13 @@ public interface AddressBookRepository extends JpaRepository<AddressBook, Long> 
 
     /* 5. 직원 삭제(관리자) */
 
-    /* 6. 직원 조회 - 이름 기준 */
+    /* 6. 직원 검색 - 이름 기준 */
     Page<AddressBook> findByEmplyNameContainsAndEmplyStatus(Pageable pageable, String emplyName, EmplyStatus emplyStatus);
 
-    /* 7. 직원 조회 - 이메일 기준 */
+    /* 7. 직원 검색 - 이메일 기준 */
     Page<AddressBook> findByEmplyEmailContainsAndEmplyStatus(Pageable pageable, String emplyName, EmplyStatus emplyStatus);
 
-    /* 8. 직원 조회 - 핸드폰 기준 */
+    /* 8. 직원 검색 - 핸드폰 기준 */
     Page<AddressBook> findByEmplyPhoneNumberContainsAndEmplyStatus(Pageable pageable, String emplyPhoneNumber, EmplyStatus emplyStatus);
 
 }

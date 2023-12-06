@@ -112,7 +112,7 @@ public class AddressBookService {
         addressBookRepository.deleteById(emplyCode);
     }
 
-    /* 6. 직원 조회 - 이름 기준 */
+    /* 6. 직원 검색 - 이름 기준 */
     @Transactional(readOnly = true)
     public Page<AddressBookResponse> getEmplyName(final Integer page, final String emplyName) {
 
@@ -121,7 +121,7 @@ public class AddressBookService {
         return addressBooks.map(addressBook -> AddressBookResponse.from(addressBook));
     }
 
-    /* 7. 직원 조회 - 이메일 기준 */
+    /* 7. 직원 검색 - 이메일 기준 */
     @Transactional(readOnly = true)
     public Page<AddressBookResponse> getEmplyEmail(final Integer page, final String emplyEmail) {
 
@@ -130,7 +130,7 @@ public class AddressBookService {
         return addressBooks.map(addressBook -> AddressBookResponse.from(addressBook));
     }
 
-    /* 8. 직원 조회 - 핸드폰 기준 */
+    /* 8. 직원 검색 - 핸드폰 기준 */
     @Transactional(readOnly = true)
     public Page<AddressBookResponse> getEmplyPhoneNumber(final Integer page, final String emplyPhoneNumber) {
 

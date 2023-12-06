@@ -74,7 +74,7 @@ public class AddressBookController {
         return ResponseEntity.noContent().build();
     }
 
-    /* 6. 직원 조회 - 이름 기준 */
+    /* 6. 직원 검색 - 이름 기준 */
     @GetMapping("/address-book/search")
     public ResponseEntity<PagingResponse> getEmplyName(
             @RequestParam(defaultValue = "1") final Integer page, @RequestParam final String emplyName) {
@@ -86,7 +86,7 @@ public class AddressBookController {
         return ResponseEntity.ok(pagingResponse);
     }
 
-    /* 7. 직원 조회 - 이메일 기준 */
+    /* 7. 직원 검색 - 이메일 기준 */
     @GetMapping("/address-book/search2")
     public ResponseEntity<PagingResponse> getEmplyEmail(
             @RequestParam(defaultValue = "1") final Integer page, @RequestParam final String emplyEmail) {
@@ -98,7 +98,7 @@ public class AddressBookController {
         return ResponseEntity.ok(pagingResponse);
     }
 
-    /* 8. 직원 조회 - 핸드폰 기준 */
+    /* 8. 직원 검색 - 핸드폰 기준 */
     @GetMapping("/address-book/search3")
     public ResponseEntity<PagingResponse> getEmplyPhoneNumber(
             @RequestParam(defaultValue = "1") final Integer page, @RequestParam final String emplyPhoneNumber) {
