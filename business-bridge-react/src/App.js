@@ -1,6 +1,7 @@
 import './css/loginform.css';
 import './css/Header.css';
 import './css/MyPage.css';
+import './css/EmployeeRegistrationNavbar.css'
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Login from "./pages/businessbridge/employee/Login";
@@ -9,6 +10,8 @@ import FindPassword from "./pages/businessbridge/employee/FindPassword";
 import ProtectedRoute from "./components/router/ProtectedRoute";
 import Error from "./pages/error/Error";
 import MyPage from "./pages/businessbridge/employee/MyPage";
+import EmployeeRegistrationNavbarLayout from "./layouts/EmployeeRegistrationNavbarLayout";
+import EmployeeRegistration from "./pages/businessbridge/employee/EmployeeRegistration";
 
 function App() {
   return (
@@ -17,6 +20,9 @@ function App() {
             <Route path="/" element={ <ProtectedRoute loginCheck={true}><Layout/></ProtectedRoute> }>
                 <Route index element={<Main/>}/>
                 <Route path="emp/employee/mypage" element={ <ProtectedRoute loginCheck={true}> <MyPage/> </ProtectedRoute>}/>
+                <Route path="emp/employee/registration" element={ <ProtectedRoute loginCheck={true}><EmployeeRegistrationNavbarLayout/></ProtectedRoute>}>
+                    <Route index element={ <ProtectedRoute loginCheck={true}> <EmployeeRegistration/> </ProtectedRoute>}/>
+                </Route>
             </Route>
             <Route path="/emp/employee">
                 <Route path="login" element={ <ProtectedRoute loginCheck={false}><Login/></ProtectedRoute> }/>

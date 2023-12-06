@@ -64,7 +64,7 @@ function Menu() {
                         </NavLink>
                     </li>}
                     { isAdmin() && <li className="NavbarElement">
-                        <NavLink className="link" to="/sign-in">
+                        <NavLink className="link" to="/emp/employee/registration">
                             사원관리
                         </NavLink>
                     </li>}
