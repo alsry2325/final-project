@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class NoteResponseWithEmplyName {
 
-    private final Long noteCode;
+    private final Long noteNo;
     private final Long recipient;
     private final String emplyName;
     private final String noteTitle;

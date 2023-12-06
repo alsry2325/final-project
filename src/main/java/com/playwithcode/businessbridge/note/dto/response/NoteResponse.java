@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class NoteResponse {
 
-    private final Long noteCode;
+    private final Long noteNo;
     private final Long recipient;
     private final Long sender;
     private final String noteTitle;

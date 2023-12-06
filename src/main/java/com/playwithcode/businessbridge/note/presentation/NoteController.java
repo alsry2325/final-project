@@ -117,9 +117,11 @@ public class NoteController {
     /* 8. 쪽지 제목 기준 검색 */
     @GetMapping("/notes/search2")
     public ResponseEntity<PagingResponse> getNoteTitle(
-            @RequestParam(defaultValue = "1") final Integer page, @RequestParam final String noteTitle) {
+            @RequestParam(defaultValue = "1") final Integer page,
+            @RequestParam final String noteTitle,
+            @AuthenticationPrincipal CustomUser customUser) {
 
-        final Page<NoteResponseWithEmplyName> notes = noteService.getNoteTitle(page, noteTitle);
+        final Page<NoteResponseWithEmplyName> notes = noteService.getNoteTitle(page, noteTitle, customUser);
         final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(notes);
         final PagingResponse pagingResponse = PagingResponse.of(notes.getContent(), pagingButtonInfo);
 
@@ -129,9 +131,11 @@ public class NoteController {
     /* 9. 쪽지 내용 기준 검색 */
     @GetMapping("/notes/search3")
     public ResponseEntity<PagingResponse> getNoteContent(
-            @RequestParam(defaultValue = "1") final Integer page, @RequestParam final String noteContent) {
+            @RequestParam(defaultValue = "1") final Integer page,
+            @RequestParam final String noteContent,
+            @AuthenticationPrincipal CustomUser customUser) {
 
-        final Page<NoteResponseWithEmplyName> notes = noteService.getNoteContent(page, noteContent);
+        final Page<NoteResponseWithEmplyName> notes = noteService.getNoteContent(page, noteContent, customUser);
         final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(notes);
         final PagingResponse pagingResponse = PagingResponse.of(notes.getContent(), pagingButtonInfo);
 
@@ -141,13 +145,52 @@ public class NoteController {
     /* 10. 수신자명 기준 검색 */
     @GetMapping("/notes/search4")
     public ResponseEntity<PagingResponse> getRecipientName(
-            @RequestParam(defaultValue = "1") final Integer page, @RequestParam final String emplyName) {
+            @RequestParam(defaultValue = "1") final Integer page,
+            @RequestParam final String emplyName,
+            @AuthenticationPrincipal CustomUser customUser) {
 
-        final Page<NoteResponseWithEmplyName> notes = noteService.getRecipientName(page, emplyName);
+        final Page<NoteResponseWithEmplyName> notes = noteService.getRecipientName(page, emplyName, customUser);
         final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(notes);
         final PagingResponse pagingResponse = PagingResponse.of(notes.getContent(), pagingButtonInfo);
 
         return ResponseEntity.ok(pagingResponse);
+    }
+
+    /* 11. 쪽지 제목 기준 검색 */
+    @GetMapping("/notes/search5")
+    public ResponseEntity<PagingResponse> getSenderNoteTitle(
+            @RequestParam(defaultValue = "1") final Integer page,
+            @RequestParam final String noteTitle,
+            @AuthenticationPrincipal CustomUser customUser) {
+
+        final Page<NoteResponseWithEmplyName> notes = noteService.getSenderNoteTitle(page, noteTitle, customUser);
+        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(notes);
+        final PagingResponse pagingResponse = PagingResponse.of(notes.getContent(), pagingButtonInfo);
+
+        return ResponseEntity.ok(pagingResponse);
+    }
+
+    /* 12. 쪽지 내용 기준 검색 */
+    @GetMapping("/notes/search6")
+    public ResponseEntity<PagingResponse> getSenderNoteContent(
+            @RequestParam(defaultValue = "1") final Integer page,
+            @RequestParam final String noteContent,
+            @AuthenticationPrincipal CustomUser customUser) {
+
+        final Page<NoteResponseWithEmplyName> notes = noteService.getSenderNoteContent(page, noteContent, customUser);
+        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(notes);
+        final PagingResponse pagingResponse = PagingResponse.of(notes.getContent(), pagingButtonInfo);
+
+        return ResponseEntity.ok(pagingResponse);
+    }
+
+    /* 13. 수신자 쪽지 상세 조회 */
+    @GetMapping("/notes/recipient/{noteNo}")
+    public ResponseEntity<NoteResponse> getRecipientNoteinfo(@PathVariable final Long noteNo) {
+
+        final NoteResponse noteResponse = noteService.getRecipientNoteinfo(noteNo);
+
+        return ResponseEntity.ok(noteResponse);
     }
 
     /* 쪽지 삭제 */

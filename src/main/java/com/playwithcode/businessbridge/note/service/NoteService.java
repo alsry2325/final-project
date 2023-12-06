@@ -1,5 +1,7 @@
 package com.playwithcode.businessbridge.note.service;
 
+import com.playwithcode.businessbridge.common.exception.NotFoundException;
+import com.playwithcode.businessbridge.common.exception.type.ExceptionCode;
 import com.playwithcode.businessbridge.jwt.CustomUser;
 import com.playwithcode.businessbridge.member.domain.Employee;
 import com.playwithcode.businessbridge.member.domain.repository.EmployeeRepository;
@@ -117,32 +119,58 @@ public class NoteService {
 
     /* 8. 쪽지 제목 기준 검색 */
     @Transactional(readOnly = true)
-    public Page<NoteResponseWithEmplyName> getNoteTitle(final Integer page, final String noteTitle) {
+    public Page<NoteResponseWithEmplyName> getNoteTitle(final Integer page, final String noteTitle, CustomUser customUser) {
 
-        Page<Note> notes = noteRepository.findByNoteTitleContains(getPageable(page), noteTitle);
+        Page<Note> notes = noteRepository.findByNoteTitleContains(getPageable(page), noteTitle, customUser.getEmplyCode());
 
         return notes.map(note -> NoteResponseWithEmplyName.from(note));
     }
 
     /* 9. 쪽지 내용 기준 검색 */
     @Transactional(readOnly = true)
-    public Page<NoteResponseWithEmplyName> getNoteContent(final Integer page, final String noteContent) {
+    public Page<NoteResponseWithEmplyName> getNoteContent(final Integer page, final String noteContent, CustomUser customUser) {
 
-        Page<Note> notes = noteRepository.findByNoteContentContains(getPageable(page), noteContent);
+        Page<Note> notes = noteRepository.findByNoteContentContains(getPageable(page), noteContent, customUser.getEmplyCode());
 
         return notes.map(note -> NoteResponseWithEmplyName.from(note));
     }
 
     /* 10. 수신자명 기준 검색 */
     @Transactional(readOnly = true)
-    public Page<NoteResponseWithEmplyName> getRecipientName(final Integer page, final String emplyName) {
+    public Page<NoteResponseWithEmplyName> getRecipientName(final Integer page, final String emplyName, CustomUser customUser) {
 
-        Page<Note> notes = noteRepository.findByRecipientEmplyNameContains(getPageable(page), emplyName);
+        Page<Note> notes = noteRepository.findByRecipientEmplyNameContains(getPageable(page), emplyName, customUser.getEmplyCode());
 
         return notes.map(note -> NoteResponseWithEmplyName.from(note));
     }
 
+    /* 11. 쪽지 제목 기준 검색 */
+    @Transactional(readOnly = true)
+    public Page<NoteResponseWithEmplyName> getSenderNoteTitle(final Integer page, final String noteTitle, CustomUser customUser) {
 
+        Page<Note> notes = noteRepository.findBySenderNoteTitleContains(getPageable(page), noteTitle, customUser.getEmplyCode());
+
+        return notes.map(note -> NoteResponseWithEmplyName.from(note));
+    }
+
+    /* 12. 쪽지 내용 기준 검색 */
+    @Transactional(readOnly = true)
+    public Page<NoteResponseWithEmplyName> getSenderNoteContent(final Integer page, final String noteContent, CustomUser customUser) {
+
+        Page<Note> notes = noteRepository.findBySenderNoteContentContains(getPageable(page), noteContent, customUser.getEmplyCode());
+
+        return notes.map(note -> NoteResponseWithEmplyName.from(note));
+    }
+
+    /* 13. 수신자 쪽지 상세 조회 */
+    @Transactional(readOnly = true)
+    public NoteResponse getRecipientNoteinfo(final Long noteNo) {
+
+        Note note = noteRepository.findByNoteNoAndRicipientStatusNot(noteNo, RCVR_DELETE)
+                .orElseThrow(() -> new NotFoundException(ExceptionCode.NOT_FOUND_NOTE_NO));
+
+        return NoteResponse.from(note);
+    }
 
 
     /* 쪽지 삭제(DB 삭제) */
