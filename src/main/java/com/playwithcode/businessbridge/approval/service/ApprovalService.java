@@ -18,7 +18,7 @@ import com.playwithcode.businessbridge.common.exception.NotFoundException;
 import com.playwithcode.businessbridge.common.util.FileUploadUtils;
 import com.playwithcode.businessbridge.jwt.CustomUser;
 import com.playwithcode.businessbridge.member.domain.Employee;
-import com.playwithcode.businessbridge.member.domain.repository.EmployeeRepositroy;
+import com.playwithcode.businessbridge.member.domain.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -49,14 +49,14 @@ public class ApprovalService {
     private final ApprovalRepository approvalRepository;
     private final BusinessDraftRepository businessDraftRepository;
     private final ExpenseReportRepository expenseReportRepository;
-    private final EmployeeRepositroy employeeRepositroy;
+    private final EmployeeRepository employeeRepository;
 
     @Value("http://localhost/approvalFiles/")
     private String FILE_URL;
     @Value("src/main/resources/upload/approvalFiles")
     private String FILE_DIR;
 
-    private Pageable getPageable(final Integer page){
+    private Pageable getPageable(final Integer page) {
         return PageRequest.of(page - 1, 10,
                 Sort.by("approvalCode"));
     }
@@ -73,22 +73,22 @@ public class ApprovalService {
 
         // 결재자 엔터티 추가
         List<Approver> approverMember = new ArrayList<>();
-        for(int i = 0; i < businessDraftRequest.getApproverMember().size(); i++) {
+        for (int i = 0; i < businessDraftRequest.getApproverMember().size(); i++) {
 
-            Employee approver = employeeRepositroy.getReferenceById(businessDraftRequest.getApproverMember().get(i));
+            Employee approver = employeeRepository.getReferenceById(businessDraftRequest.getApproverMember().get(i));
 
-            if(i == 0) {
-                approverMember.add(Approver.of(approver, i+1L, ACTIVATE));
+            if (i == 0) {
+                approverMember.add(Approver.of(approver, i + 1L, ACTIVATE));
                 // 생성하는 DTO에서 Long타입으로 정보를 받아오는데 저장되는 of메소드에서 approver의 타입은 Employee임
             } else {
-                approverMember.add(Approver.of(approver, i+1L, WAITING));
+                approverMember.add(Approver.of(approver, i + 1L, WAITING));
             }
         }
 
         // 전달 된 파일을 서버의 지정 경로에 저장
         List<File> files = new ArrayList<>();
 
-        for( MultipartFile attachFile : attachFiles ) {
+        for (MultipartFile attachFile : attachFiles) {
             String replaceFileName = FileUploadUtils.saveFile(FILE_DIR, getRandomName(), attachFile);
             files.add(File.of(
                     attachFile.getOriginalFilename(),
@@ -98,7 +98,7 @@ public class ApprovalService {
             ));
         }
 
-        Employee draftMember = employeeRepositroy.getReferenceById(customUser.getEmplyCode());
+        Employee draftMember = employeeRepository.getReferenceById(customUser.getEmplyCode());
 
         // 전자결재 엔터티 추가
         Approval newApproval = Approval.of(
@@ -125,7 +125,7 @@ public class ApprovalService {
         List<Approver> approverMember = new ArrayList<>();
         for (int i = 0; i < expenseReportRequest.getApproverMember().size(); i++) {
 
-            Employee approver = employeeRepositroy.getReferenceById(expenseReportRequest.getApproverMember().get(i));
+            Employee approver = employeeRepository.getReferenceById(expenseReportRequest.getApproverMember().get(i));
 
             if (i == 0) {
                 approverMember.add(Approver.of(approver, i + 1L, ACTIVATE));
@@ -137,7 +137,7 @@ public class ApprovalService {
         // 전달 된 파일을 서버의 지정 경로에 저장
         List<File> files = new ArrayList<>();
 
-        for( MultipartFile attachFile : attachFiles ) {
+        for (MultipartFile attachFile : attachFiles) {
             String replaceFileName = FileUploadUtils.saveFile(FILE_DIR, getRandomName(), attachFile);
             files.add(File.of(
                     attachFile.getOriginalFilename(),
@@ -147,7 +147,7 @@ public class ApprovalService {
             ));
         }
 
-        Employee draftMember = employeeRepositroy.getReferenceById(customUser.getEmplyCode());
+        Employee draftMember = employeeRepository.getReferenceById(customUser.getEmplyCode());
 
         // 전자결재 엔터티 추가
         Approval newApproval = Approval.of(
@@ -161,7 +161,7 @@ public class ApprovalService {
         // 지출 결의서 상세 엔터티 추가
         List<ExpenseReportDetail> expenseReportDetails = new ArrayList<>();
 
-        for(ExpenseReportDetailCreateRequest expenseDetailRequest : expenseReportRequest.getExpenseReportDetailCreateRequests()){
+        for (ExpenseReportDetailCreateRequest expenseDetailRequest : expenseReportRequest.getExpenseReportDetailCreateRequests()) {
             expenseReportDetails.add(ExpenseReportDetail.of(
                     expenseDetailRequest.getItem(),
                     expenseDetailRequest.getAmount(),

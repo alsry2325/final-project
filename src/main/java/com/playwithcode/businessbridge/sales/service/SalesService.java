@@ -4,7 +4,7 @@ package com.playwithcode.businessbridge.sales.service;
 import com.playwithcode.businessbridge.common.exception.NotFoundException;
 import com.playwithcode.businessbridge.jwt.CustomUser;
 import com.playwithcode.businessbridge.member.domain.Employee;
-import com.playwithcode.businessbridge.member.domain.repository.EmployeeRepositroy;
+import com.playwithcode.businessbridge.member.domain.repository.EmployeeRepository;
 import com.playwithcode.businessbridge.sales.domain.Sales;
 import com.playwithcode.businessbridge.sales.domain.SalesSpecification;
 import com.playwithcode.businessbridge.sales.domain.repository.SalesRepository;
@@ -31,7 +31,7 @@ public class SalesService {
 
     private final SalesRepository salesRepository;
     
-    private final EmployeeRepositroy employeeRepository;
+    private final EmployeeRepository employeeRepository;
 
     //private final ProgressRepository progressRepository;
 
