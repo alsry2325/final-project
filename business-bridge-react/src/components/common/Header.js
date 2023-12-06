@@ -70,7 +70,7 @@ function Header({clicked, isClicked}){
                    </li>
                    <li className="NavElements">
                        <NavLink className="Link" to="/contact-us">
-                           전자결제
+                           전자결재
                        </NavLink>
                    </li>
                    <li className="NavElements">

@@ -1,10 +1,11 @@
 import {Outlet} from "react-router-dom";
+import Header from "../components/common/Header";
 
 function ApprovalLayout() {
 
     return (
         <div className="approval-layout-div">
-            {/*사이드 바*/}
+            <Header/>
             <main className="approval-main">
                 <h3>전자결재 홈</h3>
 

@@ -50,7 +50,7 @@ function Menu() {
                     </li>
                     <li className="NavbarElement">
                         <NavLink className="link" to="/sign-in">
-                            전자결제
+                            전자결재
                         </NavLink>
                     </li>
                     <li className="NavbarElement">

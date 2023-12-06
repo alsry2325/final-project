@@ -1,6 +1,7 @@
 import './css/loginform.css';
 import './css/Header.css';
 import './css/MyPage.css';
+import './css/approval.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Login from "./pages/businessbridge/employee/Login";
@@ -10,6 +11,7 @@ import ProtectedRoute from "./components/router/ProtectedRoute";
 import Error from "./pages/error/Error";
 import MyPage from "./pages/businessbridge/employee/MyPage";
 import ApprovalLayout from "./layouts/ApprovalLayout";
+import BusinessDraftForm from "./components/approval/form/BusinessDraftForm";
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
 
             <Route path="/approval">        {/*여기에서 권한체크?*/}
                 <Route path="home" element={<ApprovalLayout/>}/>
+                <Route path="write/businessDraft" element={<BusinessDraftForm/>}/>
             </Route>
         </Routes>
       </BrowserRouter>

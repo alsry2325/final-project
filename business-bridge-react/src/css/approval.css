@@ -1,0 +1,50 @@
+.approval-doc-form-outline {
+    border: solid 1px #d9d9d9;
+    max-width: 80%;
+    margin: 20px auto;
+}
+
+.approval-header {
+    display: flex;
+    padding: 10px;
+}
+
+.approval-doc-title{
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.approver-list{
+    display: flex;
+}
+
+button.choose-approver{
+    height: fit-content;
+    margin: 90px 10px 0px;
+    padding: 0px 3px;
+}
+
+.approver-info{
+    border-top: solid 1px;
+    border-left: solid 1px;
+    border-bottom: solid 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    writing-mode: vertical-lr;
+}
+
+.approver{
+    border: solid 1px;
+}
+
+.approve-box {
+    border-bottom: solid 1px;
+    border-top: solid 1px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
