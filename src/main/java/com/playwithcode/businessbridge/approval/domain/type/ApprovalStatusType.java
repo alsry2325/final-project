@@ -9,7 +9,7 @@ public enum ApprovalStatusType {
     WAITING("대기"),
     ACTIVATE("활성화"),
     PENDING("보류"),
-    APPROVAL("승인"),
+    CONFIRM("승인"),
     RETURN("반려");
 
     private final String value;

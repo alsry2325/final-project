@@ -18,7 +18,7 @@ public class File {
 
     private String attachfileNm;                        // 파일명
 
-    private String pathName;                            // 경로명
+    private String pathName;                            // 경로명(url)
 
     private String saveName;                            // 저장명
 
@@ -35,5 +35,9 @@ public class File {
         return new File(
                 attachfileNm, pathName, saveName, extensionName
         );
+    }
+
+    public void updateFileUrl(String pathName) {
+        this.pathName = pathName;
     }
 }

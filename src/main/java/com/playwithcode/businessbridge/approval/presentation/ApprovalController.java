@@ -1,17 +1,14 @@
 package com.playwithcode.businessbridge.approval.presentation;
 
-import com.playwithcode.businessbridge.approval.dto.request.BusinessDraftCreateRequest;
-import com.playwithcode.businessbridge.approval.dto.request.ExpenseReportCreateRequest;
-import com.playwithcode.businessbridge.approval.dto.response.BusinessDraftResponse;
-import com.playwithcode.businessbridge.approval.dto.response.DraftListResponse;
-import com.playwithcode.businessbridge.approval.dto.response.ExpenseReportResponse;
-import com.playwithcode.businessbridge.approval.dto.response.ReceiveListResponse;
+import com.playwithcode.businessbridge.approval.dto.request.*;
+import com.playwithcode.businessbridge.approval.dto.response.*;
 import com.playwithcode.businessbridge.approval.service.ApprovalService;
 import com.playwithcode.businessbridge.common.paging.Pagenation;
 import com.playwithcode.businessbridge.common.paging.PagingButtonInfo;
 import com.playwithcode.businessbridge.common.paging.PagingResponse;
 import com.playwithcode.businessbridge.jwt.CustomUser;
 import com.playwithcode.businessbridge.member.domain.Employee;
+import com.playwithcode.businessbridge.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -24,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,6 +32,7 @@ import java.util.List;
 public class ApprovalController {
 
     private final ApprovalService approvalService;
+    private final MemberService memberService;
 
     /* -------------------------------------------------- 결재 등록 -------------------------------------------------- */
 
@@ -226,4 +225,65 @@ public class ApprovalController {
 
     /* -------------------------------------------------- 결재 수정 -------------------------------------------------- */
 
+    /* 10. 업무기안서 수정 */
+    @PutMapping("/update/businessDraft/{approvalCode}")
+    public ResponseEntity<Void> businessdraftUpdate(@PathVariable final Long approvalCode,
+                                                    @RequestPart @Valid final BusinessDraftUpdateRequest businessDraftUpdate,
+                                                    @RequestPart(required = false) final List<MultipartFile> attachFiles){
+        approvalService.businessDraftUpdate(approvalCode, attachFiles, businessDraftUpdate);
+
+        return ResponseEntity.created(URI.create("/document/businessDraft/" + approvalCode)).build();
+    }
+
+    /* 11. 지출결의서 수정 */
+    @PutMapping("/update/expenseReport/{approvalCode}")
+    public ResponseEntity<Void> expenseReportUpdate(@PathVariable final Long approvalCode,
+                                                    @RequestPart @Valid final ExpenseReportUpdateRequest expenseReportUpdate,
+                                                    @RequestPart(required = false) final List<MultipartFile> attachFiles){
+        approvalService.expenseReportUpdate(approvalCode, attachFiles, expenseReportUpdate);
+
+        return ResponseEntity.created(URI.create("/document/expenseReport/" + approvalCode)).build();
+    }
+
+    /* -------------------------------------------------- 문서 회수  -------------------------------------------------- */
+
+    /* 12. 기안 문서 회수 */
+    @PatchMapping("/collect/{approvalCode}")
+    public ResponseEntity<Void> collectApproval(@PathVariable final Long approvalCode,
+                                                @AuthenticationPrincipal CustomUser customUser){
+
+        approvalService.collectApproval(approvalCode, customUser);
+
+        return ResponseEntity.created(URI.create("/document/" + approvalCode)).build();
+    }
+
+    /* -------------------------------------------------- 결재자  -------------------------------------------------- */
+
+    /* 13. 결재자 결재 - 승인 */
+    @PatchMapping("/confirm/{approvalCode}")
+    public ResponseEntity<Void> confirmApproval(@PathVariable final Long approvalCode,
+                                                @AuthenticationPrincipal CustomUser customUser,
+                                                @RequestBody ApprovalRequest approvalRequest){
+        approvalService.confirmApproval(approvalCode, customUser, approvalRequest);
+
+        return null;
+    }
+
+    /* 15. 결재자 결재 - 보류 */
+    @PatchMapping("/pending/{approvalCode}")
+    public ResponseEntity<Void> pendingApproval(@PathVariable final Long approvalCode){
+
+        approvalService.pendingApproval(approvalCode);
+
+        return null;
+    }
+
+    /* -------------------------------------------------- 직원 조회  -------------------------------------------------- */
+    /* 15. 모달창 결재자 선택 직원 조회 */
+    @GetMapping("/allEmployeeList")
+    public ResponseEntity<List<AllEmployeeResponse>> getAllEmployeeList(){
+        List<AllEmployeeResponse> allEmployeeResponse = memberService.getAllEmployeeList();
+
+        return ResponseEntity.ok(allEmployeeResponse);
+    }
 }

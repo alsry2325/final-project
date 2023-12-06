@@ -11,5 +11,6 @@ public interface BusinessDraftRepository extends JpaRepository<BusinessDraft, Lo
     /* -------------------------------------------------- 상세 조회 -------------------------------------------------- */
 
     /* 8. 업무기안서 상세 조회 */
-    Optional<BusinessDraft> findApprovalByApprovalApprovalCodeAndApprovalDocFormLike(Long approvalCode, DocFormType docFormType);
+    Optional<BusinessDraft> findByApprovalApprovalCodeAndApprovalDocFormLike(Long approvalCode, DocFormType docFormType);
+
 }

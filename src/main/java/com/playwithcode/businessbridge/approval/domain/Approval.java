@@ -35,21 +35,22 @@ public class Approval {
     @JoinColumn(name = "approvalCode")
     private List<Approver> approverMember;                      // 결재자
 
-    private LocalDateTime draftDateTime;                        // 기안일시
+    private LocalDateTime draftDateTime;                        // 기안일시(등록일시로 퉁쳐?)
 
-    private Long docNo;                                         // 문서 번호(문서 상태 승인 시 생성)
+    private Long docNo;                                         // 문서 번호(문서 상태 완료 시 생성)
 
     @ManyToOne
     @JoinColumn(name = "draftMember")
-    private Employee draftMember;                               // 기안자
+    private Employee draftMember;                                // 기안자
 
     @Column(nullable = false)
     @Enumerated(value = STRING)
-    private DocStatusType docStatus = DocStatusType.WAITING;       // 문서 상태
-    // 대기(WAITING), 회수(COLLECT), 진행중(PROCEEDING), 반려(RETURN), 승인(ADMISSION)
+    private DocStatusType docStatus;                            // 문서 상태
+    // ,WAITING(대기),PROCEEDING(진행중),RETURN(반려),COMPLETE(완료)
+    // COLLECT(회수), TEMP_STORAGE(임시저장)
 
     private LocalDateTime compltDateTime;                       // 완료일시
-    // 완료 일시는 필요 없을지도,,
+
     private LocalDateTime collectionDateTime;                   // 회수일시
 
     @CreatedDate
@@ -68,19 +69,45 @@ public class Approval {
     private List<File> file;                                    // 첨부파일
 
 
-    public Approval(List<Approver> approverMember, Employee draftMember, String title, DocFormType docForm, List<File> file) {
+    public Approval(List<Approver> approverMember,DocStatusType docStatus, Employee draftMember, String title, DocFormType docForm, List<File> file) {
         this.approverMember = approverMember;
+        this.docStatus = docStatus;
         this.draftMember = draftMember;
         this.title = title;
         this.docForm = docForm;
         this.file = file;
     }
 
-
-
-    public static Approval of(List<Approver> approverMember, Employee draftMember, String title, DocFormType docForm, List<File> file) {
+    public static Approval of(List<Approver> approverMember,DocStatusType docStatus, Employee draftMember, String title, DocFormType docForm, List<File> file) {
         return new Approval(
-                approverMember, draftMember, title, docForm, file
+                approverMember, docStatus, draftMember, title, docForm, file
         );
+    }
+
+    public void update(List<Approver> approvers, String title, DocStatusType docStatus, List<File> files) {
+        this.approverMember = approvers;
+        this.title = title;
+        this.docStatus = docStatus;
+        this.file = files;
+    }
+
+    public void collect(DocStatusType docStatus, LocalDateTime collectionDateTime){
+        this.docStatus = docStatus;
+        this.collectionDateTime = collectionDateTime;
+    }
+
+    public void approve(DocStatusType docStatus){
+        this.docStatus = docStatus;
+    }
+
+    public void done(DocStatusType docStatus, LocalDateTime compltDateTime, Long docNo){
+        this.docStatus = docStatus;
+        this.compltDateTime = compltDateTime;
+        this.docNo = docNo;
+    }
+
+    public void returned(DocStatusType docStatus, LocalDateTime compltDateTime){
+        this.docStatus = docStatus;
+        this.compltDateTime = compltDateTime;
     }
 }
