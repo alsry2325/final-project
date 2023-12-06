@@ -29,7 +29,10 @@ function App() {
 
             <Route path="/approval">        {/*여기에서 권한체크?*/}
                 <Route path="home" element={<ApprovalLayout/>}/>
-                <Route path="write/businessDraft" element={<BusinessDraftForm/>}/>
+                <Route path="write">
+                    <Route path="businessDraft" element={<BusinessDraftForm/>}/>
+                    <Route path="expenxeReport"/>
+                </Route>
             </Route>
         </Routes>
       </BrowserRouter>

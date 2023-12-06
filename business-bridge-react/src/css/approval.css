@@ -1,3 +1,5 @@
+/* ================================================ 업무 기안서 작성 ================================================ */
+
 .approval-doc-form-outline {
     border: solid 1px #d9d9d9;
     max-width: 80%;
@@ -7,9 +9,16 @@
 .approval-header {
     display: flex;
     padding: 10px;
+    margin: 10px 0;
 }
 
-.approval-doc-title{
+.approval-body {
+    text-align: center;
+    width: 80%;
+    margin: 30px auto;
+}
+
+.approval-form-name{
     width: 60%;
     display: flex;
     align-items: center;
@@ -47,4 +56,46 @@ button.choose-approver{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.draftInfo, .BD-content {
+    border: solid 1px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.draftInfo tr, .draftInfo td, .BD-content tr, .BD-content td {
+    border: solid 1px;
+    padding: 10px;
+}
+
+input.approval-title {
+    height: 25px;
+    width: 95%;
+    padding: 5px;
+}
+
+.businessDraftContent {
+    width: 90%;
+    height: 250px;
+}
+
+.approval-file-div {
+    width: 80%;
+    margin: 10px auto 20px auto;
+}
+
+.approval-file{
+    border: dashed 1px #aeaeae;
+    margin: 10px 0;
+    text-align: center;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+img.approval-attach-img {
+    width: 17px;
+    margin: 5px;
 }

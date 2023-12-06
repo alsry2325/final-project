@@ -69,7 +69,7 @@ function Header({clicked, isClicked}){
                        </NavLink>
                    </li>
                    <li className="NavElements">
-                       <NavLink className="Link" to="/contact-us">
+                       <NavLink className="Link" to="/approval/home">
                            전자결재
                        </NavLink>
                    </li>
