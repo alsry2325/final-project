@@ -1,9 +1,10 @@
 import {combineReducers} from "redux";
-import costomReducer from "./CustomModule";
+import memberReducer from "./EmployeeModule";
+
 
 
 const rootReducer = combineReducers({
-    costomReducer
+    memberReducer
 });
 
 export default rootReducer;
