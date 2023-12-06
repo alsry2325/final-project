@@ -21,7 +21,7 @@ public class ExpenseReport {
     private Approval approval;                                  // 전자결재코드
 
     @Column(nullable = false)
-    private Long totalExpenditure;                                   // 총지출금액
+    private Long totalExpenditure;                              // 총지출금액
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "expenseReportCode")
@@ -37,5 +37,9 @@ public class ExpenseReport {
         return new ExpenseReport(
                 approval, totalExpenditure, expenseReportDetail
         );
+    }
+
+    public void update(Long totalExpenditure){
+        this.totalExpenditure = totalExpenditure;
     }
 }

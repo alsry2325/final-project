@@ -29,10 +29,15 @@ public class ExpenseReportDetail {
         this.note = note;
     }
 
-
     public static ExpenseReportDetail of(String item, Long amount, String note){
         return new ExpenseReportDetail(
                 item, amount, note
         );
+    }
+
+    public void update(String item, Long amount, String note){
+        this.item = item;
+        this.amount = amount;
+        this.note = note;
     }
 }

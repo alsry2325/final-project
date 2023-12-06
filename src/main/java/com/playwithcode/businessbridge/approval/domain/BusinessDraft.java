@@ -32,4 +32,8 @@ public class BusinessDraft {
                 approval, businessDraftContent
         );
     }
+
+    public void update(String businessDraftContent){
+        this.businessDraftContent = businessDraftContent;
+    }
 }
