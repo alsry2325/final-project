@@ -1,5 +1,6 @@
 package com.playwithcode.businessbridge.product.domain;
 
+import com.playwithcode.businessbridge.product.domain.type.EstimateType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -8,9 +9,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
+import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -28,17 +31,20 @@ public class Estimate {
     private String estimateNum;//견적서 번호
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    private Date estiCreateDt;//생성일자
+    private LocalDateTime estiCreateDt;//생성일자
 
     private String estiMessage;//전달사항
 
-    private String estiState;//상태
+    @Enumerated(value = STRING)
+    private EstimateType estiState;//상태
+
     @ManyToOne
     @JoinColumn(name ="emplyCode")
     private Employee employee;//사원코드
     @ManyToOne
     @JoinColumn(name ="accountCode" )
     private Account account;//거래처코드
+
     @LastModifiedDate
     private Date estiModifyDt;//수정일자
 
@@ -54,6 +60,8 @@ public class Estimate {
     @OneToMany
     @JoinColumn(name ="attachfileCode")
     private List<File> file;//첨부파일
+
+
 
 
 }

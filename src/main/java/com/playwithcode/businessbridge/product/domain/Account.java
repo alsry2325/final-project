@@ -23,7 +23,7 @@ public class Account {
     @Id
     private Long accountCode;//거래처 코드
 
-    private String customerRepresenative;//거래처 대표자
+    private String customerRepresentative;//거래처 대표자
 
     private String sortation;//구분
 
@@ -35,11 +35,11 @@ public class Account {
     @Column(nullable = false, updatable = false)
     private Date registrationDate;//등록일
 
-    private String taxInvoiceEmail; //세금계산서 메일
+    private String taxInvoiceMail; //세금계산서 메일
 
     private Long BusinessLicenseNumber; //사업자 번호
 
-    private Long accountAddress;//사업자주소
+    private String accountAddress;//사업자주소
 
     private String specialNote;//특이사항
 

@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.math.BigInteger;
 import java.util.Optional;
 
-public interface ProductRepository extends JpaRepository<Product,BigInteger> {
+public interface ProductRepository extends JpaRepository<Product,Long> {
 
     /*1. 상품 목록 조회 : 페이징, 주문 불가 상품 제외(고객)*/
 

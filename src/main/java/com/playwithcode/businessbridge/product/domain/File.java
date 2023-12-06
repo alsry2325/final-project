@@ -8,7 +8,7 @@ import javax.persistence.*;
 import static javax.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
-@Entity
+@Entity(name="fileInfo")
 @Table(name = "tbl_file")
 @NoArgsConstructor(access = PROTECTED)
 @Getter
@@ -18,7 +18,7 @@ public class File {
     @GeneratedValue(strategy = IDENTITY)
     private Long attachfileCode;//파일코드
 
-    private String attachFileNm;//파일명
+    private String attachfileNm;//파일명
 
     private String pathName;//경로명
 
