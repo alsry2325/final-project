@@ -107,9 +107,9 @@ public class NoteService {
 
     /* 7. 발신자명 기준 검색 */
     @Transactional(readOnly = true)
-    public Page<NoteResponseWithEmplyName> getSenderName(final Integer page, final String emplyName) {
+    public Page<NoteResponseWithEmplyName> getSenderName(final Integer page, final String emplyName, CustomUser customUser) {
 
-        Page<Note> notes = noteRepository.findBySenderEmplyNameContains(getPageable(page), emplyName);
+        Page<Note> notes = noteRepository.findBySenderEmplyNameContains(getPageable(page), emplyName, customUser.getEmplyCode());
 
         return notes.map(note -> NoteResponseWithEmplyName.from(note));
     }

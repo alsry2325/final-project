@@ -104,9 +104,10 @@ public class NoteController {
     @GetMapping("/notes/search")
     public ResponseEntity<PagingResponse> getSenderName(
             @RequestParam(defaultValue = "1") final Integer page,
-            @RequestParam final String emplyName) {
+            @RequestParam final String emplyName,
+            @AuthenticationPrincipal CustomUser customUser) {
 
-        final Page<NoteResponseWithEmplyName> notes = noteService.getSenderName(page, emplyName);
+        final Page<NoteResponseWithEmplyName> notes = noteService.getSenderName(page, emplyName, customUser);
         final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(notes);
         final PagingResponse pagingResponse = PagingResponse.of(notes.getContent(), pagingButtonInfo);
 
