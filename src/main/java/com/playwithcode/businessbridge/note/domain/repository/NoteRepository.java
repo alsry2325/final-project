@@ -70,13 +70,25 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
 
 
     /* 쪽지 상세 조회  -----------------------------------------------------------------------------------------------*/
+
     /* 13. 수신자 쪽지 상세 조회 */
     Optional<Note> findByRecipientEmplyCodeAndNoteNoAndRecipientStatusNot(Long emplyCode, Long noteNo, RecipientStatus recipientStatus);
 
     /* 14. 발신자 쪽지 상세 조회 */
     Optional<Note> findBySenderEmplyCodeAndNoteNoAndRecipientStatusNot(Long emplyCode, Long noteNo, RecipientStatus recipientStatus);
 
-    /* 15. 쪽지 삭제(DB 삭제, 수신자 삭제 = 발신자 삭제 ) -------------------------------------------------------------------*/
+
+    /* 쪽지 삭제(DB 삭제, 수신자 삭제 = 발신자 삭제 ) -------------------------------------------------------------------*/
+
+    /* 쪽지 삭제(TRASH -> DELETE) */
+
+    /* TODO
+    *   1. (수/발신자) 상태 중 지금 선택된 걸 DELETE로 바꾸는 로직,
+    *   2. if 수신자 상태 DELETE && 발신자 상태 DELETE면 DB 삭제, 아니면 DB에 남겨둠
+    */
+
+    /* 15. 쪽지 삭제(수신자 상태 변경 TRASH -> DELETE) */
+
 
 }
 
