@@ -266,7 +266,7 @@ public class ApprovalController {
                                                 @RequestBody ApprovalRequest approvalRequest){
         approvalService.confirmApproval(approvalCode, customUser, approvalRequest);
 
-        return null;
+        return ResponseEntity.created(URI.create("/document/" + approvalCode)).build();
     }
 
     /* 15. 결재자 결재 - 보류 */
@@ -275,7 +275,7 @@ public class ApprovalController {
 
         approvalService.pendingApproval(approvalCode);
 
-        return null;
+        return ResponseEntity.created(URI.create("/document/" + approvalCode)).build();
     }
 
     /* -------------------------------------------------- 직원 조회  -------------------------------------------------- */
