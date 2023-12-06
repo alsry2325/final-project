@@ -11,17 +11,16 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Getter
-public class ExpenseReportCreateRequest {
+public class ExpenseReportUpdateRequest {
 
     @NotEmpty
-    private final List<Long> approverMember;    // 결재자들
+    private final List<Long> approvers;    // 결재자들
     @NotBlank
     private final String title;                 // 제목
     @NotNull
     private final Long totalExpenditure;        // 총지출금액
 
-    private final List<ExpenseReportDetailCreateRequest> expenseReportDetailCreateRequests; // 지출결의서 상세
+    private final List<ExpenseReportDetailUpdateRequest> expenseReportDetailUpdateRequests; // 지출결의서 상세
 
-    private final DocStatusType docStatus;          // 문서상태(임시저장, 등록)
-
+    private final DocStatusType docStatus;          // 문서 상태
 }

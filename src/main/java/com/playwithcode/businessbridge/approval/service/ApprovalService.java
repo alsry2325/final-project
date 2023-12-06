@@ -1,15 +1,11 @@
 package com.playwithcode.businessbridge.approval.service;
 
 import com.playwithcode.businessbridge.approval.domain.*;
-import com.playwithcode.businessbridge.approval.domain.repository.ApprovalRepository;
-import com.playwithcode.businessbridge.approval.domain.repository.BusinessDraftRepository;
-import com.playwithcode.businessbridge.approval.domain.repository.ExpenseReportRepository;
+import com.playwithcode.businessbridge.approval.domain.repository.*;
 import com.playwithcode.businessbridge.approval.domain.type.ApprovalStatusType;
 import com.playwithcode.businessbridge.approval.domain.type.DocFormType;
 import com.playwithcode.businessbridge.approval.domain.type.DocStatusType;
-import com.playwithcode.businessbridge.approval.dto.request.BusinessDraftCreateRequest;
-import com.playwithcode.businessbridge.approval.dto.request.ExpenseReportCreateRequest;
-import com.playwithcode.businessbridge.approval.dto.request.ExpenseReportDetailCreateRequest;
+import com.playwithcode.businessbridge.approval.dto.request.*;
 import com.playwithcode.businessbridge.approval.dto.response.BusinessDraftResponse;
 import com.playwithcode.businessbridge.approval.dto.response.DraftListResponse;
 import com.playwithcode.businessbridge.approval.dto.response.ExpenseReportResponse;
@@ -20,16 +16,17 @@ import com.playwithcode.businessbridge.jwt.CustomUser;
 import com.playwithcode.businessbridge.member.domain.Employee;
 import com.playwithcode.businessbridge.member.domain.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -39,24 +36,29 @@ import static com.playwithcode.businessbridge.approval.domain.type.ApprovalStatu
 import static com.playwithcode.businessbridge.approval.domain.type.DocFormType.BUSINESS_DRAFT;
 import static com.playwithcode.businessbridge.approval.domain.type.DocFormType.EXPENSE_REPORT;
 import static com.playwithcode.businessbridge.approval.domain.type.DocStatusType.*;
-import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.NOT_FOUND_APPROVAL_CODE;
+import static com.playwithcode.businessbridge.approval.domain.type.DocStatusType.RETURN;
+import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.*;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class ApprovalService {
 
     private final ApprovalRepository approvalRepository;
+    private final ApproverRepository approverRepository;
     private final BusinessDraftRepository businessDraftRepository;
     private final ExpenseReportRepository expenseReportRepository;
+    private final ExpenseReportDetailRepository expenseReportDetailRepository;
     private final EmployeeRepository employeeRepository;
+    private final FileRepository fileRepository;
 
     @Value("http://localhost/approvalFiles/")
     private String FILE_URL;
     @Value("src/main/resources/upload/approvalFiles")
     private String FILE_DIR;
 
-    private Pageable getPageable(final Integer page) {
+    private Pageable getPageable(final Integer page){
         return PageRequest.of(page - 1, 10,
                 Sort.by("approvalCode"));
     }
@@ -73,22 +75,22 @@ public class ApprovalService {
 
         // 결재자 엔터티 추가
         List<Approver> approverMember = new ArrayList<>();
-        for (int i = 0; i < businessDraftRequest.getApproverMember().size(); i++) {
+        for(int i = 0; i < businessDraftRequest.getApprover().size(); i++) {
 
-            Employee approver = employeeRepository.getReferenceById(businessDraftRequest.getApproverMember().get(i));
+            Employee approver = employeeRepository.getReferenceById(businessDraftRequest.getApprover().get(i));
 
-            if (i == 0) {
-                approverMember.add(Approver.of(approver, i + 1L, ACTIVATE));
+            if(i == 0) {
+                approverMember.add(Approver.of(approver, i+1L, ACTIVATE));
                 // 생성하는 DTO에서 Long타입으로 정보를 받아오는데 저장되는 of메소드에서 approver의 타입은 Employee임
             } else {
-                approverMember.add(Approver.of(approver, i + 1L, WAITING));
+                approverMember.add(Approver.of(approver, i+1L, WAITING));
             }
         }
 
         // 전달 된 파일을 서버의 지정 경로에 저장
         List<File> files = new ArrayList<>();
 
-        for (MultipartFile attachFile : attachFiles) {
+        for( MultipartFile attachFile : attachFiles ) {
             String replaceFileName = FileUploadUtils.saveFile(FILE_DIR, getRandomName(), attachFile);
             files.add(File.of(
                     attachFile.getOriginalFilename(),
@@ -103,6 +105,7 @@ public class ApprovalService {
         // 전자결재 엔터티 추가
         Approval newApproval = Approval.of(
                 approverMember,
+                businessDraftRequest.getDocStatus(),
                 draftMember,
                 businessDraftRequest.getTitle(),
                 BUSINESS_DRAFT,
@@ -137,7 +140,7 @@ public class ApprovalService {
         // 전달 된 파일을 서버의 지정 경로에 저장
         List<File> files = new ArrayList<>();
 
-        for (MultipartFile attachFile : attachFiles) {
+        for( MultipartFile attachFile : attachFiles ) {
             String replaceFileName = FileUploadUtils.saveFile(FILE_DIR, getRandomName(), attachFile);
             files.add(File.of(
                     attachFile.getOriginalFilename(),
@@ -152,6 +155,7 @@ public class ApprovalService {
         // 전자결재 엔터티 추가
         Approval newApproval = Approval.of(
                 approverMember,
+                expenseReportRequest.getDocStatus(),
                 draftMember,
                 expenseReportRequest.getTitle(),
                 DocFormType.EXPENSE_REPORT,
@@ -161,7 +165,7 @@ public class ApprovalService {
         // 지출 결의서 상세 엔터티 추가
         List<ExpenseReportDetail> expenseReportDetails = new ArrayList<>();
 
-        for (ExpenseReportDetailCreateRequest expenseDetailRequest : expenseReportRequest.getExpenseReportDetailCreateRequests()) {
+        for(ExpenseReportDetailCreateRequest expenseDetailRequest : expenseReportRequest.getExpenseReportDetailCreateRequests()){
             expenseReportDetails.add(ExpenseReportDetail.of(
                     expenseDetailRequest.getItem(),
                     expenseDetailRequest.getAmount(),
@@ -277,7 +281,7 @@ public class ApprovalService {
     @Transactional(readOnly = true)
     public BusinessDraftResponse getBusinessDraft(final Long approvalCode) {
 
-        BusinessDraft businessDraft = businessDraftRepository.findApprovalByApprovalApprovalCodeAndApprovalDocFormLike(approvalCode, BUSINESS_DRAFT)
+        BusinessDraft businessDraft = businessDraftRepository.findByApprovalApprovalCodeAndApprovalDocFormLike(approvalCode, BUSINESS_DRAFT)
                 .orElseThrow(() -> new NotFoundException(NOT_FOUND_APPROVAL_CODE));
 
         return BusinessDraftResponse.from(businessDraft);
@@ -291,4 +295,251 @@ public class ApprovalService {
 
         return ExpenseReportResponse.from(expenseReport);
     }
+
+    /* -------------------------------------------------- 결재 수정 -------------------------------------------------- */
+
+    /* 10. 업무기안서 수정 */
+    public void businessDraftUpdate(Long approvalCode, List<MultipartFile> attachFiles, BusinessDraftUpdateRequest businessDraftUpdate) {
+
+        /* 1. 업무기안서 조회 */
+        BusinessDraft businessDraft = businessDraftRepository.findByApprovalApprovalCodeAndApprovalDocFormLike(approvalCode, BUSINESS_DRAFT)
+                .orElseThrow(() -> new NotFoundException(NOT_FOUND_APPROVAL_CODE));
+
+        /* 2. 첨부파일 수정 */
+        List<File> files = new ArrayList<>();
+
+        if(attachFiles != null){
+            for (MultipartFile attachFile : attachFiles) {
+
+                // 기존 파일 엔티티 삭제
+                fileRepository.deleteAll(businessDraft.getApproval().getFile());
+
+                String replaceFileName = FileUploadUtils.saveFile(FILE_DIR, getRandomName(), attachFile);
+                files.add(File.of(
+                        attachFile.getOriginalFilename(),
+                        FILE_URL + replaceFileName,
+                        replaceFileName,
+                        attachFile.getOriginalFilename().substring(attachFile.getOriginalFilename().lastIndexOf("."))
+                        ));
+                }
+            }
+
+        /* 3. 엔티티 정보 변경 */
+        // 결재자
+        // Long타입으로 넘어온 결재자들의 코드 리스트를 가지고 결재자 엔티티를 업데이트 => 삭제 후 등록
+        List<Approver> approverMember = new ArrayList<>();
+        // 이전 결재자 엔터티 삭제
+        approverRepository.deleteAll(businessDraft.getApproval().getApproverMember());
+
+        // 결재자 엔터티 추가
+        for(int i = 0; i < businessDraftUpdate.getApprovers().size(); i++) {
+
+            Employee approver = employeeRepository.getReferenceById(businessDraftUpdate.getApprovers().get(i));
+
+            if(i == 0) {
+                approverMember.add(Approver.of(approver, i+1L, ACTIVATE));
+            } else {
+                approverMember.add(Approver.of(approver, i+1L, WAITING));
+            }
+        }
+
+        // 전자결재
+        businessDraft.getApproval().update(
+                approverMember,
+                businessDraftUpdate.getTitle(),
+                businessDraftUpdate.getDocStatus(),
+                files
+        );
+
+        // 업무기안서
+        businessDraft.update(businessDraftUpdate.getBusinessDraftContent());
+    }
+
+    /* 11. 지출결의서 수정 */
+    public void expenseReportUpdate(Long approvalCode, List<MultipartFile> attachFiles, ExpenseReportUpdateRequest expenseReportUpdate) {
+
+        /* 1. 지출 결의서 조회 */
+        ExpenseReport expenseReport = expenseReportRepository.findByApprovalApprovalCodeAndApprovalDocFormLike(approvalCode, EXPENSE_REPORT)
+                .orElseThrow(()-> new NotFoundException(NOT_FOUND_APPROVAL_CODE));
+
+        /* 2. 첨부파일 수정 */
+        List<File> files = new ArrayList<>();
+
+        if(attachFiles != null){
+            for (MultipartFile attachFile : attachFiles) {
+
+                // 기존 파일 엔티티 삭제
+                fileRepository.deleteAll(expenseReport.getApproval().getFile());
+
+                String replaceFileName = FileUploadUtils.saveFile(FILE_DIR, getRandomName(), attachFile);
+                files.add(File.of(
+                        attachFile.getOriginalFilename(),
+                        FILE_URL + replaceFileName,
+                        replaceFileName,
+                        attachFile.getOriginalFilename().substring(attachFile.getOriginalFilename().lastIndexOf("."))
+                ));
+            }
+        }
+
+        /* 3. 엔티티 업데이트 */
+        // 결재자
+        // Long타입으로 넘어온 결재자들의 코드 리스트를 가지고 결재자 엔티티를 업데이트 => 삭제 후 등록
+        List<Approver> approverMember = new ArrayList<>();
+        // 이전 결재자 엔터티 삭제
+        approverRepository.deleteAll(expenseReport.getApproval().getApproverMember());
+
+        // 결재자 엔터티 추가
+        for(int i = 0; i < expenseReportUpdate.getApprovers().size(); i++) {
+
+            Employee approver = employeeRepository.getReferenceById(expenseReportUpdate.getApprovers().get(i));
+
+            if(i == 0) {
+                approverMember.add(Approver.of(approver, i+1L, ACTIVATE));
+            } else {
+                approverMember.add(Approver.of(approver, i+1L, WAITING));
+            }
+        }
+
+        // 전자결재
+        expenseReport.getApproval().update(
+                approverMember,
+                expenseReportUpdate.getTitle(),
+                expenseReportUpdate.getDocStatus(),
+                files
+        );
+
+        // 지출 상세 엔터티 삭제 후 추가
+        List<ExpenseReportDetail> expenseReportDetails = new ArrayList<>();
+
+        expenseReportDetailRepository.deleteAll(expenseReport.getExpenseReportDetail());
+
+        for(ExpenseReportDetailUpdateRequest expenseDetailUpdate : expenseReportUpdate.getExpenseReportDetailUpdateRequests()){
+            expenseReportDetails.add(ExpenseReportDetail.of(
+                    expenseDetailUpdate.getItem(),
+                    expenseDetailUpdate.getAmount(),
+                    expenseDetailUpdate.getNote()
+            ));
+        }
+
+        // 지출결의서
+        expenseReport.update(expenseReportUpdate.getTotalExpenditure());
+    }
+
+    /* -------------------------------------------------- 문서 회수  -------------------------------------------------- */
+
+    /* 12. 문서 회수 */
+    public void collectApproval(Long approvalCode, CustomUser customUser) {
+        // 해당 결재를 조회
+        Approval approval = approvalRepository.findByApprovalCodeAndDraftMemberEmplyCode(approvalCode, customUser.getEmplyCode())
+                .orElseThrow(() -> new NotFoundException(NOT_FOUND_MY_APPROVAL));
+
+        if(approval.getDocStatus().equals(DocStatusType.WAITING)){
+            approval.collect(
+                    COLLECT,
+                    LocalDateTime.now()
+            );
+        } else{
+            new NotFoundException(NOT_FOUND_COLLECT_DOCUMENT);
+        }
+    }
+
+    /* -------------------------------------------------- 결재자  -------------------------------------------------- */
+
+    /* - 문서 번호 생성 */
+    private long docNoFormat() {
+
+        int currentYear = LocalDateTime.now().getYear();
+
+        List<Approval> compltDoc = approvalRepository.findByDocStatus(COMPLETE);
+        // 올 해 완료 된 문서의 합계
+        int setdocNo = compltDoc.size() + 1;
+
+        String docNoFormat = String.format("%05d",setdocNo);
+        int currentDocNo = Integer.parseInt(currentYear + docNoFormat);
+        return currentDocNo;
+    }
+
+    /* 13. 결재자 결재 - 승인, 반려? */
+    public void confirmApproval(Long approvalCode, CustomUser customUser, ApprovalRequest approvalRequest) {
+
+        Approval approval = approvalRepository.findById(approvalCode)
+                .orElseThrow(() -> new NotFoundException(ALREADY_CONFIRM_DOC));
+
+
+        List<Approver> approvers = approval.getApproverMember();
+        int approvalCount = approvers.size();
+
+        Approver userApprover = null;       // 결재자 = 로그인한 사람
+        Approver nextApprover = null;       // 다음 결재자
+        for(int i = 0; i < approvalCount; i++) {
+            if(approvers.get(i).getApproverMember().getEmplyCode().equals(customUser.getEmplyCode())){
+                userApprover = approvers.get(i);
+                if(i < approvalCount - 1) {
+                    nextApprover = approvers.get(i+1);
+                }
+                break;
+            }
+        }
+
+        log.info("order: {}", userApprover.getApprovalOrder());
+
+        // 로그인 한 결재자의 결재 상태를 변경하고 결재에 대한 일시와 의견 추가
+        if(approval.getDocStatus().equals(DocStatusType.WAITING) || approval.getDocStatus().equals(PROCEEDING)) {
+            userApprover.approval(
+                    approvalRequest.getApprovalStatus(),
+                    LocalDateTime.now(),
+                    approvalRequest.getApprovalOpinion()
+            );
+        }
+
+        // 다음 결재자가 존재한다면 다음 결재자의 결재 상태를 활성화 시켜줌
+        if(nextApprover != null) {
+            if (approvalRequest.getApprovalStatus().equals(CONFIRM)){
+                nextApprover.statusUpdate(
+                        ACTIVATE
+                );
+            }
+
+        }
+
+        // 결재 문서 상태 변경
+        if(userApprover.getApprovalOrder() == 1){                           // 로그인 한 결재자가 첫번째 결재자인 경우
+            if(approvalRequest.getApprovalStatus().equals(ApprovalStatusType.RETURN)){
+                approval.returned(
+                        RETURN,
+                        LocalDateTime.now()
+                );
+            } else {
+                approval.approve(PROCEEDING);                                   // 문서 상태 진행중으로 업데이트
+            }
+
+        } else if (userApprover.getApprovalOrder() == approvalCount) {      // 현재 결재가 마지막 결재인 경우
+            if (approvalRequest.getApprovalStatus().equals(ApprovalStatusType.RETURN)){
+                approval.returned(
+                        RETURN,
+                        LocalDateTime.now()
+                );
+            }else {
+                approval.done(
+                        COMPLETE,
+                        LocalDateTime.now(),
+                        docNoFormat()
+                );
+            }
+       }
+    }
+
+
+    /* 15. 결재자 결재 - 보류 */
+    public void pendingApproval(Long approvalCode) {
+
+        Approval approval = approvalRepository.findById(approvalCode)
+                .orElseThrow(() -> new NotFoundException(NOT_FOUND_APPROVAL_CODE));
+
+        // 결재자들 중 현재 로그인하고 활성화 된 결재 상태를 PENDING으로 변경
+
+    }
+
+
+
 }

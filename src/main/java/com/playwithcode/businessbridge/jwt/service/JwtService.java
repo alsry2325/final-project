@@ -40,18 +40,18 @@ public class JwtService {
     @Value("${jwt.refresh.expiration}")
     private Long refreshTokenExpirationPeriod;
     private final Key key;
-    private final EmployeeRepository employeeRepositroy;
+    private final EmployeeRepository employeeRepository;
 
     private static final String ACCESS_TOKEN_SUBJECT = "AccessToken";
     private static final String REFRESH_TOKEN_SUBJECT = "RefreshToken";
     //토큰 구별을 하기위해
     private static final String BEARER = "Bearer ";
 
-    public JwtService(@Value("${jwt.secret}") String secretKey, EmployeeRepository employeeRepositroy) {
+    public JwtService(@Value("${jwt.secret}") String secretKey, EmployeeRepository employeeRepository) {
          //.yml쪽 비밀키를 읽어와  BASE64로 인코딩 된 문자열
         byte[] keyBytes = Decoders.BASE64.decode(secretKey); //바이트 배열로 만듬
         this.key = Keys.hmacShaKeyFor(keyBytes);       //인증키를 만들어줌
-        this.employeeRepositroy = employeeRepositroy;
+        this.employeeRepository = employeeRepository;
     }
 
 
@@ -82,7 +82,7 @@ public class JwtService {
 
     @Transactional //디비에 업데이트 되려면 선언
     public void updateRefreshToken(String emplyId, String refreshToken) {
-        employeeRepositroy.findByEmplyId(emplyId)
+        employeeRepository.findByEmplyId(emplyId)
                 //만약 있으면?
                 .ifPresentOrElse(
                         member -> member.updateRefreshToken(refreshToken),
@@ -119,7 +119,7 @@ public class JwtService {
     }
     //DB에서 Refresh Token 일치 여부 확인 후 일치하면 AccessToken 재발급
     public void checkRefreshTokenAndReIssueAccessToken(HttpServletResponse response, String refreshToken) {
-            employeeRepositroy.findByRefreshToken(refreshToken)
+            employeeRepository.findByRefreshToken(refreshToken)
                  .ifPresent(employee -> { //일치하면
                     String reIssuedRefreshToken = reIssuedRefreshToken(employee); //재발급해서 디비에 업데이트
                     String accessToken = createAccessToken(  //새로운 토큰
@@ -135,7 +135,7 @@ public class JwtService {
 
         String reIssuedRefreshToken = createRefreshToken();
         employee.updateRefreshToken(reIssuedRefreshToken); //member필드수정 토큰 업데이트
-        employeeRepositroy.saveAndFlush(employee); //바로 업데이트 구문 발생
+        employeeRepository.saveAndFlush(employee); //바로 업데이트 구문 발생
         return reIssuedRefreshToken;
     }
 
@@ -144,7 +144,7 @@ public class JwtService {
         getAccessToken(request)
                 .filter(this::isValidToken)
                 .ifPresent(accessToken -> getEmployeeInfo(accessToken)
-                        .ifPresent(emplyId -> employeeRepositroy.findByEmplyId(emplyId)
+                        .ifPresent(emplyId -> employeeRepository.findByEmplyId(emplyId)
                                 .ifPresent(this::saveAuthentication)));  //인증개체저장
 
         filterChain.doFilter(request, response);

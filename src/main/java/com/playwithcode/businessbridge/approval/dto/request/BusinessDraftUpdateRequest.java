@@ -10,14 +10,14 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Getter
-public class BusinessDraftCreateRequest {
+public class BusinessDraftUpdateRequest {
 
     @NotBlank
     private final String businessDraftContent;      // 업무 기안서 내용
     @NotBlank
     private final String title;                     // 제목
     @NotEmpty
-    private final List<Long> approver;              // 결재자들
+    private final List<Long> approvers;        // 결재자들
 
-    private final DocStatusType docStatus;          // 문서상태(임시저장, 등록)
+    private final DocStatusType docStatus;          // 문서 상태
 }
