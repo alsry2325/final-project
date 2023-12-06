@@ -100,10 +100,11 @@ public class NoteController {
         return ResponseEntity.ok(pagingResponse);
     }
 
-    /* 7. 발신자명 기준 검색 */
+    /* 7. 발신자명 기준 검색(수신자 = 로그인 한 사람) */
     @GetMapping("/notes/search")
     public ResponseEntity<PagingResponse> getSenderName(
-            @RequestParam(defaultValue = "1") final Integer page, @RequestParam final String emplyName) {
+            @RequestParam(defaultValue = "1") final Integer page,
+            @RequestParam final String emplyName) {
 
         final Page<NoteResponseWithEmplyName> notes = noteService.getSenderName(page, emplyName);
         final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(notes);
@@ -112,6 +113,41 @@ public class NoteController {
         return ResponseEntity.ok(pagingResponse);
     }
 
+    /* 8. 쪽지 제목 기준 검색 */
+    @GetMapping("/notes/search2")
+    public ResponseEntity<PagingResponse> getNoteTitle(
+            @RequestParam(defaultValue = "1") final Integer page, @RequestParam final String noteTitle) {
+
+        final Page<NoteResponseWithEmplyName> notes = noteService.getNoteTitle(page, noteTitle);
+        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(notes);
+        final PagingResponse pagingResponse = PagingResponse.of(notes.getContent(), pagingButtonInfo);
+
+        return ResponseEntity.ok(pagingResponse);
+    }
+
+    /* 9. 쪽지 내용 기준 검색 */
+    @GetMapping("/notes/search3")
+    public ResponseEntity<PagingResponse> getNoteContent(
+            @RequestParam(defaultValue = "1") final Integer page, @RequestParam final String noteContent) {
+
+        final Page<NoteResponseWithEmplyName> notes = noteService.getNoteContent(page, noteContent);
+        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(notes);
+        final PagingResponse pagingResponse = PagingResponse.of(notes.getContent(), pagingButtonInfo);
+
+        return ResponseEntity.ok(pagingResponse);
+    }
+
+    /* 10. 수신자명 기준 검색 */
+    @GetMapping("/notes/search4")
+    public ResponseEntity<PagingResponse> getRecipientName(
+            @RequestParam(defaultValue = "1") final Integer page, @RequestParam final String emplyName) {
+
+        final Page<NoteResponseWithEmplyName> notes = noteService.getRecipientName(page, emplyName);
+        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(notes);
+        final PagingResponse pagingResponse = PagingResponse.of(notes.getContent(), pagingButtonInfo);
+
+        return ResponseEntity.ok(pagingResponse);
+    }
 
     /* 쪽지 삭제 */
     /* TODO : 휴지통에서도 삭제를 눌렀을 때

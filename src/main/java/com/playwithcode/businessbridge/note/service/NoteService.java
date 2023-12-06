@@ -5,8 +5,6 @@ import com.playwithcode.businessbridge.member.domain.Employee;
 import com.playwithcode.businessbridge.member.domain.repository.EmployeeRepository;
 import com.playwithcode.businessbridge.note.domain.Note;
 import com.playwithcode.businessbridge.note.domain.repository.NoteRepository;
-import com.playwithcode.businessbridge.note.domain.type.RecipientStatus;
-import com.playwithcode.businessbridge.note.domain.type.SenderStatus;
 import com.playwithcode.businessbridge.note.dto.request.NoteSendRequest;
 import com.playwithcode.businessbridge.note.dto.response.NoteResponse;
 import com.playwithcode.businessbridge.note.dto.response.NoteResponseWithEmplyName;
@@ -111,10 +109,41 @@ public class NoteService {
     @Transactional(readOnly = true)
     public Page<NoteResponseWithEmplyName> getSenderName(final Integer page, final String emplyName) {
 
-        Page<Note> notes = noteRepository.findBySenderEmplyName(getPageable(page), emplyName);
+        Page<Note> notes = noteRepository.findBySenderEmplyNameContains(getPageable(page), emplyName);
 
         return notes.map(note -> NoteResponseWithEmplyName.from(note));
     }
+
+
+    /* 8. 쪽지 제목 기준 검색 */
+    @Transactional(readOnly = true)
+    public Page<NoteResponseWithEmplyName> getNoteTitle(final Integer page, final String noteTitle) {
+
+        Page<Note> notes = noteRepository.findByNoteTitleContains(getPageable(page), noteTitle);
+
+        return notes.map(note -> NoteResponseWithEmplyName.from(note));
+    }
+
+    /* 9. 쪽지 내용 기준 검색 */
+    @Transactional(readOnly = true)
+    public Page<NoteResponseWithEmplyName> getNoteContent(final Integer page, final String noteContent) {
+
+        Page<Note> notes = noteRepository.findByNoteContentContains(getPageable(page), noteContent);
+
+        return notes.map(note -> NoteResponseWithEmplyName.from(note));
+    }
+
+    /* 10. 수신자명 기준 검색 */
+    @Transactional(readOnly = true)
+    public Page<NoteResponseWithEmplyName> getRecipientName(final Integer page, final String emplyName) {
+
+        Page<Note> notes = noteRepository.findByRecipientEmplyNameContains(getPageable(page), emplyName);
+
+        return notes.map(note -> NoteResponseWithEmplyName.from(note));
+    }
+
+
+
 
     /* 쪽지 삭제(DB 삭제) */
     public boolean deleteNoteBySenderAndRecipient(Long noteNo) {
