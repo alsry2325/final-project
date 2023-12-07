@@ -32,10 +32,6 @@ function Header({clicked, isClicked}){
         navigate('/emp/employee/mypage');
     }
 
-    const onClickSalesMain = () =>{
-        navigate("/sales/salesList/0");
-    }
-    
     return (
         <>
             { myPageInfo &&
@@ -83,12 +79,7 @@ function Header({clicked, isClicked}){
                        </NavLink>
                    </li>
                    <li className="NavElements">
-                       <NavLink className="Link" to="/contact-us">
-                           영업관리(임시)
-                       </NavLink>
-                   </li>
-                   <li className="NavElements">
-                       <NavLink className="Link" onClick={ onClickSalesMain }>
+                       <NavLink className="Link"  to="/contact-us">
                            견적서 관리
                        </NavLink>
                    </li>

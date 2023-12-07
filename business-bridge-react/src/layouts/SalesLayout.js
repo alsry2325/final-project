@@ -9,8 +9,6 @@ function SalesLayout () {
     return (
 
     <>
-        <Header clicked={clicked} isClicked={isClicked}/>
-        {clicked?<Menu/>:null}
         <div className="mypage-layout-div">
             <SalesNavbar/>
             <main className="mypage-main">
