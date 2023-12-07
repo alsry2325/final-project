@@ -18,20 +18,19 @@ public interface ApprovalRepository extends JpaRepository<Approval, Long> {
     @Query("SELECT a FROM Approval a " +
             "JOIN a.approverMember approver " +
             "WHERE approver.approverMember.emplyCode = :emplyCode " +
-            "AND approver.approvalStatus = 'ACTIVATE' or approver.approvalStatus = 'PENDING' " +
-            "AND a.docStatus = 'WAITING' or a.docStatus = 'PROCEEDING'")
+            "AND a.docStatus = 'WAITING' or a.docStatus = 'PROCEEDING'" +
+            "AND approver.approvalStatus = 'ACTIVATE' or approver.approvalStatus = 'PENDING'")
     Page<Approval> findApprovals(Pageable pageable, @Param("emplyCode") Long emplyCode);
 
     /* 2-2. 받은 결재 목록 조회 - 상태별 조회, 페이징 */
     @Query("SELECT a FROM Approval a " +
             "JOIN a.approverMember approver " +
             "WHERE approver.approverMember.emplyCode = :emplyCode " +
-            "AND approver.approvalStatus = 'ACTIVATE' " +
-            "AND a.docStatus IN :docStatusType")
+            "AND approver.approvalStatus IN :approvalStatusType")
     Page<Approval> findApprovals(
             Pageable pageable,
             @Param("emplyCode") Long emplyCode,
-            @Param("docStatusType")DocStatusType docStatusType);
+            @Param("approvalStatusType")ApprovalStatusType approvalStatusType);
 
     /* 3. 받을 결재 목록 조회 */
     @Query("SELECT a FROM Approval a " +

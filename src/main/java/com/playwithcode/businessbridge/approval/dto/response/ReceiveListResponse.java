@@ -34,7 +34,7 @@ public class ReceiveListResponse {
                 approval.getTitle(),
                 approval.getFile().size(),
                 approval.getDocNo(),
-                approval.getDraftDateTime(),
+                approval.getRegistDateTime(),
                 approval.getApproverMember().get(0).getApprovalDateTime()
         );
     }

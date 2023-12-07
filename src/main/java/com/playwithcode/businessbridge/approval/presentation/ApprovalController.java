@@ -87,13 +87,13 @@ public class ApprovalController {
     }
 
     /* 2-2. 받은 결재 목록 조회 - 상태별 조회, 페이징 */
-    @GetMapping("/receive-approvals/{docStatus}")
+    @GetMapping("/receive-approvals/{approvalStatus}")
     public ResponseEntity<PagingResponse> getReceiveApprovalsByStatus(
             @RequestParam(defaultValue = "1") final Integer page,
             @AuthenticationPrincipal CustomUser customUser,
-            @PathVariable String docStatus){
+            @PathVariable String approvalStatus){
 
-        final Page<ReceiveListResponse> approvals = approvalService.getReceivedApprovalsByStatus(page, docStatus, customUser);
+        final Page<ReceiveListResponse> approvals = approvalService.getReceivedApprovalsByStatus(page, approvalStatus, customUser);
 
         final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(approvals);
         final PagingResponse pagingResponse = PagingResponse.of(approvals.getContent(), pagingButtonInfo);
