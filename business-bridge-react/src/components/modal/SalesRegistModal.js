@@ -13,7 +13,7 @@
 //         if(postSuccess === true ) {
 //             navigate(`/sales/salesList`);
 //         }
-//     }, [postSuccess]);
+//     }, [postSuccess]);6
 //
 //
 //     const onChangeHandler = e => {
