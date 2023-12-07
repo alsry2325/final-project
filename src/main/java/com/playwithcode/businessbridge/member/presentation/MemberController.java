@@ -1,13 +1,19 @@
 package com.playwithcode.businessbridge.member.presentation;
 
 
+import com.playwithcode.businessbridge.member.dto.request.EmployeeMailRequest;
+import com.playwithcode.businessbridge.member.dto.request.EmployeeRegistrationRequest;
 import com.playwithcode.businessbridge.member.dto.response.MypageResponse;
 import com.playwithcode.businessbridge.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.Valid;
 
 
 @RestController
@@ -26,5 +32,20 @@ public class MemberController {
 
         return ResponseEntity.ok(mypageResponse);
     }
+
+    /* 사원 등록(관리자) */
+    @PostMapping("/register-and-send-email")
+    public ResponseEntity<Void> save(@RequestPart @Valid final EmployeeRegistrationRequest employeeRegistrationRequest,
+                                     @RequestPart final MultipartFile emplyImg){
+
+            String tempPassword = memberService.getTempPassword();
+            memberService.save(employeeRegistrationRequest,emplyImg, tempPassword);
+
+            // 이메일 전송
+            memberService.mailSend(employeeRegistrationRequest, tempPassword);
+
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
 
 }
