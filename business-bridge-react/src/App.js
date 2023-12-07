@@ -27,17 +27,18 @@ function App() {
                 <Route path="emp/employee/registration" element={ <ProtectedRoute loginCheck={true}><EmployeeRegistrationNavbarLayout/></ProtectedRoute>}>
                     <Route index element={ <ProtectedRoute loginCheck={true}> <EmployeeRegistration/> </ProtectedRoute>}/>
                 </Route>
+                <Route path="sales" element={<SalesLayout/>}>
+                    <Route index element={ <Navigate to="/sales/salesList/1" replace/>}/>
+                    <Route path="salesList/:salesStatus" element={ <SalesList/> }/>
+                    <Route path=":salesCode" element={ <SalesDetail/> }/>
+                </Route>
             </Route>
             <Route path="/emp/employee">
                 <Route path="login" element={ <ProtectedRoute loginCheck={false}><Login/></ProtectedRoute> }/>
                 <Route path="findpassword" element={ <ProtectedRoute loginCheck={false}><FindPassword/></ProtectedRoute> }/>
             </Route>
             <Route path="/*" element={<Error/>}/>
-            <Route path="sales" element={<SalesLayout/>}>
-                <Route index element={ <Navigate to="/sales/salesList/1" replace/>}/>
-                <Route path="salesList/:salesStatus" element={ <SalesList/> }/>
-                <Route path=":salesCode" element={ <SalesDetail/> }/>
-            </Route>
+
         </Routes>
       </BrowserRouter>
   );
