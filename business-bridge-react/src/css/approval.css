@@ -1,6 +1,7 @@
 /* ================================================ 메인 틀 ================================================ */
-
-
+.approval-main {
+    width: 100%;
+}
 
 /* ================================================ 업무 기안서 작성 ================================================ */
 .approval-doc-form-outline {
@@ -109,6 +110,45 @@ img.approval-nav-img {
     margin: 5px;
 }
 
-.approval-nav-bar {
-    float: left;
+/* ================================================ 받은 결재목록 ================================================ */
+.approval-div {
+    width: 100%;
+}
+
+.approval-title {
+    margin: 30px 50px;
+}
+
+ul.tab-nav {
+    display: flex;
+    list-style-type: none;
+}
+
+.approval-tool-bar {
+    padding-left: 10px;
+}
+
+.tab-nav li {
+    padding: 5px;
+    margin: 0 10px;
+}
+
+.tab-item{
+    text-decoration: none;
+    color: #000000;
+}
+
+table.approval-list-table {
+    width: 100%;
+    margin: auto;
+    border-collapse: collapse;
+}
+
+.approval-list-table td {
+    border-bottom: solid 1px #aeaeae;
+}
+
+.approval-list-table th {
+    border-bottom: solid 1px #aeaeae;
+    border-top: solid 1px #aeaeae;
 }

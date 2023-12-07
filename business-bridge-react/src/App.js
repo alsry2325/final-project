@@ -20,6 +20,8 @@ import EmployeeRegistration from "./pages/businessbridge/employee/EmployeeRegist
 import ApprovalLayout from "./layouts/ApprovalLayout";
 import BusinessDraftForm from "./components/approval/form/BusinessDraftForm";
 import ApprovalMain from "./pages/approval/ApprovalMain";
+import ReceiveAppsList from "./pages/approval/ReceiveAppsList";
+import ReceiveAppsByStatus from "./pages/approval/ReceiveAppsByStatus";
 
 function App() {
   return (
@@ -31,6 +33,17 @@ function App() {
                 <Route path="emp/employee/registration" element={ <ProtectedRoute loginCheck={true}><EmployeeRegistrationNavbarLayout/></ProtectedRoute>}>
                     <Route index element={ <ProtectedRoute loginCheck={true}> <EmployeeRegistration/> </ProtectedRoute>}/>
                 </Route>
+                {/* == 전자결재 시작 == */}
+                <Route path="/approval"element={<ApprovalLayout/>}>
+                    <Route path="home" element={<ApprovalMain/>}/>
+                    <Route path="receive-approvals/all" element={<ReceiveAppsList/>}/>
+                    <Route path="receive-approvals/:approvalStauts" element={<ReceiveAppsByStatus/>}/>
+                    <Route path="write">
+                        <Route path="businessDraft" element={<BusinessDraftForm/>}/>
+                        <Route path="expenxeReport"/>
+                    </Route>
+                </Route>
+                {/* == 전자결재 끝 == */}
             </Route>
             <Route path="/emp/employee">
                 <Route path="login" element={ <ProtectedRoute loginCheck={false}><Login/></ProtectedRoute> }/>
@@ -43,13 +56,7 @@ function App() {
                 <Route path=":salesCode" element={ <SalesDetail/> }/>
             </Route>
 
-            <Route path="/approval"element={<ApprovalLayout/>}>
-                <Route path="home" element={<ApprovalMain/>}/>
-                <Route path="write">
-                    <Route path="businessDraft" element={<BusinessDraftForm/>}/>
-                    <Route path="expenxeReport"/>
-                </Route>
-            </Route>
+
         </Routes>
       </BrowserRouter>
   );

@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom";
 function ApprovalNavbar() {
 
     return (
-            <div className="employeeRegistration-navbar-div approval-nav-bar">
+            <div className="employeeRegistration-navbar-div">
                 <div className="employeeRegistration-btn">
                     <img
                         className="approval-nav-img"
@@ -12,7 +12,7 @@ function ApprovalNavbar() {
                 </div>
                 <ul className="employeeRegistration-navbar-ul">
                     <h3 className="main-title">결재하기</h3>
-                    <li><NavLink to="/emp/employee/registration">받은 결재</NavLink></li>
+                    <li><NavLink to="/approval/receive-approvals/all">받은 결재</NavLink></li>
                     <li ><NavLink to="/">받을 결재</NavLink></li>
                 </ul>
                 <ul className="employeeRegistration-navbar-ul">
