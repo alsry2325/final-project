@@ -8,7 +8,7 @@ import { format } from 'date-fns';
 
 function ReceiveAppsList() {
 
-    const {approvalCode} = useParams();
+    const {approvalStatus} = useParams();
     const [currentPage, setCurrentPage] = useState(1);
     const { receiveAllApprovals } = useSelector(state => state.approvalReducer);   //모듈에 정의한 key값
     const navigate = useNavigate();

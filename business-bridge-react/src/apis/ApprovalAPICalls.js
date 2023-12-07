@@ -31,11 +31,12 @@ export const callReceiveApprovalsListAPI = ({currentPage = 1}) => {
 }
 
 /* 받은 결재 목록 조회 - 상태별 */
-export const callReceivedAppsByStatusAPI = ({currentPage = 1, approvalStatus}) => {
+export const callReceiveAppsByStatusAPI = ({currentPage = 1, approvalStatus}) => {
 
+    console.log("요청 URL : " + `/approval/receive-approvals/${approvalStatus}?page=${currentPage}`);
     return async (dispatch, getState) => {
         const result
-        =await authRequest.get(`/approval/receive-approvals/${approvalStatus}?page=${currentPage}`,
+            =await authRequest.get(`/approval/receive-approvals/${approvalStatus}?page=${currentPage}`,
             {
                 headers : {
                     'Content-Type' : 'application/json'

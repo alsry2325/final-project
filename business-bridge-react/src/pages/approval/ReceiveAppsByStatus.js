@@ -3,20 +3,20 @@ import PagingBar from "../../components/common/PagingBar";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useNavigate, useParams} from "react-router-dom";
-import {callReceivedAppsByStatusAPI} from "../../apis/ApprovalAPICalls";
+import {callReceiveAppsByStatusAPI} from "../../apis/ApprovalAPICalls";
 import { format } from 'date-fns';
 
 function ReceiveAppsByStatus() {
 
-    const {approvalCode} = useParams();
+    const {approvalStatus} = useParams();
     const [currentPage, setCurrentPage] = useState(1);
     const { receiveApprovalsBy } = useSelector(state => state.approvalReducer);   //모듈에 정의한 key값
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(callReceivedAppsByStatusAPI({currentPage}));
-    }, [currentPage]);
+        dispatch(callReceiveAppsByStatusAPI({currentPage, approvalStatus}));
+    }, [currentPage, approvalStatus]);
 
     const onClickApproval = (approvalCode) => {
         navigate(`/approval/document/${approvalCode}`);
