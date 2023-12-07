@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
 import {callSalesListAPI} from "../../apis/SalesAPICalls";
 import PagingBar from "../../components/common/PagingBar";
+import SalesRegistModal from "../../components/modal/SalesRegistModal"
 
 
 function SalesList() {
@@ -15,6 +16,8 @@ function SalesList() {
     const [schType, setSchType] = useState("");
     const [schText, setSchText] = useState("");
     const navigate = useNavigate();
+    const [salesRegistModal, setSalesRegistModal] = useState(false);
+    const [salesCode, setSalesCode] = useState(0);
 
     //목록 api 호출
     useEffect(() => {
@@ -33,9 +36,21 @@ function SalesList() {
         return schText;
     };
 
+    const onClickSalesHandler = (salesCode) => {
+        setSalesCode(salesCode);
+        setSalesRegistModal(true);
+    };
+
     return (
         <>
-            <ToastContainer hideProgressBar={true} position="top-center"/>
+            {/*<ToastContainer hideProgressBar={true} position="top-center"/>*/}
+            {/*{*/}
+            {/*    setSalesRegistModal &&*/}
+            {/*    <SalesRegistModal*/}
+            {/*        salesCode={salesCode}*/}
+            {/*        setSalesRegistModal={setSalesRegistModal}*/}
+            {/*    />*/}
+            {/*}*/}
             {
                 salesList &&
                 <>
