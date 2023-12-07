@@ -23,6 +23,9 @@ public class ReceiveListResponse {
     private final LocalDateTime draftDateTime;          // 기안 일시
     private final LocalDateTime approvalDateTime;       // 결재 일시
 
+    private final String approvalStatus;                // 결재 상태
+    private final Long approvalCode;                    // 결재 코드
+
     public static ReceiveListResponse from(final Approval approval){
 
 //        Optional<Approver> approver = approval.getApproverMember().stream().filter(member -> member.getApproverMember() == 1L).findFirst();
@@ -35,7 +38,9 @@ public class ReceiveListResponse {
                 approval.getFile().size(),
                 approval.getDocNo(),
                 approval.getRegistDateTime(),
-                approval.getApproverMember().get(0).getApprovalDateTime()
+                approval.getApproverMember().get(0).getApprovalDateTime(),
+                approval.getApproverMember().get(0).getApprovalStatus().getValue(),
+                approval.getApprovalCode()
         );
     }
 }
