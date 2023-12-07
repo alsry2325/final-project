@@ -1,17 +1,19 @@
 import {Outlet} from "react-router-dom";
 import Header from "../components/common/Header";
+import ApprovalNavbar from "../components/nav/ApprovalNavbar";
+import {useState} from "react";
 
 function ApprovalLayout() {
 
+    const[clicked,isClicked] = useState(false)
     return (
-        <div className="approval-layout-div">
-            <Header/>
-            {/*사이드바*/}
+        <>
             <main className="approval-main">
-                <h3>전자결재 홈</h3>
-
+                <Header clicked={clicked} isClicked={isClicked}/>
+                <ApprovalNavbar/>
+                <Outlet/>
             </main>
-        </div>
+        </>
     );
 }
 

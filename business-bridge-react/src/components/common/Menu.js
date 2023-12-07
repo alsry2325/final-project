@@ -49,7 +49,7 @@ function Menu() {
                         </NavLink>
                     </li>
                     <li className="NavbarElement">
-                        <NavLink className="link" to="/sign-in">
+                        <NavLink className="link" to="/approval/home">
                             전자결재
                         </NavLink>
                     </li>

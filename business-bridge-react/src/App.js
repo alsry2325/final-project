@@ -15,6 +15,7 @@ import EmployeeRegistrationNavbarLayout from "./layouts/EmployeeRegistrationNavb
 import EmployeeRegistration from "./pages/businessbridge/employee/EmployeeRegistration";
 import ApprovalLayout from "./layouts/ApprovalLayout";
 import BusinessDraftForm from "./components/approval/form/BusinessDraftForm";
+import ApprovalMain from "./pages/approval/ApprovalMain";
 
 function App() {
   return (
@@ -33,8 +34,8 @@ function App() {
             </Route>
             <Route path="/*" element={<Error/>}/>
 
-            <Route path="/approval">        {/*여기에서 권한체크?*/}
-                <Route path="home" element={<ApprovalLayout/>}/>
+            <Route path="/approval"element={<ApprovalLayout/>}>
+                <Route path="home" element={<ApprovalMain/>}/>
                 <Route path="write">
                     <Route path="businessDraft" element={<BusinessDraftForm/>}/>
                     <Route path="expenxeReport"/>
