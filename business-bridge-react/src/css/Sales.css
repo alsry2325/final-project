@@ -1,0 +1,87 @@
+ /* sales 에서 사용하는 css 정의----------------------------------------------------------------- */
+ .sales-div{
+    margin-top: 20px;
+}
+
+.sales-table{
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.sales-table th, td {
+    padding: 10px;
+    height: 10px;
+    text-align: center;
+    word-break:break-all;
+    table-layout:fixed;
+}
+
+.sales tr:hover {
+    background-color: #F5F5F5;
+}
+
+/* mypage ----------------------------------------------------------------------- */
+.mypage-main {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+}
+
+.mypage-layout-div {
+    display: flex;
+    height: 100vh;
+}
+
+/* mypage navbar */
+.mypage-navbar-div {
+    min-width: 200px;
+    border-right: 1px solid black;
+}
+
+.mypage-navbar-ul {
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    list-style:none;
+    padding-left:0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.mypage-navbar-ul li {
+    width: 100%;
+    padding-left: 20px;
+    height: auto;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.mypage-navbar-ul a {
+    text-decoration: none;
+    color: black;
+}
+
+/* paging bar ------------------------------------------------------------------------ */
+
+.paging-ul {
+    display: flex;
+    list-style-type : none;
+    margin-bottom: 30px;
+}
+
+.paging-btn{
+    margin: 5px;
+    border-radius: 25px;
+    background-color: white;
+    font-weight: bold;
+}
+
+.paging-btn:hover{
+    cursor: pointer;
+    background-color: burlywood;
+}
