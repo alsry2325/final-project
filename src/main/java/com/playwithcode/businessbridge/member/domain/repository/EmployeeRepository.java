@@ -13,6 +13,12 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
 
     Optional<Employee> findByRefreshToken(String refreshToken);
 
+    /* 아이디 중복검사 */
+    boolean existsByEmplyId(String emplyId);
+    /*이메일  중복검사 */
+    boolean existsByEmplyEmail(String emplyEmail);
+
     /* 전자결재 모달 창 직원 조회 */
     List<Employee> findByEmplyStatus(EmplyStatus emplyStatus);
+
 }
