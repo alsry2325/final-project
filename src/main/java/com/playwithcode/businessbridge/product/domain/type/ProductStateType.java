@@ -7,7 +7,7 @@ public enum ProductStateType {
 
     SALES("sales"),
     DISCONTINUED("discontinued"),
-    DELETED("deleted");
+    DELETE("delete");
 
     private final String value;
 

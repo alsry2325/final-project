@@ -5,6 +5,7 @@ import com.playwithcode.businessbridge.common.exception.NotFoundException;
 import com.playwithcode.businessbridge.product.domain.Product;
 import com.playwithcode.businessbridge.product.domain.repository.ProductRepository;
 import com.playwithcode.businessbridge.product.domain.type.ProductCategoryType;
+import com.playwithcode.businessbridge.product.domain.type.ProductStateType;
 import com.playwithcode.businessbridge.product.dto.request.ProductCreateRequest;
 import com.playwithcode.businessbridge.product.dto.request.ProductUpdateRequest;
 import com.playwithcode.businessbridge.product.dto.response.AdminProductResponse;
@@ -23,8 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigInteger;
 
 import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.NOT_FOUND_EMPLY_CODE;
-import static com.playwithcode.businessbridge.product.domain.type.ProductStateType.DELETED;
-import static com.playwithcode.businessbridge.product.domain.type.ProductStateType.SALES;
+import static com.playwithcode.businessbridge.product.domain.type.ProductStateType.*;
 
 @Slf4j
 @Service
@@ -53,16 +53,16 @@ public class ProductService {//Repository에 있는 기능들을 불러올거임
     }
 
 
-//    //2.상품 목록 조회 : 페이징, 주문 불가 상품 포함 -관리자
-//    @Transactional(readOnly = true )
-//    public Page<AdminProductsResponse> getAdminProducts(final Integer page) {
-//
-//        Page<Product> products = productRepository.findByStatusNot(getPageable(page),DELETED);
-//
-//        return products.map(product -> CustomerProductsResponse.from(product));
-//
-//
-//    }
+    //2.상품 목록 조회 : 페이징, 주문 불가 상품 포함 -관리자
+    @Transactional(readOnly = true )
+    public Page<AdminProductResponse> getAdminProducts(final Integer page, final ProductStateType productState) {
+
+        Page<Product> products = productRepository.findByProductState(getPageable(page),productState);
+
+        return products.map(product -> AdminProductResponse.from(product));
+
+
+    }
 
 
     //상품목록조회 - 카테고리 기준, 페이징, 주문불가 상품 제외
@@ -104,7 +104,7 @@ public class ProductService {//Repository에 있는 기능들을 불러올거임
     // 상품상세 조회 -productCode로 상품1개 조회, 주문불가 상품 포함
     @Transactional(readOnly = true)
     public AdminProductResponse getAllProductState(final Long productCode) {
-        Product product = productRepository.findByProductCodeAndProductStateNot(productCode, DELETED)
+        Product product = productRepository.findByProductCodeAndProductStateNot(productCode, DELETE)
                 .orElseThrow(() -> new BadRequestException(NOT_FOUND_EMPLY_CODE));
 
         return AdminProductResponse.from(product);
@@ -142,7 +142,7 @@ public class ProductService {//Repository에 있는 기능들을 불러올거임
     public void update(final Long productCode, final ProductUpdateRequest productRequest) {
 
 
-        Product product = productRepository.findByProductCodeAndProductStateNot(productCode, DELETED)
+        Product product = productRepository.findByProductCodeAndProductStateNot(productCode, DELETE)
                 .orElseThrow(() -> new NotFoundException(NOT_FOUND_EMPLY_CODE));
 
 

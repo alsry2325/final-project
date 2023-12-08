@@ -4,6 +4,7 @@ import com.playwithcode.businessbridge.common.paging.Pagenation;
 import com.playwithcode.businessbridge.common.paging.PagingButtonInfo;
 import com.playwithcode.businessbridge.common.paging.PagingResponse;
 import com.playwithcode.businessbridge.product.domain.Product;
+import com.playwithcode.businessbridge.product.domain.type.EstimateType;
 import com.playwithcode.businessbridge.product.domain.type.ProductCategoryType;
 import com.playwithcode.businessbridge.product.domain.type.ProductStateType;
 import com.playwithcode.businessbridge.product.dto.request.ProductCreateRequest;
@@ -27,12 +28,12 @@ import java.util.Optional;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/emp")
+@RequestMapping("/api/v1")
 public class ProductController {
 
     private final ProductService productService;
 
-    //1.상품 목록 조회 - 페이징, 주문 불가 상품 제외(고객)
+    //1.상품 목록 조회 - 페이징, 주문 불가 상품 제외(사원)
 
     @GetMapping("/products")
     public ResponseEntity<PagingResponse> getProductList(@RequestParam(defaultValue = "1") final Integer page){
@@ -42,9 +43,23 @@ public class ProductController {
         final PagingResponse pagingResponse = PagingResponse.of(products.getContent(), pagingButtonInfo);
 
         return ResponseEntity.ok(pagingResponse);
+
     }
 
-    //상품목록조회 - 카테고리 기준, 페이징, 주문불가 상품 제외
+    //
+    //상품 목록 -관리자 주문 불가 상품 포함 전체 조회
+    @GetMapping("/products-management/productState/{productState}")
+    public ResponseEntity<PagingResponse> getAdminProducts(@RequestParam(defaultValue = "1") final Integer page, @PathVariable final ProductStateType productState) {
+
+        final Page<AdminProductResponse> products = productService.getAdminProducts(page, productState);
+        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(products);
+        final PagingResponse pagingResponse = PagingResponse.of(products.getContent(), pagingButtonInfo);
+
+        return ResponseEntity.ok(pagingResponse);
+    }
+
+
+    //상품목록조회 - 카테고리 기준, 페이징, 주문불가 상품 제외(사원)
 
     @GetMapping("/products/categories/{productCategory}")
     public ResponseEntity<PagingResponse> getProductsByCategory(
@@ -59,7 +74,7 @@ public class ProductController {
 
 
 
-    //-상품 목록 조회 - 상품명 검색 기준, 페이징 주문 불가 상품 제외
+    //-상품 목록 조회 - 상품명 검색 기준, 페이징 주문 불가 상품 제외(사원)
     @GetMapping("/products/search")
     public ResponseEntity<PagingResponse> getProductsByProductName(
             @RequestParam(defaultValue = "1") final Integer page, @RequestParam final String productName){

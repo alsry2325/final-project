@@ -30,9 +30,6 @@ public class EstimateListResponse {
     //발송 이메일
     private final String sendEmail;
 
-    //첨부파일
-    private final List<File> file;
-
     public static EstimateListResponse from(Estimate estimate) {
 
         return new EstimateListResponse(
@@ -42,8 +39,7 @@ public class EstimateListResponse {
                 estimate.getAccount().getAccountCode(),
                 estimate.getAccount().getAccountManager(),
                 estimate.getAccount().getAccountNumber(),
-                estimate.getSendEmail(),
-                estimate.getFile()
+                estimate.getSendEmail()
 
 
 

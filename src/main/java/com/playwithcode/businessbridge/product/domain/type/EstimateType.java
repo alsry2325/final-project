@@ -19,10 +19,10 @@ public enum EstimateType {
     EstimateType(String value) {this.value = value;}
 
     @JsonCreator
-    public static ProductCategoryType from(String value){
-        for(ProductCategoryType productCategory : ProductCategoryType.values()) {
-            if(productCategory.getValue().equals(value)){
-                return productCategory;
+    public static EstimateType from(String value){
+        for(EstimateType estimate : EstimateType.values()) {
+            if(estimate.getValue().equals(value)){
+                return estimate;
             }
         }
         return null;
