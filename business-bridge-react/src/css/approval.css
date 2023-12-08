@@ -1,7 +1,7 @@
 /* ================================================ 메인 틀 ================================================ */
-.approval-main {
+/*.approval-main {
     width: 100%;
-}
+}*/
 
 /* ================================================ 업무 기안서 작성 ================================================ */
 .approval-doc-form-outline {
@@ -110,7 +110,7 @@ img.approval-nav-img {
     margin: 5px;
 }
 
-/* ================================================ 받은 결재목록 ================================================ */
+/* ================================================ 목록 조회 ================================================ */
 .approval-div {
     width: 100%;
 }
@@ -122,10 +122,11 @@ img.approval-nav-img {
 ul.tab-nav {
     display: flex;
     list-style-type: none;
+    padding-top: 30px;
 }
 
 .approval-tool-bar {
-    padding-left: 10px;
+    padding-left: 40px;
 }
 
 .tab-nav li {
@@ -135,10 +136,9 @@ ul.tab-nav {
 
 .tab-item{
     text-decoration: none;
-    color: #000000;
 }
 
-table.approval-list-table {
+/*table.approval-list-table {
     width: 100%;
     margin: auto;
     border-collapse: collapse;
@@ -151,4 +151,18 @@ table.approval-list-table {
 .approval-list-table th {
     border-bottom: solid 1px #aeaeae;
     border-top: solid 1px #aeaeae;
+}*/
+
+.active li.AP {
+    border-bottom: solid 2px;
+    color: #000000;
+}
+
+.active span.tab-text {
+    color: #000000;
+    font-weight: bolder;
+}
+
+.tab-text {
+    color: #868686;
 }

@@ -19,9 +19,13 @@ import EmployeeRegistrationNavbarLayout from "./layouts/EmployeeRegistrationNavb
 import EmployeeRegistration from "./pages/businessbridge/employee/EmployeeRegistration";
 import ApprovalLayout from "./layouts/ApprovalLayout";
 import BusinessDraftForm from "./components/approval/form/BusinessDraftForm";
-import ApprovalMain from "./pages/approval/ApprovalMain";
-import ReceiveAppsList from "./pages/approval/ReceiveAppsList";
+import AppMain from "./pages/approval/AppMain";
+import ReceiveApps from "./pages/approval/ReceiveApps";
 import ReceiveAppsByStatus from "./pages/approval/ReceiveAppsByStatus";
+import UpcomingApps from "./pages/approval/UpcomingApps";
+import AppDetail from "./pages/approval/AppDetail";
+import DraftApps from "./pages/approval/DraftApps";
+import DraftAppsByStatus from "./pages/approval/DraftAppsByStatus";
 
 function App() {
   return (
@@ -40,9 +44,13 @@ function App() {
                 </Route>
                 {/* == 전자결재 시작 == */}
                 <Route path="/approval"element={<ApprovalLayout/>}>
-                    <Route path="home" element={<ApprovalMain/>}/>
-                    <Route path="receive-approvals/all" element={<ReceiveAppsList/>}/>
-                    <Route path="receive-approvals/:approvalStauts" element={<ReceiveAppsByStatus/>}/>
+                    <Route path="home" element={<AppMain/>}/>
+                    <Route path="receive-approvals/all" element={<ReceiveApps/>}/>
+                    <Route path="receive-approvals/:approvalStatus" element={<ReceiveAppsByStatus/>}/>
+                    <Route path="upcoming-approvals" element={<UpcomingApps/>}/>
+                    <Route path="draft-approvals/all" element={<DraftApps/>}/>
+                    <Route path="draft-approvals/:docStatus" element={<DraftAppsByStatus/>} />
+                    <Route path="document/:approvalCode" element={<AppDetail/>} />
                     <Route path="write">
                         <Route path="businessDraft" element={<BusinessDraftForm/>}/>
                         <Route path="expenxeReport"/>

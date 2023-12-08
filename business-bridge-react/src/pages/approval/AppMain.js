@@ -1,6 +1,6 @@
 import ApprovalNavbar from "../../components/nav/ApprovalNavbar";
 
-function ApprovalMain(){
+function AppMain(){
 
     return (
         <>
@@ -9,4 +9,4 @@ function ApprovalMain(){
     );
 }
 
-export default ApprovalMain;
+export default AppMain;

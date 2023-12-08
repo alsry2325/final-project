@@ -32,25 +32,25 @@ function ReceiveAppsByStatus() {
                     <>
                         <div className="approval-tool-bar">
                             <ul className="tab-nav">
-                                <li id="tab-all" className="first" style={{borderBottom:"solid 2px"}}>
+                                <li id="tab-all" className="first">
                                     <NavLink className="tab-item" to="/approval/receive-approvals/all">
-                                        <strong>전체</strong>
+                                        <span style={{color:'#868686'}}>전체</span>
                                     </NavLink>
                                 </li>
-                                <li id="tab-hold">
+                                <li id="tab-hold" style={{borderBottom:"solid 2px"}}>
                                     <NavLink className="tab-item" to="/approval/receive-approvals/PENDING">
-                                        <span style={{color:'#868686'}}>보류</span>
+                                        <strong>보류</strong>
                                     </NavLink>
                                 </li>
                             </ul>
                         </div>
-                        <table className="approval-list-table">
+                        <table className="sales-table approval-list-table">
                             <colgroup>
-                                <col width="15%"/>
+                                <col width="20%"/>
                                 <col width="10%"/>
                                 <col width="40%"/>
-                                <col width="5%"/>
                                 <col width="10%"/>
+                                <col width="20%"/>
                             </colgroup>
                             <thead>
                             <tr>

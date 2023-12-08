@@ -6,7 +6,7 @@ import {NavLink, useNavigate, useParams} from "react-router-dom";
 import {callReceiveApprovalsListAPI} from "../../apis/ApprovalAPICalls";
 import { format } from 'date-fns';
 
-function ReceiveAppsList() {
+function ReceiveApps() {
 
     const {approvalStatus} = useParams();
     const [currentPage, setCurrentPage] = useState(1);
@@ -15,8 +15,8 @@ function ReceiveAppsList() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(callReceiveApprovalsListAPI({currentPage}));
-    }, [currentPage]);
+        dispatch(callReceiveApprovalsListAPI({currentPage, approvalStatus}));
+    }, [currentPage, approvalStatus]);
 
     const onClickApproval = (approvalCode) => {
         navigate(`/approval/document/${approvalCode}`);
@@ -44,7 +44,7 @@ function ReceiveAppsList() {
                                 </li>
                             </ul>
                         </div>
-                        <table className="approval-list-table">
+                        <table className="sales-table approval-list-table">
                             <colgroup>
                                 <col width="15%"/>
                                 <col width="10%"/>
@@ -84,4 +84,4 @@ function ReceiveAppsList() {
     );
 }
 
-export default ReceiveAppsList;
+export default ReceiveApps;
