@@ -49,8 +49,8 @@ function Menu() {
                         </NavLink>
                     </li>
                     <li className="NavbarElement">
-                        <NavLink className="link" to="/sign-in">
-                            전자결제
+                        <NavLink className="link" to="/approval/home">
+                            전자결재
                         </NavLink>
                     </li>
                     <li className="NavbarElement">

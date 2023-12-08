@@ -1,5 +1,5 @@
-
 import {jwtDecode} from "jwt-decode";
+
 const BEARER = 'Bearer ';
 
 export const saveToken = (headers) => {
