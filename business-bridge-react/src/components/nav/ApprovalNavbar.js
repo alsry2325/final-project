@@ -20,9 +20,9 @@ function ApprovalNavbar() {
                     {/*<img className="main-icon" src="/images/edit1.png" alt="My Image" />*/}
                     {/*<img src="/images/settings 1.png" alt="My Image" />*/}
                     <li><NavLink to="/approval/draft-approvals/all">기안한 문서함</NavLink></li>
-                    <li ><NavLink to="/">기안 회수함</NavLink></li>
-                    <li ><NavLink to="/">임시 저장함</NavLink></li>
-                    <li ><NavLink to="/">결재한 문서함</NavLink></li>
+                    <li ><NavLink to="/approval/draft-collects">기안 회수함</NavLink></li>
+                    <li ><NavLink to="/approval/temp-storages">임시 저장함</NavLink></li>
+                    <li ><NavLink to="/approval/approve-approvals/all">결재한 문서함</NavLink></li>
                 </ul>
             </div>
 

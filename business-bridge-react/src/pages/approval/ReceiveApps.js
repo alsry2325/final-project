@@ -32,9 +32,11 @@ function ReceiveApps() {
                     <>
                         <div className="approval-tool-bar">
                             <ul className="tab-nav">
-                                <li id="tab-all" className="first" style={{borderBottom:"solid 2px"}}>
+                                <li id="tab-all" className="first"
+                                    style={{borderBottom:"solid 2px", color:'#000000',
+                                        fontWeight:'bolder'}}>
                                     <NavLink className="tab-item" to="/approval/receive-approvals/all">
-                                        <strong>전체</strong>
+                                        <span className="tab-text">전체</span>
                                     </NavLink>
                                 </li>
                                 <li id="tab-hold">

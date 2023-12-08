@@ -26,6 +26,10 @@ import UpcomingApps from "./pages/approval/UpcomingApps";
 import AppDetail from "./pages/approval/AppDetail";
 import DraftApps from "./pages/approval/DraftApps";
 import DraftAppsByStatus from "./pages/approval/DraftAppsByStatus";
+import DraftCollect from "./pages/approval/DraftCollect";
+import TempStorageApps from "./pages/approval/TempStorageApps";
+import ApproveApps from "./pages/approval/ApproveApps";
+import ApproveAppsByStatus from "./pages/approval/ApproveAppsByStatus";
 
 function App() {
   return (
@@ -50,6 +54,11 @@ function App() {
                     <Route path="upcoming-approvals" element={<UpcomingApps/>}/>
                     <Route path="draft-approvals/all" element={<DraftApps/>}/>
                     <Route path="draft-approvals/:docStatus" element={<DraftAppsByStatus/>} />
+                    <Route path="draft-collects" element={<DraftCollect/>}/>
+                    <Route path="temp-storages" element={<TempStorageApps/>}/>
+                    <Route path="approve-approvals/all" element={<ApproveApps/>}/>
+                    <Route path="approve-approvals/:docStatus" element={<ApproveAppsByStatus/>}/>
+
                     <Route path="document/:approvalCode" element={<AppDetail/>} />
                     <Route path="write">
                         <Route path="businessDraft" element={<BusinessDraftForm/>}/>
