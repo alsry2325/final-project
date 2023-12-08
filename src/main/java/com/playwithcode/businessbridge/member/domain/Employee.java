@@ -1,6 +1,7 @@
 package com.playwithcode.businessbridge.member.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.playwithcode.businessbridge.department.domain.Department;
 import com.playwithcode.businessbridge.member.domain.type.EmplyRole;
 import com.playwithcode.businessbridge.member.domain.type.EmplyStatus;
