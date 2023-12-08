@@ -18,9 +18,9 @@ public interface ApprovalRepository extends JpaRepository<Approval, Long> {
     @Query("SELECT a FROM Approval a " +
             "JOIN a.approverMember approver " +
             "WHERE approver.approverMember.emplyCode = :emplyCode " +
-            "AND a.docStatus = 'WAITING' or a.docStatus = 'PROCEEDING'" +
-            "AND approver.approvalStatus = 'ACTIVATE' or approver.approvalStatus = 'PENDING'")
-    Page<Approval> findApprovals(Pageable pageable, @Param("emplyCode") Long emplyCode);
+            "AND (a.docStatus = 'WAITING' or a.docStatus = 'PROCEEDING') " +
+            "AND (approver.approvalStatus = 'ACTIVATE' or approver.approvalStatus = 'PENDING') ")
+    Page<Approval> findApprovals(Pageable pageable, Long emplyCode);
 
     /* 2-2. 받은 결재 목록 조회 - 상태별 조회, 페이징 */
     @Query("SELECT a FROM Approval a " +
@@ -37,8 +37,8 @@ public interface ApprovalRepository extends JpaRepository<Approval, Long> {
             "JOIN a.approverMember approver " +
             "WHERE approver.approverMember.emplyCode = :emplyCode " +
             "AND approver.approvalStatus = 'WAITING' " +
-            "AND a.docStatus = 'WAITING' or a.docStatus = 'PROCEEDING'")
-    Page<Approval> findApprovalsByApproverMember(Pageable pageable, @Param("emplyCode") Long emplyCode);
+            "AND (a.docStatus = 'WAITING' or a.docStatus = 'PROCEEDING') ")
+    Page<Approval> findApprovalsByApproverMember(Pageable pageable, Long emplyCode);
 
     /* 4-1. 기안 회수함 목록 조회 - 상태별 조회, 페이징 */
     Page<Approval> findByDraftMemberEmplyCodeAndDocStatusNotLikeAndDocStatusNotLike
@@ -54,14 +54,14 @@ public interface ApprovalRepository extends JpaRepository<Approval, Long> {
     @Query("SELECT a FROM Approval a " +
             "JOIN a.approverMember approver " +
             "WHERE approver.approverMember.emplyCode = :emplyCode " +
-            "AND approver.approvalStatus = 'APPROVAL' or approver.approvalStatus = 'RETURN'")
+            "AND (approver.approvalStatus = 'APPROVAL' or approver.approvalStatus = 'RETURN')")
     Page<Approval> findByApproverMember(Pageable pageable, Long emplyCode);
 
     /* 7-2. 결재한 문서함 - 상태별 조회, 페이징 */
     @Query("SELECT a FROM Approval a " +
             "JOIN a.approverMember approver " +
             "WHERE approver.approverMember.emplyCode = :emplyCode " +
-            "AND approver.approvalStatus = 'APPROVAL' or approver.approvalStatus = 'RETURN'" +
+            "AND (approver.approvalStatus = 'APPROVAL' or approver.approvalStatus = 'RETURN')" +
             "AND a.docStatus IN :docStatusType")
     Page<Approval> findByApproverMember(Pageable pageable, Long emplyCode, DocStatusType docStatusType);
 

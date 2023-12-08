@@ -14,6 +14,7 @@ import java.util.Optional;
 @Getter
 public class ReceiveListResponse {
 
+    private final Long approverCode;                    // 결재자 코드
     private final String docStatus;                     // 문서 상태
     private final String docForm;                       // 문서 양식
     private final String emplyName;                     // 기안자 이름
@@ -31,6 +32,7 @@ public class ReceiveListResponse {
 //        Optional<Approver> approver = approval.getApproverMember().stream().filter(member -> member.getApproverMember() == 1L).findFirst();
 
         return new ReceiveListResponse(
+                approval.getApproverMember().get(0).getApproverCode(),
                 approval.getDocStatus().getValue(),
                 approval.getDocForm().getValue(),
                 approval.getDraftMember().getEmplyName(),
