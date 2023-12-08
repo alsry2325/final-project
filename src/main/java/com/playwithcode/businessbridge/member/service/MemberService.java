@@ -9,6 +9,8 @@ import com.playwithcode.businessbridge.member.domain.Employee;
 import com.playwithcode.businessbridge.member.domain.repository.EmployeeRepository;
 import com.playwithcode.businessbridge.member.dto.request.EmployeeRegistrationRequest;
 import com.playwithcode.businessbridge.member.dto.response.MypageResponse;
+import com.playwithcode.businessbridge.member.validator.request.CheckEmailValidator;
+import com.playwithcode.businessbridge.member.validator.request.CheckIdValidator;
 import com.playwithcode.businessbridge.position.domain.Position;
 import com.playwithcode.businessbridge.position.domain.repository.EmployeePositionRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,26 +20,28 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.ValidationException;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.NOT_FOUND_MEMBER_ID;
 import static com.playwithcode.businessbridge.member.domain.type.EmplyStatus.JOIN;
 import java.util.UUID;
-
-import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.*;
-
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class MemberService {
 
     private final EmployeeRepository employeeRepository;
-    private final EmployeeRepository employeeRepositroy;
     private final EmployeeDepartmentRepository employeeDepartmentRepository;
     private final EmployeePositionRepository employeePositionRepository;
+    private final CheckIdValidator checkIdValidator;
+    private final CheckEmailValidator checkEmailValidator;
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender mailSender;
 
@@ -71,11 +75,23 @@ public class MemberService {
     }
     public void save(final EmployeeRegistrationRequest employeeRegistrationRequest, MultipartFile emplyImg, String tempPassword) {
 
+
+        // CheckValidator를 사용하여 사용자 지정 유효성 검사 수행
+        Errors errors = new BeanPropertyBindingResult(employeeRegistrationRequest, "employeeRequest");
+        checkIdValidator.validate(employeeRegistrationRequest, errors);
+        checkEmailValidator.validate(employeeRegistrationRequest, errors);
+
+        if (errors.hasErrors()) {
+            // 유효성 검사 오류 처리
+            throw new ValidationException(String.valueOf(errors));
+        }
+
         /* 전달 된 파일을 서버의 지정 경로에 저장 */
         String replaceFileName = FileUploadUtils.saveFile(IMAGE_DIR, getRandomName(), emplyImg);
 
         Department department = employeeDepartmentRepository.getReferenceById(employeeRegistrationRequest.getDepartmentCode());
         Position position = employeePositionRepository.getReferenceById(employeeRegistrationRequest.getPositionCode());
+
 
         final Employee newEmployee = Employee.of(
                 employeeRegistrationRequest.getEmplyId(),
@@ -89,7 +105,7 @@ public class MemberService {
                 IMAGE_URL + replaceFileName
         );
 
-        Employee employee = employeeRepositroy.save(newEmployee);
+        employeeRepository.save(newEmployee);
 
    }
 
@@ -117,11 +133,19 @@ public class MemberService {
         message.setSubject(employeeRegistrationRequest.getEmplyName()+"님의 비즈니스브릿지 계정 및 임시비밀번호 안내 이메일 입니다.");
         message.setText("안녕하세요. 비즈니스브릿지 계정 안내 관련 이메일 입니다." + "[" + employeeRegistrationRequest.getEmplyName() + "]"
                 +"님의 사원번호는 "+ employeeRegistrationRequest.getEmplyId()
-                +"임시 비밀번호는"  + tempPassword + " 입니다.");
+                +"임시비밀번호는"  + tempPassword + " 입니다.");
         message.setFrom("alsry0@naver.com");
         message.setReplyTo("alsry0@naver.com");
         System.out.println("message :"+message);
         mailSender.send(message);
         System.out.println("전송 완료!");
     }
+
+//    /* 커스텀 유효성 검증 */
+//    @InitBinder
+//    public void validatorBinder(WebDataBinder binder) {
+//        binder.addValidators(checkIdValidator);
+//        binder.addValidators(checkEmailValidator);
+//    }
+
 }
