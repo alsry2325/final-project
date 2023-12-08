@@ -2,11 +2,13 @@ package com.playwithcode.businessbridge.member.service;
 
 import com.playwithcode.businessbridge.approval.dto.response.AllEmployeeResponse;
 import com.playwithcode.businessbridge.common.exception.BadRequestException;
+import com.playwithcode.businessbridge.common.exception.NotFoundException;
 import com.playwithcode.businessbridge.common.util.FileUploadUtils;
 import com.playwithcode.businessbridge.department.domain.Department;
 import com.playwithcode.businessbridge.department.domain.repository.EmployeeDepartmentRepository;
 import com.playwithcode.businessbridge.member.domain.Employee;
 import com.playwithcode.businessbridge.member.domain.repository.EmployeeRepository;
+import com.playwithcode.businessbridge.member.dto.request.EmployeePwUpdateRequest;
 import com.playwithcode.businessbridge.member.dto.request.EmployeeRegistrationRequest;
 import com.playwithcode.businessbridge.member.dto.response.MypageResponse;
 import com.playwithcode.businessbridge.member.validator.request.CheckEmailValidator;
@@ -29,6 +31,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.ValidationException;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.NOT_FOUND_EMPLY_CODE;
 import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.NOT_FOUND_MEMBER_ID;
 import static com.playwithcode.businessbridge.member.domain.type.EmplyStatus.JOIN;
 import java.util.UUID;
@@ -53,9 +57,9 @@ public class MemberService {
 
 
    @Transactional(readOnly = true)
-    public MypageResponse getMyPage(String emplyId) {
+    public MypageResponse getMyPage(Long emplyCode) {
 
-            final Employee employee = employeeRepository.findByEmplyId(emplyId)
+            final Employee employee = employeeRepository.findById(emplyCode)
                     .orElseThrow(()->new BadRequestException(NOT_FOUND_MEMBER_ID));
 
             return  MypageResponse.from(employee);
@@ -139,6 +143,16 @@ public class MemberService {
         System.out.println("message :"+message);
         mailSender.send(message);
         System.out.println("전송 완료!");
+    }
+
+    public void pwupdate(final Long emplyCode,final EmployeePwUpdateRequest pwUpdateRequest) {
+
+        Employee employee = employeeRepository.findById(emplyCode)
+                 .orElseThrow(()->new NotFoundException(NOT_FOUND_EMPLY_CODE));
+
+         employee.updatePassword(
+                 passwordEncoder.encode(pwUpdateRequest.getEmplyPassword())
+         );
     }
 
 //    /* 커스텀 유효성 검증 */

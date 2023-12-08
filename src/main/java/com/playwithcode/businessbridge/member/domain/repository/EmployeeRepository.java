@@ -20,4 +20,5 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
 
     /* 전자결재 모달 창 직원 조회 */
     List<Employee> findByEmplyStatus(EmplyStatus emplyStatus);
+
 }
