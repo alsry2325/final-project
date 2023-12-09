@@ -4,7 +4,7 @@ import {format} from "date-fns";
 import PagingBar from "../../components/common/PagingBar";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {callApproveAppsAPI, callDraftAppsAPI} from "../../apis/ApprovalAPICalls";
+import {callApproveAppsAPI} from "../../apis/ApprovalAPICalls";
 
 function ApproveApps() {
 

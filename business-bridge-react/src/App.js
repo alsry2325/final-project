@@ -18,7 +18,7 @@ import SalesDetail from "./pages/sales/SalesDetail";
 import EmployeeRegistrationNavbarLayout from "./layouts/EmployeeRegistrationNavbarLayout";
 import EmployeeRegistration from "./pages/businessbridge/employee/EmployeeRegistration";
 import ApprovalLayout from "./layouts/ApprovalLayout";
-import BusinessDraftForm from "./components/approval/form/BusinessDraftForm";
+import BDWriteForm from "./components/approval/form/BDWriteForm";
 import AppMain from "./pages/approval/AppMain";
 import ReceiveApps from "./pages/approval/ReceiveApps";
 import ReceiveAppsByStatus from "./pages/approval/ReceiveAppsByStatus";
@@ -30,6 +30,8 @@ import DraftCollect from "./pages/approval/DraftCollect";
 import TempStorageApps from "./pages/approval/TempStorageApps";
 import ApproveApps from "./pages/approval/ApproveApps";
 import ApproveAppsByStatus from "./pages/approval/ApproveAppsByStatus";
+import ERWriteForm from "./components/approval/form/ERWriteForm";
+import WriteBusinessDraft from "./pages/approval/Write-BusinessDraft";
 
 function App() {
   return (
@@ -61,8 +63,8 @@ function App() {
 
                     <Route path="document/:approvalCode" element={<AppDetail/>} />
                     <Route path="write">
-                        <Route path="businessDraft" element={<BusinessDraftForm/>}/>
-                        <Route path="expenxeReport"/>
+                        <Route path="businessDraft" element={<WriteBusinessDraft/>}/>
+                        <Route path="expenseReport" element={<ERWriteForm/>}/>
                     </Route>
                 </Route>
                 {/* == 전자결재 끝 == */}

@@ -1,13 +1,49 @@
 /* ================================================ 메인 틀 ================================================ */
-/*.approval-main {
+.approval-main {
     width: 100%;
-}*/
+}
 
-/* ================================================ 업무 기안서 작성 ================================================ */
+/* ================================================ 문서 상세 ================================================ */
+.app-button-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    margin: 30px auto 0;
+}
+
+button.app-button {
+    margin-left: 20px;
+    width: 80px;
+    height: 35px;
+    border-radius: 5px;
+    border: solid 1px #6f6f6f;
+    background: #ffffff;
+    font-weight: bold;
+}
+
+button.app-blue-button {
+    border: solid 1px #5549DD;
+    color: #5549DD;
+}
+
+.line-div {
+    height: 1px;
+    color: #aeaeae;
+    width: 100%;
+    border-bottom: solid 1px;
+    margin: 20px 0;
+}
+
+.back-to-list {
+    display: flex;
+    align-items: center;
+}
+
 .approval-doc-form-outline {
     border: solid 1px #d9d9d9;
-    max-width: 80%;
-    margin: 20px auto;
+    width: 80%;
+    margin: 30px auto;
 }
 
 .approval-header {
@@ -19,7 +55,7 @@
 .approval-body {
     text-align: center;
     width: 80%;
-    margin: 30px auto;
+    margin: 30px auto -10px;
 }
 
 .approval-form-name{
@@ -62,13 +98,13 @@ button.choose-approver{
     justify-content: center;
 }
 
-.draftInfo, .BD-content {
+.draftInfo, .app-form-content {
     border: solid 1px;
     width: 100%;
     border-collapse: collapse;
 }
 
-.draftInfo tr, .draftInfo td, .BD-content tr, .BD-content td {
+.draftInfo tr, .draftInfo td, .app-form-content tr, .app-form-content td {
     border: solid 1px;
     padding: 10px;
 }
@@ -77,6 +113,7 @@ input.approval-title {
     height: 25px;
     width: 95%;
     padding: 5px;
+    margin: auto;
 }
 
 .businessDraftContent {
@@ -99,11 +136,26 @@ input.approval-title {
     justify-content: center;
 }
 
-img.approval-attach-img {
+img.approval-attach-img, img.back-img {
     width: 17px;
     margin: 5px;
 }
 
+table.ER-detail-table {
+    width: 230%;
+    border-collapse: collapse;
+    border-top: hidden;
+    border-right: hidden;
+    border-bottom: hidden;
+}
+
+.total-expenditure {
+    margin: auto;
+    width: 50%;
+    height: 25px;
+    padding: 5px;
+    margin-left: 5px;
+}
 /* ================================================ 사이드 바 ================================================ */
 img.approval-nav-img {
     width: 30px;
@@ -137,21 +189,6 @@ ul.tab-nav {
 .tab-item{
     text-decoration: none;
 }
-
-/*table.approval-list-table {
-    width: 100%;
-    margin: auto;
-    border-collapse: collapse;
-}
-
-.approval-list-table td {
-    border-bottom: solid 1px #aeaeae;
-}
-
-.approval-list-table th {
-    border-bottom: solid 1px #aeaeae;
-    border-top: solid 1px #aeaeae;
-}*/
 
 .active li.AP {
     border-bottom: solid 2px;

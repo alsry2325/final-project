@@ -31,12 +31,10 @@ function BusinessDraftItem() {
                             <td>문서번호</td>
                             <td>문서번호 조회</td>
                         </tr>
-                    </table>
 
-                    <table className="BD-content">
                         <tr>
                             <td>제목</td>
-                            <td>
+                            <td colSpan={"3"}>
                                 <input
                                     readOnly={true}
                                     className="approval-title"
@@ -47,7 +45,7 @@ function BusinessDraftItem() {
                         </tr>
                         <tr>
                             <td>상세 내용</td>
-                            <td>
+                            <td colSpan={"3"}>
                                 <textarea
                                     readOnly={true}
                                     className="businessDraftContent"
