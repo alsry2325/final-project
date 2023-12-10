@@ -1,10 +1,26 @@
 import {NavLink} from "react-router-dom";
+import {useEffect, useRef, useState} from "react";
+import ApprovalFormModal from "../approval/modal/ApprovalFormModal";
+
 
 function ApprovalNavbar() {
 
+    const[appFormModal, setAppFormModal] = useState(false);
+
+    const onClickRegistApproval = () => {
+        setAppFormModal(true);
+    }
+
     return (
+        <>
+            {appFormModal &&
+                <ApprovalFormModal
+                    setAppFormModal={setAppFormModal}
+                />
+            }
             <div className="employeeRegistration-navbar-div">
-                <div className="employeeRegistration-btn">
+                <div className="employeeRegistration-btn"
+                     onClick={onClickRegistApproval}>
                     <img
                         className="approval-nav-img"
                         src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/8e4d95de-6131-4737-bd12-5f8dd0d6feed"/>
@@ -25,7 +41,7 @@ function ApprovalNavbar() {
                     <li ><NavLink to="/approval/approve-approvals/all">결재한 문서함</NavLink></li>
                 </ul>
             </div>
-
+        </>
     );
 }
 

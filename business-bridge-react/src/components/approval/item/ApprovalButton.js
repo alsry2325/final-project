@@ -16,17 +16,17 @@ function ApprovalButton() {
                     <button className="app-button">보류</button>
                 </div>
 
-                {/*/!*기안문서함 - 회수*!/*/}
-                {/*<div className="approval-button-div">*/}
-                {/*    <button className="app-button">회수</button>*/}
-                {/*</div>*/}
+                {/*기안문서함 - 회수*/}
+                <div className="approval-button-div">
+                    <button className="app-button">회수</button>
+                </div>
 
-                {/*/!*문서 작성,수정 시 - 임시저장, 결재요청, 취소*!/*/}
-                {/*<div className="approval-button-div">*/}
-                {/*    <button className="app-button">임시저장</button>*/}
-                {/*    <button className="app-button app-blue-btn">결재요청</button>*/}
-                {/*    <button className="app-button">취소</button>*/}
-                {/*</div>*/}
+                {/*문서 작성,수정 시 - 임시저장, 결재요청, 취소*/}
+                <div className="approval-button-div">
+                    <button className="app-button">임시저장</button>
+                    <button className="app-button app-blue-btn">결재요청</button>
+                    <button className="app-button">취소</button>
+                </div>
             </div>
             <div className="line-div"></div>
         </>

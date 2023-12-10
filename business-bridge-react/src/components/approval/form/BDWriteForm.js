@@ -1,3 +1,5 @@
+import Approver from "../item/Approver";
+
 function BDWriteForm() {
 
     return(
@@ -6,15 +8,10 @@ function BDWriteForm() {
                 <div className="approval-header">
                     <h3 className="approval-form-name">업무기안서</h3>
                     <div className="approver-list">
-                        <button className="choose-approver">선택</button>
+                        <button
+                            className="choose-approver">선택</button>
                         <h5 className="approver-info">결재</h5>
-                        <div className="approver">
-                            <div className="approver-position">결재자 직급</div>
-                            <div className="approve-box">
-                                {/*승인 도장, 결재자 이름*/}
-                            </div>
-                            <div className="approval-date">결재일시</div>
-                        </div>
+                        <Approver/>
                     </div>
                 </div>
 

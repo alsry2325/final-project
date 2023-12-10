@@ -2,6 +2,65 @@
 .approval-main {
     width: 100%;
 }
+/* ================================================ 상신 모달 ================================================ */
+.modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+
+.app-modal-container{
+    position: absolute;
+    width: 600px;
+    height: 500px;
+    padding: 10px;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+    z-index: 1000;
+}
+
+.form-modal-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+    margin: 15px;
+}
+
+.form-modal-body {
+    display: flex;
+    justify-content: space-around;
+}
+
+.form-type {
+    width: 35%;
+    height: 100px;
+    margin: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.shorter-line-div {
+    height: 1px;
+    color: #aeaeae;
+    width: 80%;
+    border-bottom: solid 1px;
+    margin: 5px auto;
+}
 
 /* ================================================ 문서 상세 ================================================ */
 .app-button-bar {
@@ -136,7 +195,7 @@ input.approval-title {
     justify-content: center;
 }
 
-img.approval-attach-img, img.back-img {
+img.approval-attach-img, img.back-img, img.close-modal-img {
     width: 17px;
     margin: 5px;
 }

@@ -213,13 +213,7 @@ export const callBusinessDraftDetailAPI = ({approvalCode}) => {
     console.log("요청 URL : " + `/approval/document/BusinessDraft/${approvalCode}`);
     return async (dispatch, getState) => {
         const result
-            =await authRequest.get(`/approval/document/BusinessDraft/${approvalCode}`,
-            {
-                headers : {
-                    'Content-Type' : 'application/json'
-                }
-            }).catch(e => { console.log(e); });
-
+            =await request('GET',`/approval/document/BusinessDraft/${approvalCode}`);
         console.log('업무 기안서 상세 조회 : ', result);
 
         if(result?.status === 200) {

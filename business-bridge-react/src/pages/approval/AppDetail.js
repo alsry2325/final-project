@@ -13,17 +13,19 @@ function AppDetail() {
 
     useEffect(() => {
         dispatch(callBusinessDraftDetailAPI({approvalCode}))
-    }, [approvalCode]);
+    }, []);
 
     console.log("businessDraft : {}", businessDraft)
 
     return(
         <>
             <h1>문서 조회 화면</h1>
-            <h5>제목</h5>
-            <ApprovalButton/>
-            {businessDraft.docForm === '업무기안서' &&
-                <BusinessDraftItem/>
+            {businessDraft &&
+                <>
+                    <h5>{businessDraft.title}</h5>
+                    <ApprovalButton/>
+                    <BusinessDraftItem data={businessDraft.data}/>
+                </>
             }
         </>
     );
