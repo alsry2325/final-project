@@ -15,16 +15,13 @@ function AppDetail() {
         dispatch(callBusinessDraftDetailAPI({approvalCode}))
     }, []);
 
-    console.log("businessDraft : {}", businessDraft)
-
     return(
         <>
-            <h1>문서 조회 화면</h1>
             {businessDraft &&
                 <>
-                    <h5>{businessDraft.title}</h5>
+                    <h2 className="approval-title">{businessDraft.title}</h2>
                     <ApprovalButton/>
-                    <BusinessDraftItem data={businessDraft.data}/>
+                    <BusinessDraftItem businessDraft={businessDraft}/>
                 </>
             }
         </>

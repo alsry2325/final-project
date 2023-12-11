@@ -111,6 +111,38 @@ button.app-blue-button {
     margin: 10px 0;
 }
 
+.app.modal-body {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.app-modal-left, .app-modal-right {
+    width: 45%;
+}
+
+.app-emply-list, .choosen-approver {
+    border: solid 1px #6f6f6f;
+    width: 90%;
+    height: 400px;
+    margin: 10px auto;
+}
+
+.choosen-approver {
+    height: 300px;
+}
+
+.app-employee {
+    border: solid 1px #6f6f6f;
+    margin: 15px auto;
+    border-radius: 5px;
+    width: 70%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
 .approval-body {
     text-align: center;
     width: 80%;
@@ -145,6 +177,7 @@ button.choose-approver{
 }
 
 .approver{
+    display: flex;
     border: solid 1px;
 }
 
@@ -166,6 +199,9 @@ button.choose-approver{
 .draftInfo tr, .draftInfo td, .app-form-content tr, .app-form-content td {
     border: solid 1px;
     padding: 10px;
+}
+td.app-table-info{
+    background-color: #F1F0F6
 }
 
 input.approval-title {

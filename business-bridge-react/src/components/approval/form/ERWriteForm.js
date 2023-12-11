@@ -1,39 +1,38 @@
+import ApproverChoice from "../item/ApproverChoice";
+import ApproverModal from "../modal/ApproverModal";
+import {useState} from "react";
+import {useSelector} from "react-redux";
+
 function ERWriteForm() {
+
 
     return(
         <>
+
             <div className="approval-doc-form-outline">
                 <div className="approval-header">
                     <h3 className="approval-form-name">지출결의서</h3>
                     <div className="approver-list">
-                        <button className="choose-approver">선택</button>
-                        <h5 className="approver-info">결재</h5>
-                        <div className="approver">
-                            <div className="approver-position">결재자 직급</div>
-                            <div className="approve-box">
-                                {/*승인 도장, 결재자 이름*/}
-                            </div>
-                            <div className="approval-date">결재일시</div>
-                        </div>
+                        <ApproverChoice/>
                     </div>
                 </div>
 
                 <div className="approval-body">
                     <table className="draftInfo">
                         <tr>
-                            <th>기안자</th>
+                            <th className="app-table-info">기안자</th>
                             <td>기안자 이름 조회</td>
-                            <th>부서</th>
+                            <th className="app-table-info">부서</th>
                             <td>기안자 부서 조회</td>
                         </tr>
                         <tr>
-                            <th>기안일</th>
+                            <th className="app-table-info">기안일</th>
                             <td>기안일 조회</td>
-                            <th>문서번호</th>
+                            <th className="app-table-info">문서번호</th>
                             <td>문서번호 조회</td>
                         </tr>
                         <tr>
-                            <th>지출금액</th>
+                            <th className="app-table-info">지출금액</th>
                             <td colSpan={"3"}>₩.
                                 <input
                                     className="total-expenditure"
@@ -43,7 +42,7 @@ function ERWriteForm() {
                             </td>
                         </tr>
                         <tr>
-                            <th>제목</th>
+                            <th className="app-table-info">제목</th>
                             <td colSpan={"3"}>
                                 <input
                                     className="approval-title"
@@ -53,12 +52,12 @@ function ERWriteForm() {
                             </td>
                         </tr>
                         <tr>
-                            <th>내역</th>
+                            <th className="app-table-info">내역</th>
                             <table className="ER-detail-table">
                                 <tr>
-                                    <td>적요</td>
-                                    <td>금액</td>
-                                    <td>비고</td>
+                                    <td className="app-table-info">적요</td>
+                                    <td className="app-table-info">금액</td>
+                                    <td className="app-table-info">비고</td>
                                 </tr>
                                 <tr>
                                     <td></td>

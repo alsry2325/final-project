@@ -1,6 +1,7 @@
 import async from "async";
 import {authRequest, request} from "./Api";
 import {
+    getAppEmployees,
     getApproveApps, getApproveAppsByStatus, getBusinessDraftDetail,
     getDraftApps,
     getDraftAppsByStatus, getDraftCollect,
@@ -210,14 +211,28 @@ export const callApproveAppsByStatusAPI = ({currentPage, docStatus}) => {
 /* 업무기안서 상세 조회 */
 export const callBusinessDraftDetailAPI = ({approvalCode}) => {
 
-    console.log("요청 URL : " + `/approval/document/BusinessDraft/${approvalCode}`);
     return async (dispatch, getState) => {
         const result
-            =await request('GET',`/approval/document/BusinessDraft/${approvalCode}`);
+            = await request('GET',`/approval/document/businessDraft/${approvalCode}`);
+
         console.log('업무 기안서 상세 조회 : ', result);
 
         if(result?.status === 200) {
             dispatch(getBusinessDraftDetail(result));
+        }
+    }
+}
+
+/* 결재자 모달 창 직원 조회 */
+export const callAppEmployeeAPI = () => {
+
+    return async(dispatch, getState) => {
+        const result = await authRequest.get('/approval/allEmployeeList');
+
+        console.log('결재자 직원 전체 조회 : ', result);
+
+        if(result?.status === 200) {
+            dispatch(getAppEmployees(result));
         }
     }
 }
