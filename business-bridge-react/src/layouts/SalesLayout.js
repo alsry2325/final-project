@@ -9,9 +9,9 @@ function SalesLayout () {
     return (
 
     <>
-        <div className="mypage-layout-div">
+        <div className="sales-layout-div">
             <SalesNavbar/>
-            <main className="mypage-main">
+            <main className="sales-main">
                 <Outlet/>
             </main>
         </div>
