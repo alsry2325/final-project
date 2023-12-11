@@ -1,5 +1,11 @@
 function ApprovalOpinionItem({ opinion }) {
 
+    // opinion.approvalDateTime을 Date 객체로 변환
+    const approvalDateTime = new Date(opinion.approvalDateTime);
+    const formattedDateTime = `${approvalDateTime.getFullYear()}-${(approvalDateTime.getMonth() + 1).toString().padStart(2, '0')}-${approvalDateTime.getDate().toString().padStart(2, '0')}
+    ${approvalDateTime.getHours().toString().padStart(2, '0')}:${approvalDateTime.getMinutes().toString().padStart(2, '0')}`;
+
+
     return (
         <div className="app-opinion-div">
             <div className="approver-img">
@@ -13,7 +19,7 @@ function ApprovalOpinionItem({ opinion }) {
                 {opinion.approvalOpinion}
             </div>
             <div className="approve-time">
-                {opinion.approvalDateTime}
+                {formattedDateTime}
             </div>
         </div>
     );

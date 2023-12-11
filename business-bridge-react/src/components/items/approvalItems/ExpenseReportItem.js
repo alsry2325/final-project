@@ -1,6 +1,6 @@
-import ApproverChoice from "./ApproverChoice";
 import ApproverView from "./ApproverView";
 import {format} from "date-fns";
+import ApprovalOpinionItem from "./ApprovalOpinionItem";
 
 function ExpenseReportItem({ expenseReport }) {
 
@@ -57,10 +57,14 @@ function ExpenseReportItem({ expenseReport }) {
                                     <td className="app-table-info">금액</td>
                                     <td className="app-table-info">비고</td>
                                 </tr>
-                                <tr>
-
-                                </tr>
-
+                                { expenseReport.details.map(detail => (
+                                        <tr>
+                                            <td>{detail.note}</td>
+                                            <td>{detail.item}</td>
+                                            <td>{detail.amount}</td>
+                                        </tr>
+                                    ))
+                                }
                             </table>
                         </tr>
                     </table>
@@ -71,8 +75,16 @@ function ExpenseReportItem({ expenseReport }) {
                     <div className="approval-file">
                         <img className="approval-attach-img"
                              src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/9db9634b-1962-4ebf-89b8-7f0c327af689"/>
-                        파일 선택</div>
+                        첨부파일 {expenseReport.attachFile.length}개
+                    </div>
                 </div>
+                <div className="shorter-line-div"></div>
+                {
+                    expenseReport.approvers &&
+                    expenseReport.approvers.map(opinion =>
+                        (<ApprovalOpinionItem
+                            opinion={opinion}/>))
+                }
             </div>
         </>
     );

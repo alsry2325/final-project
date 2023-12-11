@@ -260,6 +260,17 @@ table.ER-detail-table {
     padding: 5px;
     margin-left: 5px;
 }
+
+.app-opinion-div {
+    display: flex;
+    border-radius: 6px;
+    border: solid 1px;
+    margin: 20px auto;
+    justify-content: space-around;
+    width: 80%;
+    height: 40px;
+    align-items: center;
+}
 /* ================================================ 사이드 바 ================================================ */
 img.approval-nav-img {
     width: 30px;

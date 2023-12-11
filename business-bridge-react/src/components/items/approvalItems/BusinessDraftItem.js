@@ -39,7 +39,7 @@ function BusinessDraftItem({businessDraft}) {
                         <tr>
                             <td className="app-table-info">제목</td>
                             <td colSpan={"3"}>
-                                <div className="approval-title">
+                                <div className="approval-table-title">
                                     {businessDraft.title}
                                 </div>
                             </td>
@@ -67,7 +67,7 @@ function BusinessDraftItem({businessDraft}) {
                     businessDraft.approvers &&
                     businessDraft.approvers.map(opinion =>
                         (<ApprovalOpinionItem
-                            approvalOpinionItem={opinion}/>))
+                            opinion={opinion}/>))
                 }
             </div>
         </>
