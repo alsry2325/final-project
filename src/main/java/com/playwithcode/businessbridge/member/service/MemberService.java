@@ -10,6 +10,8 @@ import com.playwithcode.businessbridge.member.domain.Employee;
 import com.playwithcode.businessbridge.member.domain.repository.EmployeeRepository;
 import com.playwithcode.businessbridge.member.dto.request.EmployeePwUpdateRequest;
 import com.playwithcode.businessbridge.member.dto.request.EmployeeRegistrationRequest;
+import com.playwithcode.businessbridge.member.dto.request.EmployeeUpdateRequest;
+import com.playwithcode.businessbridge.member.dto.response.CustomerEmployeesResponse;
 import com.playwithcode.businessbridge.member.dto.response.MypageResponse;
 import com.playwithcode.businessbridge.member.validator.request.CheckEmailValidator;
 import com.playwithcode.businessbridge.member.validator.request.CheckIdValidator;
@@ -17,6 +19,10 @@ import com.playwithcode.businessbridge.position.domain.Position;
 import com.playwithcode.businessbridge.position.domain.repository.EmployeePositionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,17 +30,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.ValidationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.NOT_FOUND_EMPLY_CODE;
-import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.NOT_FOUND_MEMBER_ID;
+import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.*;
 import static com.playwithcode.businessbridge.member.domain.type.EmplyStatus.JOIN;
+
 import java.util.UUID;
 @Service
 @RequiredArgsConstructor
@@ -55,6 +59,9 @@ public class MemberService {
     private String IMAGE_DIR;
 
 
+    private Pageable getPageable(final Integer page) {
+        return PageRequest.of(page - 1, 10, Sort.by("emplyCode").descending());
+    }
 
    @Transactional(readOnly = true)
     public MypageResponse getMyPage(Long emplyCode) {
@@ -151,9 +158,52 @@ public class MemberService {
                  .orElseThrow(()->new NotFoundException(NOT_FOUND_EMPLY_CODE));
 
          employee.updatePassword(
-                 passwordEncoder.encode(pwUpdateRequest.getEmplyPassword())
+                 passwordEncoder.encode(pwUpdateRequest.getEmplyPassword()),
+                 pwUpdateRequest.getTmpryPwdStus()
          );
     }
+
+    @Transactional(readOnly = true)
+    public Page<CustomerEmployeesResponse> getEmployeesAndDepartmentNameAndPositionName(Integer page, String emplyName, String departmentName, String positionName) {
+
+        Page<Employee> employees = employeeRepository.findByEmplyNameAndDepartmentNameAndPositionName(getPageable(page),emplyName,departmentName,positionName);
+
+        return employees.map(employee -> CustomerEmployeesResponse.from(employee));
+    }
+
+    public void DepartmentAndPositionUpdate(Long emplyCode, EmployeeUpdateRequest employeeUpdateRequest) {
+
+       Employee employee = employeeRepository.findById(emplyCode)
+                .orElseThrow(()->new BadRequestException(NOT_FOUND_MEMBER_ID));
+
+       Department department = employeeDepartmentRepository.findById(employeeUpdateRequest.getDepartmentCode())
+               .orElseThrow(() ->new BadRequestException(NOT_FOUND_DEPARTMENT_CODE));
+
+       Position position = employeePositionRepository.findById(employeeUpdateRequest.getPositionCode())
+               .orElseThrow( ()-> new BadRequestException(NOT_FOUND_POSITION_CODE));
+
+
+       employee.update(
+               employee.getEmplyPhoto(),
+               employee.getEmplyName(),
+               employee.getEmplyOffice(),
+               employee.getEmplyEmail(),
+               department,
+               position,
+               employee.getEmplyInternalNumber(),
+               employee.getEmplyPhoneNumber()
+       );
+
+    }
+    @Transactional(readOnly = true)
+    public CustomerEmployeesResponse getEmployee(Long emplyCode) {
+
+     Employee employee =  employeeRepository.findByEmplyCode(emplyCode)
+                .orElseThrow(() -> new NotFoundException(NOT_FOUND_EMPLY_CODE));
+
+        return CustomerEmployeesResponse.from(employee);
+    }
+
 
 //    /* 커스텀 유효성 검증 */
 //    @InitBinder
