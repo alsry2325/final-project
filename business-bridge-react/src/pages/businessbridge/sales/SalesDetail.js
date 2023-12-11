@@ -59,7 +59,7 @@ function SalesDetail() {
     const handleConfirmation = () => {
         const result = window.confirm('정말로 삭제하시겠습니까?');
         if (result) {
-          // 사용자가 확인을 선택한 경우
+          // 사용자가 확인을 선택한 경우!
           dispatch(callSalesDeleteAPI({salesCode}));
         }
     }
