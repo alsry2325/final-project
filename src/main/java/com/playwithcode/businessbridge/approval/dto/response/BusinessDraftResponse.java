@@ -70,7 +70,7 @@ public class BusinessDraftResponse {
                 approvalDateTime,
                 businessDraft.getApproval().getDraftMember().getEmplyName(),
                 businessDraft.getApproval().getDraftMember().getDepartment().getDepartmentName(),
-                businessDraft.getApproval().getDraftDateTime(),
+                businessDraft.getApproval().getRegistDateTime(),
                 businessDraft.getApproval().getDocNo(),
                 businessDraft.getBusinessDraftContent(),
                 attachFiles,
