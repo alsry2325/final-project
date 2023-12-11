@@ -1,0 +1,168 @@
+/* ================================================ 메인 틀 ================================================ */
+/*.approval-main {
+    width: 100%;
+}*/
+
+/* ================================================ 업무 기안서 작성 ================================================ */
+.approval-doc-form-outline {
+    border: solid 1px #d9d9d9;
+    max-width: 80%;
+    margin: 20px auto;
+}
+
+.approval-header {
+    display: flex;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.approval-body {
+    text-align: center;
+    width: 80%;
+    margin: 30px auto;
+}
+
+.approval-form-name{
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.approver-list{
+    display: flex;
+}
+
+button.choose-approver{
+    height: fit-content;
+    margin: 90px 10px 0px;
+    padding: 0px 3px;
+}
+
+.approver-info{
+    border-top: solid 1px;
+    border-left: solid 1px;
+    border-bottom: solid 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    writing-mode: vertical-lr;
+}
+
+.approver{
+    border: solid 1px;
+}
+
+.approve-box {
+    border-bottom: solid 1px;
+    border-top: solid 1px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.draftInfo, .BD-content {
+    border: solid 1px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.draftInfo tr, .draftInfo td, .BD-content tr, .BD-content td {
+    border: solid 1px;
+    padding: 10px;
+}
+
+input.approval-title {
+    height: 25px;
+    width: 95%;
+    padding: 5px;
+}
+
+.businessDraftContent {
+    width: 90%;
+    height: 250px;
+}
+
+.approval-file-div {
+    width: 80%;
+    margin: 10px auto 20px auto;
+}
+
+.approval-file{
+    border: dashed 1px #aeaeae;
+    margin: 10px 0;
+    text-align: center;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+img.approval-attach-img {
+    width: 17px;
+    margin: 5px;
+}
+
+/* ================================================ 사이드 바 ================================================ */
+img.approval-nav-img {
+    width: 30px;
+    margin: 5px;
+}
+
+/* ================================================ 목록 조회 ================================================ */
+.approval-div {
+    width: 100%;
+}
+
+.approval-title {
+    margin: 30px 50px;
+}
+
+ul.tab-nav {
+    display: flex;
+    list-style-type: none;
+    padding-top: 30px;
+}
+
+.approval-tool-bar {
+    padding-left: 40px;
+}
+
+.tab-nav li {
+    padding: 5px;
+    margin: 0 10px;
+}
+
+.tab-item{
+    text-decoration: none;
+}
+
+/*table.approval-list-table {
+    width: 100%;
+    margin: auto;
+    border-collapse: collapse;
+}
+
+.approval-list-table td {
+    border-bottom: solid 1px #aeaeae;
+}
+
+.approval-list-table th {
+    border-bottom: solid 1px #aeaeae;
+    border-top: solid 1px #aeaeae;
+}*/
+
+.active li.AP {
+    border-bottom: solid 2px;
+    color: #000000;
+}
+
+.active span.tab-text {
+    color: #000000;
+    font-weight: bolder;
+}
+
+.tab-text {
+    color: #868686;
+}
