@@ -2,7 +2,11 @@ package com.playwithcode.businessbridge.member.domain.repository;
 
 import com.playwithcode.businessbridge.member.domain.Employee;
 import com.playwithcode.businessbridge.member.domain.type.EmplyStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,4 +25,12 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     /* 전자결재 모달 창 직원 조회 */
     List<Employee> findByEmplyStatus(EmplyStatus emplyStatus);
 
+    /* 사원목록 조회*/
+    @Query("SELECT e FROM Employee e " +
+            "WHERE e.emplyName LIKE %:emplyName% " +
+            "AND e.department.departmentName LIKE %:departmentName% " +
+            "AND e.position.positionName LIKE %:positionName% ")
+    Page<Employee> findByEmplyNameAndDepartmentNameAndPositionName(Pageable pageable, @Param("emplyName") String emplyName,@Param("departmentName")  String departmentName,@Param("positionName") String positionName);
+
+    Optional<Employee> findByEmplyCode(Long emplyCode);
 }

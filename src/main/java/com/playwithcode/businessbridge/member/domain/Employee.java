@@ -1,7 +1,6 @@
 package com.playwithcode.businessbridge.member.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.playwithcode.businessbridge.department.domain.Department;
 import com.playwithcode.businessbridge.member.domain.type.EmplyRole;
 import com.playwithcode.businessbridge.member.domain.type.EmplyStatus;
@@ -14,6 +13,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -125,7 +125,19 @@ public class Employee {
         this.refreshToken = refreshToken;
     }
 
-    public void updatePassword(String pw) {
+    public void updatePassword(String pw,TmpryPwdStus state) {
         this.emplyPassword = pw;
+        this.tmpryPwdStus = state;
+    }
+
+    public void update(String emplyPhoto,String emplyName,String emplyOffice,String emplyEmail,
+                Department department,Position position, String emplyInternalNumber, String emplyPhoneNumber) {
+
+            this.emplyPhoto = emplyPhoto;
+            this.emplyName = emplyName;
+            this.emplyOffice = emplyOffice;
+            this.emplyEmail = emplyEmail;
+            this.department = department;
+            this.position = position;
     }
 }
