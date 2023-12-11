@@ -4,4 +4,6 @@ public enum EmplyStatus {
 
     JOIN, //입사
     LEAVE //퇴사
+
+
 }
