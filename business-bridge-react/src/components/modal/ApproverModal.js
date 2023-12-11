@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {callAppEmployeeAPI} from "../../../apis/ApprovalAPICalls";
+import {callAppEmployeeAPI} from "../../apis/ApprovalAPICalls";
 import {el} from "date-fns/locale";
 
 function ApproverModal({setAppEmplyModal}) {

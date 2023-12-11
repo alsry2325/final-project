@@ -21,7 +21,7 @@ import SalesRegist from "./pages/businessbridge/sales/SalesRegist";
 import SalesModify from "./pages/businessbridge/sales/SalesModify";
 import SalesStatistics from "./pages/businessbridge/sales/SalesStatistics";
 import ApprovalLayout from "./layouts/ApprovalLayout";
-import BDWriteForm from "./components/approval/form/BDWriteForm";
+import BDWriteForm from "./components/form/approvalForm/BDWriteForm";
 import AppMain from "./pages/approval/AppMain";
 import ReceiveApps from "./pages/approval/ReceiveApps";
 import ReceiveAppsByStatus from "./pages/approval/ReceiveAppsByStatus";
@@ -33,7 +33,7 @@ import DraftCollect from "./pages/approval/DraftCollect";
 import TempStorageApps from "./pages/approval/TempStorageApps";
 import ApproveApps from "./pages/approval/ApproveApps";
 import ApproveAppsByStatus from "./pages/approval/ApproveAppsByStatus";
-import ERWriteForm from "./components/approval/form/ERWriteForm";
+import ERWriteForm from "./components/form/approvalForm/ERWriteForm";
 import WriteBusinessDraft from "./pages/approval/Write-BusinessDraft";
 
 function App() {

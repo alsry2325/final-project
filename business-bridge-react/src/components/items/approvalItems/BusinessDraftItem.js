@@ -1,5 +1,6 @@
 import ApproverView from "./ApproverView";
 import {format} from "date-fns";
+import ApprovalOpinionItem from "./ApprovalOpinionItem";
 
 function BusinessDraftItem({businessDraft}) {
 
@@ -11,8 +12,8 @@ function BusinessDraftItem({businessDraft}) {
                     <div className="approver-list">
                         <h5 className="approver-info">결재</h5>
                             {
-                                businessDraft &&
-                                businessDraft.approverName.map(approver =>
+                                businessDraft.approvers &&
+                                businessDraft.approvers.map(approver =>
                                     (<ApproverView
                                         approver={approver}/>))
                             }
@@ -61,6 +62,13 @@ function BusinessDraftItem({businessDraft}) {
                         첨부파일 {businessDraft.attachFile.length}개
                     </div>
                 </div>
+                <div className="shorter-line-div"></div>
+                {
+                    businessDraft.approvers &&
+                    businessDraft.approvers.map(opinion =>
+                        (<ApprovalOpinionItem
+                            approvalOpinionItem={opinion}/>))
+                }
             </div>
         </>
     );

@@ -1,5 +1,5 @@
 import {useState} from "react";
-import ApproverModal from "../modal/ApproverModal";
+import ApproverModal from "../../modal/ApproverModal";
 import {useSelector} from "react-redux";
 
 function ApproverChoice() {

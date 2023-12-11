@@ -1,5 +1,5 @@
-import ApprovalButton from "../../components/approval/item/ApprovalButton";
-import BDWriteForm from "../../components/approval/form/BDWriteForm";
+import ApprovalButton from "../../components/items/approvalItems/ApprovalButton";
+import BDWriteForm from "../../components/form/approvalForm/BDWriteForm";
 
 function WriteBusinessDraft() {
 

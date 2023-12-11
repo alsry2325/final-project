@@ -177,17 +177,26 @@ button.choose-approver{
 }
 
 .approver{
-    display: flex;
+    text-align: center;
     border: solid 1px;
 }
 
 .approve-box {
     border-bottom: solid 1px;
     border-top: solid 1px;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 90px;
+    width: 70px;
+}
+
+.approval-status {
+    margin: auto;
+    height: 55px;
+}
+
+img.approval-status-img {
+    margin: 10px auto;
+    height: 45px;
+    width: 45px;
 }
 
 .draftInfo, .app-form-content {
@@ -200,7 +209,7 @@ button.choose-approver{
     border: solid 1px;
     padding: 10px;
 }
-td.app-table-info{
+td.app-table-info, th.app-table-info{
     background-color: #F1F0F6
 }
 

@@ -15,14 +15,15 @@ const GET_APPROVE_APPS = 'approval/GET_APPROVE_APPS';
 const GET_APPROVE_APPS_BY_STATUS = 'approval/GET_APPROVE_APPS_BY_STATUS';
 
 const GET_BUSINESS_DRAFT_DETAIL = 'approval/GET_BUSINESS_DRAFT_DETAIL';
-const GET_APP_EMPLOYEES = 'approval/GET_APP_EMPLOYEES'
+const GET_EXPENSE_REPORT_DETAIL = 'approval/GET_EXPENSE_REPORT_DETAIL';
+const GET_APP_EMPLOYEES = 'approval/GET_APP_EMPLOYEES';
 
 
 /* 액션 함수 */         // 액션 객체를 만들어서 반환
 export const {approval :
     {getReceiveApps, getReceiveAppsByStatus, getUpcomingApps, getDraftApps, getDraftAppsByStatus,
     getDraftCollect, getTempStorage, getApproveApps, getApproveAppsByStatus,
-    getBusinessDraftDetail, getAppEmployees}}
+    getBusinessDraftDetail, getExpenseReportDetail, getAppEmployees}}
     = createActions({
     [GET_RECEIVE_APPS] : result => ({ receiveAllApprovals : result.data}),
     [GET_RECEIVE_APPS_BY_STATUS] : result => ({receiveApprovalsBy : result.data}),
@@ -35,7 +36,8 @@ export const {approval :
     [GET_APPROVE_APPS_BY_STATUS] : result => ({approveAppsBy : result.data}),
 
     [GET_BUSINESS_DRAFT_DETAIL] : result => ({businessDraft : result.data}),
-    [GET_APP_EMPLOYEES] : result => ({allEmplys : result.data})
+    [GET_EXPENSE_REPORT_DETAIL] : result => ({expenseReport : result.data}),
+    [GET_APP_EMPLOYEES] : result => ({allEmplys : result.data}),
 })
 
 /* 리듀서 */           // 액션을 받아서 처리할 때 어떻게 처리할지
@@ -50,6 +52,7 @@ const approvalReducer = handleActions({
     [GET_APPROVE_APPS] : (state, {payload}) => payload,
     [GET_APPROVE_APPS_BY_STATUS] : (state, {payload}) => payload,
     [GET_BUSINESS_DRAFT_DETAIL] : (state, {payload}) => payload,
+    [GET_EXPENSE_REPORT_DETAIL] : (state, {payload}) => payload,
     [GET_APP_EMPLOYEES] : (state, {payload}) => payload
 }, initialState);
 

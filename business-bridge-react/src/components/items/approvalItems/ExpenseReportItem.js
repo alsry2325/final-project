@@ -1,9 +1,8 @@
-import ApproverChoice from "../item/ApproverChoice";
-import ApproverModal from "../modal/ApproverModal";
-import {useState} from "react";
-import {useSelector} from "react-redux";
+import ApproverChoice from "./ApproverChoice";
+import ApproverView from "./ApproverView";
+import {format} from "date-fns";
 
-function ERWriteForm() {
+function ExpenseReportItem({ expenseReport }) {
 
 
     return(
@@ -13,7 +12,13 @@ function ERWriteForm() {
                 <div className="approval-header">
                     <h3 className="approval-form-name">지출결의서</h3>
                     <div className="approver-list">
-                        <ApproverChoice/>
+                        <h5 className="approver-info">결재</h5>
+                        {
+                            expenseReport.approvers &&
+                            expenseReport.approvers.map(approver =>
+                                (<ApproverView
+                                    approver={approver}/>))
+                        }
                     </div>
                 </div>
 
@@ -21,34 +26,27 @@ function ERWriteForm() {
                     <table className="draftInfo">
                         <tr>
                             <th className="app-table-info">기안자</th>
-                            <td>기안자 이름 조회</td>
+                            <td>{expenseReport.drafterName}</td>
                             <th className="app-table-info">부서</th>
-                            <td>기안자 부서 조회</td>
+                            <td>{expenseReport.departmentName}</td>
                         </tr>
                         <tr>
                             <th className="app-table-info">기안일</th>
-                            <td>기안일 조회</td>
+                            <td>{format(new Date(expenseReport.draftDateTime), 'yy-MM-dd')}</td>
                             <th className="app-table-info">문서번호</th>
-                            <td>문서번호 조회</td>
+                            <td>{expenseReport.docNo}</td>
                         </tr>
                         <tr>
                             <th className="app-table-info">지출금액</th>
-                            <td colSpan={"3"}>₩.
-                                <input
-                                    className="total-expenditure"
-                                    type="number"
-                                    name="title"
-                                />
+                            <td colSpan={"3"}>₩.{expenseReport.totalExpenditure}
                             </td>
                         </tr>
                         <tr>
                             <th className="app-table-info">제목</th>
                             <td colSpan={"3"}>
-                                <input
-                                    className="approval-title"
-                                    type="text"
-                                    name="title"
-                                />
+                                <div className="approval-title">
+                                    {expenseReport.title}
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -60,30 +58,9 @@ function ERWriteForm() {
                                     <td className="app-table-info">비고</td>
                                 </tr>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+
                                 </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+
                             </table>
                         </tr>
                     </table>
@@ -101,4 +78,4 @@ function ERWriteForm() {
     );
 }
 
-export default ERWriteForm;
+export default ExpenseReportItem;

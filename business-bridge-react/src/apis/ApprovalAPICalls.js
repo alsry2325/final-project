@@ -4,7 +4,7 @@ import {
     getAppEmployees,
     getApproveApps, getApproveAppsByStatus, getBusinessDraftDetail,
     getDraftApps,
-    getDraftAppsByStatus, getDraftCollect,
+    getDraftAppsByStatus, getDraftCollect, getExpenseReportDetail,
     getReceiveApps,
     getReceiveAppsByStatus, getTempStorage,
     getUpcomingApps
@@ -219,6 +219,21 @@ export const callBusinessDraftDetailAPI = ({approvalCode}) => {
 
         if(result?.status === 200) {
             dispatch(getBusinessDraftDetail(result));
+        }
+    }
+}
+
+/* 지출결의서 상세 조회 */
+export const callExpenseReportDetailAPI = ({approvalCode}) => {
+
+    return async (dispatch, getState) => {
+        const result
+            = await request('GET',`/approval/document/expenseReport/${approvalCode}`);
+
+        console.log('지출결의서 상세 조회 : ', result);
+
+        if(result?.status === 200) {
+            dispatch(getExpenseReportDetail(result));
         }
     }
 }

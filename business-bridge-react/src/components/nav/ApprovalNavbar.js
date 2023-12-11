@@ -1,6 +1,6 @@
 import {NavLink} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
-import ApprovalFormModal from "../approval/modal/ApprovalFormModal";
+import ApprovalFormModal from "../modal/ApprovalFormModal";
 
 
 function ApprovalNavbar() {
