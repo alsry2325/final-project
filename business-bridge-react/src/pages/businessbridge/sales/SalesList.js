@@ -2,9 +2,8 @@ import {ToastContainer} from "react-toastify";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
-import {callSalesListAPI} from "../../apis/SalesAPICalls";
-import PagingBar from "../../components/common/PagingBar";
-import SalesRegistModal from "../../components/modal/SalesRegistModal"
+import {callSalesListAPI} from "../../../apis/SalesAPICalls";
+import PagingBar from "../../../components/common/PagingBar";
 
 
 function SalesList() {
@@ -16,8 +15,6 @@ function SalesList() {
     const [schType, setSchType] = useState("");
     const [schText, setSchText] = useState("");
     const navigate = useNavigate();
-    const [salesRegistModal, setSalesRegistModal] = useState(false);
-    const [salesCode, setSalesCode] = useState(0);
 
     //목록 api 호출
     useEffect(() => {
@@ -36,21 +33,14 @@ function SalesList() {
         return schText;
     };
 
-    const onClickSalesHandler = (salesCode) => {
-        setSalesCode(salesCode);
-        setSalesRegistModal(true);
-    };
+    const onClickSalesInsert = () => {
+        console.log("영업등록 페이지 이동")
+        navigate('/sales/sales-regist');
+    }
 
     return (
         <>
-            {/*<ToastContainer hideProgressBar={true} position="top-center"/>*/}
-            {/*{*/}
-            {/*    setSalesRegistModal &&*/}
-            {/*    <SalesRegistModal*/}
-            {/*        salesCode={salesCode}*/}
-            {/*        setSalesRegistModal={setSalesRegistModal}*/}
-            {/*    />*/}
-            {/*}*/}
+            <ToastContainer hideProgressBar={true} position="top-center"/>
             {
                 salesList &&
                 <>
@@ -80,6 +70,7 @@ function SalesList() {
                             }));
                         }}>검색</button>
                         </div>
+                        <button onClick={ onClickSalesInsert }>상품등록</button>
                         <table className="sales-table">
                             <colgroup>
                                 <col width="10%" />
