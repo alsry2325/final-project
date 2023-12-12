@@ -4,7 +4,7 @@ import {useState} from "react";
 import Header from "../components/common/Header";
 import Menu from "../components/common/Menu";
 
-function EmployeeRegistrationNavbarLayout () {
+function EmployeeRegistrationLayout () {
 
     const[clicked,isClicked] = useState(false)
     return (
@@ -19,4 +19,4 @@ function EmployeeRegistrationNavbarLayout () {
     );
 }
 
-export default EmployeeRegistrationNavbarLayout;
+export default EmployeeRegistrationLayout;

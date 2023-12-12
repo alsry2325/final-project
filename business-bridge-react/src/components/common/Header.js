@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import {isAdmin, isLogin, removeToken} from "../../utils/TokenUtils";
 import {useDispatch, useSelector} from "react-redux";
 import {callEmployeeAPI} from "../../apis/EmployeeAPICalls";
+import MenuTest from "./MenuTest";
 function Header({clicked, isClicked}){
 
     const navigate = useNavigate();
@@ -22,15 +23,6 @@ function Header({clicked, isClicked}){
     const handleClick  = () => {
         setMenuVisible((prevVisible) => !prevVisible);
     };
-
-    const onClickLogoutHandler = () => {
-        removeToken();
-        window.location.replace("/emp/employee/login");
-    }
-
-    const onClickMypageHandler = () => {
-        navigate('/emp/employee/mypage');
-    }
 
     return (
         <>
@@ -99,28 +91,11 @@ function Header({clicked, isClicked}){
                    <li
                        onClick={handleClick}
                        className="Image-myPage"
-                       style={{ float: "right", margin: "-15px 2px 1px 2px" }}
+                       style={{position:"relative", float: "right", margin: "-15px 2px 1px 2px" }}
                    >
-                       <img className="Image-myPage" src="/images/employee-image.png" alt="My Image" />
+                       <img className="Image-myPage" src={myPageInfo.emplyPhoto} alt="My Image" />
                        {isMenuVisible && (
-                           <div className="menu">
-                               <ul className="NavbarWrapper">
-                                   <li className="menu-Link">
-                                       <span className="menu-Link"
-                                                onClick={onClickMypageHandler}>
-                                           기본정보
-                                       </span>
-                                   </li>
-                                   <li className="menu-Link">
-                                       <span
-                                           className="menu-Link"
-                                           onClick={onClickLogoutHandler}
-                                       >
-                                           로그아웃
-                                       </span>
-                                   </li>
-                               </ul>
-                           </div>
+                            <MenuTest/>
                        )}
                    </li>
                </ul>

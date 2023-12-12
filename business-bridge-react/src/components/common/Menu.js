@@ -17,7 +17,7 @@ function Menu() {
                 <ul className="NavbarWrappers">
                     <li className="NavImage">
                         <NavLink className="Menu-Image-myPage" to="/sign-up">
-                            <img className="Menu-Image-myPage" src="/images/employee-image.png" alt="My Image" />
+                            <img className="Menu-Image-myPage" src={myPageInfo.emplyPhoto} alt="My Image" />
                         </NavLink>
                     </li>
                     <li className="NavbarElement">
