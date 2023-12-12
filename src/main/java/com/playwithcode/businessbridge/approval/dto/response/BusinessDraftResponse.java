@@ -33,6 +33,7 @@ public class BusinessDraftResponse {
         List<Map<String,String>> approvers = businessDraft.getApproval().getApproverMember().stream().map(approver ->{
             Map<String, String> resultMap =  new HashMap<>();
             resultMap.put("positionName", approver.getApproverMember().getPosition().getPositionName());
+            resultMap.put("approverId", approver.getApproverMember().getEmplyId());
             resultMap.put("approverName", approver.getApproverMember().getEmplyName());
             resultMap.put("approvalStatus", approver.getApprovalStatus().getValue());
             resultMap.put("approvalDateTime", String.valueOf(approver.getApprovalDateTime()));

@@ -47,6 +47,7 @@ public class ExpenseReportResponse {
         // 지출결의서 상세 내용 가공 처리
         List<Map<String, String>> details = expenseReport.getExpenseReportDetail().stream().map(detail -> {
             Map<String, String> resultMap = new HashMap<>();
+            resultMap.put("detailCode", String.valueOf(detail.getExpenseDetailCode()));
             resultMap.put("item", detail.getItem());
             resultMap.put("amount", String.valueOf(detail.getAmount()));
             resultMap.put("note", detail.getNote());
