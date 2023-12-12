@@ -120,6 +120,31 @@
     height: 200px;
 }
 
+/* 버튼 컨테이너 */
+.address-btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.address-modify-btn {
+    margin-right: 10px;
+    background-color: #5549DD;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    width: 80px;
+}
+
+.address-delete-btn {
+    background-color: #ff7b7b;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    width: 80px;
+}
 
 /* 검색 ----------------------------------------------------------*/
 

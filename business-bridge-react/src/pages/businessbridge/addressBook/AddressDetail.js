@@ -3,15 +3,16 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {callAddressBookDetailAPI} from "../../../apis/AddressBookApiCalls";
 import AddressItem from "../../../components/items/AddressItem";
+import {isAdmin} from "../../../utils/TokenUtils";
 
 function AddressDetail() {
 
     const dispatch = useDispatch();
     const {emplyCode} = useParams();
-    const { address } = useSelector(state => state.addressReducer);
+    const {address} = useSelector(state => state.addressReducer);
 
     useEffect(() => {
-        dispatch(callAddressBookDetailAPI({ emplyCode }));
+        dispatch(callAddressBookDetailAPI({emplyCode}));
     }, []);
 
     return (
@@ -23,11 +24,17 @@ function AddressDetail() {
                 <hr/>
                 {
                     address &&
-                        <div className ="address-detail-div">
-                            <AddressItem address={address}/>
-                        </div>
+                    <div className="address-detail-div">
+                        <AddressItem address={address}/>
+                    </div>
                 }
             </div>
+            {isAdmin() && (
+                <div className="address-btn-container">
+                    <button className="address-modify-btn">수정하기</button>
+                    <button className="address-delete-btn">삭제하기</button>
+                </div>
+            )}
         </>
     )
 }

@@ -78,11 +78,13 @@ function App() {
                 <Route path="login" element={ <ProtectedRoute loginCheck={false}><Login/></ProtectedRoute> }/>
                 <Route path="findpassword" element={ <ProtectedRoute loginCheck={false}><FindPassword/></ProtectedRoute> }/>
             </Route>
+
             <Route path="addressBook" element={ <ProtectedRoute loginCheck={true}><AddressBookLayout/></ProtectedRoute>}>
                 <Route path="main" element={ <ProtectedRoute loginCheck={true}> <AddressBookMain/> </ProtectedRoute>}/>
                 <Route path="department/:departmentCode" element={ <AddressBookDepartment/> }/>
                 <Route path=":emplyCode" element={ <AddressDetail/> }/>
             </Route>
+
             <Route path="/*" element={<Error/>}/>
 
         </Routes>
