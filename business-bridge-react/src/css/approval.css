@@ -169,6 +169,12 @@ button.choose-approver{
     padding: 0px 3px;
 }
 
+.choosen-emp-btn-div{
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+}
+
 .approver-info{
     border-top: solid 1px;
     border-left: solid 1px;
