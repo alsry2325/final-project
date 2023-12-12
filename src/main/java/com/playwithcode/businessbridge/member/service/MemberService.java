@@ -18,6 +18,7 @@ import com.playwithcode.businessbridge.member.validator.request.CheckIdValidator
 import com.playwithcode.businessbridge.position.domain.Position;
 import com.playwithcode.businessbridge.position.domain.repository.EmployeePositionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

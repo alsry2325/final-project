@@ -195,13 +195,13 @@ public class ApprovalService {
 
     /* 2-2. 받은 결재 목록 조회 - 상태별 조회, 페이징 */
     @Transactional(readOnly = true)
-    public Page<ReceiveListResponse> getReceivedApprovalsByStatus(Integer page, String docStatus, CustomUser customUser) {
+    public Page<ReceiveListResponse> getReceivedApprovalsByStatus(Integer page, String approvalStatus, CustomUser customUser) {
 
-        DocStatusType docStatusType = DocStatusType.valueOf(docStatus);
+        ApprovalStatusType appStatusType = ApprovalStatusType.valueOf(approvalStatus);
 
         Page<Approval> approvals
                 = approvalRepository.findApprovals
-                (getPageable(page), customUser.getEmplyCode(), docStatusType);
+                (getPageable(page), customUser.getEmplyCode(), appStatusType);
 
         return approvals.map(approval -> ReceiveListResponse.from(approval));
     }
