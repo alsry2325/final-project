@@ -15,6 +15,7 @@ function BusinessDraftItem({businessDraft}) {
                                 businessDraft.approvers &&
                                 businessDraft.approvers.map(approver =>
                                     (<ApproverView
+                                        key={approver.approverId}
                                         approver={approver}/>))
                             }
                     </div>
@@ -46,7 +47,9 @@ function BusinessDraftItem({businessDraft}) {
                         </tr>
                         <tr>
                             <td className="app-table-info">상세 내용</td>
-                            <td colSpan={"3"}>
+                            <td colSpan={"3"}
+                                style={{height:"300px"}}
+                            >
                                 {businessDraft.businessDraftContent}
                             </td>
                         </tr>
@@ -67,6 +70,7 @@ function BusinessDraftItem({businessDraft}) {
                     businessDraft.approvers &&
                     businessDraft.approvers.map(opinion =>
                         (<ApprovalOpinionItem
+                            key={opinion.approverId}
                             opinion={opinion}/>))
                 }
             </div>

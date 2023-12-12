@@ -17,6 +17,7 @@ function ExpenseReportItem({ expenseReport }) {
                             expenseReport.approvers &&
                             expenseReport.approvers.map(approver =>
                                 (<ApproverView
+                                    key={approver.approverId}
                                     approver={approver}/>))
                         }
                     </div>
@@ -58,7 +59,7 @@ function ExpenseReportItem({ expenseReport }) {
                                     <td className="app-table-info">비고</td>
                                 </tr>
                                 { expenseReport.details.map(detail => (
-                                        <tr>
+                                        <tr key={detail.detailCode}>
                                             <td>{detail.note}</td>
                                             <td>{detail.item}</td>
                                             <td>{detail.amount}</td>

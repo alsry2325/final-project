@@ -43,13 +43,13 @@ function ApproverModal({setAppEmplyModal}) {
                             {
                                 allEmplys &&
                                 allEmplys.map(appEmp => (
-                                    <div  className={`app-employee ${
+                                    <div className={`app-employee ${
                                         selectedEmplys.includes(appEmp.emplyCode)
                                             ? "selected"
                                             : ""
                                     }`}
                                          key={allEmplys.emplyCode}
-                                          onClick={() => onClickEmp(appEmp.emplyCode)}
+                                         onClick={() => onClickEmp(appEmp.emplyCode)}
                                     >
                                         {appEmp.emplyName} {appEmp.positionName}
                                     </div>
@@ -65,7 +65,7 @@ function ApproverModal({setAppEmplyModal}) {
                                 selectedEmplys.map((empCode) => (
                                     <div key={empCode}>{empCode}</div>
                                 ))
-                        }
+                            }
                         </div>
                         <button className="app-up">&#9650;</button>
                         <button className="app-down">&#9660;</button>

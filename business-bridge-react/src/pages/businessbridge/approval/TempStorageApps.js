@@ -1,21 +1,21 @@
 import {ToastContainer} from "react-toastify";
 import {NavLink, useNavigate, useParams} from "react-router-dom";
 import {format} from "date-fns";
-import PagingBar from "../../components/common/PagingBar";
+import PagingBar from "../../../components/common/PagingBar";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {callDraftCollectAPI} from "../../apis/ApprovalAPICalls";
+import {callDraftCollectAPI, callTempStorageAppsAPI} from "../../../apis/ApprovalAPICalls";
 
-function DraftCollect() {
+function TempStorageApps() {
 
     const {docStatus} = useParams();
     const [currentPage, setCurrentPage] = useState(1);
-    const { draftCollect } = useSelector(state => state.approvalReducer);   //모듈에 정의한 key값
+    const { tempStorages } = useSelector(state => state.approvalReducer);   //모듈에 정의한 key값
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(callDraftCollectAPI({currentPage}));
+        dispatch(callTempStorageAppsAPI({currentPage}));
     }, [currentPage]);
 
     const onClickApproval = (approvalCode) => {
@@ -26,9 +26,9 @@ function DraftCollect() {
         <>
             <ToastContainer position="top-center"/>
             <div className="approval-div">
-                <h2 className="approval-title">기안 회수함</h2>
+                <h2 className="approval-title">임시 저장함</h2>
                 {
-                    draftCollect &&
+                    tempStorages &&
                     <>
 
                         <table className="sales-table approval-list-table">
@@ -49,7 +49,7 @@ function DraftCollect() {
                             </tr>
                             </thead>
                             <tbody>
-                            { draftCollect.data.map(approval => (
+                            { tempStorages.data.map(approval => (
                                 <tr key={approval.approvalCode}
                                     onClick={() => onClickApproval(approval.approvalCode)}>
 
@@ -63,7 +63,7 @@ function DraftCollect() {
                             }
                             </tbody>
                         </table>
-                        <PagingBar pageInfo={draftCollect.pageInfo} setCurrentPage={setCurrentPage}/>
+                        <PagingBar pageInfo={tempStorages.pageInfo} setCurrentPage={setCurrentPage}/>
                     </>
                 }
             </div>
@@ -71,4 +71,4 @@ function DraftCollect() {
     );
 }
 
-export default DraftCollect;
+export default TempStorageApps;

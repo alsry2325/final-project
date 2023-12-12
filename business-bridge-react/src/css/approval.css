@@ -36,7 +36,7 @@
     margin: 15px;
 }
 
-.form-modal-body {
+.form-modal-body, .app-modal-body {
     display: flex;
     justify-content: space-around;
 }
@@ -81,7 +81,7 @@ button.app-button {
     font-weight: bold;
 }
 
-button.app-blue-button {
+button.app-blue-btn {
     border: solid 1px #5549DD;
     color: #5549DD;
 }
@@ -108,7 +108,10 @@ button.app-blue-button {
 .approval-header {
     display: flex;
     padding: 10px;
-    margin: 10px 0;
+    margin: 10px auto;
+    width: 80%;
+    justify-content: space-between;
+
 }
 
 .app.modal-body {
@@ -191,6 +194,10 @@ button.choose-approver{
 .approval-status {
     margin: auto;
     height: 55px;
+}
+
+.approval-date {
+    height: 20px;
 }
 
 img.approval-status-img {

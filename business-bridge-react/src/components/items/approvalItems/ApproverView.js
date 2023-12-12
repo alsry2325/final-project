@@ -30,8 +30,8 @@ function ApproverView({approver}) {
                     </div>
                 </div>
                 <div className="approval-date">
-                    {approver.approvalDateTime != null ?
-                        approver.approvalDateTime.slice(2,10) : ''}
+                    {approver.approvalDateTime !== "null" ?
+                        approver.approvalDateTime.slice(2,10) : '  '}
                 </div>
             </div>
         </>

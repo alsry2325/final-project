@@ -22,19 +22,19 @@ import SalesModify from "./pages/businessbridge/sales/SalesModify";
 import SalesStatistics from "./pages/businessbridge/sales/SalesStatistics";
 import ApprovalLayout from "./layouts/ApprovalLayout";
 import BDWriteForm from "./components/form/approvalForm/BDWriteForm";
-import AppMain from "./pages/approval/AppMain";
-import ReceiveApps from "./pages/approval/ReceiveApps";
-import ReceiveAppsByStatus from "./pages/approval/ReceiveAppsByStatus";
-import UpcomingApps from "./pages/approval/UpcomingApps";
-import AppDetail from "./pages/approval/AppDetail";
-import DraftApps from "./pages/approval/DraftApps";
-import DraftAppsByStatus from "./pages/approval/DraftAppsByStatus";
-import DraftCollect from "./pages/approval/DraftCollect";
-import TempStorageApps from "./pages/approval/TempStorageApps";
-import ApproveApps from "./pages/approval/ApproveApps";
-import ApproveAppsByStatus from "./pages/approval/ApproveAppsByStatus";
+import AppMain from "./pages/businessbridge/approval/AppMain";
+import ReceiveApps from "./pages/businessbridge/approval/ReceiveApps";
+import ReceiveAppsByStatus from "./pages/businessbridge/approval/ReceiveAppsByStatus";
+import UpcomingApps from "./pages/businessbridge/approval/UpcomingApps";
+import AppDetail from "./pages/businessbridge/approval/AppDetail";
+import DraftApps from "./pages/businessbridge/approval/DraftApps";
+import DraftAppsByStatus from "./pages/businessbridge/approval/DraftAppsByStatus";
+import DraftCollect from "./pages/businessbridge/approval/DraftCollect";
+import TempStorageApps from "./pages/businessbridge/approval/TempStorageApps";
+import ApproveApps from "./pages/businessbridge/approval/ApproveApps";
+import ApproveAppsByStatus from "./pages/businessbridge/approval/ApproveAppsByStatus";
 import ERWriteForm from "./components/form/approvalForm/ERWriteForm";
-import WriteBusinessDraft from "./pages/approval/Write-BusinessDraft";
+import WriteBusinessDraft from "./pages/businessbridge/approval/Write-BusinessDraft";
 
 function App() {
   return (
