@@ -1,4 +1,4 @@
-import ApprovalNavbar from "../../components/nav/ApprovalNavbar";
+import ApprovalNavbar from "../../../components/nav/ApprovalNavbar";
 
 function AppMain(){
 

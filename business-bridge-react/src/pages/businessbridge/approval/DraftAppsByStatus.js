@@ -1,21 +1,21 @@
 import {ToastContainer} from "react-toastify";
 import {NavLink, useNavigate, useParams} from "react-router-dom";
 import {format} from "date-fns";
-import PagingBar from "../../components/common/PagingBar";
+import PagingBar from "../../../components/common/PagingBar";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {callDraftAppsAPI} from "../../apis/ApprovalAPICalls";
+import {callDraftAppsByStatusAPI} from "../../../apis/ApprovalAPICalls";
 
-function DraftApps() {
+function DraftAppsByStatus() {
 
     const {docStatus} = useParams();
     const [currentPage, setCurrentPage] = useState(1);
-    const { draftApps } = useSelector(state => state.approvalReducer);   //모듈에 정의한 key값
+    const { draftAppsBy } = useSelector(state => state.approvalReducer);   //모듈에 정의한 key값
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(callDraftAppsAPI({currentPage, docStatus}));
+        dispatch(callDraftAppsByStatusAPI({currentPage, docStatus}));
     }, [currentPage, docStatus]);
 
     const onClickApproval = (approvalCode) => {
@@ -28,15 +28,16 @@ function DraftApps() {
             <div className="approval-div">
                 <h2 className="approval-title">기안 문서함</h2>
                 {
-                    draftApps &&
+                    draftAppsBy &&
                     <>
                         <div className="approval-tool-bar">
                             <ul className="tab-nav">
-                                <li id="tab-all" className="first" style={{borderBottom:"solid 2px"}}>
-                                    <NavLink className="tab-item" to="/approval/receive-approvals/all">
-                                        <strong>전체</strong>
-                                    </NavLink>
-                                </li>
+                                <NavLink className="tab-item"
+                                         to="/approval/draft-approvals/all">
+                                    <li id="tab-all">
+                                        <span style={{color:'#868686'}}>전체</span>
+                                    </li>
+                                </NavLink>
 
                                 <NavLink className="tab-item"
                                          to="/approval/draft-approvals/PROCEEDING"
@@ -65,9 +66,9 @@ function DraftApps() {
                         <table className="sales-table approval-list-table">
                             <colgroup>
                                 <col width="10%"/>
-                                <col width="10%"/>
+                                <col width="15%"/>
                                 <col width="40%"/>
-                                <col width="10%"/>
+                                <col width="5%"/>
                                 <col width="15%"/>
                                 <col width="15%"/>
                             </colgroup>
@@ -82,7 +83,7 @@ function DraftApps() {
                             </tr>
                             </thead>
                             <tbody>
-                            { draftApps.data.map(approval => (
+                            { draftAppsBy.data.map(approval => (
                                 <tr key={approval.approvalCode}
                                     onClick={() => onClickApproval(approval.approvalCode)}>
 
@@ -97,7 +98,7 @@ function DraftApps() {
                             }
                             </tbody>
                         </table>
-                        <PagingBar pageInfo={draftApps.pageInfo} setCurrentPage={setCurrentPage}/>
+                        <PagingBar pageInfo={draftAppsBy.pageInfo} setCurrentPage={setCurrentPage}/>
                     </>
                 }
             </div>
@@ -105,4 +106,4 @@ function DraftApps() {
     );
 }
 
-export default DraftApps;
+export default DraftAppsByStatus;

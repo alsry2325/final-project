@@ -1,25 +1,155 @@
 /* ================================================ 메인 틀 ================================================ */
-/*.approval-main {
+.approval-main {
     width: 100%;
-}*/
+}
+/* ================================================ 상신 모달 ================================================ */
+.modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
 
-/* ================================================ 업무 기안서 작성 ================================================ */
+
+.app-modal-container{
+    position: absolute;
+    width: 600px;
+    height: 500px;
+    padding: 10px;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+    z-index: 1000;
+}
+
+.form-modal-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+    margin: 15px;
+}
+
+.form-modal-body, .app-modal-body {
+    display: flex;
+    justify-content: space-around;
+}
+
+.form-type {
+    width: 35%;
+    height: 100px;
+    margin: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.shorter-line-div {
+    height: 1px;
+    color: #aeaeae;
+    width: 80%;
+    border-bottom: solid 1px;
+    margin: 5px auto;
+}
+
+/* ================================================ 문서 상세 ================================================ */
+.app-button-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    margin: 30px auto 0;
+}
+
+button.app-button {
+    margin-left: 20px;
+    width: 80px;
+    height: 35px;
+    border-radius: 5px;
+    border: solid 1px #6f6f6f;
+    background: #ffffff;
+    font-weight: bold;
+}
+
+button.app-blue-btn {
+    border: solid 1px #5549DD;
+    color: #5549DD;
+}
+
+.line-div {
+    height: 1px;
+    color: #aeaeae;
+    width: 100%;
+    border-bottom: solid 1px;
+    margin: 20px 0;
+}
+
+.back-to-list {
+    display: flex;
+    align-items: center;
+}
+
 .approval-doc-form-outline {
     border: solid 1px #d9d9d9;
-    max-width: 80%;
-    margin: 20px auto;
+    width: 80%;
+    margin: 30px auto;
 }
 
 .approval-header {
     display: flex;
     padding: 10px;
+    margin: 10px auto;
+    width: 80%;
+    justify-content: space-between;
+
+}
+
+.app.modal-body {
+    display: flex;
+    justify-content: center;
     margin: 10px 0;
+}
+
+.app-modal-left, .app-modal-right {
+    width: 45%;
+}
+
+.app-emply-list, .choosen-approver {
+    border: solid 1px #6f6f6f;
+    width: 90%;
+    height: 400px;
+    margin: 10px auto;
+}
+
+.choosen-approver {
+    height: 300px;
+}
+
+.app-employee {
+    border: solid 1px #6f6f6f;
+    margin: 15px auto;
+    border-radius: 5px;
+    width: 70%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
 }
 
 .approval-body {
     text-align: center;
     width: 80%;
-    margin: 30px auto;
+    margin: 30px auto -10px;
 }
 
 .approval-form-name{
@@ -50,33 +180,51 @@ button.choose-approver{
 }
 
 .approver{
+    text-align: center;
     border: solid 1px;
 }
 
 .approve-box {
     border-bottom: solid 1px;
     border-top: solid 1px;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 90px;
+    width: 70px;
 }
 
-.draftInfo, .BD-content {
+.approval-status {
+    margin: auto;
+    height: 55px;
+}
+
+.approval-date {
+    height: 20px;
+}
+
+img.approval-status-img {
+    margin: 10px auto;
+    height: 45px;
+    width: 45px;
+}
+
+.draftInfo, .app-form-content {
     border: solid 1px;
     width: 100%;
     border-collapse: collapse;
 }
 
-.draftInfo tr, .draftInfo td, .BD-content tr, .BD-content td {
+.draftInfo tr, .draftInfo td, .app-form-content tr, .app-form-content td {
     border: solid 1px;
     padding: 10px;
+}
+td.app-table-info, th.app-table-info{
+    background-color: #F1F0F6
 }
 
 input.approval-title {
     height: 25px;
     width: 95%;
     padding: 5px;
+    margin: auto;
 }
 
 .businessDraftContent {
@@ -99,11 +247,37 @@ input.approval-title {
     justify-content: center;
 }
 
-img.approval-attach-img {
+img.approval-attach-img, img.back-img, img.close-modal-img {
     width: 17px;
     margin: 5px;
 }
 
+table.ER-detail-table {
+    width: 230%;
+    border-collapse: collapse;
+    border-top: hidden;
+    border-right: hidden;
+    border-bottom: hidden;
+}
+
+.total-expenditure {
+    margin: auto;
+    width: 50%;
+    height: 25px;
+    padding: 5px;
+    margin-left: 5px;
+}
+
+.app-opinion-div {
+    display: flex;
+    border-radius: 6px;
+    border: solid 1px;
+    margin: 20px auto;
+    justify-content: space-around;
+    width: 80%;
+    height: 40px;
+    align-items: center;
+}
 /* ================================================ 사이드 바 ================================================ */
 img.approval-nav-img {
     width: 30px;
@@ -137,21 +311,6 @@ ul.tab-nav {
 .tab-item{
     text-decoration: none;
 }
-
-/*table.approval-list-table {
-    width: 100%;
-    margin: auto;
-    border-collapse: collapse;
-}
-
-.approval-list-table td {
-    border-bottom: solid 1px #aeaeae;
-}
-
-.approval-list-table th {
-    border-bottom: solid 1px #aeaeae;
-    border-top: solid 1px #aeaeae;
-}*/
 
 .active li.AP {
     border-bottom: solid 2px;

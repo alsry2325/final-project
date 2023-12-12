@@ -21,14 +21,20 @@ import SalesLayout from "./layouts/SalesLayout";
 // import SalesModify from "./pages/businessbridge/sales/SalesModify";
 // import SalesStatistics from "./pages/businessbridge/sales/SalesStatistics";
 import ApprovalLayout from "./layouts/ApprovalLayout";
-import BusinessDraftForm from "./components/approval/form/BusinessDraftForm";
-import AppMain from "./pages/approval/AppMain";
-import ReceiveApps from "./pages/approval/ReceiveApps";
-import ReceiveAppsByStatus from "./pages/approval/ReceiveAppsByStatus";
-import UpcomingApps from "./pages/approval/UpcomingApps";
-import AppDetail from "./pages/approval/AppDetail";
-import DraftApps from "./pages/approval/DraftApps";
-import DraftAppsByStatus from "./pages/approval/DraftAppsByStatus";
+import BDWriteForm from "./components/form/approvalForm/BDWriteForm";
+import AppMain from "./pages/businessbridge/approval/AppMain";
+import ReceiveApps from "./pages/businessbridge/approval/ReceiveApps";
+import ReceiveAppsByStatus from "./pages/businessbridge/approval/ReceiveAppsByStatus";
+import UpcomingApps from "./pages/businessbridge/approval/UpcomingApps";
+import AppDetail from "./pages/businessbridge/approval/AppDetail";
+import DraftApps from "./pages/businessbridge/approval/DraftApps";
+import DraftAppsByStatus from "./pages/businessbridge/approval/DraftAppsByStatus";
+import DraftCollect from "./pages/businessbridge/approval/DraftCollect";
+import TempStorageApps from "./pages/businessbridge/approval/TempStorageApps";
+import ApproveApps from "./pages/businessbridge/approval/ApproveApps";
+import ApproveAppsByStatus from "./pages/businessbridge/approval/ApproveAppsByStatus";
+import ERWriteForm from "./components/form/approvalForm/ERWriteForm";
+import WriteBusinessDraft from "./pages/businessbridge/approval/Write-BusinessDraft";
 
 function App() {
   return (
@@ -61,10 +67,15 @@ function App() {
                     <Route path="upcoming-approvals" element={<UpcomingApps/>}/>
                     <Route path="draft-approvals/all" element={<DraftApps/>}/>
                     <Route path="draft-approvals/:docStatus" element={<DraftAppsByStatus/>} />
+                    <Route path="draft-collects" element={<DraftCollect/>}/>
+                    <Route path="temp-storages" element={<TempStorageApps/>}/>
+                    <Route path="approve-approvals/all" element={<ApproveApps/>}/>
+                    <Route path="approve-approvals/:docStatus" element={<ApproveAppsByStatus/>}/>
+
                     <Route path="document/:approvalCode" element={<AppDetail/>} />
                     <Route path="write">
-                        <Route path="businessDraft" element={<BusinessDraftForm/>}/>
-                        <Route path="expenxeReport"/>
+                        <Route path="businessDraft" element={<WriteBusinessDraft/>}/>
+                        <Route path="expenseReport" element={<ERWriteForm/>}/>
                     </Route>
                 </Route>
                 {/* == 전자결재 끝 == */}
