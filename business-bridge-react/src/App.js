@@ -4,6 +4,7 @@ import './css/Header.css';
 import './css/MyPage.css';
 import './css/EmployeeRegistrationNavbar.css'
 import './css/approval.css';
+import './css/AddressBook.css'
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Login from "./pages/businessbridge/employee/Login";
@@ -35,6 +36,11 @@ import ApproveApps from "./pages/businessbridge/approval/ApproveApps";
 import ApproveAppsByStatus from "./pages/businessbridge/approval/ApproveAppsByStatus";
 import ERWriteForm from "./components/form/approvalForm/ERWriteForm";
 import WriteBusinessDraft from "./pages/businessbridge/approval/Write-BusinessDraft";
+import AddressBookMain from "./pages/businessbridge/addressBook/AddressBookMain";
+import AddressBookLayout from "./layouts/AddressBookLayout";
+import AddressBookDepartment from "./pages/businessbridge/addressBook/AddressBookDepartment";
+import AddressDetail from "./pages/businessbridge/addressBook/AddressDetail";
+import AddressAdminItem from "./components/items/AddressAdminItem";
 
 function App() {
   return (
@@ -84,6 +90,15 @@ function App() {
                 <Route path="login" element={ <ProtectedRoute loginCheck={false}><Login/></ProtectedRoute> }/>
                 <Route path="findpassword" element={ <ProtectedRoute loginCheck={false}><FindPassword/></ProtectedRoute> }/>
             </Route>
+
+            <Route path="addressBook" element={ <ProtectedRoute loginCheck={true}><AddressBookLayout/></ProtectedRoute>}>
+                <Route path="main" element={ <ProtectedRoute loginCheck={true}> <AddressBookMain/> </ProtectedRoute>}/>
+                <Route path="department/:departmentCode" element={ <AddressBookDepartment/> }/>
+                <Route path=":emplyCode" element={ <AddressDetail/> }/>
+                <Route
+                    path="addressAdmin/:emplyCode" element={<ProtectedRoute authCheck={true}> <AddressAdminItem/> </ProtectedRoute>}/>
+            </Route>
+
             <Route path="/*" element={<Error/>}/>
 
         </Routes>
