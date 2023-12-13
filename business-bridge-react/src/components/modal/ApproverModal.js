@@ -20,8 +20,8 @@ function ApproverModal({ setAppEmplyModal, onSelectedApprovers }) {
             (appEmp) => appEmp.emplyCode === empCode
         );
 
-        console.log("클릭된 직원:", clickedEmployee);
-        console.log("선택된 결재자들:", selectedEmployees);
+        // console.log("클릭된 직원:", clickedEmployee);
+        // console.log("선택된 결재자들:", selectedEmployees);
 
         // 최대 세 명까지만 선택 허용
         if (selectedEmployees.length < 3) {
@@ -43,7 +43,7 @@ function ApproverModal({ setAppEmplyModal, onSelectedApprovers }) {
 
     // 결재자 순서 변경 이벤트
 
-    // 적용 클릭 시 선택 된 결재자가 반복조회
+    // 적용 클릭 시 선택 된 결재자 반복조회
     const onClickUse = (selectedEmployees) => {
         onSelectedApprovers({selectedEmployees});
         setAppEmplyModal(false);

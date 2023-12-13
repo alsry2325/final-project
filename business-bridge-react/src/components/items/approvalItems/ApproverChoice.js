@@ -1,12 +1,12 @@
 import {useState} from "react";
 import ApproverModal from "../../modal/ApproverModal";
 
-function ApproverChoice() {
+function ApproverChoice({setForm}) {
 
     const[appEmplyModal, setAppEmplyModal] = useState(false);
     const [approvers, setApprovers] = useState([]);
 
-
+    // 결재자 선택 버튼 클릭 시 모달 창 오픈
     const onclickChooseApprover = () => {
         setAppEmplyModal(true);
     }
@@ -15,7 +15,8 @@ function ApproverChoice() {
     const selectedApprovers = ({selectedEmployees}) => {
         console.log("결재자 정보 : ", selectedEmployees)
 
-        setApprovers([...selectedEmployees])
+        setApprovers([...selectedEmployees]);
+        setForm({ "approver" : [approvers.emplyCode]});
     }
 
 

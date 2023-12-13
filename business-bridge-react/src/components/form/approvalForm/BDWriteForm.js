@@ -2,15 +2,14 @@ import ApproverChoice from "../../items/approvalItems/ApproverChoice";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useRef, useState} from "react";
-import ApproverModal from "../../modal/ApproverModal";
 
-function BDWriteForm({myPageInfo}) {
+function BDWriteForm({myPageInfo, setForm}) {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const fileInput = useRef();
-    const [fileUrl, setfileUrl] = useState('');
-    const [form, setForm] = useState({});
+    const [fileUrl, setFileUrl] = useState('');
+    // const [form, setForm] = useState({});
     const [attachedFiles, setAttachedFiles] = useState([]);
     const {postBusinessDraft} = useSelector((state) => state.approvalReducer);
     const today = new Date();
@@ -25,9 +24,8 @@ function BDWriteForm({myPageInfo}) {
     // 입력 양식 값 변경 시 state 수정
     const onChangeHandler = e => {
         setForm({
-            ...form,
             [e.target.name]: e.target.value
-        })
+        });
     }
 
     // 파일 업로드 시 input type file이 클릭 되도록 하는 이벤트
@@ -52,12 +50,13 @@ function BDWriteForm({myPageInfo}) {
 
                 // 마지막 파일이면, state를 업데이트
                 if (i === files.length - 1) {
-                    setfileUrl(fileUrls);
+                    setFileUrl(fileUrls);
                     setAttachedFiles(fileNames);
                 }
             };
             fileReader.readAsDataURL(files[i]);
         }
+        setForm("attachFiles", [files]);
     };
 
     // 파일 첨부 취소
@@ -73,7 +72,7 @@ function BDWriteForm({myPageInfo}) {
                 <div className="approval-header">
                     <h3 className="approval-form-name">업무기안서</h3>
                     <div className="approver-list">
-                        <ApproverChoice/>
+                        <ApproverChoice setForm={setForm}/>
                     </div>
                 </div>
                 <div className="approval-body">

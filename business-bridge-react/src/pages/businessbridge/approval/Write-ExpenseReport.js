@@ -1,9 +1,8 @@
-import ApprovalButton from "../../../components/items/approvalItems/ApprovalButton";
-import BDWriteForm from "../../../components/form/approvalForm/BDWriteForm";
 import {useEffect} from "react";
 import {callEmployeeAPI} from "../../../apis/EmployeeAPICalls";
 import {useDispatch, useSelector} from "react-redux";
 import ERWriteForm from "../../../components/form/approvalForm/ERWriteForm";
+import ButtonForWrite from "../../../components/items/approvalItems/ButtonForWrite";
 
 function WriteExpenseReport() {
 
@@ -17,7 +16,7 @@ function WriteExpenseReport() {
     return(
         <>
             <h2 className="approval-title">지출결의서</h2>
-            <ApprovalButton/>
+            <ButtonForWrite/>
             {
                 myPageInfo &&
                 <ERWriteForm myPageInfo={myPageInfo}/>
