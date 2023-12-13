@@ -24,7 +24,7 @@ function AddressItem({address}) {
                 <tr>
                     <td rowSpan='5'>{ address.emplyName }</td>
                     <td style={{backgroundColor: '#F1F0F6'}}>사번</td>
-                    <td colSpan="2">{address.emplyId}</td>
+                    <td colSpan="2">{address.emplyCode}</td>
                     <td style={{backgroundColor: '#F1F0F6'}}>개인번호</td>
                     <td>{address.emplyPhoneNumber &&
                         `${address.emplyPhoneNumber.slice(0, 3)} -

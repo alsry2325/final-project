@@ -1,21 +1,22 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {modifyAddressAPI} from "../../apis/AddressBookApiCalls";
-import {toast} from "react-toastify";
-import {useLocation} from 'react-router-dom';
-import {useDispatch} from "react-redux";
+import {toast, ToastContainer} from "react-toastify";
+import {useLocation, useNavigate} from 'react-router-dom';
+import {useDispatch, useSelector} from "react-redux";
+import {putSuccess} from "../../modules/AddressModule";
 
 
 function AddressAdminItem({address}) {
     const location = useLocation();
     const { addressData } = location.state;
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { putSuccess } = useSelector(state => state.addressReducer);
 
     const [editedAddress, setEditedAddress] = useState({
         emplyName: addressData?.emplyName || '',
         emplyOffice: addressData?.emplyOffice || '',
         emplyEmail: addressData?.emplyEmail || '',
-        departmentCode: addressData?.departmentCode || '',
-        positionCode: addressData?.positionCode || '',
         emplyPhoneNumber: addressData?.emplyPhoneNumber || '',
         emplyInternalNumber: addressData?.emplyInternalNumber || '',
     });
@@ -42,7 +43,11 @@ function AddressAdminItem({address}) {
             };
 
             await dispatch(modifyAddressAPI({ emplyCode: addressData.emplyCode, addressBookUpdateRequest }));
-            toast.info("주소록 수정이 완료되었습니다.");
+            toast.info("주소록 수정이 완료되었습니다.", {
+                /* 토스트가 닫히면 자동으로 이동한다. */
+                onClose: () => navigate('/addressBook/main', { replace: true })
+            });
+
         } catch (error) {
             console.error("주소록 수정에 실패했습니다", error);
             toast.error("주소록 수정에 실패했습니다.");
@@ -52,13 +57,17 @@ function AddressAdminItem({address}) {
     /* 수정 성공 시 상품 목록으로 이동 */
     useEffect(() => {
         if(putSuccess === true) {
-            navigate('/address/main', { replace : true })
+            const timeout = setTimeout(() => {
+                navigate('/addressBook/main', { replace : true });
+            }, 3000);
+
+            return () => clearTimeout(timeout);
         }
     }, [putSuccess]);
 
-
     return (
         <>
+            <ToastContainer hideProgressBar={true} position="top-center"/>
             <div className="addressBook-h1">
                 <h1>주소록 수정</h1>
             </div>
@@ -103,7 +112,7 @@ function AddressAdminItem({address}) {
                         />
                     </td>
                     <td style={{backgroundColor: '#F1F0F6'}}>사번</td>
-                    <td colSpan="2">{addressData?.emplyId}</td>
+                    <td colSpan="2">{addressData?.emplyCode}</td>
                     <td style={{backgroundColor: '#F1F0F6'}}>개인번호</td>
                     <td>
                         <input
@@ -145,7 +154,6 @@ function AddressAdminItem({address}) {
                     수정완료
                 </button>
             </div>
-
 
         </>
     );

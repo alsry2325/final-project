@@ -1,11 +1,11 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {callAddressBookDetailAPI} from "../../../apis/AddressBookApiCalls";
 import {deleteAddressAPI} from "../../../apis/AddressBookApiCalls";
 import AddressItem from "../../../components/items/AddressItem";
 import {isAdmin} from "../../../utils/TokenUtils";
-import {ToastContainer} from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
 import AddressAdminItem from "../../../components/items/AddressAdminItem";
 
 function AddressDetail() {
@@ -27,9 +27,11 @@ function AddressDetail() {
         dispatch(deleteAddressAPI({ emplyCode }))
             .then((response) => {
                 console.log("주소록 삭제에 성공했습니다.")
+                toast.info("주소록 삭제가 완료 되었습니다.")
             })
             .catch((error) => {
                 console.error("주소록 삭제에 실패했습니다", error)
+                toast.info("주소록 삭제에 실패 하였습니다.")
             });
     };
 
@@ -49,6 +51,7 @@ function AddressDetail() {
                         </div>
                 }
 
+                <ToastContainer hideProgressBar={true} position="top-center"/>
                 {
                     isAdmin() && (
                         <div className="address-btn-container">

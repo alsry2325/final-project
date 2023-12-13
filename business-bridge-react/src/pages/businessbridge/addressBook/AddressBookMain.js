@@ -44,8 +44,6 @@ function AddressBookMain() {
 
     return (
         <>
-            <ToastContainer hideProgressBar={true} position="top-center"/>
-
             <div className="addressBook-div">
                 <div className="address-wrapper">
                     <h1 className="addressBook-h1">주소록</h1>
