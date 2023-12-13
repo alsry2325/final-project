@@ -1,9 +1,9 @@
 import {ToastContainer} from "react-toastify";
-import PagingBar from "../../components/common/PagingBar";
+import PagingBar from "../../../components/common/PagingBar";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useNavigate, useParams} from "react-router-dom";
-import {callUpcomingApprovalsListAPI} from "../../apis/ApprovalAPICalls";
+import {callUpcomingApprovalsListAPI} from "../../../apis/ApprovalAPICalls";
 import { format } from 'date-fns';
 
 function UpcomingApps() {

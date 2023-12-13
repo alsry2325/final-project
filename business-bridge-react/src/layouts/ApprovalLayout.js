@@ -7,9 +7,11 @@ function ApprovalLayout() {
     const[clicked,isClicked] = useState(false)
     return (
         <>
-            <main className="approval-main employeeRegistration-layout-div">
+            <main className="employeeRegistration-layout-div">
                 <ApprovalNavbar/>
-                <Outlet/>
+                <div className="approval-main">
+                    <Outlet/>
+                </div>
             </main>
         </>
     );

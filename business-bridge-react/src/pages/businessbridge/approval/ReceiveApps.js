@@ -1,21 +1,21 @@
 import {ToastContainer} from "react-toastify";
-import PagingBar from "../../components/common/PagingBar";
+import PagingBar from "../../../components/common/PagingBar";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink, useNavigate, useParams} from "react-router-dom";
-import {callReceiveAppsByStatusAPI} from "../../apis/ApprovalAPICalls";
+import {callReceiveApprovalsListAPI} from "../../../apis/ApprovalAPICalls";
 import { format } from 'date-fns';
 
-function ReceiveAppsByStatus() {
+function ReceiveApps() {
 
     const {approvalStatus} = useParams();
     const [currentPage, setCurrentPage] = useState(1);
-    const { receiveApprovalsBy } = useSelector(state => state.approvalReducer);   //모듈에 정의한 key값
+    const { receiveAllApprovals } = useSelector(state => state.approvalReducer);   //모듈에 정의한 key값
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(callReceiveAppsByStatusAPI({currentPage, approvalStatus}));
+        dispatch(callReceiveApprovalsListAPI({currentPage, approvalStatus}));
     }, [currentPage, approvalStatus]);
 
     const onClickApproval = (approvalCode) => {
@@ -28,29 +28,31 @@ function ReceiveAppsByStatus() {
             <div className="approval-div">
                 <h2 className="approval-title">받은 결재</h2>
                 {
-                    receiveApprovalsBy &&
+                    receiveAllApprovals &&
                     <>
                         <div className="approval-tool-bar">
                             <ul className="tab-nav">
-                                <li id="tab-all" className="first">
+                                <li id="tab-all" className="first"
+                                    style={{borderBottom:"solid 2px", color:'#000000',
+                                        fontWeight:'bolder'}}>
                                     <NavLink className="tab-item" to="/approval/receive-approvals/all">
-                                        <span style={{color:'#868686'}}>전체</span>
+                                        <span className="tab-text">전체</span>
                                     </NavLink>
                                 </li>
-                                <li id="tab-hold" style={{borderBottom:"solid 2px"}}>
+                                <li id="tab-hold">
                                     <NavLink className="tab-item" to="/approval/receive-approvals/PENDING">
-                                        <strong>보류</strong>
+                                        <span style={{color:'#868686'}}>보류</span>
                                     </NavLink>
                                 </li>
                             </ul>
                         </div>
                         <table className="sales-table approval-list-table">
                             <colgroup>
-                                <col width="20%"/>
+                                <col width="15%"/>
                                 <col width="10%"/>
                                 <col width="40%"/>
+                                <col width="5%"/>
                                 <col width="10%"/>
-                                <col width="20%"/>
                             </colgroup>
                             <thead>
                             <tr>
@@ -62,7 +64,7 @@ function ReceiveAppsByStatus() {
                             </tr>
                             </thead>
                             <tbody>
-                            { receiveApprovalsBy.data.map(approval => (
+                            { receiveAllApprovals.data.map(approval => (
                                 <tr key={approval.approvalCode}
                                     onClick={() => onClickApproval(approval.approvalCode)}>
 
@@ -76,7 +78,7 @@ function ReceiveAppsByStatus() {
                             }
                             </tbody>
                         </table>
-                        <PagingBar pageInfo={receiveApprovalsBy.pageInfo} setCurrentPage={setCurrentPage}/>
+                        <PagingBar pageInfo={receiveAllApprovals.pageInfo} setCurrentPage={setCurrentPage}/>
                     </>
                 }
             </div>
@@ -84,4 +86,4 @@ function ReceiveAppsByStatus() {
     );
 }
 
-export default ReceiveAppsByStatus;
+export default ReceiveApps;
