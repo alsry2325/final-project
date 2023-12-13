@@ -1,9 +1,9 @@
 .Nav{
-    justify-content: center;
+    /*justify-content: center;*/
     text-align: center;
     background-color: #563CB1;
     padding: 30px 75px  30px 75px;
-
+    z-index: 100;
 }
 .main-Image{
     width: 35px;
@@ -48,6 +48,7 @@
 }
 
 .Image-myPage{
+    position: relative;
     width: 50px; /* 이미지의 너비 조절 */
     height: 50px; /* 이미지의 높이 조절 */
     border-radius: 50%; /* 50%로 설정하여 동그랗게 만듭니다 */
@@ -73,7 +74,7 @@
     cursor: pointer;
     color: white;
 }
-@media screen and (max-width: 1400px){
+@media screen and (max-width: 1500px){
     .Nav{
         padding: 25px 0px  25px 20px;
     }
@@ -98,6 +99,7 @@
 }
 /* 메뉴로 바뀔 때*/
 .menu{
+    position: absolute;
     width: 150px;
     height: 100px;
     background-color: white;

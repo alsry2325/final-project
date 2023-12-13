@@ -1,8 +1,9 @@
-            import Header from "../components/common/Header";
+
 import {Outlet} from "react-router-dom";
 import {useState} from "react";
-import Menu from "../components/common/Menu";
 import '../css/Menu.css'
+import Header from "../components/common/Header";
+import Menu from "../components/common/Menu";
 
 
 function Layout() {

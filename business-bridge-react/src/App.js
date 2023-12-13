@@ -13,7 +13,7 @@ import FindPassword from "./pages/businessbridge/employee/FindPassword";
 import ProtectedRoute from "./components/router/ProtectedRoute";
 import Error from "./pages/error/Error";
 import MyPage from "./pages/businessbridge/employee/MyPage";
-import EmployeeRegistrationNavbarLayout from "./layouts/EmployeeRegistrationNavbarLayout";
+import EmployeeRegistrationLayout from "./layouts/EmployeeRegistrationLayout";
 import EmployeeRegistration from "./pages/businessbridge/employee/EmployeeRegistration";
 import SalesLayout from "./layouts/SalesLayout";
 import SalesList from "./pages/businessbridge/sales/SalesList";
@@ -48,18 +48,19 @@ function App() {
         <Routes>
             <Route path="/" element={ <ProtectedRoute loginCheck={true}><Layout/></ProtectedRoute> }>
                 <Route index element={<Main/>}/>
-                <Route path="emp/employee/mypage" element={ <ProtectedRoute loginCheck={true}> <MyPage/> </ProtectedRoute>}/>
-                <Route path="emp/employee/registration" element={ <ProtectedRoute loginCheck={true}><EmployeeRegistrationNavbarLayout/></ProtectedRoute>}>
-                    <Route index element={ <ProtectedRoute loginCheck={true}> <EmployeeRegistration/> </ProtectedRoute>}/>
+                {/* 마이페이지*/}
+                <Route path="emp/employee/mypage" element={  <MyPage/> }/>
+                <Route path="emp/employee" element={ <EmployeeRegistrationLayout/>}>
+                    <Route path="registrationList" element={ <EmployeeRegistration/>}/>
                 </Route>
-            <Route path="sales" element={<SalesLayout/>}>
-                <Route index element={ <Navigate to="/sales/salesList/0" replace/>}/>
-                <Route path="salesList/:salesStatus" element={ <SalesList/> }/>
-                <Route path=":salesCode" element={ <SalesDetail/> }/>
-                <Route path="sales-regist" element={ <SalesRegist/> }/>
-                <Route path="sales-modify/:salesCode" element={ <SalesModify/> }/>
-                <Route path="salesStatistics" element={ <SalesStatistics/> }/>
-            </Route>
+                <Route path="sales" element={<SalesLayout/>}>
+                    <Route index element={ <Navigate to="/sales/salesList/0" replace/>}/>
+                    <Route path="salesList/:salesStatus" element={ <SalesList/> }/>
+                    <Route path=":salesCode" element={ <SalesDetail/> }/>
+                    <Route path="sales-regist" element={ <SalesRegist/> }/>
+                    <Route path="sales-modify/:salesCode" element={ <SalesModify/> }/>
+                    <Route path="salesStatistics" element={ <SalesStatistics/> }/>
+                </Route>
                 <Route path="sales" element={<SalesLayout/>}>
                     <Route index element={ <Navigate to="/sales/salesList/1" replace/>}/>
                     <Route path="salesList/:salesStatus" element={ <SalesList/> }/>
