@@ -26,7 +26,6 @@ function Header({clicked, isClicked}){
 
     return (
         <>
-            { myPageInfo &&
            <div className="Nav">
                <ul className="NavbarWrapper">
                    <li className="NavLogo">
@@ -81,19 +80,19 @@ function Header({clicked, isClicked}){
                        </NavLink>
                    </li>}
                    { isAdmin() && <li className="NavElements">
-                       <NavLink className="Link" to="/emp/employee/registration">
+                       <NavLink className="Link" to="/emp/employee/registrationList">
                            사원 관리
                        </NavLink>
                    </li>}
                    <li className="NavName">
-                       <p>{myPageInfo.emplyName}{myPageInfo.position}님</p>
+                       <p>{myPageInfo?.emplyName}{myPageInfo?.position}님</p>
                    </li>
                    <li
                        onClick={handleClick}
                        className="Image-myPage"
                        style={{position:"relative", float: "right", margin: "-15px 2px 1px 2px" }}
                    >
-                       <img className="Image-myPage" src={myPageInfo.emplyPhoto} alt="My Image" />
+                       <img className="Image-myPage" src={myPageInfo?.emplyPhoto} alt="My Image" />
                        {isMenuVisible && (
                             <MenuTest/>
                        )}
@@ -106,7 +105,6 @@ function Header({clicked, isClicked}){
                    <ImCross onClick={handleClicked} className="Icon" />
                )}
            </div>
-            }
         </>
        );
 

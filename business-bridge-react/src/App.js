@@ -15,11 +15,11 @@ import MyPage from "./pages/businessbridge/employee/MyPage";
 import EmployeeRegistrationLayout from "./layouts/EmployeeRegistrationLayout";
 import EmployeeRegistration from "./pages/businessbridge/employee/EmployeeRegistration";
 import SalesLayout from "./layouts/SalesLayout";
-// import SalesList from "./pages/businessbridge/sales/SalesList";
-// import SalesDetail from "./pages/businessbridge/sales/SalesDetail";
-// import SalesRegist from "./pages/businessbridge/sales/SalesRegist";
-// import SalesModify from "./pages/businessbridge/sales/SalesModify";
-// import SalesStatistics from "./pages/businessbridge/sales/SalesStatistics";
+import SalesList from "./pages/businessbridge/sales/SalesList";
+import SalesDetail from "./pages/businessbridge/sales/SalesDetail";
+import SalesRegist from "./pages/businessbridge/sales/SalesRegist";
+import SalesModify from "./pages/businessbridge/sales/SalesModify";
+import SalesStatistics from "./pages/businessbridge/sales/SalesStatistics";
 import ApprovalLayout from "./layouts/ApprovalLayout";
 import BDWriteForm from "./components/form/approvalForm/BDWriteForm";
 import AppMain from "./pages/businessbridge/approval/AppMain";
@@ -42,23 +42,24 @@ function App() {
         <Routes>
             <Route path="/" element={ <ProtectedRoute loginCheck={true}><Layout/></ProtectedRoute> }>
                 <Route index element={<Main/>}/>
-                <Route path="emp/employee/mypage" element={ <ProtectedRoute loginCheck={true}> <MyPage/> </ProtectedRoute>}/>
-                <Route path="emp/employee/registration" element={ <ProtectedRoute loginCheck={true}><EmployeeRegistrationLayout/></ProtectedRoute>}>
-                    <Route index element={ <ProtectedRoute loginCheck={true}> <EmployeeRegistration/> </ProtectedRoute>}/>
+                {/* 마이페이지*/}
+                <Route path="emp/employee/mypage" element={  <MyPage/> }/>
+                <Route path="emp/employee" element={ <EmployeeRegistrationLayout/>}>
+                    <Route path="registrationList" element={ <EmployeeRegistration/>}/>
                 </Route>
-            {/*<Route path="sales" element={<SalesLayout/>}>*/}
-            {/*    <Route index element={ <Navigate to="/sales/salesList/0" replace/>}/>*/}
-            {/*    <Route path="salesList/:salesStatus" element={ <SalesList/> }/>*/}
-            {/*    <Route path=":salesCode" element={ <SalesDetail/> }/>*/}
-            {/*    <Route path="sales-regist" element={ <SalesRegist/> }/>*/}
-            {/*    <Route path="sales-modify/:salesCode" element={ <SalesModify/> }/>*/}
-            {/*    <Route path="salesStatistics" element={ <SalesStatistics/> }/>*/}
-            {/*</Route>*/}
-            {/*    <Route path="sales" element={<SalesLayout/>}>*/}
-            {/*        <Route index element={ <Navigate to="/sales/salesList/1" replace/>}/>*/}
-            {/*        <Route path="salesList/:salesStatus" element={ <SalesList/> }/>*/}
-            {/*        <Route path=":salesCode" element={ <SalesDetail/> }/>*/}
-            {/*    </Route>*/}
+                <Route path="sales" element={<SalesLayout/>}>
+                    <Route index element={ <Navigate to="/sales/salesList/0" replace/>}/>
+                    <Route path="salesList/:salesStatus" element={ <SalesList/> }/>
+                    <Route path=":salesCode" element={ <SalesDetail/> }/>
+                    <Route path="sales-regist" element={ <SalesRegist/> }/>
+                    <Route path="sales-modify/:salesCode" element={ <SalesModify/> }/>
+                    <Route path="salesStatistics" element={ <SalesStatistics/> }/>
+                </Route>
+                <Route path="sales" element={<SalesLayout/>}>
+                    <Route index element={ <Navigate to="/sales/salesList/1" replace/>}/>
+                    <Route path="salesList/:salesStatus" element={ <SalesList/> }/>
+                    <Route path=":salesCode" element={ <SalesDetail/> }/>
+                </Route>
                 {/* == 전자결재 시작 == */}
                 <Route path="/approval"element={<ApprovalLayout/>}>
                     <Route path="home" element={<AppMain/>}/>

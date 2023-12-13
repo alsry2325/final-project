@@ -13,6 +13,7 @@ function Menu() {
 
     return (
         <>
+            { myPageInfo &&
             <div className="Navbars">
                 <ul className="NavbarWrappers">
                     <li className="NavImage">
@@ -64,12 +65,13 @@ function Menu() {
                         </NavLink>
                     </li>}
                     { isAdmin() && <li className="NavbarElement">
-                        <NavLink className="link" to="/emp/employee/registration">
+                        <NavLink className="link" to="/emp/employee/registrationList">
                             사원관리
                         </NavLink>
                     </li>}
                 </ul>
             </div>
+            }
         </>
     );
 }
