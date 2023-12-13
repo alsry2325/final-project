@@ -1,6 +1,4 @@
 import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
-import {callEmployeeAPI} from "../../../apis/EmployeeAPICalls";
 import {useDispatch, useSelector} from "react-redux";
 
 function ApprovalButton({businessDraft, expenseReport}) {

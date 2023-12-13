@@ -188,13 +188,13 @@ button.choose-approver{
 .approver{
     text-align: center;
     border: solid 1px;
+    width: 80px;
 }
 
 .approve-box {
     border-bottom: solid 1px;
     border-top: solid 1px;
     height: 90px;
-    /*width: 70px;*/
 }
 
 .approval-status {
@@ -239,6 +239,7 @@ input.approval-title {
     height: 250px;
 }
 
+/* 첨부파일 */
 .approval-file-div {
     width: 80%;
     margin: 10px auto 20px auto;
@@ -249,9 +250,23 @@ input.approval-title {
     margin: 10px 0;
     text-align: center;
     padding: 5px;
+}
+
+.approval-file-add {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.app-file-name {
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+}
+
+img.cancel-attach {
+    width: 10px;
+    margin: 5px;
 }
 
 img.approval-attach-img, img.back-img, img.close-modal-img {
