@@ -5,18 +5,23 @@ import {callAddressBookDetailAPI} from "../../../apis/AddressBookApiCalls";
 import {deleteAddressAPI} from "../../../apis/AddressBookApiCalls";
 import AddressItem from "../../../components/items/AddressItem";
 import {isAdmin} from "../../../utils/TokenUtils";
+import {ToastContainer} from "react-toastify";
+import AddressAdminItem from "../../../components/items/AddressAdminItem";
 
 function AddressDetail() {
 
     const dispatch = useDispatch();
     const {emplyCode} = useParams();
     const {address} = useSelector(state => state.addressReducer);
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(callAddressBookDetailAPI({emplyCode}));
     }, []);
 
-    const navigate = useNavigate();
+    const handleModifyClick = () => {
+        navigate(`/addressBook/addressAdmin/${emplyCode}`, { state: { addressData: address } });
+    };
 
     const onDeleteClick = () => {
         dispatch(deleteAddressAPI({ emplyCode }))
@@ -31,28 +36,31 @@ function AddressDetail() {
 
     return (
         <>
+            <ToastContainer hideProgressBar={true} position="top-center"/>
+
             <div className="addressBook-info">
                 <div className="addressBook-h1">
                     <h1>주소록 상세조회</h1>
                 </div>
                 <hr/>
                 {
-                    address &&
-                    <div className="address-detail-div">
-                        <AddressItem address={address}/>
-                    </div>
+                        <div className="address-detail-div">
+                            <AddressItem address={address} />
+                        </div>
                 }
-            </div>
-            {isAdmin() && (
-                <div className="address-btn-container">
-                    <button className="address-modify-btn"
 
-                    >수정하기</button>
-                    <button className="address-delete-btn"
-                    onClick={ onDeleteClick }
-                    >삭제하기</button>
-                </div>
-            )}
+                {
+                    isAdmin() && (
+                        <div className="address-btn-container">
+                            <button className="address-modify-btn" onClick={handleModifyClick}>
+                                수정하기
+                            </button>
+                            <button className="address-delete-btn" onClick={onDeleteClick}>삭제하기</button>
+                        </div>
+                    )
+                }
+
+            </div>
         </>
     )
 }

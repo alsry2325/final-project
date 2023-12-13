@@ -97,6 +97,7 @@
     border-collapse: collapse;
     text-align: center;
     margin-top: 30px;
+    font-size: 12px;
 }
 
 .address-information tr {
@@ -118,6 +119,13 @@
 .address-information img {
     width: 200px;
     height: 200px;
+}
+
+.address-information input {
+    width : 170px;
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 20px;
 }
 
 /* 버튼 컨테이너 */

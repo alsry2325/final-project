@@ -1,5 +1,5 @@
 import {authRequest, request} from "./Api";
-import {getAddress, getAddressDetail} from "../modules/AddressModule";
+import {getAddress, getAddressDetail, putSuccess} from "../modules/AddressModule";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -80,6 +80,24 @@ export const callAddressBookDetailAPI = ({emplyCode}) => {
 };
 
 /* 5. 주소록 수정(관리자) */
+export const modifyAddressAPI = ({ emplyCode, addressBookUpdateRequest }) => {
+    return async (dispatch, getState) => {
+        try {
+            const result = await authRequest.put(`/api/v1/address-book/${emplyCode}`, addressBookUpdateRequest);
+            console.log('modifyAddressAPI : ', result);
+
+            if(result.status === 201) {
+                dispatch(putSuccess());
+                toast.info("주소록 수정이 완료 되었습니다.")
+            }
+
+        } catch (error) {
+            console.error("주소록 수정에 실패했습니다", error);
+            toast.info("주소록 수정에 실패했습니다.")
+            throw error;
+        }
+    }
+};
 
 
 /* 6. 주소록 삭제(관리자) */
@@ -90,7 +108,7 @@ export const deleteAddressAPI = ({emplyCode}) => {
 
         if(result.status === 204) {
             window.location.replace("/addressBook/main")
-            toast.info("상품 삭제가 완료 되었습니다.")
+            toast.info("사원 삭제가 완료 되었습니다.")
         }
     }
-}
+};
