@@ -41,7 +41,9 @@ function AddressItem({address}) {
                 <tr>
 
                     <td style={{backgroundColor: '#F1F0F6'}}>직위/부서</td>
-                    <td colSpan="2">{address.position}/{address.department}</td>
+                    <td colSpan="2">{address.positionName}/{address.departmentName}</td>
+
+
                     <td style={{backgroundColor: '#F1F0F6'}}>퇴사일</td>
                     <td>{address.retirementDate}</td>
                 </tr>

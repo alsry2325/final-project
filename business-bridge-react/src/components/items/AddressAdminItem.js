@@ -19,7 +19,12 @@ function AddressAdminItem({address}) {
         emplyEmail: addressData?.emplyEmail || '',
         emplyPhoneNumber: addressData?.emplyPhoneNumber || '',
         emplyInternalNumber: addressData?.emplyInternalNumber || '',
+        positionName: addressData?.positionName || '',
+        departmentName: addressData?.departmentName || '',
+        positionCode: addressData?.positionCode || '',
+        departmentCode: addressData?.departmentCode || '',
     });
+
 
     /* 수정된 값 저장 */
     const handleInputChange = (e) => {
@@ -33,16 +38,21 @@ function AddressAdminItem({address}) {
     /* 주소록 수정 */
     const handleModifyAddress = async () => {
         try {
-            const { emplyName, emplyOffice, emplyEmail, emplyPhoneNumber, emplyInternalNumber } = editedAddress;
+            const { emplyName, emplyOffice, emplyEmail, emplyPhoneNumber, emplyInternalNumber, positionName, departmentName, positionCode, departmentCode } = editedAddress;
             const addressBookUpdateRequest = {
                 emplyName,
                 emplyOffice,
                 emplyEmail,
                 emplyPhoneNumber,
-                emplyInternalNumber
+                emplyInternalNumber,
+                positionName,
+                departmentName,
+                positionCode,
+                departmentCode
             };
 
             await dispatch(modifyAddressAPI({ emplyCode: addressData.emplyCode, addressBookUpdateRequest }));
+
             toast.info("주소록 수정이 완료되었습니다.", {
                 /* 토스트가 닫히면 자동으로 이동한다. */
                 onClose: () => navigate('/addressBook/main', { replace: true })
@@ -139,7 +149,7 @@ function AddressAdminItem({address}) {
                 <tr>
 
                     <td style={{backgroundColor: '#F1F0F6'}}>직위/부서</td>
-                    <td colSpan="2">{addressData?.position}/{addressData?.department}</td>
+                    <td colSpan="2">{addressData?.positionName}/{addressData?.departmentName}</td>
                     <td style={{backgroundColor: '#F1F0F6'}}>퇴사일</td>
                     <td>{addressData?.retirementDate}</td>
                 </tr>

@@ -6,7 +6,7 @@ import {deleteAddressAPI} from "../../../apis/AddressBookApiCalls";
 import AddressItem from "../../../components/items/AddressItem";
 import {isAdmin} from "../../../utils/TokenUtils";
 import {toast, ToastContainer} from "react-toastify";
-import AddressAdminItem from "../../../components/items/AddressAdminItem";
+import { deleteSuccess } from "../../../modules/AddressModule";
 
 function AddressDetail() {
 
@@ -14,6 +14,7 @@ function AddressDetail() {
     const {emplyCode} = useParams();
     const {address} = useSelector(state => state.addressReducer);
     const navigate = useNavigate();
+    const { deleteSuccess } = useSelector(state => state.addressReducer);
 
     useEffect(() => {
         dispatch(callAddressBookDetailAPI({emplyCode}));
@@ -27,13 +28,26 @@ function AddressDetail() {
         dispatch(deleteAddressAPI({ emplyCode }))
             .then((response) => {
                 console.log("주소록 삭제에 성공했습니다.")
-                toast.info("주소록 삭제가 완료 되었습니다.")
+                toast.info("주소록 삭제가 완료 되었습니다.", {
+                    onClose: () => navigate('/addressBook/main', { replace: true })
+                });
             })
             .catch((error) => {
                 console.error("주소록 삭제에 실패했습니다", error)
                 toast.info("주소록 삭제에 실패 하였습니다.")
             });
     };
+
+    /* 수정 성공 시 상품 목록으로 이동 */
+    useEffect(() => {
+        if(deleteSuccess === true) {
+            const timeout = setTimeout(() => {
+                navigate('/addressBook/main', { replace : true });
+            }, 5000);
+
+            return () => clearTimeout(timeout);
+        }
+    }, [deleteSuccess]);
 
 
     return (
