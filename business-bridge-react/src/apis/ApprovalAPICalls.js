@@ -7,13 +7,9 @@ import {
     getDraftAppsByStatus, getDraftCollect, getExpenseReportDetail,
     getReceiveApps,
     getReceiveAppsByStatus, getTempStorage,
-    getUpcomingApps
+    getUpcomingApps, postBusinessDraft
 } from "../modules/ApprovalModule";
-
-/* 업무 기안서 등록 */
-export const callBusinessDraftRegistAPI = () => {
-
-}
+import {toast} from "react-toastify";
 
 /* 받은 결재 목록 조회 - 전체 */
 export const callReceiveApprovalsListAPI = ({currentPage}) => {
@@ -248,6 +244,20 @@ export const callAppEmployeeAPI = () => {
 
         if(result?.status === 200) {
             dispatch(getAppEmployees(result));
+        }
+    }
+}
+
+/* 업무 기안서 등록 */
+export const callRegistBusinessDraftAPI = ({ registBD }) => {
+
+    return async (dispatch, getState) => {
+        const result = await authRequest.post('/approval/regist-business-draft', registBD);
+        console.log('업무기안서 등록 result : ', result);
+
+        if(result.status === 201){
+            dispatch(postBusinessDraft());
+            toast.info("업무기안서 등록 완")
         }
     }
 }

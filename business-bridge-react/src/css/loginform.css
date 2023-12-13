@@ -23,7 +23,7 @@
     justify-content: space-around;
 }
 
-input {
+.login-input {
     border: none;
     background-color: rgb(229, 226, 226);
     width: 70%;
@@ -34,7 +34,7 @@ input {
     font-size: 1em;
 }
 
-input:focus {
+.login-input:focus {
     outline-color: #5549DD;
 }
 

@@ -194,12 +194,13 @@ button.choose-approver{
     border-bottom: solid 1px;
     border-top: solid 1px;
     height: 90px;
-    width: 70px;
+    /*width: 70px;*/
 }
 
 .approval-status {
     margin: auto;
     height: 55px;
+
 }
 
 .approval-date {

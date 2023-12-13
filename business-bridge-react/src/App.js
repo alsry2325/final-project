@@ -35,6 +35,7 @@ import ApproveApps from "./pages/businessbridge/approval/ApproveApps";
 import ApproveAppsByStatus from "./pages/businessbridge/approval/ApproveAppsByStatus";
 import ERWriteForm from "./components/form/approvalForm/ERWriteForm";
 import WriteBusinessDraft from "./pages/businessbridge/approval/Write-BusinessDraft";
+import WriteExpenseReport from "./pages/businessbridge/approval/Write-ExpenseReport";
 
 function App() {
   return (
@@ -75,7 +76,7 @@ function App() {
                     <Route path="document/:approvalCode" element={<AppDetail/>} />
                     <Route path="write">
                         <Route path="businessDraft" element={<WriteBusinessDraft/>}/>
-                        <Route path="expenseReport" element={<ERWriteForm/>}/>
+                        <Route path="expenseReport" element={<WriteExpenseReport/>}/>
                     </Route>
                 </Route>
                 {/* == 전자결재 끝 == */}
