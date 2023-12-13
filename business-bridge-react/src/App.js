@@ -34,6 +34,7 @@ import AddressBookMain from "./pages/businessbridge/addressBook/AddressBookMain"
 import AddressBookLayout from "./layouts/AddressBookLayout";
 import AddressBookDepartment from "./pages/businessbridge/addressBook/AddressBookDepartment";
 import AddressDetail from "./pages/businessbridge/addressBook/AddressDetail";
+import AddressModify from "./pages/businessbridge/addressBook/AddressModify";
 
 function App() {
   return (
@@ -84,6 +85,8 @@ function App() {
                 <Route path="department/:departmentCode" element={ <AddressBookDepartment/> }/>
                 <Route path=":emplyCode" element={ <AddressDetail/> }/>
             </Route>
+            <Route
+                path="address-modify/:emplyCode" element={<ProtectedRoute authCheck={true}> <AddressModify/> </ProtectedRoute>}/>
 
             <Route path="/*" element={<Error/>}/>
 

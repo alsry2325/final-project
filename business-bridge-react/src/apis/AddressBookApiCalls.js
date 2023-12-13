@@ -1,4 +1,4 @@
-import {request} from "./Api";
+import {authRequest, request} from "./Api";
 import {getAddress, getAddressDetail} from "../modules/AddressModule";
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -79,3 +79,18 @@ export const callAddressBookDetailAPI = ({emplyCode}) => {
     }
 };
 
+/* 5. 주소록 수정(관리자) */
+
+
+/* 6. 주소록 삭제(관리자) */
+export const deleteAddressAPI = ({emplyCode}) => {
+    return async (dispatch, getState) => {
+        const result = await authRequest.delete(`/api/v1/address-book/${emplyCode}`);
+        console.log('deleteAddressAPI result :', result);
+
+        if(result.status === 204) {
+            window.location.replace("/addressBook/main")
+            toast.info("상품 삭제가 완료 되었습니다.")
+        }
+    }
+}
