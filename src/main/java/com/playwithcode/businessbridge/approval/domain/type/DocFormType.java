@@ -10,6 +10,7 @@ public enum DocFormType {
 
     private final String value;
 
+
     DocFormType(String value) {this.value = value;}
 
     @JsonCreator

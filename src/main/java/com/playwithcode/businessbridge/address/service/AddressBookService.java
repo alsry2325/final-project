@@ -9,6 +9,7 @@ import com.playwithcode.businessbridge.address.dto.response.AddressBookResponse;
 import com.playwithcode.businessbridge.common.exception.NotFoundException;
 import com.playwithcode.businessbridge.common.util.FileUploadUtils;
 import com.playwithcode.businessbridge.department.domain.Department;
+import com.playwithcode.businessbridge.member.domain.type.EmplyStatus;
 import com.playwithcode.businessbridge.position.domain.Position;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +25,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.*;
+import static com.playwithcode.businessbridge.member.domain.type.EmplyStatus.JOIN;
 
 @Service
 @RequiredArgsConstructor
@@ -110,6 +112,32 @@ public class AddressBookService {
         addressBookRepository.deleteById(emplyCode);
     }
 
+    /* 6. 직원 검색 - 이름 기준 */
+    @Transactional(readOnly = true)
+    public Page<AddressBookResponse> getEmplyName(final Integer page, final String emplyName) {
+
+        Page<AddressBook> addressBooks = addressBookRepository.findByEmplyNameContainsAndEmplyStatus(getPageable(page), emplyName, JOIN);
+
+        return addressBooks.map(addressBook -> AddressBookResponse.from(addressBook));
+    }
+
+    /* 7. 직원 검색 - 이메일 기준 */
+    @Transactional(readOnly = true)
+    public Page<AddressBookResponse> getEmplyEmail(final Integer page, final String emplyEmail) {
+
+        Page<AddressBook> addressBooks = addressBookRepository.findByEmplyEmailContainsAndEmplyStatus(getPageable(page), emplyEmail, JOIN);
+
+        return addressBooks.map(addressBook -> AddressBookResponse.from(addressBook));
+    }
+
+    /* 8. 직원 검색 - 핸드폰 기준 */
+    @Transactional(readOnly = true)
+    public Page<AddressBookResponse> getEmplyPhoneNumber(final Integer page, final String emplyPhoneNumber) {
+
+        Page<AddressBook> addressBooks = addressBookRepository.findByEmplyPhoneNumberContainsAndEmplyStatus(getPageable(page), emplyPhoneNumber, JOIN);
+
+        return addressBooks.map(addressBook -> AddressBookResponse.from(addressBook));
+    }
 
 }
 

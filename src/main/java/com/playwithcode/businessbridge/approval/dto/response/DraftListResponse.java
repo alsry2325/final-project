@@ -27,7 +27,7 @@ public class DraftListResponse {
                 approval.getTitle(),
                 approval.getFile().size(),
                 approval.getDocNo(),
-                approval.getDraftDateTime()
+                approval.getRegistDateTime()
         );
     }
 }
