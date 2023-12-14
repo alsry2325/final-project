@@ -7,13 +7,10 @@ import {
     getDraftAppsByStatus, getDraftCollect, getExpenseReportDetail,
     getReceiveApps,
     getReceiveAppsByStatus, getTempStorage,
-    getUpcomingApps
+    getUpcomingApps, postBusinessDraft, postExpenseReport
 } from "../modules/ApprovalModule";
-
-/* 업무 기안서 등록 */
-export const callBusinessDraftRegistAPI = () => {
-
-}
+import {toast} from "react-toastify";
+import {useNavigate} from "react-router-dom";
 
 /* 받은 결재 목록 조회 - 전체 */
 export const callReceiveApprovalsListAPI = ({currentPage}) => {
@@ -248,6 +245,43 @@ export const callAppEmployeeAPI = () => {
 
         if(result?.status === 200) {
             dispatch(getAppEmployees(result));
+        }
+    }
+}
+
+/* 업무 기안서 등록 */
+export const callRegistBusinessDraftAPI = ({ form, files, docStatus }) => {
+
+    form.docStatus = docStatus;
+    const formData = new FormData();
+    formData.append("businessDraftRequest", new Blob([JSON.stringify(form)], {type : 'application/json'}));
+    Array.from(files).forEach(file =>  formData.append("attachFiles", file));
+
+    return async (dispatch, getState) => {
+        const result = await authRequest.post('/approval/regist-business-draft', formData);
+        console.log('업무기안서 등록 result : ', result);
+
+        if(result.status === 201){
+            dispatch(postBusinessDraft());
+        }
+    }
+}
+
+/* 지출 결의서 등록 */
+export const callRegistExpenseReportAPI = ({ form, files, docStatus}) => {
+
+    form.docStatus = docStatus;
+
+    const formData = new FormData();
+    formData.append("expenseReportRequest",  new Blob([JSON.stringify(form)], {type : 'application/json'}));
+    Array.from(files).forEach(file => formData.append("attachFiles", file));
+
+    return async (dispatch, getState) => {
+        const result = await authRequest.post('/approval/regist-expense_report', formData);
+        console.log('지출결의서 등록 result : ', result);
+
+        if(result.status === 201){
+            dispatch(postExpenseReport());
         }
     }
 }

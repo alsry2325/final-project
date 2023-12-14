@@ -1,4 +1,3 @@
-import ApprovalButton from "../../../components/items/approvalItems/ApprovalButton";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {callBusinessDraftDetailAPI, callExpenseReportDetailAPI} from "../../../apis/ApprovalAPICalls";
@@ -6,7 +5,7 @@ import {useParams} from "react-router-dom";
 import BusinessDraftItem from "../../../components/items/approvalItems/BusinessDraftItem";
 import ExpenseReportItem from "../../../components/items/approvalItems/ExpenseReportItem";
 import {callEmployeeAPI} from "../../../apis/EmployeeAPICalls";
-import memberReducer from "../../../modules/EmployeeModule";
+import ButtonForApprover from "../../../components/items/approvalItems/ButtonForApprover";
 
 function AppDetail() {
 
@@ -35,7 +34,8 @@ function AppDetail() {
             {businessDraft &&
                 <>
                     <h2 className="approval-title">{businessDraft.title}</h2>
-                    <ApprovalButton
+                    {/*기안자인지 결재자인지에 따라 버튼 달라야 함..!*/}
+                    <ButtonForApprover
                         businessDraft={businessDraft}/>
                     <BusinessDraftItem businessDraft={businessDraft}/>
                 </>
@@ -43,7 +43,9 @@ function AppDetail() {
             {expenseReport &&
                 <>
                     <h2 className="approval-title">{expenseReport.title}</h2>
-                    <ApprovalButton expenseReport={expenseReport}/>
+                    {/*기안자인지 결재자인지에 따라 버튼 달라야 함..!*/}
+                    <ButtonForApprover
+                        expenseReport={expenseReport}/>
                     <ExpenseReportItem expenseReport={expenseReport}/>
                 </>
             }
