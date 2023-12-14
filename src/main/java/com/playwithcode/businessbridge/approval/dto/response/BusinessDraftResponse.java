@@ -19,6 +19,7 @@ public class BusinessDraftResponse {
     private final String title;                             // 제목
     private final String docForm;                           // 문서 양식 이름
     private final List<Map<String, String>> approvers;      // 결재자 정보
+    private final String drafterId;                           // 기안자 사번
     private final String drafterName;                       // 기안자 이름
     private final String departmentName;                    // 기안자 부서
     private final LocalDateTime draftDateTime;              // 기안 일시
@@ -51,6 +52,7 @@ public class BusinessDraftResponse {
                 businessDraft.getApproval().getTitle(),
                 businessDraft.getApproval().getDocForm().getValue(),
                 approvers,
+                businessDraft.getApproval().getDraftMember().getEmplyId(),
                 businessDraft.getApproval().getDraftMember().getEmplyName(),
                 businessDraft.getApproval().getDraftMember().getDepartment().getDepartmentName(),
                 businessDraft.getApproval().getRegistDateTime(),
