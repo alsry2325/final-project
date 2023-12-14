@@ -74,7 +74,7 @@ public class ProductController {
 
     //상품 상세 조회 -productCode로 상품 1개 조회, 주문불가상품 제외
     @GetMapping("/products/{productCode}")
-    public ResponseEntity<CustomerProductResponse> getProductSales(@PathVariable final BigInteger productCode){
+    public ResponseEntity<CustomerProductResponse> getProductSales(@PathVariable final Long productCode){
 
         final CustomerProductResponse customerProductResponse = productService.getProductSales(productCode);
 
