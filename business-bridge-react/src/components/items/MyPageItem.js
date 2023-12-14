@@ -27,7 +27,7 @@ function MyPageItem( { myPageInfo } ) {
                         ${myPageInfo.emplyInternalNumber.slice(6)}` }</td>
                 </tr>
                 <tr>
-                    <td rowSpan='5'>{ myPageInfo.emplyId }</td>
+                    <td rowSpan='5'>{ myPageInfo.emplyName }</td>
                     <td style={{backgroundColor: '#F1F0F6'}}>사번</td>
                     <td colSpan="2">{myPageInfo.emplyId}</td>
                     <td style={{backgroundColor: '#F1F0F6'}}>개인번호</td>

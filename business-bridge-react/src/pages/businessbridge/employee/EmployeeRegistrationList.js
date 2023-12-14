@@ -2,12 +2,11 @@
 import {useEffect, useState} from "react";
 import {callEmployeeListAPI, callSearchEmployeeListAPI} from "../../../apis/EmployeeAPICalls";
 import {useDispatch, useSelector} from "react-redux";
-import EmployeeRegistrationItem from "../../../components/items/EmployeeRegistrationItem";
 import PagingBar from "../../../components/common/PagingBar";
 import {ToastContainer} from "react-toastify";
-import Error from "../../error/Error";
+import EmployeeRegistrationListItem from "../../../components/items/EmployeeRegistrationItem";
 
-function EmployeeRegistration(){
+function EmployeeRegistrationList(){
     const dispatch = useDispatch();
     const [currentEmplyName, setCurrentEmplyName] = useState("");
     const [currentDartMentName, setCurrentDartMentName] = useState("");
@@ -48,7 +47,7 @@ function EmployeeRegistration(){
                         <th>소속</th>
                     </tr>
                     </thead>
-                    <EmployeeRegistrationItem data={employeesListInfo.data} />
+                    <EmployeeRegistrationListItem data={employeesListInfo.data} />
                 </table>
             ) : (
                 <div className="no-results-message">
@@ -92,4 +91,4 @@ function EmployeeRegistration(){
     );
 }
 
-export default EmployeeRegistration;
+export default EmployeeRegistrationList;
