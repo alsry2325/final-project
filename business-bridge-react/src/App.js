@@ -4,6 +4,7 @@ import './css/Header.css';
 import './css/MyPage.css';
 import './css/EmployeeRegistrationNavbar.css'
 import './css/approval.css';
+import './css/AddressBook.css'
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Login from "./pages/businessbridge/employee/Login";
@@ -12,7 +13,7 @@ import FindPassword from "./pages/businessbridge/employee/FindPassword";
 import ProtectedRoute from "./components/router/ProtectedRoute";
 import Error from "./pages/error/Error";
 import MyPage from "./pages/businessbridge/employee/MyPage";
-import EmployeeRegistrationNavbarLayout from "./layouts/EmployeeRegistrationNavbarLayout";
+import EmployeeRegistrationLayout from "./layouts/EmployeeRegistrationLayout";
 import EmployeeRegistration from "./pages/businessbridge/employee/EmployeeRegistration";
 import SalesLayout from "./layouts/SalesLayout";
 import SalesList from "./pages/businessbridge/sales/SalesList";
@@ -21,14 +22,25 @@ import SalesRegist from "./pages/businessbridge/sales/SalesRegist";
 import SalesModify from "./pages/businessbridge/sales/SalesModify";
 import SalesStatistics from "./pages/businessbridge/sales/SalesStatistics";
 import ApprovalLayout from "./layouts/ApprovalLayout";
-import BusinessDraftForm from "./components/approval/form/BusinessDraftForm";
-import AppMain from "./pages/approval/AppMain";
-import ReceiveApps from "./pages/approval/ReceiveApps";
-import ReceiveAppsByStatus from "./pages/approval/ReceiveAppsByStatus";
-import UpcomingApps from "./pages/approval/UpcomingApps";
-import AppDetail from "./pages/approval/AppDetail";
-import DraftApps from "./pages/approval/DraftApps";
-import DraftAppsByStatus from "./pages/approval/DraftAppsByStatus";
+import BDWriteForm from "./components/form/approvalForm/BDWriteForm";
+import AppMain from "./pages/businessbridge/approval/AppMain";
+import ReceiveApps from "./pages/businessbridge/approval/ReceiveApps";
+import ReceiveAppsByStatus from "./pages/businessbridge/approval/ReceiveAppsByStatus";
+import UpcomingApps from "./pages/businessbridge/approval/UpcomingApps";
+import AppDetail from "./pages/businessbridge/approval/AppDetail";
+import DraftApps from "./pages/businessbridge/approval/DraftApps";
+import DraftAppsByStatus from "./pages/businessbridge/approval/DraftAppsByStatus";
+import DraftCollect from "./pages/businessbridge/approval/DraftCollect";
+import TempStorageApps from "./pages/businessbridge/approval/TempStorageApps";
+import ApproveApps from "./pages/businessbridge/approval/ApproveApps";
+import ApproveAppsByStatus from "./pages/businessbridge/approval/ApproveAppsByStatus";
+import ERWriteForm from "./components/form/approvalForm/ERWriteForm";
+import WriteBusinessDraft from "./pages/businessbridge/approval/Write-BusinessDraft";
+import AddressBookMain from "./pages/businessbridge/addressBook/AddressBookMain";
+import AddressBookLayout from "./layouts/AddressBookLayout";
+import AddressBookDepartment from "./pages/businessbridge/addressBook/AddressBookDepartment";
+import AddressDetail from "./pages/businessbridge/addressBook/AddressDetail";
+import AddressAdminItem from "./components/items/AddressAdminItem";
 
 function App() {
   return (
@@ -36,18 +48,19 @@ function App() {
         <Routes>
             <Route path="/" element={ <ProtectedRoute loginCheck={true}><Layout/></ProtectedRoute> }>
                 <Route index element={<Main/>}/>
-                <Route path="emp/employee/mypage" element={ <ProtectedRoute loginCheck={true}> <MyPage/> </ProtectedRoute>}/>
-                <Route path="emp/employee/registration" element={ <ProtectedRoute loginCheck={true}><EmployeeRegistrationNavbarLayout/></ProtectedRoute>}>
-                    <Route index element={ <ProtectedRoute loginCheck={true}> <EmployeeRegistration/> </ProtectedRoute>}/>
+                {/* 마이페이지*/}
+                <Route path="emp/employee/mypage" element={  <MyPage/> }/>
+                <Route path="emp/employee" element={ <EmployeeRegistrationLayout/>}>
+                    <Route path="registrationList" element={ <EmployeeRegistration/>}/>
                 </Route>
-            <Route path="sales" element={<SalesLayout/>}>
-                <Route index element={ <Navigate to="/sales/salesList/0" replace/>}/>
-                <Route path="salesList/:salesStatus" element={ <SalesList/> }/>
-                <Route path=":salesCode" element={ <SalesDetail/> }/>
-                <Route path="sales-regist" element={ <SalesRegist/> }/>
-                <Route path="sales-modify/:salesCode" element={ <SalesModify/> }/>
-                <Route path="salesStatistics" element={ <SalesStatistics/> }/>
-            </Route>
+                <Route path="sales" element={<SalesLayout/>}>
+                    <Route index element={ <Navigate to="/sales/salesList/0" replace/>}/>
+                    <Route path="salesList/:salesStatus" element={ <SalesList/> }/>
+                    <Route path=":salesCode" element={ <SalesDetail/> }/>
+                    <Route path="sales-regist" element={ <SalesRegist/> }/>
+                    <Route path="sales-modify/:salesCode" element={ <SalesModify/> }/>
+                    <Route path="salesStatistics" element={ <SalesStatistics/> }/>
+                </Route>
                 <Route path="sales" element={<SalesLayout/>}>
                     <Route index element={ <Navigate to="/sales/salesList/1" replace/>}/>
                     <Route path="salesList/:salesStatus" element={ <SalesList/> }/>
@@ -61,10 +74,15 @@ function App() {
                     <Route path="upcoming-approvals" element={<UpcomingApps/>}/>
                     <Route path="draft-approvals/all" element={<DraftApps/>}/>
                     <Route path="draft-approvals/:docStatus" element={<DraftAppsByStatus/>} />
+                    <Route path="draft-collects" element={<DraftCollect/>}/>
+                    <Route path="temp-storages" element={<TempStorageApps/>}/>
+                    <Route path="approve-approvals/all" element={<ApproveApps/>}/>
+                    <Route path="approve-approvals/:docStatus" element={<ApproveAppsByStatus/>}/>
+
                     <Route path="document/:approvalCode" element={<AppDetail/>} />
                     <Route path="write">
-                        <Route path="businessDraft" element={<BusinessDraftForm/>}/>
-                        <Route path="expenxeReport"/>
+                        <Route path="businessDraft" element={<WriteBusinessDraft/>}/>
+                        <Route path="expenseReport" element={<ERWriteForm/>}/>
                     </Route>
                 </Route>
                 {/* == 전자결재 끝 == */}
@@ -73,6 +91,15 @@ function App() {
                 <Route path="login" element={ <ProtectedRoute loginCheck={false}><Login/></ProtectedRoute> }/>
                 <Route path="findpassword" element={ <ProtectedRoute loginCheck={false}><FindPassword/></ProtectedRoute> }/>
             </Route>
+
+            <Route path="addressBook" element={ <ProtectedRoute loginCheck={true}><AddressBookLayout/></ProtectedRoute>}>
+                <Route path="main" element={ <ProtectedRoute loginCheck={true}> <AddressBookMain/> </ProtectedRoute>}/>
+                <Route path="department/:departmentCode" element={ <AddressBookDepartment/> }/>
+                <Route path=":emplyCode" element={ <AddressDetail/> }/>
+                <Route
+                    path="addressAdmin/:emplyCode" element={<ProtectedRoute authCheck={true}> <AddressAdminItem/> </ProtectedRoute>}/>
+            </Route>
+
             <Route path="/*" element={<Error/>}/>
 
         </Routes>

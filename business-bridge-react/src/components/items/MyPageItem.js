@@ -11,7 +11,7 @@ function MyPageItem( { myPageInfo } ) {
                 <thead>
                 <tr>
                     <th>
-                        {myPageInfo.emplyPhoto}
+                        <img src={myPageInfo.emplyPhoto} alt="employeephoto"/>
                     </th>
                 </tr>
                 </thead>

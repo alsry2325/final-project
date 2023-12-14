@@ -1,22 +1,25 @@
-
 import {Outlet} from "react-router-dom";
 import {useState} from "react";
-import '../css/Menu.css'
+import AddressBookNavbar from "../components/nav/AddressBookNavbar";
 import Header from "../components/common/Header";
 import Menu from "../components/common/Menu";
 
 
-function Layout() {
+function AddressBookLayout () {
+
     const[clicked,isClicked] = useState(false)
     return (
         <>
             <Header clicked={clicked} isClicked={isClicked}/>
             {clicked?<Menu/>:null}
-            <main>
-                <Outlet/>
-            </main>
+            <div className="addressBook-layout-div">
+                <AddressBookNavbar/>
+                <main className="addressBook-main">
+                    <Outlet/>
+                </main>
+            </div>
         </>
     );
 }
 
-export default Layout;
+export default AddressBookLayout;

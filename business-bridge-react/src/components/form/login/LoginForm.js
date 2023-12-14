@@ -31,13 +31,14 @@ function LoginForm(){
                 <div className="cover">
                     <img className="main-Image" src="/images/mainImage.png" alt="My Image" />
                     <h1>BusinessBridge</h1>
-                    <input
+                    <input className="login-input"
                         type="text"
                         name="emplyId"
                         placeholder="사원번호"
                         onChange={onChangeHandler}
                     />
                     <input
+                        className="login-input"
                         type="password"
                         name="emplyPassword"
                         placeholder="비밀번호"
