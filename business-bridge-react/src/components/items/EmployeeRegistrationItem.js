@@ -1,5 +1,5 @@
 
-function EmployeeRegistrationItem({data}) {
+function EmployeeRegistrationListItem({data}) {
 
     return(
             <tbody>
@@ -24,4 +24,4 @@ function EmployeeRegistrationItem({data}) {
     );
 }
 
-export default EmployeeRegistrationItem;
+export default EmployeeRegistrationListItem;
