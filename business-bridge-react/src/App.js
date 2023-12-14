@@ -68,7 +68,7 @@ function App() {
                     <Route path=":salesCode" element={ <SalesDetail/> }/>
                 </Route>
                 {/* == 전자결재 시작 == */}
-                <Route path="/approval"element={<ApprovalLayout/>}>
+                <Route path="/approval" element={<ApprovalLayout/>}>
                     <Route path="home" element={<AppMain/>}/>
                     <Route path="receive-approvals/all" element={<ReceiveApps/>}/>
                     <Route path="receive-approvals/:approvalStatus" element={<ReceiveAppsByStatus/>}/>
