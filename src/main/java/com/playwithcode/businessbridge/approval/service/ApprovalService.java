@@ -75,9 +75,9 @@ public class ApprovalService {
 
         // 결재자 엔터티 추가
         List<Approver> approverMember = new ArrayList<>();
-        for(int i = 0; i < businessDraftRequest.getApprover().size(); i++) {
+        for(int i = 0; i < businessDraftRequest.getApprovers().size(); i++) {
 
-            Employee approver = employeeRepository.getReferenceById(businessDraftRequest.getApprover().get(i));
+            Employee approver = employeeRepository.getReferenceById(businessDraftRequest.getApprovers().get(i));
 
             if(i == 0) {
                 approverMember.add(Approver.of(approver, i+1L, ACTIVATE));
@@ -126,9 +126,9 @@ public class ApprovalService {
 
         // 결재자 엔터티 추가
         List<Approver> approverMember = new ArrayList<>();
-        for (int i = 0; i < expenseReportRequest.getApproverMember().size(); i++) {
+        for (int i = 0; i < expenseReportRequest.getApprovers().size(); i++) {
 
-            Employee approver = employeeRepository.getReferenceById(expenseReportRequest.getApproverMember().get(i));
+            Employee approver = employeeRepository.getReferenceById(expenseReportRequest.getApprovers().get(i));
 
             if (i == 0) {
                 approverMember.add(Approver.of(approver, i + 1L, ACTIVATE));
