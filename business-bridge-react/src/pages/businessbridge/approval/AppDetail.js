@@ -34,7 +34,11 @@ function AppDetail() {
             {businessDraft &&
                 <>
                     <h2 className="approval-title">{businessDraft.title}</h2>
-                    {/*기안자인지 결재자인지에 따라 버튼 달라야 함..!*/}
+                    {/*기안자인지 결재자인지에 따라 버튼 달라야 함..!
+                    /*기안문서함 - 회수*/
+                        // ((isDrafter && businessDraft.approvalOpinion == null)  ||
+                        // (isDrafter && expenseReport.approvalOpinion == null)) &&*/
+                    }
                     <ButtonForApprover
                         businessDraft={businessDraft}/>
                     <BusinessDraftItem businessDraft={businessDraft}/>

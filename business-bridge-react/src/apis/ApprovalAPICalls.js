@@ -7,7 +7,7 @@ import {
     getDraftAppsByStatus, getDraftCollect, getExpenseReportDetail,
     getReceiveApps,
     getReceiveAppsByStatus, getTempStorage,
-    getUpcomingApps, postBusinessDraft, postExpenseReport
+    getUpcomingApps, patchCollectApp, postBusinessDraft, postExpenseReport
 } from "../modules/ApprovalModule";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
@@ -282,6 +282,19 @@ export const callRegistExpenseReportAPI = ({ form, files, docStatus}) => {
 
         if(result.status === 201){
             dispatch(postExpenseReport());
+        }
+    }
+}
+
+/* 기안 회수 */
+export const callCollectAppAPI = ({ approvalCode }) => {
+    return async (dispatch, getState) => {
+
+        const result = await authRequest.patch(`/approval/collect/${approvalCode}`);
+        console.log('기안 회수 result : ', result);
+
+        if(result.status === 201) {
+            dispatch(patchCollectApp());
         }
     }
 }
