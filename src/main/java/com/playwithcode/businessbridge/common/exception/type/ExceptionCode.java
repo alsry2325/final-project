@@ -24,7 +24,6 @@ public enum ExceptionCode {
     ACCESS_DENIED(4003, "허가 되지 않은 요청입니다."),
     /* 사원등록파트 예외처리 */
     NOT_FOUND_MEMBER_EMAIL(4004,"이메일을 찾을수없습니다"),
-
     /* 주소록 예외처리 */
     NOT_FOUND_EMPLY_CODE(5001, "사원 코드에 해당하는 사원이 존재하지 않습니다."),
     NOT_FOUND_DEPARTMENT_CODE(5002, "부서 코드에 해당하는 부서가 존재하지 않습니다."),

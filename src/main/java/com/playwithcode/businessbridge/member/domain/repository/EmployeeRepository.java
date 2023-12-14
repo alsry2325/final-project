@@ -4,6 +4,7 @@ import com.playwithcode.businessbridge.member.domain.Employee;
 import com.playwithcode.businessbridge.member.domain.type.EmplyStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -33,4 +34,8 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     Page<Employee> findByEmplyNameAndDepartmentNameAndPositionName(Pageable pageable, @Param("emplyName") String emplyName,@Param("departmentName")  String departmentName,@Param("positionName") String positionName);
 
     Optional<Employee> findByEmplyCode(Long emplyCode);
+
+
+    @EntityGraph(attributePaths = {"department","position"})
+    Page<Employee> findByEmplyStatusNot(Pageable pageable, EmplyStatus emplyStatus);
 }
