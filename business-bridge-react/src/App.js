@@ -5,6 +5,7 @@ import './css/MyPage.css';
 import './css/EmployeeRegistrationNavbar.css'
 import './css/approval.css';
 import './css/AddressBook.css'
+import './css/Note.css'
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Login from "./pages/businessbridge/employee/Login";
@@ -41,6 +42,11 @@ import AddressBookLayout from "./layouts/AddressBookLayout";
 import AddressBookDepartment from "./pages/businessbridge/addressBook/AddressBookDepartment";
 import AddressDetail from "./pages/businessbridge/addressBook/AddressDetail";
 import AddressAdminItem from "./components/items/AddressAdminItem";
+import NoteLayout from "./layouts/NoteLayout";
+import NoteRecipeient from "./pages/businessbridge/note/NoteRecipient";
+import NoteSender from "./pages/businessbridge/note/NoteSender";
+import NoteStorage from "./pages/businessbridge/note/NoteStorage";
+import NoteTrash from "./pages/businessbridge/note/NoteTrash";
 
 function App() {
   return (
@@ -97,6 +103,13 @@ function App() {
                 <Route path=":emplyCode" element={ <AddressDetail/> }/>
                 <Route
                     path="addressAdmin/:emplyCode" element={<ProtectedRoute authCheck={true}> <AddressAdminItem/> </ProtectedRoute>}/>
+            </Route>
+
+            <Route path="note" element={ <ProtectedRoute loginCheck={true}><NoteLayout/></ProtectedRoute>}>
+                <Route path="recipient" element={ <ProtectedRoute loginCheck={true}> <NoteRecipeient/> </ProtectedRoute> }/>
+                <Route path="sender" element={ <ProtectedRoute loginCheck={true}> <NoteSender/> </ProtectedRoute> }/>
+                <Route path="storage" element={ <ProtectedRoute loginCheck={true}> <NoteStorage/> </ProtectedRoute>} />
+                <Route path="trash" element={ <ProtectedRoute loginCheck={true}> <NoteTrash/> </ProtectedRoute>} />
             </Route>
 
             <Route path="/*" element={<Error/>}/>
