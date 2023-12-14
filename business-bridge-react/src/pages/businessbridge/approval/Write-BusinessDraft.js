@@ -3,13 +3,13 @@ import {useEffect, useState} from "react";
 import {callEmployeeAPI} from "../../../apis/EmployeeAPICalls";
 import {useDispatch, useSelector} from "react-redux";
 import ButtonForWrite from "../../../components/items/approvalItems/ButtonForWrite";
-import {callRegistBusinessDraftAPI} from "../../../apis/ApprovalAPICalls";
 
 function WriteBusinessDraft() {
 
     const dispatch = useDispatch();
     const {myPageInfo} = useSelector(state => state.memberReducer);
     const [form, setForm] = useState({});
+    const [formData, setFormData] = useState({});
 
     useEffect(() => {
         dispatch(callEmployeeAPI())
@@ -21,10 +21,10 @@ function WriteBusinessDraft() {
     return(
         <>
                 <h2 className="approval-title">업무기안서</h2>
-                <ButtonForWrite setForm={setForm}/>
+                <ButtonForWrite form={form} setForm={setForm}/>
             {
                 myPageInfo &&
-                <BDWriteForm setForm={setForm} myPageInfo={myPageInfo}/>
+                <BDWriteForm setForm={setForm} setFormData={setFormData} myPageInfo={myPageInfo}/>
             }
         </>
     );

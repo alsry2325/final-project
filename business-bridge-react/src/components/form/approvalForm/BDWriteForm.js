@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useRef, useState} from "react";
 
-function BDWriteForm({myPageInfo, setForm}) {
+function BDWriteForm({myPageInfo, setFormData, setForm}) {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -55,8 +55,9 @@ function BDWriteForm({myPageInfo, setForm}) {
                 }
             };
             fileReader.readAsDataURL(files[i]);
+            // console.log("files : ", files)
         }
-        setForm("attachFiles", [files]);
+        setFormData([files]);
     };
 
     // 파일 첨부 취소

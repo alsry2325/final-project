@@ -1,8 +1,11 @@
 import {Form, useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {callRegistBusinessDraftAPI} from "../../../apis/ApprovalAPICalls";
 
-function ButtonForWrite({setForm}) {
+function ButtonForWrite({form, setForm}) {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     // 임시저장 클릭 시에 docStatus가 "임시저장"
     const onClickTempStorage = () => {
@@ -14,6 +17,10 @@ function ButtonForWrite({setForm}) {
         setForm({"docStatus" : "대기"});
 
         const formData = new FormData();
+        formData.append("businessDraftRequest", new Blob([JSON.stringify(form)], {type : 'application/json'}));
+        console.log("formData : ", formData)
+
+        dispatch(callRegistBusinessDraftAPI({registBD : formData}))
     }
 
     return (
