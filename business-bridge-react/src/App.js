@@ -40,7 +40,8 @@ import AddressBookLayout from "./layouts/AddressBookLayout";
 import AddressBookDepartment from "./pages/businessbridge/addressBook/AddressBookDepartment";
 import AddressDetail from "./pages/businessbridge/addressBook/AddressDetail";
 import AddressAdminItem from "./components/items/AddressAdminItem";
-import EmployeeRegist from "./pages/businessbridge/employee/EmployeeRegist";
+import ProductManagement from "./pages/businessbridge/products/admin/ProductManagement";
+import ProductLayout from "./layouts/ProductsLayout";
 
 function App() {
   return (
@@ -51,8 +52,7 @@ function App() {
                 {/* 마이페이지*/}
                 <Route path="emp/employee/mypage" element={  <MyPage/> }/>
                 <Route path="emp/employee" element={ <EmployeeRegistrationLayout/>}>
-                    <Route path="registrationList" element={ <EmployeeRegistrationList/>}/>
-                    <Route path="registration" element={<EmployeeRegist/>}/>
+                    {/*<Route path="registrationList" element={ <EmployeeRegistration/>}/> */}
                 </Route>
                 <Route path="sales" element={<SalesLayout/>}>
                     <Route index element={ <Navigate to="/sales/salesList/0" replace/>}/>
@@ -68,7 +68,7 @@ function App() {
                     <Route path=":salesCode" element={ <SalesDetail/> }/>
                 </Route>
                 {/* == 전자결재 시작 == */}
-                <Route path="/approval" element={<ApprovalLayout/>}>
+                <Route path="/approval"element={<ApprovalLayout/>}>
                     <Route path="home" element={<AppMain/>}/>
                     <Route path="receive-approvals/all" element={<ReceiveApps/>}/>
                     <Route path="receive-approvals/:approvalStatus" element={<ReceiveAppsByStatus/>}/>
@@ -87,7 +87,13 @@ function App() {
                     </Route>
                 </Route>
                 {/* == 전자결재 끝 == */}
+                {/* == 상품관리 == */}
+                <Route path="products" element={<ProtectedRoute authCheck={true}><ProductLayout/></ProtectedRoute>}>
+                    <Route path="management/productState/:productState" element={<ProductManagement/>} />
+                </Route>
+                {/* == 상품관리 끝== */}
             </Route>
+
             <Route path="/emp/employee">
                 <Route path="login" element={ <ProtectedRoute loginCheck={false}><Login/></ProtectedRoute> }/>
                 <Route path="findpassword" element={ <ProtectedRoute loginCheck={false}><FindPassword/></ProtectedRoute> }/>
