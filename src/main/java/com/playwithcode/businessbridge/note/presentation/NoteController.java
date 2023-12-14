@@ -206,6 +206,8 @@ public class NoteController {
         return ResponseEntity.ok(noteResponse);
     }
 
+
+
     /* 쪽지 삭제 */
     /* TODO : 휴지통에서도 삭제를 눌렀을 때
     *  1. 내 화면에서는 쪽지가 삭제된다.
