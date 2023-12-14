@@ -14,7 +14,7 @@ import ProtectedRoute from "./components/router/ProtectedRoute";
 import Error from "./pages/error/Error";
 import MyPage from "./pages/businessbridge/employee/MyPage";
 import EmployeeRegistrationLayout from "./layouts/EmployeeRegistrationLayout";
-import EmployeeRegistration from "./pages/businessbridge/employee/EmployeeRegistration";
+import EmployeeRegistrationList from "./pages/businessbridge/employee/EmployeeRegistrationList";
 import SalesLayout from "./layouts/SalesLayout";
 import SalesList from "./pages/businessbridge/sales/SalesList";
 import SalesDetail from "./pages/businessbridge/sales/SalesDetail";
@@ -22,7 +22,6 @@ import SalesRegist from "./pages/businessbridge/sales/SalesRegist";
 import SalesModify from "./pages/businessbridge/sales/SalesModify";
 import SalesStatistics from "./pages/businessbridge/sales/SalesStatistics";
 import ApprovalLayout from "./layouts/ApprovalLayout";
-import BDWriteForm from "./components/form/approvalForm/BDWriteForm";
 import AppMain from "./pages/businessbridge/approval/AppMain";
 import ReceiveApps from "./pages/businessbridge/approval/ReceiveApps";
 import ReceiveAppsByStatus from "./pages/businessbridge/approval/ReceiveAppsByStatus";
@@ -41,6 +40,7 @@ import AddressBookLayout from "./layouts/AddressBookLayout";
 import AddressBookDepartment from "./pages/businessbridge/addressBook/AddressBookDepartment";
 import AddressDetail from "./pages/businessbridge/addressBook/AddressDetail";
 import AddressAdminItem from "./components/items/AddressAdminItem";
+import EmployeeRegist from "./pages/businessbridge/employee/EmployeeRegist";
 
 function App() {
   return (
@@ -51,7 +51,8 @@ function App() {
                 {/* 마이페이지*/}
                 <Route path="emp/employee/mypage" element={  <MyPage/> }/>
                 <Route path="emp/employee" element={ <EmployeeRegistrationLayout/>}>
-                    <Route path="registrationList" element={ <EmployeeRegistration/>}/>
+                    <Route path="registrationList" element={ <EmployeeRegistrationList/>}/>
+                    <Route path="registration" element={<EmployeeRegist/>}/>
                 </Route>
                 <Route path="sales" element={<SalesLayout/>}>
                     <Route index element={ <Navigate to="/sales/salesList/0" replace/>}/>

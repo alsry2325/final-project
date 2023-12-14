@@ -105,6 +105,19 @@
     margin: 50px;
 }
 
+/* EmployeeRegist 페이지 css */
+.employeeRegist-area{
+    margin: 50px;
+}
+
+.employeeRegist-employee-information{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-collapse: collapse; /* 테두리를 겹치게 함 */
+    text-align: center; /* 텍스트를 왼쪽 정렬 */
+}
+
 /* 네비바 css */
 .employeeRegistration-navbar-div {
     width: 400px;
