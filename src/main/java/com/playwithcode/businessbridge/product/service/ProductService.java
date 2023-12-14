@@ -17,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,6 +45,8 @@ public class ProductService {//Repository에 있는 기능들을 불러올거임
     //1.상품 목록 조회 : 페이징, 주문 불가 상품 제외(고객)-조건이 있어서 쿼리메소드로 작성해주고 사용할수 있음.
     @Transactional(readOnly = true)
     public Page<CustomerProductsResponse> getProductList(final Integer page) {
+
+
 
         Page<Product> products = productRepository.findByProductState(getPageable(page), SALES);
 
@@ -93,7 +96,7 @@ public class ProductService {//Repository에 있는 기능들을 불러올거임
 
     //상품 상세 조회 - productCode로 상품 1개 조회, 주문 불가 상품 제외
     @Transactional(readOnly = true)
-    public CustomerProductResponse getProductSales(final BigInteger productCode) {
+    public CustomerProductResponse getProductSales(final Long productCode) {
 
         Product product = productRepository.findByProductCodeAndProductState(productCode, SALES)
                 .orElseThrow(() -> new BadRequestException(NOT_FOUND_EMPLY_CODE));

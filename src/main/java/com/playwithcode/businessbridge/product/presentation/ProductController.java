@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -38,6 +39,8 @@ public class ProductController {
     @GetMapping("/products")
     public ResponseEntity<PagingResponse> getProductList(@RequestParam(defaultValue = "1") final Integer page){
 
+
+
         final Page<CustomerProductsResponse> products = productService.getProductList(page);
         final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(products);
         final PagingResponse pagingResponse = PagingResponse.of(products.getContent(), pagingButtonInfo);
@@ -48,9 +51,10 @@ public class ProductController {
 
     //
     //상품 목록 -관리자 주문 불가 상품 포함 전체 조회
-    @GetMapping("/products-management/productState/{productState}")
+    @GetMapping("/products/management/productState/{productState}")
     public ResponseEntity<PagingResponse> getAdminProducts(@RequestParam(defaultValue = "1") final Integer page, @PathVariable final ProductStateType productState) {
 
+        log.info("productList productState {}", productState);
         final Page<AdminProductResponse> products = productService.getAdminProducts(page, productState);
         final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(products);
         final PagingResponse pagingResponse = PagingResponse.of(products.getContent(), pagingButtonInfo);
@@ -89,7 +93,7 @@ public class ProductController {
 
     //상품 상세 조회 -productCode로 상품 1개 조회, 주문불가상품 제외
     @GetMapping("/products/{productCode}")
-    public ResponseEntity<CustomerProductResponse> getProductSales(@PathVariable final BigInteger productCode){
+    public ResponseEntity<CustomerProductResponse> getProductSales(@PathVariable final Long productCode){
 
         final CustomerProductResponse customerProductResponse = productService.getProductSales(productCode);
 
@@ -108,7 +112,7 @@ public class ProductController {
         return ResponseEntity.ok(adminProductResponse);
     }
     //상품 등록
-    @PostMapping("/products")
+    @PostMapping("/products/regist")
     public ResponseEntity<Void>save(@RequestBody @Valid final ProductCreateRequest productRequest){
 
         final Long productCode = productService.save(productRequest);
