@@ -4,6 +4,7 @@ import './css/Header.css';
 import './css/MyPage.css';
 import './css/EmployeeRegistrationNavbar.css'
 import './css/approval.css';
+import './css/AddressBook.css'
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Login from "./pages/businessbridge/employee/Login";
@@ -12,7 +13,7 @@ import FindPassword from "./pages/businessbridge/employee/FindPassword";
 import ProtectedRoute from "./components/router/ProtectedRoute";
 import Error from "./pages/error/Error";
 import MyPage from "./pages/businessbridge/employee/MyPage";
-import EmployeeRegistrationNavbarLayout from "./layouts/EmployeeRegistrationNavbarLayout";
+import EmployeeRegistrationLayout from "./layouts/EmployeeRegistrationLayout";
 import EmployeeRegistration from "./pages/businessbridge/employee/EmployeeRegistration";
 import SalesLayout from "./layouts/SalesLayout";
 import SalesList from "./pages/businessbridge/sales/SalesList";
@@ -36,6 +37,11 @@ import ApproveAppsByStatus from "./pages/businessbridge/approval/ApproveAppsBySt
 import ERWriteForm from "./components/form/approvalForm/ERWriteForm";
 import WriteBusinessDraft from "./pages/businessbridge/approval/Write-BusinessDraft";
 import WriteExpenseReport from "./pages/businessbridge/approval/Write-ExpenseReport";
+import AddressBookMain from "./pages/businessbridge/addressBook/AddressBookMain";
+import AddressBookLayout from "./layouts/AddressBookLayout";
+import AddressBookDepartment from "./pages/businessbridge/addressBook/AddressBookDepartment";
+import AddressDetail from "./pages/businessbridge/addressBook/AddressDetail";
+import AddressAdminItem from "./components/items/AddressAdminItem";
 
 function App() {
   return (
@@ -43,18 +49,19 @@ function App() {
         <Routes>
             <Route path="/" element={ <ProtectedRoute loginCheck={true}><Layout/></ProtectedRoute> }>
                 <Route index element={<Main/>}/>
-                <Route path="emp/employee/mypage" element={ <ProtectedRoute loginCheck={true}> <MyPage/> </ProtectedRoute>}/>
-                <Route path="emp/employee/registration" element={ <ProtectedRoute loginCheck={true}><EmployeeRegistrationNavbarLayout/></ProtectedRoute>}>
-                    <Route index element={ <ProtectedRoute loginCheck={true}> <EmployeeRegistration/> </ProtectedRoute>}/>
+                {/* 마이페이지*/}
+                <Route path="emp/employee/mypage" element={  <MyPage/> }/>
+                <Route path="emp/employee" element={ <EmployeeRegistrationLayout/>}>
+                    <Route path="registrationList" element={ <EmployeeRegistration/>}/>
                 </Route>
-            <Route path="sales" element={<SalesLayout/>}>
-                <Route index element={ <Navigate to="/sales/salesList/0" replace/>}/>
-                <Route path="salesList/:salesStatus" element={ <SalesList/> }/>
-                <Route path=":salesCode" element={ <SalesDetail/> }/>
-                <Route path="sales-regist" element={ <SalesRegist/> }/>
-                <Route path="sales-modify/:salesCode" element={ <SalesModify/> }/>
-                <Route path="salesStatistics" element={ <SalesStatistics/> }/>
-            </Route>
+                <Route path="sales" element={<SalesLayout/>}>
+                    <Route index element={ <Navigate to="/sales/salesList/0" replace/>}/>
+                    <Route path="salesList/:salesStatus" element={ <SalesList/> }/>
+                    <Route path=":salesCode" element={ <SalesDetail/> }/>
+                    <Route path="sales-regist" element={ <SalesRegist/> }/>
+                    <Route path="sales-modify/:salesCode" element={ <SalesModify/> }/>
+                    <Route path="salesStatistics" element={ <SalesStatistics/> }/>
+                </Route>
                 <Route path="sales" element={<SalesLayout/>}>
                     <Route index element={ <Navigate to="/sales/salesList/1" replace/>}/>
                     <Route path="salesList/:salesStatus" element={ <SalesList/> }/>
@@ -85,6 +92,15 @@ function App() {
                 <Route path="login" element={ <ProtectedRoute loginCheck={false}><Login/></ProtectedRoute> }/>
                 <Route path="findpassword" element={ <ProtectedRoute loginCheck={false}><FindPassword/></ProtectedRoute> }/>
             </Route>
+
+            <Route path="addressBook" element={ <ProtectedRoute loginCheck={true}><AddressBookLayout/></ProtectedRoute>}>
+                <Route path="main" element={ <ProtectedRoute loginCheck={true}> <AddressBookMain/> </ProtectedRoute>}/>
+                <Route path="department/:departmentCode" element={ <AddressBookDepartment/> }/>
+                <Route path=":emplyCode" element={ <AddressDetail/> }/>
+                <Route
+                    path="addressAdmin/:emplyCode" element={<ProtectedRoute authCheck={true}> <AddressAdminItem/> </ProtectedRoute>}/>
+            </Route>
+
             <Route path="/*" element={<Error/>}/>
 
         </Routes>

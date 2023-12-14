@@ -1,0 +1,214 @@
+/* addressBook Nav */
+
+.addressBook-layout-div {
+    display: flex;
+    height: 100vh;
+}
+
+.addressBook-main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+.addressBook-navbar-div {
+    width: 400px;
+    border-right: 1px solid darkgrey;
+}
+
+.addressBook-navbar-ul {
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    list-style:none;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+.main-title{
+    padding-left: 50px;
+    padding-right: 70px;
+}
+
+.main-icon{
+    padding-right: 20px;
+}
+
+.addressBook-navbar-ul li {
+    width: 100%;
+    padding-left: 75px;
+    height: auto;
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.addressBook-navbar-ul a:hover{
+    cursor: pointer;
+    color: blue;
+    border-radius: 50px;
+}
+.addressBook-navbar-ul li:active {
+    color: blue;
+}
+
+.addressBook-navbar-ul a {
+    text-decoration: none;
+    color: black;
+}
+
+/* 주소록 인포 ----------------------------------------------------------*/
+
+.addressBook-h1 {
+    margin : 20px 0px 20px 20px;
+}
+
+.addressInfolist {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.addressInfolistItem {
+    width: 150px;
+    height: 50px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.addressInfolistHeader {
+    width: 150px;
+    height: 50px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-left: 20px;
+    font-weight: bolder;
+}
+
+
+/* 주소록 상세보기 ----------------------------------------------------------*/
+
+.address-information {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-collapse: collapse;
+    text-align: center;
+    margin-top: 30px;
+    font-size: 12px;
+}
+
+.address-information tr {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.address-information th {
+    width: 200px;
+    height: 200px;
+}
+
+.address-information td {
+    border: 1px solid #ddd;
+    width: 200px;
+    height: 50px;
+}
+
+.address-information img {
+    width: 200px;
+    height: 200px;
+}
+
+.address-information input {
+    width : 170px;
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 20px;
+}
+
+/* 버튼 컨테이너 */
+.address-btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.address-modify-btn {
+    margin-right: 10px;
+    background-color: #5549DD;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    width: 80px;
+}
+
+.address-delete-btn {
+    background-color: #ff7b7b;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    width: 80px;
+}
+
+/* 검색 ----------------------------------------------------------*/
+
+.address-search {
+    display: flex;
+}
+
+.address-select {
+    margin-right: 20px;
+    height: 40px;
+    border-radius: 5px;
+    border: #ccc solid 1px;
+}
+
+.search-box {
+    display: flex;
+    margin-top: 30px;
+    justify-content: center;
+}
+
+.address-input {
+    width: 300px;
+    border: #ccc solid 1px;
+    background-color: white;
+    margin-right: 20px;
+    height: 40px;
+    padding: 0px;
+    font-size: 14px;
+}
+
+.searchButton {
+    width: 80px;
+    height: 40px;
+    background-color: #5549DD;
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+
+/* 페이징 처리 ----------------------------------------------------------*/
+
+.paging-bar-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

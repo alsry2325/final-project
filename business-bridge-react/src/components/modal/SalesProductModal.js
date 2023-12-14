@@ -32,7 +32,7 @@ function SalesProductModal({setSalesProductModal, onSelectProduct }) {
                             <div className="sales-div">
                                 <table className="sales-table">
                                     <colgroup>
-                                        <col width="10%" />
+                                        <col width="15%" />
                                         <col width="30%" />
                                     </colgroup>
                                     <thead>
