@@ -1,26 +1,36 @@
 import {Form, useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {callRegistBusinessDraftAPI} from "../../../apis/ApprovalAPICalls";
+import {useDispatch, useSelector} from "react-redux";
+import {callRegistBusinessDraftAPI, callRegistExpenseReportAPI} from "../../../apis/ApprovalAPICalls";
+import {useEffect} from "react";
 
-function ButtonForWrite({form, setForm}) {
+function ButtonForWriteBD({fileInput, form}) {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const {registBD} = useSelector((state) => state.approvalReducer);
+
+
+    // 등록 성공시에 전자결재 홈으로 이동
+    useEffect(() => {
+        if (registBD === true) {
+            navigate('/approval/home', {replace: true})        // navigate (-1) 할까,,
+        }
+    }, [registBD]);
 
     // 임시저장 클릭 시에 docStatus가 "임시저장"
     const onClickTempStorage = () => {
-        setForm({"docStatus" : "임시저장"});
+        const result = window.confirm('임시저장 하시겠습니까?');
+        if(result) {
+                dispatch(callRegistBusinessDraftAPI({form, files: fileInput.current.files, docStatus: "임시저장"}));
+        }
     }
 
     // 결재요청 클릭 시에 docStatus가 "대기"
     const onClickApprove = () => {
-        setForm({"docStatus" : "대기"});
-
-        const formData = new FormData();
-        formData.append("businessDraftRequest", new Blob([JSON.stringify(form)], {type : 'application/json'}));
-        console.log("formData : ", formData)
-
-        dispatch(callRegistBusinessDraftAPI({registBD : formData}))
+        const result = window.confirm('결재 요청 하시겠습니까?');
+        if(result) {
+                dispatch(callRegistBusinessDraftAPI({form, files: fileInput.current.files, docStatus: "대기"}));
+        }
     }
 
     return (
@@ -59,4 +69,4 @@ function ButtonForWrite({form, setForm}) {
     );
 }
 
-export default ButtonForWrite;
+export default ButtonForWriteBD;

@@ -275,7 +275,7 @@ img.approval-attach-img, img.back-img, img.close-modal-img {
 }
 
 table.ER-detail-table {
-    width: 230%;
+    width: 100%;
     border-collapse: collapse;
     border-top: hidden;
     border-right: hidden;

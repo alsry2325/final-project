@@ -1,7 +1,7 @@
 import {useState} from "react";
 import ApproverModal from "../../modal/ApproverModal";
 
-function ApproverChoice({setForm}) {
+function ApproverChoice({form, setForm}) {
 
     const[appEmplyModal, setAppEmplyModal] = useState(false);
     const [approvers, setApprovers] = useState([]);
@@ -16,7 +16,10 @@ function ApproverChoice({setForm}) {
         console.log("결재자 정보 : ", selectedEmployees)
 
         setApprovers([...selectedEmployees]);
-        setForm({ "approver" : [approvers.emplyCode]});
+        setForm({
+            ...form,
+            "approvers" : selectedEmployees.map(emply => emply.emplyCode)
+        });
     }
 
 

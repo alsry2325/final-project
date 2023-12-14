@@ -1,13 +1,15 @@
-import {useEffect} from "react";
+import {useEffect, useRef, useState} from "react";
 import {callEmployeeAPI} from "../../../apis/EmployeeAPICalls";
 import {useDispatch, useSelector} from "react-redux";
 import ERWriteForm from "../../../components/form/approvalForm/ERWriteForm";
-import ButtonForWrite from "../../../components/items/approvalItems/ButtonForWrite";
+import ButtonForWriteER from "../../../components/items/approvalItems/ButtonForWriteER";
 
 function WriteExpenseReport() {
 
     const dispatch = useDispatch();
     const {myPageInfo} = useSelector(state => state.memberReducer);
+    const [form, setForm] = useState();
+    const fileInput = useRef();
 
     useEffect(() => {
         dispatch(callEmployeeAPI())
@@ -16,10 +18,10 @@ function WriteExpenseReport() {
     return(
         <>
             <h2 className="approval-title">지출결의서</h2>
-            <ButtonForWrite/>
+            <ButtonForWriteER fileInput={fileInput} form={form}/>
             {
                 myPageInfo &&
-                <ERWriteForm myPageInfo={myPageInfo}/>
+                <ERWriteForm form={form} setForm={setForm} fileInput={fileInput} myPageInfo={myPageInfo}/>
             }
         </>
     );

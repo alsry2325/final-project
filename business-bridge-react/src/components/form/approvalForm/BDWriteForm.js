@@ -1,29 +1,18 @@
 import ApproverChoice from "../../items/approvalItems/ApproverChoice";
-import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useRef, useState} from "react";
+import {useState} from "react";
 
-function BDWriteForm({myPageInfo, setFormData, setForm}) {
+function BDWriteForm({myPageInfo, form, setForm, fileInput}) {
 
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const fileInput = useRef();
     const [fileUrl, setFileUrl] = useState('');
-    // const [form, setForm] = useState({});
     const [attachedFiles, setAttachedFiles] = useState([]);
-    const {postBusinessDraft} = useSelector((state) => state.approvalReducer);
+
     const today = new Date();
     const customDate = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
-
-    useEffect(() => {
-        if (postBusinessDraft) {
-            navigate('/approval/home', {replace: true})        // navigate -1 할까,,
-        }
-    }, [postBusinessDraft]);
 
     // 입력 양식 값 변경 시 state 수정
     const onChangeHandler = e => {
         setForm({
+            ...form,
             [e.target.name]: e.target.value
         });
     }
@@ -55,9 +44,7 @@ function BDWriteForm({myPageInfo, setFormData, setForm}) {
                 }
             };
             fileReader.readAsDataURL(files[i]);
-            // console.log("files : ", files)
         }
-        setFormData([files]);
     };
 
     // 파일 첨부 취소
@@ -73,7 +60,7 @@ function BDWriteForm({myPageInfo, setFormData, setForm}) {
                 <div className="approval-header">
                     <h3 className="approval-form-name">업무기안서</h3>
                     <div className="approver-list">
-                        <ApproverChoice setForm={setForm}/>
+                        <ApproverChoice form={form} setForm={setForm}/>
                     </div>
                 </div>
                 <div className="approval-body">
@@ -98,7 +85,6 @@ function BDWriteForm({myPageInfo, setFormData, setForm}) {
                                     name='title'
                                     className="approval-title"
                                     type="text"
-                                    name="title"
                                     onChange={ onChangeHandler }
                                 />
                             </td>
@@ -110,7 +96,6 @@ function BDWriteForm({myPageInfo, setFormData, setForm}) {
                                     name='businessDraftContent'
                                     className="businessDraftContent"
                                     type="text"
-                                    name="businessDraftContent"
                                     onChange={ onChangeHandler }
                                 />
                             </td>
