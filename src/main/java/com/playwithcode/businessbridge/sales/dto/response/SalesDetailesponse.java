@@ -30,7 +30,8 @@ public class SalesDetailesponse {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private final LocalDateTime modifiedAt;
     private final List<Progress> progressList;
-    private final List<SalesItem> salesItemList;    
+    //private final List<SalesItem> salesItemList;
+    private final String productName;
     
     public static SalesDetailesponse from(Sales sales) {
         return new SalesDetailesponse(
@@ -45,7 +46,8 @@ public class SalesDetailesponse {
     		sales.getCreatedAt(),
     		sales.getModifiedAt(),
     		sales.getProgressList(),
-    		sales.getSalesItemList()
+    		//sales.getSalesItemList()
+            sales.getProduct().getProductName()
 		);
     }
 }
