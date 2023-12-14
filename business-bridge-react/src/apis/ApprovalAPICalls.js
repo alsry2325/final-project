@@ -288,6 +288,7 @@ export const callRegistExpenseReportAPI = ({ form, files, docStatus}) => {
 
 /* 기안 회수 */
 export const callCollectAppAPI = ({ approvalCode }) => {
+
     return async (dispatch, getState) => {
 
         const result = await authRequest.patch(`/approval/collect/${approvalCode}`);

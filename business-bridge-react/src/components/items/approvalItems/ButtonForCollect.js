@@ -1,8 +1,16 @@
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {callCollectAppAPI} from "../../../apis/ApprovalAPICalls";
 
 function ButtonForCollect() {
 
+    const {approvalCode} = useParams();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const onClickCollectApp = () => {
+        dispatch(callCollectAppAPI({approvalCode}))
+    }
 
     return (
         <>
@@ -21,7 +29,9 @@ function ButtonForCollect() {
                     // ((isDrafter && businessDraft.approvalOpinion == null)  ||
                     // (isDrafter && expenseReport.approvalOpinion == null)) &&
                     <div className="approval-button-div">
-                        <button className="app-button">회수</button>
+                        <button
+                            onClick={onClickCollectApp}
+                            className="app-button">회수</button>
                     </div>
                 }
             </div>

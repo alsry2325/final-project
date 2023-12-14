@@ -6,6 +6,7 @@ import BusinessDraftItem from "../../../components/items/approvalItems/BusinessD
 import ExpenseReportItem from "../../../components/items/approvalItems/ExpenseReportItem";
 import {callEmployeeAPI} from "../../../apis/EmployeeAPICalls";
 import ButtonForApprover from "../../../components/items/approvalItems/ButtonForApprover";
+import ButtonForCollect from "../../../components/items/approvalItems/ButtonForCollect";
 
 function AppDetail() {
 
@@ -27,29 +28,33 @@ function AppDetail() {
         dispatch(callEmployeeAPI())
     }, []);
 
-
+    // form, setForm 만들어서 버튼 쪽으로 폼 넘겨서 버튼에서 폼 업데이트??
 
     return(
         <>
             {businessDraft &&
                 <>
                     <h2 className="approval-title">{businessDraft.title}</h2>
-                    {/*기안자인지 결재자인지에 따라 버튼 달라야 함..!
-                    /*기안문서함 - 회수*/
-                        // ((isDrafter && businessDraft.approvalOpinion == null)  ||
-                        // (isDrafter && expenseReport.approvalOpinion == null)) &&*/
-                    }
-                    <ButtonForApprover
-                        businessDraft={businessDraft}/>
+
+                    {/* 결재자인 경우 */}
+                    <ButtonForApprover businessDraft={businessDraft}/>
+                    {/* 기안자이고 결재자 중 아무도 결재하지 않았을 경우 */}
+                    <ButtonForCollect businessDraft={businessDraft}/>
+
+                    {/* 두 경우 동일하게 적용 */}
                     <BusinessDraftItem businessDraft={businessDraft}/>
                 </>
             }
             {expenseReport &&
                 <>
                     <h2 className="approval-title">{expenseReport.title}</h2>
-                    {/*기안자인지 결재자인지에 따라 버튼 달라야 함..!*/}
-                    <ButtonForApprover
-                        expenseReport={expenseReport}/>
+
+                    {/*기안자인 경우 */}
+                    <ButtonForApprover expenseReport={expenseReport}/>
+                    {/* 기안자이고 결재자 중 아무도 결재하지 않았을 경우 */}
+                    <ButtonForCollect expenseReport={expenseReport}/>
+
+                    {/* 두 경우 동일하게 적용 */}
                     <ExpenseReportItem expenseReport={expenseReport}/>
                 </>
             }

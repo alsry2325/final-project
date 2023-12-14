@@ -248,8 +248,10 @@ input.approval-title {
 .approval-file{
     border: dashed 1px #aeaeae;
     margin: 10px 0;
-    text-align: center;
     padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-items: center;
 }
 
 .approval-file-add {
