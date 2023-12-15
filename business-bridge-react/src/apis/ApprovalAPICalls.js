@@ -7,7 +7,7 @@ import {
     getDraftAppsByStatus, getDraftCollect, getExpenseReportDetail,
     getReceiveApps,
     getReceiveAppsByStatus, getTempStorage,
-    getUpcomingApps, patchCollectApp, postBusinessDraft, postExpenseReport
+    getUpcomingApps, patchApprove, patchCollectApp, postBusinessDraft, postExpenseReport
 } from "../modules/ApprovalModule";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
@@ -289,7 +289,6 @@ export const callRegistExpenseReportAPI = ({ form, files, docStatus}) => {
 /* 기안 회수 */
 export const callCollectAppAPI = ({ approvalCode }) => {
 
-
     return async (dispatch, getState) => {
 
         try {
@@ -298,10 +297,35 @@ export const callCollectAppAPI = ({ approvalCode }) => {
 
             if(result.status === 201) {
                 dispatch(patchCollectApp());
+                toast.info("문서가 회수되었습니다.")
             }
         } catch (error) {
             console.error('기안 회수 오류:', error);
-            // 오류 처리 로직을 추가하거나 필요에 따라 상태를 업데이트할 수 있습니다.
         }
+    }
+}
+
+/* 결재 승인, 반려 */
+export const callApproveAppAPI = ({approvalCode, approvalStatus, approvalOpinion}) => {
+
+    return async (dispath, getState) => {
+        const result
+            = await authRequest.patch(`/approval/confirm/${approvalCode}`, JSON.stringify({approvalStatus, approvalOpinion}),
+            {
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+            })
+        console.log('결재 승인 API result : ', result);
+
+        try{
+        if(result === 201) {
+            dispath(patchApprove());
+            toast.info("결재가 완료되었습니다.")
+        }
+        } catch (error) {
+            console.error('결재 승인 오류 : ', error)
+        }
+
     }
 }

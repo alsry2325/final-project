@@ -43,7 +43,7 @@ function ApproverModal({ setAppEmplyModal, onSelectedApprovers }) {
 
     // 결재자 순서 변경 이벤트
 
-    // 적용 클릭 시 선택 된 결재자 반복조회
+    // 적용 클릭 시 상위 컴포넌트로 보냄
     const onClickUse = (selectedEmployees) => {
         onSelectedApprovers({selectedEmployees});
         setAppEmplyModal(false);

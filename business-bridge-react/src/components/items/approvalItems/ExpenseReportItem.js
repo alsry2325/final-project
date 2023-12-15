@@ -25,6 +25,7 @@ function ExpenseReportItem({ expenseReport }) {
 
                 <div className="approval-body">
                     <table className="draftInfo">
+                    <tbody>
                         <tr>
                             <th className="app-table-info">기안자</th>
                             <td>{expenseReport.drafterName}</td>
@@ -52,22 +53,27 @@ function ExpenseReportItem({ expenseReport }) {
                         </tr>
                         <tr>
                             <th className="app-table-info">내역</th>
+                            <td colSpan={"3"} style={{padding:"0"}}>
                             <table className="ER-detail-table">
+                                <tbody>
                                 <tr>
                                     <td className="app-table-info">적요</td>
                                     <td className="app-table-info">금액</td>
                                     <td className="app-table-info">비고</td>
                                 </tr>
-                                { expenseReport.details.map(detail => (
-                                        <tr key={detail.detailCode}>
+                                { expenseReport.details.map((detail, index) => (
+                                        <tr key={index}>
                                             <td>{detail.note}</td>
                                             <td>{detail.item}</td>
                                             <td>{detail.amount}</td>
                                         </tr>
                                     ))
                                 }
+                            </tbody>
                             </table>
+                            </td>
                         </tr>
+                    </tbody>
                     </table>
                 </div>
 
@@ -76,7 +82,7 @@ function ExpenseReportItem({ expenseReport }) {
                     <div className="approval-file">
                         <img className="approval-attach-img"
                              src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/9db9634b-1962-4ebf-89b8-7f0c327af689"/>
-                        첨부파일 {expenseReport.attachFile.length}개
+                        첨부파일 {expenseReport.attachFiles.length}개
                     </div>
                 </div>
                 <div className="shorter-line-div"></div>

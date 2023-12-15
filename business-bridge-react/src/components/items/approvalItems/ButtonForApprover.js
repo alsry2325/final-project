@@ -1,11 +1,44 @@
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useState} from "react";
+import ApproveModal from "../../modal/ApproveModal";
 
-function ButtonForApprover() {
+function ButtonForApprover({businessDraft, expenseReport}) {
 
     const navigate = useNavigate();
+    const {appApprove} = useSelector((state) => (state).approvalReducer);
+    const [approveModal, setApproveModal] = useState(false);
+    const [approveOpinion, setApproveOpinion] = useState("");
+
+    useEffect((appApprove) => {
+        if(appApprove === true) {
+            navigate(-1)
+            // 결재한 후에 어디로 가야할까,,
+        }
+    }, [appApprove]);
+
+    // 승인, 반려 버튼을 누르면 모달창 오픈
+    const onClickApprove = () => {
+        setApproveOpinion("승인")
+        setApproveModal(true);
+    }
+
+    const onClickReturn = () => {
+        setApproveOpinion("반려");
+        setApproveModal(true);
+    }
 
     return (
         <>
+            {
+                approveModal &&
+                <ApproveModal
+                    setApproveModal={setApproveModal}
+                    businessDraft={businessDraft}
+                    expenseReport={expenseReport}
+                    OnApproveOpinion={approveOpinion}
+                />
+            }
             <div className="app-button-bar">
                 <div
                     className="back-to-list"
@@ -18,8 +51,12 @@ function ButtonForApprover() {
                 </div>
                 {/*받은 결재 조회 - 결재, 반려, 보류*/}
                 <div className="approval-button-div">
-                    <button className="app-button app-blue-btn">결재</button>
-                    <button className="app-button">반려</button>
+                    <button
+                        onClick={onClickApprove}
+                        className="app-button app-blue-btn">승인</button>
+                    <button
+                        onClick={onClickReturn}
+                        className="app-button">반려</button>
                     <button className="app-button">보류</button>
                 </div>
 

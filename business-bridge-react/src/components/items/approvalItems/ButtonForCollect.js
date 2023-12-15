@@ -2,6 +2,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {callCollectAppAPI} from "../../../apis/ApprovalAPICalls";
 import {useEffect} from "react";
+import {ToastContainer} from "react-toastify";
 
 function ButtonForCollect({businessDraft, expenseReport}) {
 
@@ -10,12 +11,13 @@ function ButtonForCollect({businessDraft, expenseReport}) {
     const dispatch = useDispatch();
     const {appCollect} = useSelector((state) => state.approvalReducer);
 
+
     useEffect(() => {
         if(appCollect === true) {
-            navigate(-1, {replace: true})
-            // 수정 페이지로 이동하도록 수정해야함
+            navigate(`/approval/document/${approvalCode}`, {replace: true})
         }
     }, [appCollect]);
+
 
     const onClickCollectApp = () => {
         const result = window.confirm('회수 하시겠습니까?')
@@ -27,6 +29,7 @@ function ButtonForCollect({businessDraft, expenseReport}) {
 
     return (
         <>
+            <ToastContainer/>
             <div className="app-button-bar">
                 <div
                     className="back-to-list"
