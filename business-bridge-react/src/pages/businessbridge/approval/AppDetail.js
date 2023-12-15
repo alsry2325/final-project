@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {callBusinessDraftDetailAPI, callExpenseReportDetailAPI} from "../../../apis/ApprovalAPICalls";
 import {useParams} from "react-router-dom";
 import BusinessDraftItem from "../../../components/items/approvalItems/BusinessDraftItem";
@@ -28,7 +28,6 @@ function AppDetail() {
         dispatch(callEmployeeAPI())
     }, []);
 
-    // form, setForm 만들어서 버튼 쪽으로 폼 넘겨서 버튼에서 폼 업데이트??
 
     return(
         <>

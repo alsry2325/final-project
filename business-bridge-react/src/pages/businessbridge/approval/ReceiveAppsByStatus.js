@@ -41,7 +41,7 @@ function ReceiveAppsByStatus() {
                                     style={{borderBottom:"solid 2px", fontWeight:'bolder'}}>
                                     <NavLink className="tab-item"
                                              to="/approval/receive-approvals/PENDING"
-                                             activeClassName="selected-tab">
+                                             activeclassname="selected-tab">
                                         <span className="tab-text">보류</span>
                                     </NavLink>
                                 </li>

@@ -41,7 +41,7 @@ function DraftAppsByStatus() {
 
                                 <NavLink className="tab-item"
                                          to="/approval/draft-approvals/PROCEEDING"
-                                         activeClassName="selected-tab">
+                                         activeclassname="selected-tab">
                                     <li id="tab-hold" className="AP">
                                         <span className="tab-text">진행중</span>
                                     </li>
@@ -49,14 +49,14 @@ function DraftAppsByStatus() {
 
                                 <NavLink className="tab-item"
                                          to="/approval/draft-approvals/COMPLETE"
-                                         activeClassName="selected-tab">
+                                         activeclassname="selected-tab">
                                     <li id="tab-hold" className="AP">
                                         <span className="tab-text">결재완료</span>
                                     </li>
                                 </NavLink>
                                 <NavLink className="tab-item"
                                          to="/approval/draft-approvals/RETURN"
-                                         activeClassName="selected-tab">
+                                         activeclassname="selected-tab">
                                     <li id="tab-hold" className="AP">
                                         <span className="tab-text">반려</span>
                                     </li>

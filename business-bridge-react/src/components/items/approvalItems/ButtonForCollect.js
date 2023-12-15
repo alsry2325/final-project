@@ -1,15 +1,28 @@
 import {useNavigate, useParams} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {callCollectAppAPI} from "../../../apis/ApprovalAPICalls";
+import {useEffect} from "react";
 
-function ButtonForCollect() {
+function ButtonForCollect({businessDraft, expenseReport}) {
 
     const {approvalCode} = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const {appCollect} = useSelector((state) => state.approvalReducer);
+
+    useEffect(() => {
+        if(appCollect === true) {
+            navigate(-1, {replace: true})
+            // 수정 페이지로 이동하도록 수정해야함
+        }
+    }, [appCollect]);
 
     const onClickCollectApp = () => {
-        dispatch(callCollectAppAPI({approvalCode}))
+        const result = window.confirm('회수 하시겠습니까?')
+        if(result) {
+            dispatch(callCollectAppAPI({approvalCode}));
+        }
+
     }
 
     return (
@@ -25,9 +38,7 @@ function ButtonForCollect() {
                     목록으로
                 </div>
 
-                {/*기안문서함 - 회수*/
-                    // ((isDrafter && businessDraft.approvalOpinion == null)  ||
-                    // (isDrafter && expenseReport.approvalOpinion == null)) &&
+                {
                     <div className="approval-button-div">
                         <button
                             onClick={onClickCollectApp}

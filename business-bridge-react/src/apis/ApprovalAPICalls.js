@@ -289,13 +289,19 @@ export const callRegistExpenseReportAPI = ({ form, files, docStatus}) => {
 /* 기안 회수 */
 export const callCollectAppAPI = ({ approvalCode }) => {
 
+
     return async (dispatch, getState) => {
 
-        const result = await authRequest.patch(`/approval/collect/${approvalCode}`);
-        console.log('기안 회수 result : ', result);
+        try {
+            const result = await authRequest.patch(`/approval/collect/${approvalCode}`);
+            console.log('기안 회수 result : ', result);
 
-        if(result.status === 201) {
-            dispatch(patchCollectApp());
+            if(result.status === 201) {
+                dispatch(patchCollectApp());
+            }
+        } catch (error) {
+            console.error('기안 회수 오류:', error);
+            // 오류 처리 로직을 추가하거나 필요에 따라 상태를 업데이트할 수 있습니다.
         }
     }
 }

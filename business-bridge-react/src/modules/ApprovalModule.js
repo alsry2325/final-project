@@ -48,7 +48,7 @@ export const {approval :
     [POST_BUSINESS_DRAFT] : () => ({registBD : true}),
     [POST_EXPENSE_REPORT] : () => ({registER : true}),
 
-    [PATCH_COLLECT_APP] : () => ({AppCollect : true}),
+    [PATCH_COLLECT_APP] : () => ({appCollect : true}),
 })
 
 /* 리듀서 */           // 액션을 받아서 처리할 때 어떻게 처리할지
