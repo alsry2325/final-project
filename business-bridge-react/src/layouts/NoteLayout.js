@@ -11,8 +11,6 @@ function NoteLayout () {
     const[clicked,isClicked] = useState(false)
     return (
         <>
-            <Header clicked={clicked} isClicked={isClicked}/>
-            {clicked?<Menu/>:null}
             <div className="note-layout-div">
                 <NoteNavbar/>
                 <main className="note-main">

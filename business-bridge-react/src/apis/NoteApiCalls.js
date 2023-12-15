@@ -16,10 +16,10 @@ export const callNoteRecipientListAPI = ({ currentPage = 1 }) => {
 };
 
 /* 2. 받은 쪽지함 검색 (발신자명, 제목, 내용) */
-export const callNoteRecipientSearchNameAPI = ({emplyName}) => {
+export const callNoteRecipientSearchNameAPI = ({emplyName, currentPage = 1}) => {
 
     return async (dispatch, getState) => {
-        const result = await authRequest.get(`/api/v1/notes/search?emplyName=${emplyName}`);
+        const result = await authRequest.get(`/api/v1/notes/search?emplyName=${emplyName}&${currentPage}`);
         console.log('callNoteRecipientSearchNameAPI result :', result);
 
         if(result.status === 200) {
@@ -28,10 +28,10 @@ export const callNoteRecipientSearchNameAPI = ({emplyName}) => {
     }
 };
 
-export const callNoteRecipientSearchTitleAPI = ({noteTitle}) => {
+export const callNoteRecipientSearchTitleAPI = ({noteTitle, currentPage = 1}) => {
 
     return async (dispatch, getState) => {
-        const result = await authRequest.get(`/api/v1/notes/search2?noteTitle=${noteTitle}`);
+        const result = await authRequest.get(`/api/v1/notes/search2?noteTitle=${noteTitle}&${currentPage}`);
 
         if(result.status === 200) {
             dispatch(getNote(result));
@@ -39,10 +39,10 @@ export const callNoteRecipientSearchTitleAPI = ({noteTitle}) => {
     }
 };
 
-export const callNoteRecipientSearchContentAPI = ({noteContent}) => {
+export const callNoteRecipientSearchContentAPI = ({noteContent, currentPage = 1}) => {
 
     return async (dsipatch, getState) => {
-        const result = await authRequest.get(`/api/v1/notes/search3?noteContent=${noteContent}`);
+        const result = await authRequest.get(`/api/v1/notes/search3?noteContent=${noteContent}&${currentPage}`);
 
         if(result.status === 200) {
             dsipatch(getNote(result));
@@ -65,10 +65,10 @@ export const callNoteSenderListAPI = ({ currentPage = 1 }) => {
 };
 
 /* 4. 보낸 쪽지함 검색(수신자명, 제목, 내용) */
-export const callNoteSenderSearchNameAPI = ({emplyName}) => {
+export const callNoteSenderSearchNameAPI = ({emplyName, currentPage = 1}) => {
 
     return async (dispatch, getState) => {
-        const result = await authRequest.get(`/api/v1/notes/search4?emplyName=${emplyName}`);
+        const result = await authRequest.get(`/api/v1/notes/search4?emplyName=${emplyName}&${currentPage}`);
         console.log('callNoteSenderSearchNameAPI result :', result);
 
         if(result.status === 200) {
@@ -77,10 +77,10 @@ export const callNoteSenderSearchNameAPI = ({emplyName}) => {
     }
 };
 
-export const callNoteSenderSearchTitleAPI = ({noteTitle}) => {
+export const callNoteSenderSearchTitleAPI = ({noteTitle, currentPage = 1}) => {
 
     return async (dispatch, getState) => {
-        const result = await authRequest.get(`/api/v1/notes/search5?noteTitle=${noteTitle}`);
+        const result = await authRequest.get(`/api/v1/notes/search5?noteTitle=${noteTitle}&${currentPage}`);
         console.log('callNoteSenderSearchTitleAPI result :', result);
 
         if(result.status === 200) {
@@ -89,10 +89,10 @@ export const callNoteSenderSearchTitleAPI = ({noteTitle}) => {
     }
 };
 
-export const callNoteSenderSearchContentAPI = ({noteContent}) => {
+export const callNoteSenderSearchContentAPI = ({noteContent, currentPage = 1}) => {
 
     return async (dsipatch, getState) => {
-        const result = await authRequest.get(`/api/v1/notes/search6?noteContent=${noteContent}`);
+        const result = await authRequest.get(`/api/v1/notes/search6?noteContent=${noteContent}&${currentPage}`);
 
         if(result.status === 200) {
             dsipatch(getNote(result));

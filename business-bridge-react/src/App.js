@@ -98,30 +98,33 @@ function App() {
                     </Route>
                 </Route>
                 {/* == 전자결재 끝 == */}
+
+                <Route path="addressBook" element={ <ProtectedRoute loginCheck={true}><AddressBookLayout/></ProtectedRoute>}>
+                    <Route path="main" element={ <ProtectedRoute loginCheck={true}> <AddressBookMain/> </ProtectedRoute>}/>
+                    <Route path="department/:departmentCode" element={ <AddressBookDepartment/> }/>
+                    <Route path=":emplyCode" element={ <AddressDetail/> }/>
+                    <Route
+                        path="addressAdmin/:emplyCode" element={<ProtectedRoute authCheck={true}> <AddressAdminItem/> </ProtectedRoute>}/>
+                </Route>
+
+                <Route path="note" element={ <ProtectedRoute loginCheck={true}><NoteLayout/></ProtectedRoute>}>
+                    <Route path="recipient" element={ <ProtectedRoute loginCheck={true}> <NoteRecipeient/> </ProtectedRoute> }/>
+                    <Route path="sender" element={ <ProtectedRoute loginCheck={true}> <NoteSender/> </ProtectedRoute> }/>
+                    <Route path="storage" element={ <ProtectedRoute loginCheck={true}> <NoteStorage/> </ProtectedRoute>} />
+                    <Route path="trash" element={ <ProtectedRoute loginCheck={true}> <NoteTrash/> </ProtectedRoute>} />
+                    <Route path="recipient/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteRecipientDetail/> </ProtectedRoute>}/>
+                    <Route path="recipient/storage/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteStorageDetail/> </ProtectedRoute>}/>
+                    <Route path="recipient/trash/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteTrashDetail/> </ProtectedRoute>}/>
+                    <Route path="sender/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteSenderDetail/> </ProtectedRoute>}/>
+                </Route>
+
             </Route>
             <Route path="/emp/employee">
                 <Route path="login" element={ <ProtectedRoute loginCheck={false}><Login/></ProtectedRoute> }/>
                 <Route path="findpassword" element={ <ProtectedRoute loginCheck={false}><FindPassword/></ProtectedRoute> }/>
             </Route>
 
-            <Route path="addressBook" element={ <ProtectedRoute loginCheck={true}><AddressBookLayout/></ProtectedRoute>}>
-                <Route path="main" element={ <ProtectedRoute loginCheck={true}> <AddressBookMain/> </ProtectedRoute>}/>
-                <Route path="department/:departmentCode" element={ <AddressBookDepartment/> }/>
-                <Route path=":emplyCode" element={ <AddressDetail/> }/>
-                <Route
-                    path="addressAdmin/:emplyCode" element={<ProtectedRoute authCheck={true}> <AddressAdminItem/> </ProtectedRoute>}/>
-            </Route>
 
-            <Route path="note" element={ <ProtectedRoute loginCheck={true}><NoteLayout/></ProtectedRoute>}>
-                <Route path="recipient" element={ <ProtectedRoute loginCheck={true}> <NoteRecipeient/> </ProtectedRoute> }/>
-                <Route path="sender" element={ <ProtectedRoute loginCheck={true}> <NoteSender/> </ProtectedRoute> }/>
-                <Route path="storage" element={ <ProtectedRoute loginCheck={true}> <NoteStorage/> </ProtectedRoute>} />
-                <Route path="trash" element={ <ProtectedRoute loginCheck={true}> <NoteTrash/> </ProtectedRoute>} />
-                <Route path="recipient/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteRecipientDetail/> </ProtectedRoute>}/>
-                <Route path="recipient/storage/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteStorageDetail/> </ProtectedRoute>}/>
-                <Route path="recipient/trash/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteTrashDetail/> </ProtectedRoute>}/>
-                <Route path="sender/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteSenderDetail/> </ProtectedRoute>}/>
-            </Route>
 
             <Route path="/*" element={<Error/>}/>
 
