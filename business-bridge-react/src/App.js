@@ -52,6 +52,7 @@ import NoteStorageDetail from "./pages/businessbridge/note/NoteStorageDetail";
 import NoteTrashDetail from "./pages/businessbridge/note/NoteTrashDetail";
 import NoteSenderDetail from "./pages/businessbridge/note/NoteSenderDetail";
 import EmployeeRegist from "./pages/businessbridge/employee/EmployeeRegist";
+import SalesRegistModal from "./components/modal/SalesRegistModal";
 
 function App() {
   return (
@@ -65,19 +66,17 @@ function App() {
                     <Route path="registrationList" element={ <EmployeeRegistrationList/>}/>
                     <Route path="registration" element={<EmployeeRegist/>}/>
                 </Route>
+                {/* 영업관리 시작*/}
                 <Route path="sales" element={<SalesLayout/>}>
                     <Route index element={ <Navigate to="/sales/salesList/0" replace/>}/>
                     <Route path="salesList/:salesStatus" element={ <SalesList/> }/>
                     <Route path=":salesCode" element={ <SalesDetail/> }/>
-                    <Route path="sales-regist" element={ <SalesRegist/> }/>
                     <Route path="sales-modify/:salesCode" element={ <SalesModify/> }/>
                     <Route path="salesStatistics" element={ <SalesStatistics/> }/>
                 </Route>
-                <Route path="sales" element={<SalesLayout/>}>
-                    <Route index element={ <Navigate to="/sales/salesList/1" replace/>}/>
-                    <Route path="salesList/:salesStatus" element={ <SalesList/> }/>
-                    <Route path=":salesCode" element={ <SalesDetail/> }/>
-                </Route>
+
+                {/* 영업관리 끝*/}
+
                 {/* == 전자결재 시작 == */}
                 <Route path="/approval" element={<ApprovalLayout/>}>
                     <Route path="home" element={<AppMain/>}/>

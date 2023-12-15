@@ -65,7 +65,7 @@ function Header({clicked, isClicked}){
                        </NavLink>
                    </li>
                    <li className="NavElements">
-                       <NavLink className="Link" to="/sales/salesList/1">
+                       <NavLink className="Link" to="/sales/salesList/0">
                            고객관계관리
                        </NavLink>
                    </li>
