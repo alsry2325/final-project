@@ -17,7 +17,7 @@ function SalesDetail() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    /*  최초 랜더링 시 상품 상세 정보 조회 */
+    /*  최초 랜더링 시 영업 상세 정보 조회 */
     useEffect(() => {
         dispatch(callSalesAPI({ salesCode }));
     }, []);
@@ -69,21 +69,21 @@ function SalesDetail() {
             <ToastContainer hideProgressBar={true} position="top-center"/>
             {   sales &&
             <div className="sales-detail-container">
-                <div>
+                <div className="sales-detail-buttons">
                     <button
-                        className="back-btn"
+                        className="sales-detail-button"
                         onClick={() => navigate(-1)}
                     >
                     돌아가기
                     </button>
                     <button
-                        className="modify-btn"
+                        className="sales-detail-button"
                         onClick={() =>navigate(`/sales/sales-modify/${sales.salesCode}`)}
                     >
                     수정하기
                     </button>
                     <button
-                    className="delete-btn"
+                    className="sales-detail-button"
                     onClick={handleConfirmation}
                     >
                     삭제하기

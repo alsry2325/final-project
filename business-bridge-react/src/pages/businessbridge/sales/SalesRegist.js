@@ -15,7 +15,7 @@ function SalesRegist() {
     useEffect(() => {
         //등록시 영업 메인으로 이동한다.
         if(postSuccess === true) {
-            navigate('/sales/salesList/1', { replace : true });
+            navigate('/sales/salesList/0', { replace : true });
         }
     }, [postSuccess]);
 
@@ -89,7 +89,11 @@ function SalesRegist() {
             />
         }
         <div>
-            <div className="product-button-div">
+
+            <div className="sales-regist-container">
+                <div className="sales-regist-header">
+                    <h1>영업등록</h1>
+                </div>
                 <button
                     onClick={ () => navigate(-1) } // navigate 주소 뿐만 아니라 (히스토리)숫자도 줄 수 있다.
                 >
@@ -100,10 +104,11 @@ function SalesRegist() {
                 >
                     영업 등록
                 </button>
+
             </div>
-            <div className="product-section">
-                <div className="product-info-div">
-                    <table>
+            <div className="sales-regist-section">
+                <div className="sales-regist-info-div">
+                    <table className="sales-regist-table">
                         <tbody>
                         <tr>
                             <td><label>영업형태</label></td>
@@ -121,7 +126,7 @@ function SalesRegist() {
                                     placeholder='거래처명'
                                     name='accountName'
                                     id='accountName'
-                                    className="product-info-input"
+                                    className="sales-input"
                                     onChange={ onChangeHandler }
                                 />
                             </td>
@@ -132,7 +137,7 @@ function SalesRegist() {
                             <input
                                     placeholder='로그인정보'
                                     name='memberName'
-                                    className="product-info-input"
+                                    className="sales-input"
                                     onChange={ onChangeHandler }
                                 />
                             </td>
@@ -152,6 +157,7 @@ function SalesRegist() {
                             <td><label>영업유형</label></td>
                             <td>
                             <input
+                                    className="sales-input"
                                     name='salesWay'
                                     id='salesWay'
                                     onChange={ onChangeHandler }
@@ -162,6 +168,7 @@ function SalesRegist() {
                             <td><label>부서명</label></td>
                             <td>
                             <input
+                                    className="sales-input"
                                     placeholder='로그인정보'
                                     name='departmentName'
                                     onChange={ onChangeHandler }
@@ -172,6 +179,7 @@ function SalesRegist() {
                             <td><label>상품 명</label></td>
                             <td>
                             <input
+                                    className="sales-input"
                                     placeholder='상품명'
                                     name='productName' id='productName'
                                     onChange={ onChangeHandler }
@@ -179,7 +187,7 @@ function SalesRegist() {
                                     value={form.productName || ""}
                                 />
                                 <button
-                                    className="review-write-button"
+                                    className="sales-button"
                                     onClick={() =>
                                         onClickSalesProductHandler()
                                     }

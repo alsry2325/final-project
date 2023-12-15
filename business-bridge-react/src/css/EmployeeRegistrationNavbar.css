@@ -11,11 +11,118 @@
     flex-direction: column;
     overflow: auto;
 }
+
+.employeeRegistration-title{
+    margin: 50px;
+}
+
+.employeeRegistration-type{
+    margin: 20px;
+    padding-left: 30px;
+}
+
+.employee-table{
+    border: 1px;
+    width: 100%;
+    height: 10%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+.employee-table th{
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.employee-table td{
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #dddddd;
+}
+
+.employeeRegistration-name-Image{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+#special-span {
+    padding-left: 20px;
+}
+
+.employeeRegistration-Select{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 15px;
+}
+
+/*.employeeRegistration-Select-box{*/
+/*        width: 100px;*/
+/*        height: 30px;*/
+/*        border-radius: 5px;*/
+/*        border-color: #dddddd;*/
+/*        color: #868686;*/
+/*}*/
+
+.employeeRegistration-input-box{
+    width: 150px;
+    height: 30px;
+    border: 1px solid #dddddd;
+    color: #868686;
+    border-radius: 5px;
+    text-align: center;
+    margin-right: 5px;
+    opacity: 0.7;
+}
+
+.employeeRegistration-input-box:focus,.employeeRegistration-Select-box:focus {
+    outline-color: #dddddd;
+}
+
+.employeeRegistration-input {
+    margin-left: 10px;
+}
+
+.employeeRegistration-input-btn{
+    display: flex;
+    width:  80px;
+    height: 30px;
+    border-radius: 7px;
+    color: white;
+    background-color: #5549DD;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 10px;
+    border: none;
+}
+
+.no-results-message{
+
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+}
+
+/* EmployeeRegist 페이지 css */
+.employeeRegist-area{
+    margin: 50px;
+}
+
+.employeeRegist-employee-information{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-collapse: collapse; /* 테두리를 겹치게 함 */
+    text-align: center; /* 텍스트를 왼쪽 정렬 */
+}
+
+/* 네비바 css */
 .employeeRegistration-navbar-div {
     width: 400px;
     border-right: 1px solid darkgrey;
 }
-
 .employeeRegistration-navbar-ul {
     display: flex;
     justify-content: left;

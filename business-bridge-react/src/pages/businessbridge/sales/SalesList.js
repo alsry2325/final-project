@@ -45,7 +45,7 @@ function SalesList() {
                 salesList &&
                 <>
                     <div className="sales-div">
-                        <h1>영업 목록</h1>
+                        <h1 className="sales-title">영업 목록</h1>
                         <div className="search-div"  style={{ float: "right" }}>
                         <select name="schType" id="schType" onChange={(e) => {
                             const value = e.target.value;
@@ -70,13 +70,16 @@ function SalesList() {
                             }));
                         }}>검색</button>
                         </div>
-                        <button onClick={ onClickSalesInsert }>상품등록</button>
+                        <button
+                            className="sales-regist-button"
+                            onClick={ onClickSalesInsert }>영업등록
+                        </button>
                         <table className="sales-table">
                             <colgroup>
                                 <col width="10%" />
                                 <col width="10%" />
                                 <col width="15%" />
-                                <col width="25%" />
+                                <col width="15%" />
                                 <col width="10%" />
                                 <col width="10%" />
                                 <col width="10%" />
@@ -107,7 +110,7 @@ function SalesList() {
                                     <td>{sales.salesWay}</td>
                                     <td>{sales.productName}</td>
                                     <td>
-                                        <button className="review-write-button">
+                                        <button className="sales-list-button">
                                             {sales.salesStatus}
                                         </button>
                                     </td>

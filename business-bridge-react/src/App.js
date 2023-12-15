@@ -14,8 +14,8 @@ import FindPassword from "./pages/businessbridge/employee/FindPassword";
 import ProtectedRoute from "./components/router/ProtectedRoute";
 import Error from "./pages/error/Error";
 import MyPage from "./pages/businessbridge/employee/MyPage";
-import EmployeeRegistrationNavbarLayout from "./layouts/EmployeeRegistrationNavbarLayout";
-import EmployeeRegistration from "./pages/businessbridge/employee/EmployeeRegistration";
+import EmployeeRegistrationLayout from "./layouts/EmployeeRegistrationLayout";
+import EmployeeRegistrationList from "./pages/businessbridge/employee/EmployeeRegistrationList";
 import SalesLayout from "./layouts/SalesLayout";
 import SalesList from "./pages/businessbridge/sales/SalesList";
 import SalesDetail from "./pages/businessbridge/sales/SalesDetail";
@@ -23,7 +23,6 @@ import SalesRegist from "./pages/businessbridge/sales/SalesRegist";
 import SalesModify from "./pages/businessbridge/sales/SalesModify";
 import SalesStatistics from "./pages/businessbridge/sales/SalesStatistics";
 import ApprovalLayout from "./layouts/ApprovalLayout";
-import BDWriteForm from "./components/form/approvalForm/BDWriteForm";
 import AppMain from "./pages/businessbridge/approval/AppMain";
 import ReceiveApps from "./pages/businessbridge/approval/ReceiveApps";
 import ReceiveAppsByStatus from "./pages/businessbridge/approval/ReceiveAppsByStatus";
@@ -37,6 +36,7 @@ import ApproveApps from "./pages/businessbridge/approval/ApproveApps";
 import ApproveAppsByStatus from "./pages/businessbridge/approval/ApproveAppsByStatus";
 import ERWriteForm from "./components/form/approvalForm/ERWriteForm";
 import WriteBusinessDraft from "./pages/businessbridge/approval/Write-BusinessDraft";
+import WriteExpenseReport from "./pages/businessbridge/approval/Write-ExpenseReport";
 import AddressBookMain from "./pages/businessbridge/addressBook/AddressBookMain";
 import AddressBookLayout from "./layouts/AddressBookLayout";
 import AddressBookDepartment from "./pages/businessbridge/addressBook/AddressBookDepartment";
@@ -51,6 +51,7 @@ import NoteRecipientDetail from "./pages/businessbridge/note/NoteRecipientDetail
 import NoteStorageDetail from "./pages/businessbridge/note/NoteStorageDetail";
 import NoteTrashDetail from "./pages/businessbridge/note/NoteTrashDetail";
 import NoteSenderDetail from "./pages/businessbridge/note/NoteSenderDetail";
+import EmployeeRegist from "./pages/businessbridge/employee/EmployeeRegist";
 
 function App() {
   return (
@@ -58,25 +59,27 @@ function App() {
         <Routes>
             <Route path="/" element={ <ProtectedRoute loginCheck={true}><Layout/></ProtectedRoute> }>
                 <Route index element={<Main/>}/>
-                <Route path="emp/employee/mypage" element={ <ProtectedRoute loginCheck={true}> <MyPage/> </ProtectedRoute>}/>
-                <Route path="emp/employee/registration" element={ <ProtectedRoute loginCheck={true}><EmployeeRegistrationNavbarLayout/></ProtectedRoute>}>
-                    <Route index element={ <ProtectedRoute loginCheck={true}> <EmployeeRegistration/> </ProtectedRoute>}/>
+                {/* 마이페이지*/}
+                <Route path="emp/employee/mypage" element={  <MyPage/> }/>
+                <Route path="emp/employee" element={ <EmployeeRegistrationLayout/>}>
+                    <Route path="registrationList" element={ <EmployeeRegistrationList/>}/>
+                    <Route path="registration" element={<EmployeeRegist/>}/>
                 </Route>
-            <Route path="sales" element={<SalesLayout/>}>
-                <Route index element={ <Navigate to="/sales/salesList/0" replace/>}/>
-                <Route path="salesList/:salesStatus" element={ <SalesList/> }/>
-                <Route path=":salesCode" element={ <SalesDetail/> }/>
-                <Route path="sales-regist" element={ <SalesRegist/> }/>
-                <Route path="sales-modify/:salesCode" element={ <SalesModify/> }/>
-                <Route path="salesStatistics" element={ <SalesStatistics/> }/>
-            </Route>
+                <Route path="sales" element={<SalesLayout/>}>
+                    <Route index element={ <Navigate to="/sales/salesList/0" replace/>}/>
+                    <Route path="salesList/:salesStatus" element={ <SalesList/> }/>
+                    <Route path=":salesCode" element={ <SalesDetail/> }/>
+                    <Route path="sales-regist" element={ <SalesRegist/> }/>
+                    <Route path="sales-modify/:salesCode" element={ <SalesModify/> }/>
+                    <Route path="salesStatistics" element={ <SalesStatistics/> }/>
+                </Route>
                 <Route path="sales" element={<SalesLayout/>}>
                     <Route index element={ <Navigate to="/sales/salesList/1" replace/>}/>
                     <Route path="salesList/:salesStatus" element={ <SalesList/> }/>
                     <Route path=":salesCode" element={ <SalesDetail/> }/>
                 </Route>
                 {/* == 전자결재 시작 == */}
-                <Route path="/approval"element={<ApprovalLayout/>}>
+                <Route path="/approval" element={<ApprovalLayout/>}>
                     <Route path="home" element={<AppMain/>}/>
                     <Route path="receive-approvals/all" element={<ReceiveApps/>}/>
                     <Route path="receive-approvals/:approvalStatus" element={<ReceiveAppsByStatus/>}/>
@@ -91,7 +94,7 @@ function App() {
                     <Route path="document/:approvalCode" element={<AppDetail/>} />
                     <Route path="write">
                         <Route path="businessDraft" element={<WriteBusinessDraft/>}/>
-                        <Route path="expenseReport" element={<ERWriteForm/>}/>
+                        <Route path="expenseReport" element={<WriteExpenseReport/>}/>
                     </Route>
                 </Route>
                 {/* == 전자결재 끝 == */}
@@ -103,7 +106,7 @@ function App() {
 
             <Route path="addressBook" element={ <ProtectedRoute loginCheck={true}><AddressBookLayout/></ProtectedRoute>}>
                 <Route path="main" element={ <ProtectedRoute loginCheck={true}> <AddressBookMain/> </ProtectedRoute>}/>
-                <Route pat h="department/:departmentCode" element={ <AddressBookDepartment/> }/>
+                <Route path="department/:departmentCode" element={ <AddressBookDepartment/> }/>
                 <Route path=":emplyCode" element={ <AddressDetail/> }/>
                 <Route
                     path="addressAdmin/:emplyCode" element={<ProtectedRoute authCheck={true}> <AddressAdminItem/> </ProtectedRoute>}/>

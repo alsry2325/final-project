@@ -13,11 +13,12 @@ function Menu() {
 
     return (
         <>
+            { myPageInfo &&
             <div className="Navbars">
                 <ul className="NavbarWrappers">
                     <li className="NavImage">
                         <NavLink className="Menu-Image-myPage" to="/sign-up">
-                            <img className="Menu-Image-myPage" src="/images/employee-image.png" alt="My Image" />
+                            <img className="Menu-Image-myPage" src={myPageInfo.emplyPhoto} alt="My Image" />
                         </NavLink>
                     </li>
                     <li className="NavbarElement">
@@ -64,12 +65,13 @@ function Menu() {
                         </NavLink>
                     </li>}
                     { isAdmin() && <li className="NavbarElement">
-                        <NavLink className="link" to="/emp/employee/registration">
+                        <NavLink className="link" to="/emp/employee/registrationList">
                             사원관리
                         </NavLink>
                     </li>}
                 </ul>
             </div>
+            }
         </>
     );
 }
