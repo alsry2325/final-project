@@ -123,6 +123,9 @@ function SalesModify () {
             <div className="sales-modify-section">
                 <input type="hidden" name="productCode" id="productCode" onChange={ onChangeHandler } value={form.productCode || ''}/>
                 <div className="sales-modify-info-div">
+                    <div className="sales-h1">
+                        <h1>영업관리 수정</h1>
+                    </div>
                     <table className="sales-regist-table">
                         <tbody>
                         <tr>
