@@ -31,7 +31,10 @@ const salesReducer = handleActions({
     [POST_SUCCESS] : (state, { payload }) => payload,
     [PUT_SUCCESS] : (state, { payload }) => payload,
     [DELETE_SUCCESS] : (state, { payload }) => payload,
-    [GET_SALES_PRODUCT_LIST] : (state, { payload }) => payload,
+    [GET_SALES_PRODUCT_LIST] : (state, { payload }) => ({
+        ...state,
+        ...payload
+    }),
     [GET_SALES_STATISTICS] : (state, { payload }) => payload,
 }, initialState);
 

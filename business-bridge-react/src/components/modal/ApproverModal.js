@@ -70,8 +70,8 @@ function ApproverModal({setAppEmplyModal}) {
                         <button className="app-up">&#9650;</button>
                         <button className="app-down">&#9660;</button>
                         <button
-                            className="app-cancle"
-                            onClick={onClickApproverCancle}
+                                className="app-cancle"
+                                onClick={onClickApproverCancle}
                         >취소</button>
                         <button className="app-use">적용</button>
                     </div>
