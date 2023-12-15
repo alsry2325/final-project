@@ -460,7 +460,7 @@ public class ApprovalService {
     }
 
     /* 13. 결재자 결재 - 승인, 반려? */
-    public void confirmApproval(Long approvalCode, CustomUser customUser, ApprovalRequest approvalRequest) {
+    public void confirmApproval(Long approvalCode, CustomUser customUser, ApproveRequest approveRequest) {
 
         Approval approval = approvalRepository.findById(approvalCode)
                 .orElseThrow(() -> new NotFoundException(ALREADY_CONFIRM_DOC));
@@ -486,15 +486,15 @@ public class ApprovalService {
         // 로그인 한 결재자의 결재 상태를 변경하고 결재에 대한 일시와 의견 추가
         if(approval.getDocStatus().equals(DocStatusType.WAITING) || approval.getDocStatus().equals(PROCEEDING)) {
             userApprover.approval(
-                    approvalRequest.getApprovalStatus(),
+                    approveRequest.getApprovalStatus(),
                     LocalDateTime.now(),
-                    approvalRequest.getApprovalOpinion()
+                    approveRequest.getApprovalOpinion()
             );
         }
 
         // 다음 결재자가 존재한다면 다음 결재자의 결재 상태를 활성화 시켜줌
         if(nextApprover != null) {
-            if (approvalRequest.getApprovalStatus().equals(CONFIRM)){
+            if (approveRequest.getApprovalStatus().equals(CONFIRM)){
                 nextApprover.statusUpdate(
                         ACTIVATE
                 );
@@ -504,7 +504,7 @@ public class ApprovalService {
 
         // 결재 문서 상태 변경
         if(userApprover.getApprovalOrder() == 1){                           // 로그인 한 결재자가 첫번째 결재자인 경우
-            if(approvalRequest.getApprovalStatus().equals(ApprovalStatusType.RETURN)){
+            if(approveRequest.getApprovalStatus().equals(ApprovalStatusType.RETURN)){
                 approval.returned(
                         RETURN,
                         LocalDateTime.now()
@@ -514,7 +514,7 @@ public class ApprovalService {
             }
 
         } else if (userApprover.getApprovalOrder() == approvalCount) {      // 현재 결재가 마지막 결재인 경우
-            if (approvalRequest.getApprovalStatus().equals(ApprovalStatusType.RETURN)){
+            if (approveRequest.getApprovalStatus().equals(ApprovalStatusType.RETURN)){
                 approval.returned(
                         RETURN,
                         LocalDateTime.now()

@@ -24,9 +24,6 @@ public class ExpenseReportResponse {
     private final Long docNo;                                    // 문서 번호
     private final Long totalExpenditure;                        // 총지출 금액
     private final List<Map<String, String>> details;            // 지출결의 상세
-//    private final List<String> item;                            // 적요
-//    private final List<Long> amount;                            // 금액
-//    private final List<String> note;                            // 비고
     private final List<String> attachFiles;                     // 첨부파일
 
     public static ExpenseReportResponse from(final ExpenseReport expenseReport){
@@ -73,7 +70,7 @@ public class ExpenseReportResponse {
                 approvers,
                 expenseReport.getApproval().getDraftMember().getEmplyName(),
                 expenseReport.getApproval().getDraftMember().getDepartment().getDepartmentName(),
-                expenseReport.getApproval().getDraftDateTime(),
+                expenseReport.getApproval().getRegistDateTime(),
                 expenseReport.getApproval().getDocNo(),
                 expenseReport.getTotalExpenditure(),
                 details,
