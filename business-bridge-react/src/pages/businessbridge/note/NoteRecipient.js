@@ -17,10 +17,9 @@ function NoteRecipeient() {
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState('');
-    const {note} = useSelector(state => state.noteReducer);
+    const {notes} = useSelector(state => state.noteReducer);
     const [searchOption, setSearchOption] = useState('name');
 
-    console.log('note:', note);
 
     useEffect(() => {
         dispatch(callNoteRecipientListAPI({currentPage}));
@@ -58,13 +57,13 @@ function NoteRecipeient() {
                     <div className="noteListHeader">부서</div>
                     <div className="noteListHeader">제목</div>
                     <div className="noteListHeader">내용</div>
-                    <div className="noteListHeader">날짜</div>
+                    <div className="noteListHeader">받은 날짜</div>
                 </div>
                 <hr/>
                 <>
-                    {note
+                    {notes
                         &&
-                        <NoteList data={note.data}/>
+                        <NoteList data={notes.data}/>
                     }
                 </>
                 <div className="search-box">
@@ -94,9 +93,9 @@ function NoteRecipeient() {
                     </button>
                 </div>
 
-                {note && (
+                {notes && (
                     <div className="paging-bar-container">
-                        <PagingBar pageInfo={note.pageInfo} setCurrentPage={setCurrentPage}/>
+                        <PagingBar pageInfo={notes.pageInfo} setCurrentPage={setCurrentPage}/>
                     </div>
                 )}
             </div>

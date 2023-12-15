@@ -19,7 +19,7 @@ function NoteSenderItem({ note }) {
                 <div className="noteInfolistItem">{note.recipientDepartmentName}</div>
                 <div className="noteInfolistItem">{note.noteTitle}</div>
                 <div className="noteInfolistItem">{note.noteContent}</div>
-                <div className="noteInfolistItem">{note.sentAt}</div>
+                <div className="noteInfolistItem">{note.readAt||'아직 읽지 않음'}</div>
             </div>
             <hr/>
         </div>

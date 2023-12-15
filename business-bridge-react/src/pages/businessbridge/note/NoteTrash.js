@@ -13,9 +13,8 @@ function NoteStorage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
-    const {note} = useSelector(state => state.noteReducer);
+    const {notes} = useSelector(state => state.noteReducer);
 
-    console.log('note:', note);
 
     useEffect(() => {
         dispatch(callNoteTrashListAPI({currentPage}));
@@ -34,20 +33,20 @@ function NoteStorage() {
                     <div className="noteListHeader">부서</div>
                     <div className="noteListHeader">제목</div>
                     <div className="noteListHeader">내용</div>
-                    <div className="noteListHeader">날짜</div>
+                    <div className="noteListHeader">받은 날짜</div>
                 </div>
                 <hr/>
 
                 <>
-                    {note
+                    {notes
                         &&
-                        <NoteTrashList data={note.data}/>
+                        <NoteTrashList data={notes.data}/>
                     }
                 </>
 
-                {note && (
+                {notes && (
                     <div className="paging-bar-container">
-                        <PagingBar pageInfo={note.pageInfo} setCurrentPage={setCurrentPage}/>
+                        <PagingBar pageInfo={notes.pageInfo} setCurrentPage={setCurrentPage}/>
                     </div>
                 )}
             </div>

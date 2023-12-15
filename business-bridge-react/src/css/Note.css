@@ -98,7 +98,7 @@
 
 .noteListHeader:nth-child(4) {
     width: 400px;
-    margin-right: 20px;
+    margin-right: 40px;
 }
 
 /* 바디 */
@@ -107,6 +107,7 @@
     margin-left: 20px;
     font-size: 13px;
     padding: 10px;
+    align-items: center;
 }
 
 .noteInfolistItem {
@@ -131,7 +132,21 @@
 
 .noteInfolistItem:nth-child(4) {
     width: 400px;
-    margin-right: 30px;
+    margin-right: 50px;
+}
+
+.noteInfoButtonContainer {
+    margin-left: 80px;
+}
+
+.noteInfoButtonContainer button {
+    width: 70px;
+    height: 25px;
+    font-size: 12px;
+    margin-right: 10px;
+    background-color: white;
+    border-radius: 5px;
+    border: #9d9d9d solid 1px;
 }
 
 /* 쪽지 상세보기  ----------------------------------------------- */

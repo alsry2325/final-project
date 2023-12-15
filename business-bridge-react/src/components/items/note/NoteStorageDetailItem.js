@@ -31,7 +31,7 @@ function NoteStorageDetailItem({note}) {
             .then((response) => {
                 console.log("쪽지 휴지통으로 이동하였습니다.")
                 toast.info("쪽지를 휴지통으로 이동하였습니다.", {
-                    onClose: () => navigate('/note/recipient', { replace: true })
+                    onClose: () => navigate('/note/trash', { replace: true })
                 });
             })
             .catch((error) => {

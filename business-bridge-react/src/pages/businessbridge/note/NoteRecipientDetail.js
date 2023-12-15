@@ -28,6 +28,7 @@ function NoteRecipientDetail() {
                 </div>
                 <hr/>
                 {
+                    note &&
                     <div className="note-detail-div">
                         <NoteDetailItem note={note} />
                     </div>
