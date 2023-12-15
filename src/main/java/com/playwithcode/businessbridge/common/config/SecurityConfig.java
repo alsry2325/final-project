@@ -81,7 +81,7 @@ public class SecurityConfig {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         // 로컬 React에서 오는 요청은 허용한다.
         corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "PUT", "POST", "DELETE"));
+        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "PUT", "POST", "PATCH" ,"DELETE"));
         corsConfiguration.setAllowedHeaders(Arrays.asList(
                 "Access-Control-Allow-Origin", "Access-Control-Allow-Headers",
                 "Content-Type", "Authorization", "X-Requested-With", "Access-Token", "Refresh-Token"));
