@@ -1,4 +1,4 @@
-import NoteItem from "../items/NoteItem";
+import NoteItem from "../items/note/NoteItem";
 
 function NoteList({ data }) {
 

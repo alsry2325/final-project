@@ -1,12 +1,12 @@
 import {useNavigate} from "react-router-dom";
 
-function NoteSenderItem({ note }) {
+function NoteStorageItem({ note }) {
 
     const navigate = useNavigate();
     const { noteNo } = note;
 
     const onClickNoteHandler = () => {
-        navigate(`/note/${noteNo}`)
+        navigate(`/note/recipient/storage/${noteNo}`)
     }
 
     return (
@@ -15,8 +15,8 @@ function NoteSenderItem({ note }) {
             onClick = { onClickNoteHandler }
         >
             <div className="noteInfolist">
-                <div className="noteInfolistItem">{note.recipientName}</div>
-                <div className="noteInfolistItem">{note.recipientDepartmentName}</div>
+                <div className="noteInfolistItem">{note.senderName}</div>
+                <div className="noteInfolistItem">{note.senderDepartmentName}</div>
                 <div className="noteInfolistItem">{note.noteTitle}</div>
                 <div className="noteInfolistItem">{note.noteContent}</div>
                 <div className="noteInfolistItem">{note.sentAt}</div>
@@ -26,4 +26,4 @@ function NoteSenderItem({ note }) {
     );
 }
 
-export default NoteSenderItem;
+export default NoteStorageItem;

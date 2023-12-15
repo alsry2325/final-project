@@ -47,6 +47,10 @@ import NoteRecipeient from "./pages/businessbridge/note/NoteRecipient";
 import NoteSender from "./pages/businessbridge/note/NoteSender";
 import NoteStorage from "./pages/businessbridge/note/NoteStorage";
 import NoteTrash from "./pages/businessbridge/note/NoteTrash";
+import NoteRecipientDetail from "./pages/businessbridge/note/NoteRecipientDetail";
+import NoteStorageDetail from "./pages/businessbridge/note/NoteStorageDetail";
+import NoteTrashDetail from "./pages/businessbridge/note/NoteTrashDetail";
+import NoteSenderDetail from "./pages/businessbridge/note/NoteSenderDetail";
 
 function App() {
   return (
@@ -99,7 +103,7 @@ function App() {
 
             <Route path="addressBook" element={ <ProtectedRoute loginCheck={true}><AddressBookLayout/></ProtectedRoute>}>
                 <Route path="main" element={ <ProtectedRoute loginCheck={true}> <AddressBookMain/> </ProtectedRoute>}/>
-                <Route path="department/:departmentCode" element={ <AddressBookDepartment/> }/>
+                <Route pat h="department/:departmentCode" element={ <AddressBookDepartment/> }/>
                 <Route path=":emplyCode" element={ <AddressDetail/> }/>
                 <Route
                     path="addressAdmin/:emplyCode" element={<ProtectedRoute authCheck={true}> <AddressAdminItem/> </ProtectedRoute>}/>
@@ -110,6 +114,10 @@ function App() {
                 <Route path="sender" element={ <ProtectedRoute loginCheck={true}> <NoteSender/> </ProtectedRoute> }/>
                 <Route path="storage" element={ <ProtectedRoute loginCheck={true}> <NoteStorage/> </ProtectedRoute>} />
                 <Route path="trash" element={ <ProtectedRoute loginCheck={true}> <NoteTrash/> </ProtectedRoute>} />
+                <Route path="recipient/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteRecipientDetail/> </ProtectedRoute>}/>
+                <Route path="recipient/storage/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteStorageDetail/> </ProtectedRoute>}/>
+                <Route path="recipient/trash/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteTrashDetail/> </ProtectedRoute>}/>
+                <Route path="sender/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteSenderDetail/> </ProtectedRoute>}/>
             </Route>
 
             <Route path="/*" element={<Error/>}/>

@@ -5,8 +5,8 @@ import {
 } from "../../../apis/NoteApiCalls";
 import PagingBar from "../../../components/common/PagingBar";
 import {useNavigate} from "react-router-dom";
-import NoteList from "../../../components/lists/NoteList";
 import {ToastContainer} from "react-toastify";
+import NoteTrashList from "../../../components/lists/NoteTrashList";
 
 
 function NoteStorage() {
@@ -41,7 +41,7 @@ function NoteStorage() {
                 <>
                     {note
                         &&
-                        <NoteList data={note.data}/>
+                        <NoteTrashList data={note.data}/>
                     }
                 </>
 

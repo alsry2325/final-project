@@ -1,4 +1,4 @@
-import NoteSenderItem from "../items/NoteSenderItem";
+import NoteSenderItem from "../items/note/NoteSenderItem";
 
 function NoteSenderList({ data }) {
 

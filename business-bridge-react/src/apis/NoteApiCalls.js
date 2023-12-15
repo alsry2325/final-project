@@ -1,4 +1,4 @@
-import {getNote} from "../modules/NoteModule";
+import {getNote, getRecipientNoteDetail, putSuccess} from "../modules/NoteModule";
 import {authRequest, request} from "./Api";
 
 /* 1. 받은 쪽지함 조회 */
@@ -127,3 +127,158 @@ export const callNoteTrashListAPI = ({ currentPage = 1 }) => {
         }
     }
 };
+
+/* 7. 수신자 쪽지 상세 조회(일반) */
+export const callNoteDetailAPI = ({noteNo}) => {
+    console.log(noteNo);
+    return async (dispatch, getState) => {
+        const result = await authRequest.get(`/api/v1/notes/recipient/${noteNo}`);
+        console.log('callNoteDetailAPI result : ', result);
+
+        if (result.status === 200) {
+            dispatch(getRecipientNoteDetail(result));
+        }
+    }
+};
+
+/* 8. 중요 쪽지 상세 조회(수신자) */
+export const callNoteStorageDetailAPI = ({noteNo}) => {
+    console.log(noteNo);
+    return async (dispatch, getState) => {
+        const result = await authRequest.get(`/api/v1/notes/recipient/storage/${noteNo}`);
+        console.log('callNoteStorageDetailAPI result : ', result);
+
+        if (result.status === 200) {
+            dispatch(getRecipientNoteDetail(result));
+        }
+    }
+};
+
+/* 9. 휴지통 쪽지 상세 조회(수신자) */
+export const callNoteTrashDetailAPI = ({noteNo}) => {
+    console.log(noteNo);
+    return async (dispatch, getState) => {
+        const result = await authRequest.get(`/api/v1/notes/recipient/trash/${noteNo}`);
+        console.log('callNoteTrashDetailAPI result : ', result);
+
+        if (result.status === 200) {
+            dispatch(getRecipientNoteDetail(result));
+        }
+    }
+};
+
+/* 10. 발신 쪽지 상세 조회(발신자) */
+export const callNoteSenderDetailAPI = ({noteNo}) => {
+    console.log(noteNo);
+    return async (dispatch, getState) => {
+        const result = await authRequest.get(`/api/v1/notes/sender/${noteNo}`);
+        console.log('callNoteSenderDetailAPI result : ', result);
+
+        if (result.status === 200) {
+            dispatch(getRecipientNoteDetail(result));
+        }
+    }
+};
+
+/* 11. 수신자 쪽지 상태 변경(STORAGE) */
+export const callModifyStatusStorageAPI = ({noteNo}) => {
+    return async (dispatch, getState) => {
+        try {
+            const result = await authRequest.put(`/api/v1/notes/recipient/statusStorage/${noteNo}`);
+            console.log('callModifyStatusStorageAPI :', result);
+
+            if(result.status === 201) {
+                dispatch(putSuccess());
+            }
+        } catch (error) {
+            console.error("쪽지 보관에 실패하였습니다", error);
+            throw error;
+        }
+    }
+};
+
+/* 12. 수신자 쪽지 상태 변경(TRASH) */
+export const callModifyStatusTrashAPI = ({noteNo}) => {
+    return async (dispatch, getState) => {
+        try {
+            const result = await authRequest.put(`/api/v1/notes/recipient/statusTrash/${noteNo}`);
+            console.log('callModifyStatusTrashAPI :', result);
+
+            if(result.status === 201) {
+                dispatch(putSuccess());
+            }
+        } catch (error) {
+            console.error("쪽지를 휴지통으로 옮기지 못했습니다.", error);
+            throw error;
+        }
+    }
+};
+
+/* 13. 수신자 쪽지 상태 변경(NORMAL) */
+export const callModifyStatusNormalAPI = ({noteNo}) => {
+    return async (dispatch, getState) => {
+        try {
+            const result = await authRequest.put(`/api/v1/notes/recipient/statusNormal/${noteNo}`);
+            console.log('callModifyStatusNormalAPI :', result);
+
+            if(result.status === 201) {
+                dispatch(putSuccess());
+            }
+        } catch (error) {
+            console.error("쪽지를 일반 쪽지함으로 옮기지 못했습니다.", error);
+            throw error;
+        }
+    }
+};
+
+/* 14. 수신자 쪽지 상태 변경(DELETE) */
+export const callModifyStatusDeleteAPI = ({noteNo}) => {
+    return async (dispatch, getState) => {
+        try {
+            const result = await authRequest.put(`/api/v1/notes/recipient/statusDelete/${noteNo}`);
+            console.log('callModifyStatusDeleteAPI :', result);
+
+            if(result.status === 201) {
+                dispatch(putSuccess());
+            }
+        } catch (error) {
+            console.error("쪽지를 삭제하지 못했습니다.", error);
+            throw error;
+        }
+    }
+};
+
+/* 15. 발신자 쪽지 상태 변경(DELETE) */
+export const callModifySenderStatusDeleteAPI = ({noteNo}) => {
+    return async (dispatch, getState) => {
+        try {
+            const result = await authRequest.put(`/api/v1/notes/sender/statusDelete/${noteNo}`);
+            console.log('callModifySenderStatusDeleteAPI :', result);
+
+            if(result.status === 201) {
+                dispatch(putSuccess());
+            }
+        } catch (error) {
+            console.error("쪽지를 삭제하지 못했습니다.", error);
+            throw error;
+        }
+    }
+};
+
+/* 16. readAt 업데이트 */
+export const callUpdateReadAtAPI = ({noteNo}) => {
+    return async (dispatch, getState) => {
+        try {
+            const result = await authRequest.put(`/api/v1/notes/readAt/${noteNo}`);
+            console.log('callUpdateReadAtAPI :', result);
+
+            if(result.status === 201) {
+                dispatch(putSuccess());
+            }
+        } catch (error) {
+            console.error("날짜를 업데이트하지 못했습니다.", error);
+            throw error;
+        }
+    }
+};
+
