@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {callsalesStatisticsAPI} from "../../../apis/SalesAPICalls";
 import {useNavigate} from "react-router-dom";
+import SalesChart from "./SalesChart";
 
 function SalesStatistics() {
 
@@ -50,6 +51,7 @@ function SalesStatistics() {
                             }
                             </tbody>
                         </table>
+                        <SalesChart data={salesStatistics} /> {/* 차트 컴포넌트 추가 */}
                     </div>
                 </>
             }
