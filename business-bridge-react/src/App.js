@@ -5,6 +5,7 @@ import './css/MyPage.css';
 import './css/EmployeeRegistrationNavbar.css'
 import './css/approval.css';
 import './css/AddressBook.css'
+import './css/Note.css'
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Login from "./pages/businessbridge/employee/Login";
@@ -41,6 +42,15 @@ import AddressBookLayout from "./layouts/AddressBookLayout";
 import AddressBookDepartment from "./pages/businessbridge/addressBook/AddressBookDepartment";
 import AddressDetail from "./pages/businessbridge/addressBook/AddressDetail";
 import AddressAdminItem from "./components/items/AddressAdminItem";
+import NoteLayout from "./layouts/NoteLayout";
+import NoteRecipeient from "./pages/businessbridge/note/NoteRecipient";
+import NoteSender from "./pages/businessbridge/note/NoteSender";
+import NoteStorage from "./pages/businessbridge/note/NoteStorage";
+import NoteTrash from "./pages/businessbridge/note/NoteTrash";
+import NoteRecipientDetail from "./pages/businessbridge/note/NoteRecipientDetail";
+import NoteStorageDetail from "./pages/businessbridge/note/NoteStorageDetail";
+import NoteTrashDetail from "./pages/businessbridge/note/NoteTrashDetail";
+import NoteSenderDetail from "./pages/businessbridge/note/NoteSenderDetail";
 import EmployeeRegist from "./pages/businessbridge/employee/EmployeeRegist";
 import SalesRegistModal from "./components/modal/SalesRegistModal";
 
@@ -87,19 +97,33 @@ function App() {
                     </Route>
                 </Route>
                 {/* == 전자결재 끝 == */}
+
+                <Route path="addressBook" element={ <ProtectedRoute loginCheck={true}><AddressBookLayout/></ProtectedRoute>}>
+                    <Route path="main" element={ <ProtectedRoute loginCheck={true}> <AddressBookMain/> </ProtectedRoute>}/>
+                    <Route path="department/:departmentCode" element={ <AddressBookDepartment/> }/>
+                    <Route path=":emplyCode" element={ <AddressDetail/> }/>
+                    <Route
+                        path="addressAdmin/:emplyCode" element={<ProtectedRoute authCheck={true}> <AddressAdminItem/> </ProtectedRoute>}/>
+                </Route>
+
+                <Route path="note" element={ <ProtectedRoute loginCheck={true}><NoteLayout/></ProtectedRoute>}>
+                    <Route path="recipient" element={ <ProtectedRoute loginCheck={true}> <NoteRecipeient/> </ProtectedRoute> }/>
+                    <Route path="sender" element={ <ProtectedRoute loginCheck={true}> <NoteSender/> </ProtectedRoute> }/>
+                    <Route path="storage" element={ <ProtectedRoute loginCheck={true}> <NoteStorage/> </ProtectedRoute>} />
+                    <Route path="trash" element={ <ProtectedRoute loginCheck={true}> <NoteTrash/> </ProtectedRoute>} />
+                    <Route path="recipient/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteRecipientDetail/> </ProtectedRoute>}/>
+                    <Route path="recipient/storage/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteStorageDetail/> </ProtectedRoute>}/>
+                    <Route path="recipient/trash/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteTrashDetail/> </ProtectedRoute>}/>
+                    <Route path="sender/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteSenderDetail/> </ProtectedRoute>}/>
+                </Route>
+
             </Route>
             <Route path="/emp/employee">
                 <Route path="login" element={ <ProtectedRoute loginCheck={false}><Login/></ProtectedRoute> }/>
                 <Route path="findpassword" element={ <ProtectedRoute loginCheck={false}><FindPassword/></ProtectedRoute> }/>
             </Route>
 
-            <Route path="addressBook" element={ <ProtectedRoute loginCheck={true}><AddressBookLayout/></ProtectedRoute>}>
-                <Route path="main" element={ <ProtectedRoute loginCheck={true}> <AddressBookMain/> </ProtectedRoute>}/>
-                <Route path="department/:departmentCode" element={ <AddressBookDepartment/> }/>
-                <Route path=":emplyCode" element={ <AddressDetail/> }/>
-                <Route
-                    path="addressAdmin/:emplyCode" element={<ProtectedRoute authCheck={true}> <AddressAdminItem/> </ProtectedRoute>}/>
-            </Route>
+
 
             <Route path="/*" element={<Error/>}/>
 

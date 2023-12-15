@@ -38,7 +38,7 @@ function AddressDetail() {
             });
     };
 
-    /* 수정 성공 시 상품 목록으로 이동 */
+    /* 삭제 성공 시 주소록 메인으로 이동 */
     useEffect(() => {
         if(deleteSuccess === true) {
             const timeout = setTimeout(() => {
