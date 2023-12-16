@@ -7,7 +7,7 @@ import {
     getDraftAppsByStatus, getDraftCollect, getExpenseReportDetail,
     getReceiveApps,
     getReceiveAppsByStatus, getTempStorage,
-    getUpcomingApps, patchApprove, patchCollectApp, postBusinessDraft, postExpenseReport
+    getUpcomingApps, patchApprove, patchCollectApp, patchPending, postBusinessDraft, postExpenseReport
 } from "../modules/ApprovalModule";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
@@ -326,6 +326,19 @@ export const callApproveAppAPI = ({approvalCode, approvalStatus, approvalOpinion
         } catch (error) {
             console.error('결재 승인 오류 : ', error)
         }
+    }
+}
 
+/* 결재 보류 */
+export const callAppPendingAPI = ({approvalCode}) => {
+
+    return async (dispatch, getState) => {
+        const result = await authRequest.patch(`/approval/pending/${approvalCode}`);
+        console.log("결재 보류 API result : ", result);
+
+        if(result.status === 201) {
+            dispatch(patchPending());
+            toast.info("결재 보류.")
+        }
     }
 }

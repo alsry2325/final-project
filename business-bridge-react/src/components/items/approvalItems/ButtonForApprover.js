@@ -2,20 +2,23 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import ApproveModal from "../../modal/ApproveModal";
+import {callAppPendingAPI} from "../../../apis/ApprovalAPICalls";
 
 function ButtonForApprover({businessDraft, expenseReport}) {
 
+    const {approvalCode} = useParams();
     const navigate = useNavigate();
-    const {appApprove} = useSelector((state) => (state).approvalReducer);
+    // const {appApprove} = useSelector((state) => (state).approvalReducer);
     const [approveModal, setApproveModal] = useState(false);
     const [approveOpinion, setApproveOpinion] = useState("");
+    const dispatch = useDispatch();
 
-    useEffect((appApprove) => {
-        if(appApprove === true) {
-            navigate(-1)
-            // 결재한 후에 어디로 가야할까,,
-        }
-    }, [appApprove]);
+    // useEffect((appApprove) => {
+    //     if(appApprove === true) {
+    //         navigate('/approve/receive-approvals/all')
+    //         // 결재한 후에 어디로 가야할까,,
+    //     }
+    // }, [appApprove]);
 
     // 승인, 반려 버튼을 누르면 모달창 오픈
     const onClickApprove = () => {
@@ -26,6 +29,14 @@ function ButtonForApprover({businessDraft, expenseReport}) {
     const onClickReturn = () => {
         setApproveOpinion("반려");
         setApproveModal(true);
+    }
+
+    const onClickPending = () => {
+        const result = window.confirm('결재를 보류하시겠습니까?')
+        if(result){
+            dispatch(callAppPendingAPI({approvalCode}));
+        }
+
     }
 
     return (
@@ -57,7 +68,9 @@ function ButtonForApprover({businessDraft, expenseReport}) {
                     <button
                         onClick={onClickReturn}
                         className="app-button">반려</button>
-                    <button className="app-button">보류</button>
+                    <button
+                        onClick={onClickPending}
+                        className="app-button">보류</button>
                 </div>
 
             </div>

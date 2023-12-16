@@ -23,14 +23,14 @@ const POST_EXPENSE_REPORT = 'approval/POST_EXPENSE_REPORT';
 
 const PATCH_COLLECT_APP = 'approval/PATCH_COLLECT_APP';
 const PATCH_APPROVE = 'approval/PATCH_APPROVE';
-
+const PATCH_PENDING = 'approval/PATCH_PENDING';
 
 /* 액션 함수 */         // 액션 객체를 만들어서 반환
 export const {approval :
     {getReceiveApps, getReceiveAppsByStatus, getUpcomingApps, getDraftApps, getDraftAppsByStatus,
     getDraftCollect, getTempStorage, getApproveApps, getApproveAppsByStatus,
     getBusinessDraftDetail, getExpenseReportDetail, getAppEmployees,
-    postBusinessDraft, postExpenseReport, patchCollectApp, patchApprove}}
+    postBusinessDraft, postExpenseReport, patchCollectApp, patchApprove, patchPending}}
     = createActions({
     [GET_RECEIVE_APPS] : result => ({ receiveAllApprovals : result.data}),
     [GET_RECEIVE_APPS_BY_STATUS] : result => ({receiveApprovalsBy : result.data}),
@@ -51,6 +51,7 @@ export const {approval :
 
     [PATCH_COLLECT_APP] : () => ({appCollect : true}),
     [PATCH_APPROVE] : () => ({appApprove : true}),
+    [PATCH_PENDING] : () => ({appPending : true}),
 })
 
 /* 리듀서 */           // 액션을 받아서 처리할 때 어떻게 처리할지
@@ -71,6 +72,7 @@ const approvalReducer = handleActions({
     [POST_EXPENSE_REPORT] : ( state, {payload} ) => payload,
     [PATCH_COLLECT_APP] : ( state, {payload} ) => payload,
     [PATCH_APPROVE] : ( state, {payload} ) => payload,
+    [PATCH_PENDING] : ( state, {payload} ) => payload,
 }, initialState);
 
 export default approvalReducer;

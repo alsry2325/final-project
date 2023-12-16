@@ -15,6 +15,8 @@ function AppDetail() {
     const {businessDraft} = useSelector(state => state.approvalReducer);
     const {expenseReport} = useSelector(state => state.approvalReducer);
     const {myPageInfo} = useSelector(state => state.memberReducer);
+    const navigate = useNavigate();
+    const {appApprove} = useSelector((state) => (state).approvalReducer);
 
     useEffect(() => {
         dispatch(callBusinessDraftDetailAPI({approvalCode}))
@@ -27,6 +29,13 @@ function AppDetail() {
     useEffect(() => {
         dispatch(callEmployeeAPI())
     }, []);
+
+    useEffect((appApprove) => {
+        if(appApprove === true) {
+            navigate('/approve/receive-approvals/all')
+            // 결재한 후에 어디로 가야할까,,
+        }
+    }, [appApprove]);
 
 
     return(
