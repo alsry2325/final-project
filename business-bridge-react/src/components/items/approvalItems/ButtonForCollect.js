@@ -14,7 +14,7 @@ function ButtonForCollect({businessDraft, expenseReport}) {
 
     useEffect(() => {
         if(appCollect === true) {
-            navigate(`/approval/document/${approvalCode}`, {replace: true})
+            navigate(`/approval/update/${approvalCode}`, {replace: true})
         }
     }, [appCollect]);
 

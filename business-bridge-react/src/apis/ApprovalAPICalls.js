@@ -1,4 +1,3 @@
-import async from "async";
 import {authRequest, request} from "./Api";
 import {
     getAppEmployees,
@@ -7,10 +6,9 @@ import {
     getDraftAppsByStatus, getDraftCollect, getExpenseReportDetail,
     getReceiveApps,
     getReceiveAppsByStatus, getTempStorage,
-    getUpcomingApps, patchApprove, patchCollectApp, patchPending, postBusinessDraft, postExpenseReport
+    getUpcomingApps, patchApprove, patchCollectApp, patchPending, postBusinessDraft, postExpenseReport, putBusinessDraft
 } from "../modules/ApprovalModule";
 import {toast} from "react-toastify";
-import {useNavigate} from "react-router-dom";
 
 /* 받은 결재 목록 조회 - 전체 */
 export const callReceiveApprovalsListAPI = ({currentPage}) => {
@@ -339,6 +337,24 @@ export const callAppPendingAPI = ({approvalCode}) => {
         if(result.status === 201) {
             dispatch(patchPending());
             toast.info("결재 보류.")
+        }
+    }
+}
+
+/* 업무기안서 수정 */
+export const callUpdateBDAPI = ({approvalCode, form, files, docStatus}) => {
+
+    form.docStatus = docStatus;
+    const formData = new FormData();
+    formData.append("businessDraftUpdate", new Blob([JSON.stringify(form)], {type : 'application/json'}));
+    Array.from(files).forEach(file => formData.append("attachFiles", file));
+
+    return async(dispatch, getState) => {
+        const result = await authRequest.put(`/approval/update/businessDraft/${approvalCode}`, formData);
+        console.log("업무기안서 수정 API result : ", result);
+
+        if(result.status === 201){
+            dispatch(putBusinessDraft());
         }
     }
 }

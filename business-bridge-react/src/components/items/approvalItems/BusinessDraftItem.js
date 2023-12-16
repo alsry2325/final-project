@@ -60,11 +60,21 @@ function BusinessDraftItem({businessDraft}) {
                 <div className="approval-file-div">
                     <h5>파일첨부</h5>
                     <div className="approval-file">
-                        <img className="approval-attach-img"
-                             src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/9db9634b-1962-4ebf-89b8-7f0c327af689"/>
-                        첨부파일 {businessDraft.attachFile.length}개
+                        <div className="approval-file-add">
+                            <img className="approval-attach-img"
+                                 src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/9db9634b-1962-4ebf-89b8-7f0c327af689"/>
+                            첨부파일 {businessDraft.attachFiles.length}개
+                        </div>
+                        <div className="file-view-div">
+                            {businessDraft.attachFiles.map((file, index) => (
+                                <div key={index} className="app-file-name">
+                                    <a href={file.fileUrl} download={file.fileName}>{file.fileName}</a>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
+
                 <div className="shorter-line-div"></div>
                 {
                     businessDraft.approvers &&
