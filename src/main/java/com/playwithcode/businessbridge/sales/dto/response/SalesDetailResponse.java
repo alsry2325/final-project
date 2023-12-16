@@ -1,18 +1,23 @@
 package com.playwithcode.businessbridge.sales.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.playwithcode.businessbridge.product.domain.Product;
+import com.playwithcode.businessbridge.sales.domain.Progress;
 import com.playwithcode.businessbridge.sales.domain.Sales;
+import com.playwithcode.businessbridge.sales.domain.SalesItem;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static lombok.AccessLevel.PRIVATE;
 
 @Getter
 @RequiredArgsConstructor(access = PRIVATE)
-public class SalesListResponse {
+public class SalesDetailResponse {
 
     private final Long salesCode;
     private final String salesName;
@@ -26,10 +31,14 @@ public class SalesListResponse {
     private final LocalDateTime createdAt;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private final LocalDateTime modifiedAt;
+    private final String positionName;		//직급명
+    private final String departmentName;	//부서명
+    private final List<ProgressResponse> progressList;
     private final String productName;
+    private final Long productCode;
     
-    public static SalesListResponse from(Sales sales) {
-        return new SalesListResponse(
+    public static SalesDetailResponse from(Sales sales) {
+        return new SalesDetailResponse(
     		sales.getSalesCode(),
     		sales.getSalesName(),
     		sales.getSalesType(),
@@ -40,7 +49,11 @@ public class SalesListResponse {
     		sales.getCustomerRating(),
     		sales.getCreatedAt(),
     		sales.getModifiedAt(),
-    		sales.getProduct().getProductName()
-        );
+    		sales.getEmployee().getPosition().getPositionName(),
+    		sales.getEmployee().getDepartment().getDepartmentName(),
+    		sales.getProgressList().stream().map(ProgressResponse::from).collect(Collectors.toList()),
+    		sales.getProduct().getProductName(),
+    		sales.getProduct().getProductCode()
+		);
     }
 }

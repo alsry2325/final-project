@@ -39,6 +39,7 @@ import java.util.stream.Collectors;
 
 import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.*;
 import static com.playwithcode.businessbridge.member.domain.type.EmplyStatus.JOIN;
+import static com.playwithcode.businessbridge.member.domain.type.EmplyStatus.LEAVE;
 
 import java.util.UUID;
 @Service
@@ -203,6 +204,14 @@ public class MemberService {
                 .orElseThrow(() -> new NotFoundException(NOT_FOUND_EMPLY_CODE));
 
         return CustomerEmployeesResponse.from(employee);
+    }
+
+    /* 퇴사안한사원들 조회*/
+    public Page<CustomerEmployeesResponse> getEmployees(Integer page) {
+
+     Page<Employee> employees = employeeRepository.findByEmplyStatusNot(getPageable(page),LEAVE);
+
+        return employees.map(employee -> CustomerEmployeesResponse.from(employee));
     }
 
 

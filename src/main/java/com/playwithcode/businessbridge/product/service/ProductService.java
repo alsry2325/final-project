@@ -93,7 +93,7 @@ public class ProductService {//Repository에 있는 기능들을 불러올거임
 
     //상품 상세 조회 - productCode로 상품 1개 조회, 주문 불가 상품 제외
     @Transactional(readOnly = true)
-    public CustomerProductResponse getProductSales(final BigInteger productCode) {
+    public CustomerProductResponse getProductSales(final Long productCode) {
 
         Product product = productRepository.findByProductCodeAndProductState(productCode, SALES)
                 .orElseThrow(() -> new BadRequestException(NOT_FOUND_EMPLY_CODE));

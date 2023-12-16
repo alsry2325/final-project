@@ -3,13 +3,13 @@ package com.playwithcode.businessbridge.sales.dto.request;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
+import java.math.BigInteger;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-import com.playwithcode.businessbridge.sales.domain.Progress;
-import com.playwithcode.businessbridge.sales.domain.SalesItem;
+import com.playwithcode.businessbridge.product.domain.Product;
 
 @RequiredArgsConstructor
 @Getter
@@ -29,11 +29,7 @@ public class SalesUpdateRequest {
     private String customerRating; //고객등급
     @NotBlank
     private String salesStatus; //영업상태     
-    
-    private List<SalesItem> salesItemList;	//상품목록
-    
-    private List<Progress> progressList;	//진행내역목록
-    
-    
+    @NotNull
+    private Long productCode;		//상품코드
     
 }

@@ -50,7 +50,7 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    /* 사원목록 조회(관리자)*/
+    /*검색 사원목록 조회(관리자)*/
     @GetMapping("/employees/search")
     public ResponseEntity<PagingResponse> getAdminEmployees(@RequestParam(defaultValue = "1") final Integer page,
                                                             @RequestParam(required = false) final String emplyName,
@@ -58,6 +58,17 @@ public class MemberController {
                                                             @RequestParam(required = false) final String positionName){
 
         final Page<CustomerEmployeesResponse> employees = memberService.getEmployeesAndDepartmentNameAndPositionName(page, emplyName,departmentName,positionName);
+        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(employees);
+        final PagingResponse pagingResponse = PagingResponse.of(employees.getContent(), pagingButtonInfo);
+
+        return ResponseEntity.ok(pagingResponse);
+    }
+
+    /* 사원목록 조회(관리자)*/
+    @GetMapping("/employees")
+    public ResponseEntity<PagingResponse> getEmployees(@RequestParam(defaultValue = "1") final Integer page){
+
+        final Page<CustomerEmployeesResponse> employees = memberService.getEmployees(page);
         final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(employees);
         final PagingResponse pagingResponse = PagingResponse.of(employees.getContent(), pagingButtonInfo);
 
