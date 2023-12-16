@@ -22,14 +22,13 @@ public class BusinessDraftResponse {
     private final String title;                             // 제목
     private final String docForm;                           // 문서 양식 이름
     private final List<Map<String, String>> approvers;      // 결재자 정보
-    private final String drafterId;                           // 기안자 사번
+    private final String drafterId;                         // 기안자 사번
     private final String drafterName;                       // 기안자 이름
     private final String departmentName;                    // 기안자 부서
     private final LocalDateTime draftDateTime;              // 기안 일시
     private final Long DocNo;                               // 문서 번호
     private final String businessDraftContent;              // 내용
-    private final List<String> attachFile;                  // 첨부파일
-
+    private final List<Map<String, String>> attachFiles;    // 첨부파일
 
     public static BusinessDraftResponse from(final BusinessDraft businessDraft){
 
@@ -48,8 +47,13 @@ public class BusinessDraftResponse {
         }).collect(Collectors.toList());
 
         // 첨부파일
-        List<String> attachFiles = businessDraft.getApproval().getFile()
-                .stream().map(file -> file.getPathName()).collect(Collectors.toList());
+        List<Map<String, String>> attachFiles = businessDraft.getApproval().getFile().stream().map(file -> {
+            Map<String, String> resultMap = new HashMap<>();
+            resultMap.put("fileName", file.getAttachfileNm());
+            resultMap.put("fileUrl", file.getPathName());
+
+            return resultMap;
+        }).collect(Collectors.toList());
 
         return new BusinessDraftResponse(
                 businessDraft.getApproval().getApprovalCode(),

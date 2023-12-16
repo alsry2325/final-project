@@ -54,14 +54,14 @@ public interface ApprovalRepository extends JpaRepository<Approval, Long> {
     @Query("SELECT a FROM Approval a " +
             "JOIN a.approverMember approver " +
             "WHERE approver.approverMember.emplyCode = :emplyCode " +
-            "AND (approver.approvalStatus = 'APPROVAL' or approver.approvalStatus = 'RETURN')")
+            "AND (approver.approvalStatus = 'CONFIRM' or approver.approvalStatus = 'RETURN')")
     Page<Approval> findByApproverMember(Pageable pageable, Long emplyCode);
 
     /* 7-2. 결재한 문서함 - 상태별 조회, 페이징 */
     @Query("SELECT a FROM Approval a " +
             "JOIN a.approverMember approver " +
             "WHERE approver.approverMember.emplyCode = :emplyCode " +
-            "AND (approver.approvalStatus = 'APPROVAL' or approver.approvalStatus = 'RETURN')" +
+            "AND (approver.approvalStatus = 'CONFIRM' or approver.approvalStatus = 'RETURN')" +
             "AND a.docStatus IN :docStatusType")
     Page<Approval> findByApproverMember(Pageable pageable, Long emplyCode, DocStatusType docStatusType);
 

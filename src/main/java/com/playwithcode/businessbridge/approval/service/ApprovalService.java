@@ -55,7 +55,7 @@ public class ApprovalService {
 
     @Value("http://localhost/approvalFiles/")
     private String FILE_URL;
-    @Value("src/main/resources/upload/approvalFiles")
+    @Value("src/main/resources/static/approvalFiles")
     private String FILE_DIR;
 
     private Pageable getPageable(final Integer page){
