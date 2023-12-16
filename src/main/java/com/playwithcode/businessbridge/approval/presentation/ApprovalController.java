@@ -271,15 +271,16 @@ public class ApprovalController {
 
     /* 15. 결재자 결재 - 보류 */
     @PatchMapping("/pending/{approvalCode}")
-    public ResponseEntity<Void> pendingApproval(@PathVariable final Long approvalCode){
+    public ResponseEntity<Void> pendingApproval(@PathVariable final Long approvalCode,
+                                                @AuthenticationPrincipal CustomUser customUser){
 
-        approvalService.pendingApproval(approvalCode);
+        approvalService.pendingApproval(approvalCode, customUser);
 
         return ResponseEntity.created(URI.create("/document/" + approvalCode)).build();
     }
 
     /* -------------------------------------------------- 직원 조회  -------------------------------------------------- */
-    /* 15. 모달창 결재자 선택 직원 조회 */
+    /* 16. 모달창 결재자 선택 직원 조회 */
     @GetMapping("/allEmployeeList")
     public ResponseEntity<List<AllEmployeeResponse>> getAllEmployeeList(){
         List<AllEmployeeResponse> allEmployeeResponse = memberService.getAllEmployeeList();

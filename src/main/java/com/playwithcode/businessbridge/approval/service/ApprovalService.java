@@ -465,7 +465,6 @@ public class ApprovalService {
         Approval approval = approvalRepository.findById(approvalCode)
                 .orElseThrow(() -> new NotFoundException(ALREADY_CONFIRM_DOC));
 
-
         List<Approver> approvers = approval.getApproverMember();
         int approvalCount = approvers.size();
 
@@ -529,15 +528,28 @@ public class ApprovalService {
        }
     }
 
-
     /* 15. 결재자 결재 - 보류 */
-    public void pendingApproval(Long approvalCode) {
+    public void pendingApproval(Long approvalCode, CustomUser customUser) {
 
         Approval approval = approvalRepository.findById(approvalCode)
                 .orElseThrow(() -> new NotFoundException(NOT_FOUND_APPROVAL_CODE));
 
         // 결재자들 중 현재 로그인하고 활성화 된 결재 상태를 PENDING으로 변경
+        List<Approver> approvers = approval.getApproverMember();
+        int approvalCount = approvers.size();
 
+        Approver userApprover = null;       // 결재자 = 로그인한 사람
+
+        for(int i = 0; i < approvalCount; i++) {
+            if(approvers.get(i).getApproverMember().getEmplyCode().equals(customUser.getEmplyCode())){
+                userApprover = approvers.get(i);
+                break;
+            }
+        }
+        // 로그인 한 결재자의 결재 상태를 변경하고 결재에 대한 일시와 의견 추가
+        if(approval.getDocStatus().equals(DocStatusType.WAITING) || approval.getDocStatus().equals(PROCEEDING)) {
+            userApprover.statusUpdate(PENDING);
+        }
     }
 
 
