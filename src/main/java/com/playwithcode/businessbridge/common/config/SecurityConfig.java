@@ -66,7 +66,7 @@ public class SecurityConfig {
                         "/emp/employee/register-and-send-email",
                         "/emp/employee/employee-modify/**"
                 ).hasRole("ADMIN") //어드민이라는 역할만 인증 인가되어야만 수행할수 있는곳
-                .anyRequest().authenticated() //그외 다른 기능들은 로그인 된 상태에서만 사용가능
+//                .anyRequest().authenticated() //그외 다른 기능들은 로그인 된 상태에서만 사용가능
                 .and()
                 // 로그인 필터 설정
                 .addFilterBefore(customUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class) //기본필터 앞에 커스텀 필터를 끼워넣음
