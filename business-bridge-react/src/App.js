@@ -19,7 +19,6 @@ import EmployeeRegistrationList from "./pages/businessbridge/employee/EmployeeRe
 import SalesLayout from "./layouts/SalesLayout";
 import SalesList from "./pages/businessbridge/sales/SalesList";
 import SalesDetail from "./pages/businessbridge/sales/SalesDetail";
-import SalesRegist from "./pages/businessbridge/sales/SalesRegist";
 import SalesModify from "./pages/businessbridge/sales/SalesModify";
 import SalesStatistics from "./pages/businessbridge/sales/SalesStatistics";
 import ApprovalLayout from "./layouts/ApprovalLayout";
@@ -34,7 +33,6 @@ import DraftCollect from "./pages/businessbridge/approval/DraftCollect";
 import TempStorageApps from "./pages/businessbridge/approval/TempStorageApps";
 import ApproveApps from "./pages/businessbridge/approval/ApproveApps";
 import ApproveAppsByStatus from "./pages/businessbridge/approval/ApproveAppsByStatus";
-import ERWriteForm from "./components/form/approvalForm/ERWriteForm";
 import WriteBusinessDraft from "./pages/businessbridge/approval/Write-BusinessDraft";
 import WriteExpenseReport from "./pages/businessbridge/approval/Write-ExpenseReport";
 import AddressBookMain from "./pages/businessbridge/addressBook/AddressBookMain";
@@ -52,7 +50,7 @@ import NoteStorageDetail from "./pages/businessbridge/note/NoteStorageDetail";
 import NoteTrashDetail from "./pages/businessbridge/note/NoteTrashDetail";
 import NoteSenderDetail from "./pages/businessbridge/note/NoteSenderDetail";
 import EmployeeRegist from "./pages/businessbridge/employee/EmployeeRegist";
-import SalesRegistModal from "./components/modal/SalesRegistModal";
+import EmployeeModify from "./pages/businessbridge/employee/EmployeeModify";
 
 function App() {
   return (
@@ -60,11 +58,13 @@ function App() {
         <Routes>
             <Route path="/" element={ <ProtectedRoute loginCheck={true}><Layout/></ProtectedRoute> }>
                 <Route index element={<Main/>}/>
-                {/* 마이페이지*/}
+                {/* 마이페이지 */}
                 <Route path="emp/employee/mypage" element={  <MyPage/> }/>
-                <Route path="emp/employee" element={ <EmployeeRegistrationLayout/>}>
-                    <Route path="registrationList" element={ <EmployeeRegistrationList/>}/>
-                    <Route path="registration" element={<EmployeeRegist/>}/>
+                {/* 사원관리 */}
+                <Route path="emp/employee" element={ <EmployeeRegistrationLayout authCheck={true}/>}>
+                    <Route path="registrationList" element={  <EmployeeRegistrationList loginCheck={true}/>}/>
+                    <Route path="registration" element={ <EmployeeRegist loginCheck={true}/> }/>
+                    <Route path="employee-modify/:emplyCode" element={ <EmployeeModify loginCheck={true}/> }/>
                 </Route>
                 {/* 영업관리 시작*/}
                 <Route path="sales" element={<SalesLayout/>}>
@@ -122,8 +122,6 @@ function App() {
                 <Route path="login" element={ <ProtectedRoute loginCheck={false}><Login/></ProtectedRoute> }/>
                 <Route path="findpassword" element={ <ProtectedRoute loginCheck={false}><FindPassword/></ProtectedRoute> }/>
             </Route>
-
-
 
             <Route path="/*" element={<Error/>}/>
 

@@ -8,7 +8,6 @@ import {callEmployeeAPI} from "../../apis/EmployeeAPICalls";
 import MenuTest from "./MenuTest";
 function Header({clicked, isClicked}){
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isMenuVisible, setMenuVisible] = useState(false);
     const { myPageInfo } = useSelector(state => state.memberReducer);
@@ -52,11 +51,6 @@ function Header({clicked, isClicked}){
                    <li className="NavElements">
                        <NavLink className="Link" to="/contact-us">
                            캘린더
-                       </NavLink>
-                   </li>
-                   <li className="NavElements">
-                       <NavLink className="Link" to="/contact-us">
-                           공지사항
                        </NavLink>
                    </li>
                    <li className="NavElements">

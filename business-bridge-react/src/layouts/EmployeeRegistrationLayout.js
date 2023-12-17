@@ -6,12 +6,12 @@ function EmployeeRegistrationLayout () {
     return (
         <>
 
-                <main className="employeeRegistration-layout-div">
+                <div className="employeeRegistration-layout-div">
                     <EmployeeRegistrationNavbar/>
                     <div className="employeeRegistration-main">
                         <Outlet/>
                     </div>
-                </main>
+                </div>
         </>
     );
 }
