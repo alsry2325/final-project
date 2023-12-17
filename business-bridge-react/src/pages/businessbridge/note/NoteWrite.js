@@ -7,6 +7,7 @@ import {
     callAddressBookSearchPhoneAPI
 } from "../../../apis/AddressBookApiCalls";
 import {useDispatch, useSelector} from 'react-redux';
+import AddressBookModal from "../../../components/items/AddressBookModal";
 
 function NoteWrite() {
     const dispatch = useDispatch();
@@ -93,25 +94,17 @@ function NoteWrite() {
                 </form>
             </div>
 
-            {/* 주소록 검색 모달 */}
-            <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-                <h2>주소록 검색</h2>
-                <select value={searchType} onChange={(e) => setSearchType(e.target.value)}>
-                    <option value="name">이름</option>
-                    <option value="email">이메일</option>
-                    <option value="phone">핸드폰</option>
-                </select>
-                <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}/>
-                <button onClick={handleSearch}>검색</button>
-                <ul>
-                    {addressData && addressData.data && addressData.data.map((item, index) => (
-                        <li key={index} onClick={() => handleSelectRecipient(item.emplyCode)}>
-                            {item.emplyName} - {item.emplyEmail} - {item.emplyPhoneNumber}
-                        </li>
-                    ))}
-                </ul>
-            </Modal>
-
+            <AddressBookModal
+                isOpen={modalIsOpen}
+                onRequestClose={() => setModalIsOpen(false)}
+                searchType={searchType}
+                setSearchType={setSearchType}
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+                handleSearch={handleSearch}
+                addressData={addressData}
+                handleSelectRecipient={handleSelectRecipient}
+            />
         </>
     );
 }

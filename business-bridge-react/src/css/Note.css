@@ -335,6 +335,62 @@
 }
 
 /* 모달  ----------------------------------------------------------*/
+.customModal {
+    align-items: center;
+    width: 800px;
+    height: 400px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(97, 81, 148, 0.1);
+    position: fixed;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.customOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(113, 109, 154, 0.5); /* 추가 */
+}
+
+.note-modal-search {
+    display: flex;
+    margin: 20px 0px 20px 0px;
+}
+
+.note-modal-select {
+    margin-right: 20px;
+    width: 90px;
+    height: 40px;
+    border-radius: 5px;
+    border: #ccc solid 1px;
+}
+
+.note-modal-input {
+    width: 300px;
+    border: #ccc solid 1px;
+    background-color: white;
+    margin-right: 20px;
+    height: 40px;
+    padding: 0px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.note-modal-searchBtn {
+    width: 80px;
+    height: 40px;
+    background-color: #5549DD;
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
 
 
 /* 페이징 처리 ----------------------------------------------------------*/

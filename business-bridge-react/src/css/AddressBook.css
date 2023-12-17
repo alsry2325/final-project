@@ -156,6 +156,12 @@
 
 /* 검색 ----------------------------------------------------------*/
 
+.search-box {
+    display: flex;
+    margin-top: 30px;
+    justify-content: center;
+}
+
 .address-search {
     display: flex;
 }
@@ -165,12 +171,6 @@
     height: 40px;
     border-radius: 5px;
     border: #ccc solid 1px;
-}
-
-.search-box {
-    display: flex;
-    margin-top: 30px;
-    justify-content: center;
 }
 
 .address-input {
