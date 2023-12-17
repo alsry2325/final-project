@@ -1,12 +1,19 @@
+import {useNavigate} from "react-router-dom";
 
 function EmployeeRegistrationListItem({data}) {
+
+    const navigate = useNavigate();
+    function onClickEmployeeTr(emplyCode) {
+        navigate(`/emp/employee/employee-modify/${emplyCode}`)
+    }
 
     return(
             <tbody>
             {
                 data.map(employee =>(
-                    <tr key={employee.emplyCode}>
-                        <td><input type="checkbox"/></td>
+                    <tr key={employee.emplyCode}
+                        onClick={ () => onClickEmployeeTr(employee.emplyCode) }
+                    >
                         <td className="employeeRegistration-name-Image">
                             <img src={employee.emplyPhoto} alt="employeephoto" style={{ width: 40 ,display: "inline-block",borderRadius:20}} />
                             <span id="special-span">{employee.emplyName}</span>

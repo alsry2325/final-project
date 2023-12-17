@@ -41,6 +41,7 @@ import AddressBookDepartment from "./pages/businessbridge/addressBook/AddressBoo
 import AddressDetail from "./pages/businessbridge/addressBook/AddressDetail";
 import AddressAdminItem from "./components/items/AddressAdminItem";
 import EmployeeRegist from "./pages/businessbridge/employee/EmployeeRegist";
+import EmployeeModify from "./pages/businessbridge/employee/EmployeeModify";
 
 function App() {
   return (
@@ -48,11 +49,13 @@ function App() {
         <Routes>
             <Route path="/" element={ <ProtectedRoute loginCheck={true}><Layout/></ProtectedRoute> }>
                 <Route index element={<Main/>}/>
-                {/* 마이페이지*/}
+                {/* 마이페이지 */}
                 <Route path="emp/employee/mypage" element={  <MyPage/> }/>
-                <Route path="emp/employee" element={ <EmployeeRegistrationLayout/>}>
-                    <Route path="registrationList" element={ <EmployeeRegistrationList/>}/>
-                    <Route path="registration" element={<EmployeeRegist/>}/>
+                {/* 사원관리 */}
+                <Route path="emp/employee" element={ <EmployeeRegistrationLayout authCheck={true}/>}>
+                    <Route path="registrationList" element={  <EmployeeRegistrationList loginCheck={true}/>}/>
+                    <Route path="registration" element={ <EmployeeRegist loginCheck={true}/> }/>
+                    <Route path="employee-modify/:emplyCode" element={ <EmployeeModify loginCheck={true}/> }/>
                 </Route>
                 <Route path="sales" element={<SalesLayout/>}>
                     <Route index element={ <Navigate to="/sales/salesList/0" replace/>}/>
