@@ -256,7 +256,7 @@ public class ApprovalController {
 
     /* -------------------------------------------------- 결재자  -------------------------------------------------- */
 
-    /* 13. 결재자 결재 - 승인 */
+    /* 13. 결재자 결재 - 승인, 반려 */
     @PatchMapping("/confirm/{approvalCode}")
     public ResponseEntity<Void> confirmApproval(@PathVariable final Long approvalCode,
                                                 @AuthenticationPrincipal CustomUser customUser,

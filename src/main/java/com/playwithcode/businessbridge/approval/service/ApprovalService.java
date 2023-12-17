@@ -459,7 +459,7 @@ public class ApprovalService {
         return currentDocNo;
     }
 
-    /* 13. 결재자 결재 - 승인, 반려? */
+    /* 13. 결재자 결재 - 승인, 반려 */
     public void confirmApproval(Long approvalCode, CustomUser customUser, ApproveRequest approveRequest) {
 
         Approval approval = approvalRepository.findById(approvalCode)
@@ -498,7 +498,6 @@ public class ApprovalService {
                         ACTIVATE
                 );
             }
-
         }
 
         // 결재 문서 상태 변경
