@@ -53,6 +53,7 @@ import NoteTrashDetail from "./pages/businessbridge/note/NoteTrashDetail";
 import NoteSenderDetail from "./pages/businessbridge/note/NoteSenderDetail";
 import EmployeeRegist from "./pages/businessbridge/employee/EmployeeRegist";
 import SalesRegistModal from "./components/modal/SalesRegistModal";
+import NoteWrite from "./pages/businessbridge/note/NoteWrite";
 
 function App() {
   return (
@@ -115,6 +116,7 @@ function App() {
                     <Route path="recipient/storage/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteStorageDetail/> </ProtectedRoute>}/>
                     <Route path="recipient/trash/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteTrashDetail/> </ProtectedRoute>}/>
                     <Route path="sender/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteSenderDetail/> </ProtectedRoute>}/>
+                    <Route path="send" element={<ProtectedRoute loginCheck={true}> <NoteWrite/></ProtectedRoute>}/>
                 </Route>
 
             </Route>

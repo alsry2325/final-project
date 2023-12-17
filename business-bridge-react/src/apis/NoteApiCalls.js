@@ -1,8 +1,8 @@
-import {getNote, getRecipientNoteDetail, putSuccess} from "../modules/NoteModule";
+import {getNote, getRecipientNoteDetail, postSuccess, putSuccess} from "../modules/NoteModule";
 import {authRequest, request} from "./Api";
 
 /* 1. 받은 쪽지함 조회 */
-export const callNoteRecipientListAPI = ({ currentPage = 1 }) => {
+export const callNoteRecipientListAPI = ({currentPage = 1}) => {
 
     return async (dispatch, getState) => {
 
@@ -22,7 +22,7 @@ export const callNoteRecipientSearchNameAPI = ({emplyName, currentPage = 1}) => 
         const result = await authRequest.get(`/api/v1/notes/search?emplyName=${emplyName}&${currentPage}`);
         console.log('callNoteRecipientSearchNameAPI result :', result);
 
-        if(result.status === 200) {
+        if (result.status === 200) {
             dispatch(getNote(result));
         }
     }
@@ -33,7 +33,7 @@ export const callNoteRecipientSearchTitleAPI = ({noteTitle, currentPage = 1}) =>
     return async (dispatch, getState) => {
         const result = await authRequest.get(`/api/v1/notes/search2?noteTitle=${noteTitle}&${currentPage}`);
 
-        if(result.status === 200) {
+        if (result.status === 200) {
             dispatch(getNote(result));
         }
     }
@@ -44,14 +44,14 @@ export const callNoteRecipientSearchContentAPI = ({noteContent, currentPage = 1}
     return async (dsipatch, getState) => {
         const result = await authRequest.get(`/api/v1/notes/search3?noteContent=${noteContent}&${currentPage}`);
 
-        if(result.status === 200) {
+        if (result.status === 200) {
             dsipatch(getNote(result));
         }
     }
 };
 
 /* 3. 보낸 쪽지함 조회 */
-export const callNoteSenderListAPI = ({ currentPage = 1 }) => {
+export const callNoteSenderListAPI = ({currentPage = 1}) => {
 
     return async (dispatch, getState) => {
 
@@ -71,7 +71,7 @@ export const callNoteSenderSearchNameAPI = ({emplyName, currentPage = 1}) => {
         const result = await authRequest.get(`/api/v1/notes/search4?emplyName=${emplyName}&${currentPage}`);
         console.log('callNoteSenderSearchNameAPI result :', result);
 
-        if(result.status === 200) {
+        if (result.status === 200) {
             dispatch(getNote(result));
         }
     }
@@ -83,7 +83,7 @@ export const callNoteSenderSearchTitleAPI = ({noteTitle, currentPage = 1}) => {
         const result = await authRequest.get(`/api/v1/notes/search5?noteTitle=${noteTitle}&${currentPage}`);
         console.log('callNoteSenderSearchTitleAPI result :', result);
 
-        if(result.status === 200) {
+        if (result.status === 200) {
             dispatch(getNote(result));
         }
     }
@@ -94,14 +94,14 @@ export const callNoteSenderSearchContentAPI = ({noteContent, currentPage = 1}) =
     return async (dsipatch, getState) => {
         const result = await authRequest.get(`/api/v1/notes/search6?noteContent=${noteContent}&${currentPage}`);
 
-        if(result.status === 200) {
+        if (result.status === 200) {
             dsipatch(getNote(result));
         }
     }
 };
 
 /* 5. 쪽지 보관함 */
-export const callNoteStorageListAPI = ({ currentPage = 1 }) => {
+export const callNoteStorageListAPI = ({currentPage = 1}) => {
 
     return async (dispatch, getState) => {
 
@@ -115,7 +115,7 @@ export const callNoteStorageListAPI = ({ currentPage = 1 }) => {
 };
 
 /* 6. 휴지통(받은 쪽지 삭제) */
-export const callNoteTrashListAPI = ({ currentPage = 1 }) => {
+export const callNoteTrashListAPI = ({currentPage = 1}) => {
 
     return async (dispatch, getState) => {
 
@@ -187,7 +187,7 @@ export const callModifyStatusStorageAPI = ({noteNo}) => {
             const result = await authRequest.put(`/api/v1/notes/recipient/statusStorage/${noteNo}`);
             console.log('callModifyStatusStorageAPI :', result);
 
-            if(result.status === 201) {
+            if (result.status === 201) {
                 dispatch(putSuccess());
             }
         } catch (error) {
@@ -204,7 +204,7 @@ export const callModifyStatusTrashAPI = ({noteNo}) => {
             const result = await authRequest.put(`/api/v1/notes/recipient/statusTrash/${noteNo}`);
             console.log('callModifyStatusTrashAPI :', result);
 
-            if(result.status === 201) {
+            if (result.status === 201) {
                 dispatch(putSuccess());
             }
         } catch (error) {
@@ -221,7 +221,7 @@ export const callModifyStatusNormalAPI = ({noteNo}) => {
             const result = await authRequest.put(`/api/v1/notes/recipient/statusNormal/${noteNo}`);
             console.log('callModifyStatusNormalAPI :', result);
 
-            if(result.status === 201) {
+            if (result.status === 201) {
                 dispatch(putSuccess());
             }
         } catch (error) {
@@ -238,7 +238,7 @@ export const callModifyStatusDeleteAPI = ({noteNo}) => {
             const result = await authRequest.put(`/api/v1/notes/recipient/statusDelete/${noteNo}`);
             console.log('callModifyStatusDeleteAPI :', result);
 
-            if(result.status === 201) {
+            if (result.status === 201) {
                 dispatch(putSuccess());
             }
         } catch (error) {
@@ -255,7 +255,7 @@ export const callModifySenderStatusDeleteAPI = ({noteNo}) => {
             const result = await authRequest.put(`/api/v1/notes/sender/statusDelete/${noteNo}`);
             console.log('callModifySenderStatusDeleteAPI :', result);
 
-            if(result.status === 201) {
+            if (result.status === 201) {
                 dispatch(putSuccess());
             }
         } catch (error) {
@@ -272,7 +272,7 @@ export const callUpdateReadAtAPI = ({noteNo}) => {
             const result = await authRequest.put(`/api/v1/notes/readAt/${noteNo}`);
             console.log('callUpdateReadAtAPI :', result);
 
-            if(result.status === 201) {
+            if (result.status === 201) {
                 dispatch(putSuccess());
             }
         } catch (error) {
@@ -281,4 +281,22 @@ export const callUpdateReadAtAPI = ({noteNo}) => {
         }
     }
 };
+
+/* 17. 쪽지 발송 */
+export const callNoteRegistAPI = ({registRequest}) => {
+    return async (dispatch, getState) => {
+        try {
+            const result = await authRequest.post(`/api/v1/notes/send`, registRequest);
+
+            console.log('callNoteRegistAPI :', result.status);
+            if (result.status === 201) {
+                dispatch(postSuccess());
+            }
+        } catch (error) {
+            console.log("쪽지를 발송하지 못했습니다.", error);
+            throw error;
+        }
+    }
+}
+
 

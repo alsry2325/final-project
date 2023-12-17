@@ -6,6 +6,7 @@ const initialState = {};
 /* 액션 타입 = 어떤 걸 요청할건지? */
 const GET_NOTE = 'notes/GET_NOTE';
 const GET_RECIPIENT_NOTE_DETAIL = 'note/GET_RECIPIENT_NOTE_DETAIL';
+const POST_SUCEESS = 'note'/'POST_SUCCESS';
 const PUT_SUCCESS = 'note/PUT_SUCCESS';
 
 /* 액션 함수 = 액션 객체를 만들어서 반환, 여러 액션을 반환하기 위해서는 actions */
@@ -13,8 +14,9 @@ export const { notes : { getNote} } = createActions({
     [GET_NOTE] : result => ({ notes : result.data })
 });
 
-export const { note : { getRecipientNoteDetail, putSuccess} } = createActions({
+export const { note : { getRecipientNoteDetail, postSuccess, putSuccess} } = createActions({
     [GET_RECIPIENT_NOTE_DETAIL] : result => ({ note : result.data }),
+    [POST_SUCEESS] : () => ({postSuccess : true}),
     [PUT_SUCCESS] : () => ({putSuccess : true})
 });
 
@@ -23,6 +25,7 @@ export const { note : { getRecipientNoteDetail, putSuccess} } = createActions({
 const noteReducer = handleActions({
     [GET_NOTE]: (state, { payload }) => ({ ...state, ...payload }),
     [GET_RECIPIENT_NOTE_DETAIL]: (state, { payload }) => ({ ...state, ...payload }),
+    [POST_SUCEESS] : (state, { payload }) => ({ ...state, ...payload }),
     [PUT_SUCCESS] : (state, { payload }) => ({ ...state, ...payload })
 
 }, initialState);
