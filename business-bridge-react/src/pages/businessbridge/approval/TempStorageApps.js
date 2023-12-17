@@ -19,7 +19,7 @@ function TempStorageApps() {
     }, [currentPage]);
 
     const onClickApproval = (approvalCode) => {
-        navigate(`/approval/document/${approvalCode}`);
+        navigate(`/approval/update/${approvalCode}`);
     }
 
     return(

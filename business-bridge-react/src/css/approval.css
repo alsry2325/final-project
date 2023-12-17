@@ -431,3 +431,109 @@ ul.tab-nav {
 .docStatus-tempStorage {
     background-color: #F6B3B3;
 }
+
+/* ================================================ 홈 ================================================ */
+.in-progress-box-list-div {
+    height: 300px;
+    display: flex;
+}
+
+.in-progress-approval-div {
+    border: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 260px;
+    height: 250px;
+    margin: 30px;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.IP-docStatus {
+    margin-left: -5px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.IP-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.IP-drafter, .IP-draftTime, .IP-docForm {
+    color: #737272;
+    margin: 3px;
+    font-size: 18px;
+}
+
+.IP-approve {
+    font-size: 20px;
+    font-weight: bold;
+    color: #5549DD;
+    text-align: center;
+    margin: 25px 70px;
+}
+
+@-webkit-keyframes bob-on-hover {
+    0% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px);
+    }
+    50% {
+        -webkit-transform: translateY(-4px);
+        transform: translateY(-4px);
+    }
+    100% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px);
+    }
+}
+@keyframes bob-on-hover {
+    0% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px);
+    }
+    50% {
+        -webkit-transform: translateY(-4px);
+        transform: translateY(-4px);
+    }
+    100% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px);
+    }
+}
+@-webkit-keyframes bob-on-hover-float {
+    100% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px);
+    }
+}
+@keyframes bob-on-hover-float {
+    100% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px);
+    }
+}
+.bob-on-hover {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+}
+.bob-on-hover:hover, .bob-on-hover:focus, .bob-on-hover:active {
+    -webkit-animation-name: bob-on-hover-float, bob-on-hover;
+    animation-name: bob-on-hover-float, bob-on-hover;
+    -webkit-animation-duration: .3s, 1.5s;
+    animation-duration: .3s, 1.5s;
+    -webkit-animation-delay: 0s, .3s;
+    animation-delay: 0s, .3s;
+    -webkit-animation-timing-function: ease-out, ease-in-out;
+    animation-timing-function: ease-out, ease-in-out;
+    -webkit-animation-iteration-count: 1, infinite;
+    animation-iteration-count: 1, infinite;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-direction: normal, alternate;
+    animation-direction: normal, alternate;
+}
