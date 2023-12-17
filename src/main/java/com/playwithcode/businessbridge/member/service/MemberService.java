@@ -92,7 +92,7 @@ public class MemberService {
         // CheckValidator를 사용하여 사용자 지정 유효성 검사 수행
         Errors errors = new BeanPropertyBindingResult(employeeRegistrationRequest, "employeeRequest");
         checkIdValidator.validate(employeeRegistrationRequest, errors);
-        checkEmailValidator.validate(employeeRegistrationRequest, errors);
+//        checkEmailValidator.validate(employeeRegistrationRequest, errors);
 
         if (errors.hasErrors()) {
             // 유효성 검사 오류 처리
@@ -186,14 +186,9 @@ public class MemberService {
 
 
        employee.update(
-               employee.getEmplyPhoto(),
-               employee.getEmplyName(),
-               employee.getEmplyOffice(),
-               employee.getEmplyEmail(),
+
                department,
-               position,
-               employee.getEmplyInternalNumber(),
-               employee.getEmplyPhoneNumber()
+               position
        );
 
     }
@@ -203,6 +198,7 @@ public class MemberService {
      Employee employee =  employeeRepository.findByEmplyCode(emplyCode)
                 .orElseThrow(() -> new NotFoundException(NOT_FOUND_EMPLY_CODE));
 
+        System.out.println("dfdfd" + employee);
         return CustomerEmployeesResponse.from(employee);
     }
 

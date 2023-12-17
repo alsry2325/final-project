@@ -2,6 +2,7 @@ package com.playwithcode.businessbridge.position.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -12,6 +13,7 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED) //기본생성자
 @Getter
 @Table(name = "tbl_position")
+@ToString
 public class Position {
 
         @Id
