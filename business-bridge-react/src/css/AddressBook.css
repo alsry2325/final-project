@@ -181,6 +181,7 @@
     height: 40px;
     padding: 0px;
     font-size: 14px;
+    border-radius: 5px;
 }
 
 .searchButton {

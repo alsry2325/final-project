@@ -4,7 +4,7 @@ function NoteNavbar() {
 
     return (
         <div className="note-navbar-div">
-            <div className="employeeRegistration-btn">
+            <div className="note-send-btn">
                 <NavLink to="/note/send">
                     <strong>쪽지 발송</strong>
                 </NavLink>

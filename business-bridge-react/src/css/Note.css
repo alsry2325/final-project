@@ -13,6 +13,30 @@
 }
 
 /* addressBook Nav --------------------------------- */
+.note-send-btn {
+    margin: 30px;
+    width: 80%;
+    height: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #6F6F6F;
+    border-radius: 10px;
+    transition: 0.5s;
+    cursor: pointer;
+    color: black;
+}
+
+.note-send-btn a {
+    color: black;
+    text-decoration: none;
+}
+
+.note-send-btn a:hover, .note-send-btn a:active, .note-send-btn a:focus {
+    color: #5549DD;
+    text-decoration: none;
+}
+
 .note-navbar-div {
     width: 400px;
     border-right: 1px solid darkgrey;
@@ -244,6 +268,74 @@
     border-radius: 5px;
     color: white;
 }
+
+/* 쪽지 발송  ----------------------------------------------------------*/
+.note-write-wrapper {
+    margin: 30px;
+}
+
+.note-write-body {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 70px;
+ }
+
+.note-write-header-list div{
+    margin-bottom: 70px;
+}
+
+.note-write-body-list input {
+    width: 1000px;
+    border: #ccc solid 1px;
+    background-color: white;
+    height: 40px;
+    padding: 0px;
+    font-size: 14px;
+    border-radius: 5px;
+    margin-bottom: 50px;
+}
+
+.note-write-body-list button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: #ccc solid 1px;
+    background-color : white;
+    padding: 7px;
+    border-radius: 3px;
+    color : #9a9a9a;
+    margin-bottom: 55px;
+}
+
+.note-write-body-list textarea {
+    width: 1000px;
+    height: 200px;
+    resize: none;
+    border: #ccc solid 1px;
+    background-color: white;
+    font-size: 14px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.note-send-btn-container {
+    display: flex;
+    text-space: center;
+    justify-content: center;
+}
+
+.note-send-btn-container button {
+    width: 90px;
+    height: 40px;
+    background-color: #5549DD;
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+
+/* 모달  ----------------------------------------------------------*/
+
 
 /* 페이징 처리 ----------------------------------------------------------*/
 
