@@ -21,7 +21,7 @@ public class CheckIdValidator extends AbstractValidator<EmployeeRegistrationRequ
             * 409 Conflict는 리소스의 충돌을 의미하는 상태코드입니다.
             * ID 중복이라는 것은 결국 ID라는 PK 자원을 점유한 것에 대한 충돌이기 때문에
             * 이 상태코드가 가장 적합하다고 생각하여 409 상태코드*/
-            errors.rejectValue("emplyId","409", "이미 사용 중인 아이디입니다.");
+            errors.rejectValue("emplyId","403", "이미 사용 중인 아이디입니다.");
         }
     }
 }

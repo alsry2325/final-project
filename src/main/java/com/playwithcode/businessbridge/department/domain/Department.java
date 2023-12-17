@@ -4,6 +4,7 @@ package com.playwithcode.businessbridge.department.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -13,6 +14,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Entity
 @NoArgsConstructor(access = PROTECTED) //기본생성자
 @Getter
+@ToString
 @Table(name = "tbl_department")
 public class Department {
 
