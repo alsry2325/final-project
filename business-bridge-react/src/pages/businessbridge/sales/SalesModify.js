@@ -120,15 +120,19 @@ function SalesModify () {
                     수정하기
                 </button>
             </div>
-            <div className="product-section">
+            <div className="sales-modify-section">
                 <input type="hidden" name="productCode" id="productCode" onChange={ onChangeHandler } value={form.productCode || ''}/>
-                <div className="product-info-div">
-                    <table>
+                <div className="sales-modify-info-div">
+                    <div className="sales-h1">
+                        <h1>영업관리 수정</h1>
+                    </div>
+                    <table className="sales-regist-table">
                         <tbody>
                         <tr>
                             <td><label>영업상태</label></td>
                             <td>
-                                <select 
+                                <select
+                                    className="sales-modify__select"
                                     id='salesStatus' 
                                     name='salesStatus' 
                                     value={form.salesStatus}
@@ -161,7 +165,7 @@ function SalesModify () {
                                     placeholder='거래처명'
                                     name='accountName'
                                     id='accountName'
-                                    className="product-info-input"
+                                    className="sales-input"
                                     onChange={ onChangeHandler }
                                     value={form.accountName || ''}
                                 />
@@ -173,7 +177,7 @@ function SalesModify () {
                             <input
                                     placeholder='로그인정보의 사원명'
                                     name='salesMember'
-                                    className="product-info-input"
+                                    className="sales-input"
                                     onChange={ onChangeHandler }
                                     value={form.salesMember || ''}
                             />
@@ -211,6 +215,7 @@ function SalesModify () {
                             <td>
                             <input
                                     placeholder='로그인정보의 부서명'
+                                    className="sales-input"
                                     name='memberName'
                                     onChange={ onChangeHandler }
                                     value={form.departmentName || ''}

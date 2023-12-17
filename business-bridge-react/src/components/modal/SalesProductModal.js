@@ -13,6 +13,10 @@ function SalesProductModal({setSalesProductModal, onSelectProduct }) {
         dispatch(callSalesProductListAPI());
     }, []);
 
+    const onClickSalesCancle = () => {
+        setSalesProductModal(false);
+    }
+
     const onClickTableTr = (productCode, productName) => {
         // onSelectProduct 함수 호출하여 데이터 전달
         onSelectProduct({ productCode, productName });
@@ -32,7 +36,7 @@ function SalesProductModal({setSalesProductModal, onSelectProduct }) {
                             <div className="sales-div">
                                 <table className="sales-table">
                                     <colgroup>
-                                        <col width="10%" />
+                                        <col width="15%" />
                                         <col width="30%" />
                                     </colgroup>
                                     <thead>
@@ -53,10 +57,15 @@ function SalesProductModal({setSalesProductModal, onSelectProduct }) {
                                     }
                                     </tbody>
                                 </table>
+                                <button
+                                    className="app-cancle"
+                                    onClick={onClickSalesCancle}
+                                >취소</button>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 </>
             }
         </>
