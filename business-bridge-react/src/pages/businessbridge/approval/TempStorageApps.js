@@ -33,9 +33,9 @@ function TempStorageApps() {
 
                         <table className="sales-table approval-list-table">
                             <colgroup>
+                                <col width="10%"/>
                                 <col width="15%"/>
-                                <col width="15%"/>
-                                <col width="40%"/>
+                                <col width="35%"/>
                                 <col width="10%"/>
                                 <col width="20%"/>
                             </colgroup>

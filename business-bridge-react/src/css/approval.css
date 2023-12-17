@@ -418,10 +418,11 @@ ul.tab-nav {
 
 .docStatus-div {
     border-radius: 5px;
-    width: 50px;
+    width: 60px;
     margin: auto;
     paddding: 1px 4px;
     color: #ffffff;
+    font-size: 14px;
 }
 
 .docStatus-collect {
