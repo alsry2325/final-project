@@ -8,17 +8,17 @@ function ButtonForApprover({businessDraft, expenseReport}) {
 
     const {approvalCode} = useParams();
     const navigate = useNavigate();
-    const {appApprove} = useSelector((state) => (state).approvalReducer);
+    // const {appApprove} = useSelector((state) => (state).approvalReducer);
     const [approveModal, setApproveModal] = useState(false);
     const [approveOpinion, setApproveOpinion] = useState("");
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        if(appApprove === true) {
-            navigate('/approve/receive-approvals/all', {replace: true})
-            // 결재한 후에 어디로 가야할까,,
-        }
-    }, [appApprove]);
+    // useEffect(() => {
+    //     if(appApprove === true) {
+    //         navigate('/approve/receive-approvals/all', {replace: true})
+    //         // 왜 안움직이니,,
+    //     }
+    // }, [appApprove]);
 
     // 승인, 반려 버튼을 누르면 모달창 오픈
     const onClickApprove = () => {
@@ -35,6 +35,7 @@ function ButtonForApprover({businessDraft, expenseReport}) {
         const result = window.confirm('결재를 보류하시겠습니까?')
         if(result){
             dispatch(callAppPendingAPI({approvalCode}));
+            navigate(-1);
         }
 
     }

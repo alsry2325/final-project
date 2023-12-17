@@ -7,6 +7,7 @@ import ExpenseReportItem from "../../../components/items/approvalItems/ExpenseRe
 import {callEmployeeAPI} from "../../../apis/EmployeeAPICalls";
 import ButtonForApprover from "../../../components/items/approvalItems/ButtonForApprover";
 import ButtonForCollect from "../../../components/items/approvalItems/ButtonForCollect";
+import memberReducer from "../../../modules/EmployeeModule";
 
 function AppDetail() {
 
@@ -14,7 +15,7 @@ function AppDetail() {
     const {approvalCode} = useParams();
     const {businessDraft} = useSelector(state => state.approvalReducer);
     const {expenseReport} = useSelector(state => state.approvalReducer);
-    const navigate = useNavigate();
+    const {myPageInfo} = useSelector(state => state.memberReducer);
 
     useEffect(() => {
         dispatch(callBusinessDraftDetailAPI({approvalCode}))
@@ -36,23 +37,36 @@ function AppDetail() {
                 <>
                     <h2 className="approval-title">{businessDraft.title}</h2>
 
-                    {/* 결재자인 경우 */}
-                    <ButtonForApprover businessDraft={businessDraft}/>
-                    {/* 기안자이고 결재자 중 아무도 결재하지 않았을 경우 */}
-                    <ButtonForCollect businessDraft={businessDraft}/>
+                    {   /* 기안자이고 결재자 중 아무도 결재하지 않았을 경우 */
+                        ((businessDraft.drafterName === myPageInfo.emplyName) &&
+                        (businessDraft.approvers[0].approvalOpinion == null)) &&
+                        <ButtonForCollect businessDraft={businessDraft}/>
+                    }
+
+                    {   /*기안자인 경우 */
+                        businessDraft.approvers.find(approver => approver.approverName === myPageInfo.emplyName) &&
+                        <ButtonForApprover businessDraft={businessDraft}/>
+                    }
 
                     {/* 두 경우 동일하게 적용 */}
                     <BusinessDraftItem businessDraft={businessDraft}/>
                 </>
             }
+
             {expenseReport &&
                 <>
                     <h2 className="approval-title">{expenseReport.title}</h2>
 
-                    {/*기안자인 경우 */}
-                    <ButtonForApprover expenseReport={expenseReport}/>
-                    {/* 기안자이고 결재자 중 아무도 결재하지 않았을 경우 */}
-                    <ButtonForCollect expenseReport={expenseReport}/>
+                    {   /* 기안자이고 결재자 중 아무도 결재하지 않았을 경우 */
+                        ((expenseReport.drafterName === myPageInfo.emplyName) &&
+                            (expenseReport.approvers[0].approvalOpinion == null)) &&
+                        <ButtonForCollect expenseReport={expenseReport}/>
+                    }
+                    {   /*기안자인 경우 */
+                        expenseReport.approvers.find(approver => approver.approverName === myPageInfo.emplyName) &&
+                        <ButtonForApprover expenseReport={expenseReport}/>
+                    }
+
 
                     {/* 두 경우 동일하게 적용 */}
                     <ExpenseReportItem expenseReport={expenseReport}/>

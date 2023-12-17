@@ -2,6 +2,7 @@ import {Form, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {callRegistBusinessDraftAPI, callRegistExpenseReportAPI} from "../../../apis/ApprovalAPICalls";
 import {useEffect} from "react";
+import {toast} from "react-toastify";
 
 function ButtonForWriteER({fileInput, form}) {
 
@@ -12,12 +13,24 @@ function ButtonForWriteER({fileInput, form}) {
 
     useEffect(() => {
         if(registER === true) {
-            navigate('/approval/home', {replace: true})        // navigate (-1) 할까,,)
+            navigate('/approval/receive-approvals/all', {replace: true})        // navigate (-1) 할까,,)
         }
     }, [registER]);
 
     // 임시저장 클릭 시에 docStatus가 "임시저장"
     const onClickTempStorage = () => {
+        if(form.title == null){
+            toast.warning('지출결의서 제목을 입력해 주세요.');
+            return false;
+        }
+        if(form.totalExpenditure == null){
+            toast.warning('총 지출금액을 입력해 주세요.');
+            return false;
+        }
+        if(form.approvers == null){
+            toast.warning('결재자를 선택해주세요.');
+            return false;
+        }
         const result = window.confirm('임시저장 하시겠습니까?');
         if(result) {
                 dispatch(callRegistExpenseReportAPI({form, files : fileInput.current.files, docStatus : "임시저장"}));
@@ -26,6 +39,18 @@ function ButtonForWriteER({fileInput, form}) {
 
     // 결재요청 클릭 시에 docStatus가 "대기"
     const onClickApprove = () => {
+        if(form.title == null){
+            toast.warning('지출결의서 제목을 입력해 주세요.');
+            return false;
+        }
+        if(form.totalExpenditure == null){
+            toast.warning('총 지출금액을 입력해 주세요.');
+            return false;
+        }
+        if(form.approvers == null){
+            toast.warning('결재자를 선택해주세요.');
+            return false;
+        }
         const result = window.confirm('결재 요청 하시겠습니까?');
         if(result) {
                 dispatch(callRegistExpenseReportAPI({form, files : fileInput.current.files, docStatus : "대기"}));

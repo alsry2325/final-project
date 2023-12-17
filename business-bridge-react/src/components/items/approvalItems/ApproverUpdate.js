@@ -2,7 +2,8 @@ import {useState} from "react";
 import ApproverModal from "../../modal/ApproverModal";
 import ApproverView from "./ApproverView";
 
-function ApproverUpdate({businessDraft, form, setForm}) {
+function
+ApproverUpdate({businessDraft, form, setForm}) {
 
     const[appEmplyModal, setAppEmplyModal] = useState(false);
     const [approvers, setApprovers] = useState([]);
@@ -25,7 +26,6 @@ function ApproverUpdate({businessDraft, form, setForm}) {
     }
 
 
-
     return(
         <>
             {
@@ -33,6 +33,7 @@ function ApproverUpdate({businessDraft, form, setForm}) {
                 <ApproverModal
                     setAppEmplyModal={setAppEmplyModal}
                     onSelectedApprovers={selectedApprovers}
+                    existingApprovers={businessDraft.approvers}
                 />
                 )
             }
@@ -41,12 +42,18 @@ function ApproverUpdate({businessDraft, form, setForm}) {
                 onClick={onClickChooseApprover}
             >선택</button>
             <h5 className="approver-info">결재</h5>
+            {/* 기존 값 조회 */}
             {
                 businessDraft.approvers &&
                 businessDraft.approvers.map(approver =>
-                    (<ApproverView
-                        key={approver.approverId}
-                        approver={approver}/>))
+                    (<div className="approver"
+                          key={approver.approverId}>
+                        <div className="approver-position">{approver.positionName}</div>
+                        <div className="approve-box">
+                            {approver.approverName}
+                        </div>
+                        <div className="approval-date"></div>
+                    </div>))
             }
             {approvers &&
                 approvers.map((approver) => (
@@ -61,10 +68,8 @@ function ApproverUpdate({businessDraft, form, setForm}) {
                     )
                 )
             }
-
         </>
     )
-
 }
 
 export default ApproverUpdate;

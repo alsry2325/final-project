@@ -11,9 +11,10 @@ function BDUpdateForm({businessDraft, form, setForm, fileInput}) {
         // 컴포넌트가 마운트되었을 때 초기 값을 form 상태에 설정
         if (!form.title || !form.businessDraftContent) {
             setForm({
-                ...businessDraft,
+                // ...businessDraft,
                 title: businessDraft.title || '',
                 businessDraftContent: businessDraft.businessDraftContent || '',
+                approvers: businessDraft.approvers || ''
             });
         }
     }, [businessDraft, form, setForm]);
@@ -158,6 +159,7 @@ function BDUpdateForm({businessDraft, form, setForm, fileInput}) {
                                             {fileName}
                                         </div>
                                     ))}
+                                    {/* 기존 값 조회 */}
                                     {businessDraft.attachFiles.map((file, index) => (
                                         <div key={index} className="app-file-name">
                                             <img

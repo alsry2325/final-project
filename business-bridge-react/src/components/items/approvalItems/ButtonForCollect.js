@@ -11,7 +11,6 @@ function ButtonForCollect({businessDraft, expenseReport}) {
     const dispatch = useDispatch();
     const {appCollect} = useSelector((state) => state.approvalReducer);
 
-
     useEffect(() => {
         if(appCollect === true) {
             navigate(`/approval/update/${approvalCode}`, {replace: true})
@@ -23,6 +22,7 @@ function ButtonForCollect({businessDraft, expenseReport}) {
         const result = window.confirm('회수 하시겠습니까?')
         if(result) {
             dispatch(callCollectAppAPI({approvalCode}));
+            navigate(-1);
         }
 
     }

@@ -19,7 +19,7 @@ function DraftCollect() {
     }, [currentPage]);
 
     const onClickApproval = (approvalCode) => {
-        navigate(`/approval/document/${approvalCode}`);
+        navigate(`/approval/update/${approvalCode}`);
     }
 
     return(
@@ -53,7 +53,9 @@ function DraftCollect() {
                                 <tr key={approval.approvalCode}
                                     onClick={() => onClickApproval(approval.approvalCode)}>
 
-                                    <td>{approval.docStatus}</td>
+                                    <td>
+                                        <div className="docStatus-div docStatus-collect">{approval.docStatus}</div>
+                                    </td>
                                     <td>{approval.docForm}</td>
                                     <td>{approval.title}</td>
                                     <td>{approval.fileCount}</td>

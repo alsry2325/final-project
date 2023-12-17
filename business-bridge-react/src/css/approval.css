@@ -13,12 +13,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 100;
+    z-index: auto;
 }
 
 
 .app-modal-container{
-    position: absolute;
+    position: fixed;
     width: 600px;
     height: 500px;
     padding: 10px;
@@ -414,4 +414,20 @@ ul.tab-nav {
 
 .tab-text {
     color: #868686;
+}
+
+.docStatus-div {
+    border-radius: 5px;
+    width: 50px;
+    margin: auto;
+    paddding: 1px 4px;
+    color: #ffffff;
+}
+
+.docStatus-collect {
+    background-color: #E0EC98;
+}
+
+.docStatus-tempStorage {
+    background-color: #F6B3B3;
 }

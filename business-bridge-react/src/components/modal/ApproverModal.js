@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { callAppEmployeeAPI } from "../../apis/ApprovalAPICalls";
 import {useNavigate} from "react-router-dom";
 
-function ApproverModal({ setAppEmplyModal, onSelectedApprovers }) {
+function ApproverModal({ setAppEmplyModal, onSelectedApprovers, existingApprovers }) {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { allEmplys } = useSelector((state) => state.approvalReducer);
-    const [selectedEmployees, setSelectedEmployees] = useState([]);
+    const [selectedEmployees, setSelectedEmployees] = useState(existingApprovers || []);
 
     useEffect(() => {
         dispatch(callAppEmployeeAPI());
@@ -75,7 +75,8 @@ function ApproverModal({ setAppEmplyModal, onSelectedApprovers }) {
                                         key={appEmp.emplyCode}
                                         onClick={() => onClickEmployee(appEmp.emplyCode)}
                                     >
-                                        {appEmp.departmemtName} {appEmp.emplyName} {appEmp.positionName}
+                                        {appEmp.departmentName} <br/>
+                                        &nbsp;&nbsp; {appEmp.emplyName} {appEmp.positionName}
                                     </div>
                                 ))}
                         </div>
@@ -89,7 +90,8 @@ function ApproverModal({ setAppEmplyModal, onSelectedApprovers }) {
                                     className="choosen-emp-btn-div"
                                 >
                                     <div className="app-employee">
-                                        {selectedEmp.departmemtName} {selectedEmp.emplyName} {selectedEmp.positionName}{" "}
+                                        {selectedEmp.departmentName} <br/>
+                                        &nbsp;&nbsp; {selectedEmp.emplyName} {selectedEmp.positionName}{" "}
                                     </div>
                                     <button
                                         onClick={() => removeSelectedEmployee(selectedEmp.emplyCode)}

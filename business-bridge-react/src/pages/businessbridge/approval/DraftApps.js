@@ -22,6 +22,25 @@ function DraftApps() {
         navigate(`/approval/document/${approvalCode}`);
     }
 
+    // 문서 상태에 따른 조회 스타일
+    const getDivStyle = (docStatus) => {
+        let style={};
+
+        if(docStatus === '대기'){
+            style.backgroundColor = '#F8DA72'
+        }
+        if(docStatus === '진행중'){
+            style.backgroundColor = '#ABD378';
+        }
+        if(docStatus === '완료'){
+            style.backgroundColor = '#989898';
+        }
+        if(docStatus === '반려'){
+            style.backgroundColor = '#FF616B';
+        }
+        return style;
+    }
+
     return(
         <>
             <ToastContainer position="top-center"/>
@@ -52,7 +71,7 @@ function DraftApps() {
                                          to="/approval/draft-approvals/COMPLETE"
                                          activeclassname="selected-tab">
                                     <li id="tab-hold" className="AP">
-                                        <span className="tab-text">결재완료</span>
+                                        <span className="tab-text">완료</span>
                                     </li>
                                 </NavLink>
                                 <NavLink className="tab-item"
@@ -88,7 +107,11 @@ function DraftApps() {
                                 <tr key={approval.approvalCode}
                                     onClick={() => onClickApproval(approval.approvalCode)}>
 
-                                    <td>{approval.docStatus}</td>
+                                    <td>
+                                        <div className="docStatus-div" style={getDivStyle(approval.docStatus)}>
+                                            {approval.docStatus}
+                                        </div>
+                                    </td>
                                     <td>{approval.docForm}</td>
                                     <td>{approval.title}</td>
                                     <td>{approval.fileCount}</td>

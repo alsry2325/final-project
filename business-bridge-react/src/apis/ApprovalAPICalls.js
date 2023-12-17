@@ -1,12 +1,24 @@
 import {authRequest, request} from "./Api";
 import {
     getAppEmployees,
-    getApproveApps, getApproveAppsByStatus, getBusinessDraftDetail,
+    getApproveApps,
+    getApproveAppsByStatus,
+    getBusinessDraftDetail,
     getDraftApps,
-    getDraftAppsByStatus, getDraftCollect, getExpenseReportDetail,
+    getDraftAppsByStatus,
+    getDraftCollect,
+    getExpenseReportDetail,
     getReceiveApps,
-    getReceiveAppsByStatus, getTempStorage,
-    getUpcomingApps, patchApprove, patchCollectApp, patchPending, postBusinessDraft, postExpenseReport, putBusinessDraft
+    getReceiveAppsByStatus,
+    getTempStorage,
+    getUpcomingApps,
+    patchApprove,
+    patchCollectApp,
+    patchPending,
+    postBusinessDraft,
+    postExpenseReport,
+    putBusinessDraft,
+    putExpenseReport
 } from "../modules/ApprovalModule";
 import {toast} from "react-toastify";
 
@@ -317,7 +329,7 @@ export const callApproveAppAPI = ({approvalCode, approvalStatus, approvalOpinion
         console.log('결재 승인 API result : ', result);
 
         try{
-        if(result === 201) {
+        if(result.status === 201) {
             dispath(patchApprove());
             toast.info("결재가 완료되었습니다.")
         }
@@ -336,7 +348,7 @@ export const callAppPendingAPI = ({approvalCode}) => {
 
         if(result.status === 201) {
             dispatch(patchPending());
-            toast.info("결재 보류.")
+            toast.info("결재를 보류했습니다.")
         }
     }
 }
@@ -355,6 +367,24 @@ export const callUpdateBDAPI = ({approvalCode, form, files, docStatus}) => {
 
         if(result.status === 201){
             dispatch(putBusinessDraft());
+        }
+    }
+}
+
+/* 지출결의서 수정 */
+export const callUpdateERAPI = ({approvalCode, form, files, docStatus}) => {
+
+    form.docStatus = docStatus;
+    const formData = new FormData();
+    formData.append("expenseReportUpdate", new Blob([JSON.stringify(form)], {type : 'application/json'}));
+    Array.from(files).forEach(file => formData.append("attachFiles", file));
+
+    return async(dispatch, getState) => {
+        const result = await authRequest.put(`/approval/update/expenseReport/${approvalCode}`, formData);
+        console.log("지출결의서 수정 API result : ", result);
+
+        if(result.status === 201){
+            dispatch(putExpenseReport());
         }
     }
 }

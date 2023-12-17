@@ -60,7 +60,8 @@ function Header({clicked, isClicked}){
                        </NavLink>
                    </li>
                    <li className="NavElements">
-                       <NavLink className="Link" to="/approval/home">
+                       {/*<NavLink className="Link" to="/approval/home">*/}
+                       <NavLink className="Link" to="/approval/receive-approvals/all">
                            전자결재
                        </NavLink>
                    </li>

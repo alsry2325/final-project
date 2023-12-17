@@ -2,6 +2,7 @@ import InProgressListItem from "./InProgressListItem";
 
 function InProgressLists({ data }){
 
+
     return (
         <>
             {/* 결재해야하는 건 반복, 없다면 없다는 텍스트 */}

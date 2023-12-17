@@ -53,7 +53,9 @@ function TempStorageApps() {
                                 <tr key={approval.approvalCode}
                                     onClick={() => onClickApproval(approval.approvalCode)}>
 
-                                    <td>{approval.docStatus}</td>
+                                    <td>
+                                        <div className="docStatus-div docStatus-tempStorage">{approval.docStatus}</div>
+                                    </td>
                                     <td>{approval.docForm}</td>
                                     <td>{approval.title}</td>
                                     <td>{approval.fileCount}</td>

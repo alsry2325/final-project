@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
 import {callApproveAppAPI} from "../../apis/ApprovalAPICalls";
+import {toast, ToastContainer} from "react-toastify";
 
 function ApproveModal({setApproveModal, businessDraft, expenseReport, OnApproveOpinion}) {
 
@@ -35,10 +36,13 @@ function ApproveModal({setApproveModal, businessDraft, expenseReport, OnApproveO
 
         dispatch(callApproveAppAPI({approvalCode, approvalStatus : OnApproveOpinion, approvalOpinion : opinion.approvalOpinion}));
         setApproveModal(false);
+        navigate(-1);
     }
 
 
     return (
+        <>
+        <ToastContainer/>
         <div className="modal">
             <div className="approve-modal-container">
                 <div className="approve-modal-div">
@@ -81,6 +85,7 @@ function ApproveModal({setApproveModal, businessDraft, expenseReport, OnApproveO
 
             </div>
         </div>
+        </>
     );
 }
 
