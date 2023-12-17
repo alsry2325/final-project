@@ -8,6 +8,7 @@ import com.playwithcode.businessbridge.member.domain.type.TmpryPwdStus;
 import com.playwithcode.businessbridge.position.domain.Position;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -29,6 +30,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Getter
 @NoArgsConstructor(access = PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
+@ToString
 public class Employee {
 
     @Id
@@ -130,13 +132,7 @@ public class Employee {
         this.tmpryPwdStus = state;
     }
 
-    public void update(String emplyPhoto,String emplyName,String emplyOffice,String emplyEmail,
-                Department department,Position position, String emplyInternalNumber, String emplyPhoneNumber) {
-
-            this.emplyPhoto = emplyPhoto;
-            this.emplyName = emplyName;
-            this.emplyOffice = emplyOffice;
-            this.emplyEmail = emplyEmail;
+    public void update(Department department,Position position) {
             this.department = department;
             this.position = position;
     }

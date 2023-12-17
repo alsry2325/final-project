@@ -98,13 +98,13 @@ public class MemberController {
     }
     
     /* 사원 수정(관리자) */
-    @PutMapping("/modify-employe/{emplyCode}")
+    @PutMapping("/employee-modify/{emplyCode}")
     public ResponseEntity<Void> modifyEmploye(@PathVariable final Long emplyCode,
                                               @RequestBody @Valid final EmployeeUpdateRequest employeeUpdateRequest){
 
         memberService.DepartmentAndPositionUpdate(emplyCode,employeeUpdateRequest);
 
-        return ResponseEntity.created(URI.create("/check-employe/" + emplyCode)).build();
+        return ResponseEntity.created(URI.create("/employee-modify/" + emplyCode)).build();
     }
     
 
