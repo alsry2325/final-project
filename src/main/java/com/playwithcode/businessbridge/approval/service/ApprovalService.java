@@ -55,7 +55,7 @@ public class ApprovalService {
 
     @Value("http://localhost/approvalFiles/")
     private String FILE_URL;
-    @Value("src/main/resources/upload/approvalFiles")
+    @Value("src/main/resources/static/approvalFiles")
     private String FILE_DIR;
 
     private Pageable getPageable(final Integer page){
@@ -75,9 +75,9 @@ public class ApprovalService {
 
         // 결재자 엔터티 추가
         List<Approver> approverMember = new ArrayList<>();
-        for(int i = 0; i < businessDraftRequest.getApprover().size(); i++) {
+        for(int i = 0; i < businessDraftRequest.getApprovers().size(); i++) {
 
-            Employee approver = employeeRepository.getReferenceById(businessDraftRequest.getApprover().get(i));
+            Employee approver = employeeRepository.getReferenceById(businessDraftRequest.getApprovers().get(i));
 
             if(i == 0) {
                 approverMember.add(Approver.of(approver, i+1L, ACTIVATE));
@@ -126,9 +126,9 @@ public class ApprovalService {
 
         // 결재자 엔터티 추가
         List<Approver> approverMember = new ArrayList<>();
-        for (int i = 0; i < expenseReportRequest.getApproverMember().size(); i++) {
+        for (int i = 0; i < expenseReportRequest.getApprovers().size(); i++) {
 
-            Employee approver = employeeRepository.getReferenceById(expenseReportRequest.getApproverMember().get(i));
+            Employee approver = employeeRepository.getReferenceById(expenseReportRequest.getApprovers().get(i));
 
             if (i == 0) {
                 approverMember.add(Approver.of(approver, i + 1L, ACTIVATE));
@@ -413,7 +413,7 @@ public class ApprovalService {
 
         expenseReportDetailRepository.deleteAll(expenseReport.getExpenseReportDetail());
 
-        for(ExpenseReportDetailUpdateRequest expenseDetailUpdate : expenseReportUpdate.getExpenseReportDetailUpdateRequests()){
+        for(ExpenseReportDetailUpdateRequest expenseDetailUpdate : expenseReportUpdate.getDetails()){
             expenseReportDetails.add(ExpenseReportDetail.of(
                     expenseDetailUpdate.getItem(),
                     expenseDetailUpdate.getAmount(),
@@ -459,12 +459,11 @@ public class ApprovalService {
         return currentDocNo;
     }
 
-    /* 13. 결재자 결재 - 승인, 반려? */
-    public void confirmApproval(Long approvalCode, CustomUser customUser, ApprovalRequest approvalRequest) {
+    /* 13. 결재자 결재 - 승인, 반려 */
+    public void confirmApproval(Long approvalCode, CustomUser customUser, ApproveRequest approveRequest) {
 
         Approval approval = approvalRepository.findById(approvalCode)
                 .orElseThrow(() -> new NotFoundException(ALREADY_CONFIRM_DOC));
-
 
         List<Approver> approvers = approval.getApproverMember();
         int approvalCount = approvers.size();
@@ -486,25 +485,24 @@ public class ApprovalService {
         // 로그인 한 결재자의 결재 상태를 변경하고 결재에 대한 일시와 의견 추가
         if(approval.getDocStatus().equals(DocStatusType.WAITING) || approval.getDocStatus().equals(PROCEEDING)) {
             userApprover.approval(
-                    approvalRequest.getApprovalStatus(),
+                    approveRequest.getApprovalStatus(),
                     LocalDateTime.now(),
-                    approvalRequest.getApprovalOpinion()
+                    approveRequest.getApprovalOpinion()
             );
         }
 
         // 다음 결재자가 존재한다면 다음 결재자의 결재 상태를 활성화 시켜줌
         if(nextApprover != null) {
-            if (approvalRequest.getApprovalStatus().equals(CONFIRM)){
+            if (approveRequest.getApprovalStatus().equals(CONFIRM)){
                 nextApprover.statusUpdate(
                         ACTIVATE
                 );
             }
-
         }
 
         // 결재 문서 상태 변경
         if(userApprover.getApprovalOrder() == 1){                           // 로그인 한 결재자가 첫번째 결재자인 경우
-            if(approvalRequest.getApprovalStatus().equals(ApprovalStatusType.RETURN)){
+            if(approveRequest.getApprovalStatus().equals(ApprovalStatusType.RETURN)){
                 approval.returned(
                         RETURN,
                         LocalDateTime.now()
@@ -514,7 +512,7 @@ public class ApprovalService {
             }
 
         } else if (userApprover.getApprovalOrder() == approvalCount) {      // 현재 결재가 마지막 결재인 경우
-            if (approvalRequest.getApprovalStatus().equals(ApprovalStatusType.RETURN)){
+            if (approveRequest.getApprovalStatus().equals(ApprovalStatusType.RETURN)){
                 approval.returned(
                         RETURN,
                         LocalDateTime.now()
@@ -529,15 +527,28 @@ public class ApprovalService {
        }
     }
 
-
     /* 15. 결재자 결재 - 보류 */
-    public void pendingApproval(Long approvalCode) {
+    public void pendingApproval(Long approvalCode, CustomUser customUser) {
 
         Approval approval = approvalRepository.findById(approvalCode)
                 .orElseThrow(() -> new NotFoundException(NOT_FOUND_APPROVAL_CODE));
 
         // 결재자들 중 현재 로그인하고 활성화 된 결재 상태를 PENDING으로 변경
+        List<Approver> approvers = approval.getApproverMember();
+        int approvalCount = approvers.size();
 
+        Approver userApprover = null;       // 결재자 = 로그인한 사람
+
+        for(int i = 0; i < approvalCount; i++) {
+            if(approvers.get(i).getApproverMember().getEmplyCode().equals(customUser.getEmplyCode())){
+                userApprover = approvers.get(i);
+                break;
+            }
+        }
+        // 로그인 한 결재자의 결재 상태를 변경하고 결재에 대한 일시와 의견 추가
+        if(approval.getDocStatus().equals(DocStatusType.WAITING) || approval.getDocStatus().equals(PROCEEDING)) {
+            userApprover.statusUpdate(PENDING);
+        }
     }
 
 

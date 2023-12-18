@@ -1,6 +1,7 @@
 package com.playwithcode.businessbridge.approval.dto.response;
 
 import com.playwithcode.businessbridge.approval.domain.BusinessDraft;
+import com.playwithcode.businessbridge.approval.domain.type.DocStatusType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,16 +17,18 @@ import java.util.stream.Collectors;
 @Getter
 public class BusinessDraftResponse {
 
+    private final Long approvalCode;                        // 전자결재 코드
+    private final DocStatusType docStatus;                  // 문서 진행 상태
     private final String title;                             // 제목
     private final String docForm;                           // 문서 양식 이름
     private final List<Map<String, String>> approvers;      // 결재자 정보
+    private final String drafterId;                         // 기안자 사번
     private final String drafterName;                       // 기안자 이름
     private final String departmentName;                    // 기안자 부서
     private final LocalDateTime draftDateTime;              // 기안 일시
     private final Long DocNo;                               // 문서 번호
     private final String businessDraftContent;              // 내용
-    private final List<String> attachFile;                  // 첨부파일
-
+    private final List<Map<String, String>> attachFiles;    // 첨부파일
 
     public static BusinessDraftResponse from(final BusinessDraft businessDraft){
 
@@ -44,13 +47,21 @@ public class BusinessDraftResponse {
         }).collect(Collectors.toList());
 
         // 첨부파일
-        List<String> attachFiles = businessDraft.getApproval().getFile()
-                .stream().map(file -> file.getPathName()).collect(Collectors.toList());
+        List<Map<String, String>> attachFiles = businessDraft.getApproval().getFile().stream().map(file -> {
+            Map<String, String> resultMap = new HashMap<>();
+            resultMap.put("fileName", file.getAttachfileNm());
+            resultMap.put("fileUrl", file.getPathName());
+
+            return resultMap;
+        }).collect(Collectors.toList());
 
         return new BusinessDraftResponse(
+                businessDraft.getApproval().getApprovalCode(),
+                businessDraft.getApproval().getDocStatus(),
                 businessDraft.getApproval().getTitle(),
                 businessDraft.getApproval().getDocForm().getValue(),
                 approvers,
+                businessDraft.getApproval().getDraftMember().getEmplyId(),
                 businessDraft.getApproval().getDraftMember().getEmplyName(),
                 businessDraft.getApproval().getDraftMember().getDepartment().getDepartmentName(),
                 businessDraft.getApproval().getRegistDateTime(),
