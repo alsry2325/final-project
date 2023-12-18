@@ -3,12 +3,13 @@ import {NavLink} from "react-router-dom";
 function MyPageNavbar() {
 
     return (
-        <div className="employeeRegistration-navbar-div">
-        <div className="salesRegistration-btns">
-            <div className="salesRegistration-btn"><strong>영업 관리</strong></div>
-            <div className="salesRegistration-btn"><strong>거래처 관리</strong></div>
 
-        </div>
+        <div className="salesRegistration-navbar-div">
+            <div className="cusRelationMangement">
+                <img src='/images/sales-handshacke.png'/>
+                <h1 className="cusRelationMangement-h1">고객 관리</h1>
+            </div>
+            <div className="salesRegistration-btn"><strong>영업 관리</strong></div>
             <ul className="employeeRegistration-navbar-ul">
                 <h3 className="main-title">영업 진행도별 조회</h3>
                 <li><NavLink to="/sales/salesList/0">전체</NavLink></li>
@@ -28,6 +29,16 @@ function MyPageNavbar() {
             {/*    <li><NavLink to="/">수정해서</NavLink></li>*/}
             {/*    <li ><NavLink to="/">+ 쓰삼</NavLink></li>*/}
             {/*</ul>*/}
+
+            <div className="salesRegistration-btn"><strong>거래처 관리</strong></div>
+            <ul className="employeeRegistration-navbar-ul">
+                <h3 className="main-title">거래처 부서별 조회</h3>
+                <li><NavLink to="/account/accountList/0">전체부서</NavLink></li>
+                <li><NavLink to="/account/accountList/1">영업본부</NavLink></li>
+                <li><NavLink to="/account/accountList/3">마게팅본부</NavLink></li>
+                <li><NavLink to="/account/accountList/4">일반영업부</NavLink></li>
+
+            </ul>
         </div>
     );
 }
