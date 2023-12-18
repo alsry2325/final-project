@@ -14,7 +14,7 @@ import java.util.List;
 public class ExpenseReportCreateRequest {
 
     @NotEmpty
-    private final List<Long> approverMember;    // 결재자들
+    private final List<Long> approvers;    // 결재자들
     @NotBlank
     private final String title;                 // 제목
     @NotNull
