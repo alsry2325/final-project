@@ -1,12 +1,16 @@
 import AddressListItem from "../items/AddressListItem";
 
 function AddressList({ data }) {
+    if (!Array.isArray(data)) {
+        console.error('data is not an array', data);
+        return null;
+    }
 
     return (
         <div className="address-div">
             {
                 data &&
-                data.map(address => <AddressListItem key={address.emplyCode} address={address}/>)
+                data.map(addressList => <AddressListItem key={addressList.emplyCode} addressList={addressList}/>)
             }
         </div>
     );

@@ -3,19 +3,19 @@ import {useDispatch, useSelector} from "react-redux";
 import {
     callAddressBookListAPI,
     callAddressBookSearchEmailAPI,
-    callAddressBookSearchNameAPI, callAddressBookSearchPhoneAPI
+    callAddressBookSearchNameAPI,
+    callAddressBookSearchPhoneAPI
 } from "../../../apis/AddressBookApiCalls";
 import PagingBar from "../../../components/common/PagingBar";
 import {useNavigate} from "react-router-dom";
 import AddressList from "../../../components/lists/AddressList";
-import {ToastContainer} from "react-toastify";
 
 function AddressBookMain() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState('');
-    const {address} = useSelector((state) => state.addressReducer);
+    const {addressList} = useSelector((state) => state.addressReducer);
     const [searchOption, setSearchOption] = useState('name');
 
     useEffect(() => {
@@ -60,9 +60,9 @@ function AddressBookMain() {
                 </div>
                 <hr/>
                 <>
-                    {address
+                    {addressList
                         &&
-                        <AddressList data={address.data}/>
+                        <AddressList data={addressList.data}/>
                     }
                 </>
                 <div className="search-box">
@@ -92,9 +92,9 @@ function AddressBookMain() {
                     </button>
                 </div>
 
-                {address && (
+                {addressList && (
                     <div className="paging-bar-container">
-                        <PagingBar pageInfo={address.pageInfo} setCurrentPage={setCurrentPage}/>
+                        <PagingBar pageInfo={addressList.pageInfo} setCurrentPage={setCurrentPage}/>
                     </div>
                 )}
             </div>

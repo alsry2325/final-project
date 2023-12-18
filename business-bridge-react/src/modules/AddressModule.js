@@ -4,7 +4,7 @@ import {createActions, handleActions} from "redux-actions";
 const initialState = {};
 
 /* 액션 타입 = 어떤 걸 요청할건지? */
-const GET_ADDRESS = 'address/GET_ADDRESS';
+const GET_ADDRESS = 'addressList/GET_ADDRESS';
 const GET_ADDRESS_DETAIL = 'address/GET_ADDRESS_DETAIL'
 const PUT_SUCCESS    = 'address/PUT_SUCCESS';
 const DELETE_SUCCESS    = 'address/DELETE_SUCCESS';
@@ -13,8 +13,11 @@ const DELETE_SUCCESS    = 'address/DELETE_SUCCESS';
 * 첫 번째 키 값은 액션의 타입, 반환값이 payload : 반환값
 * 액션 함수 네이밍 규칙 : 중첩 구조분해 할당, 카멜케이스 -> 언더스코어 케이스
 * address/GET_ADDRESS에서 가져옴 */
-export const { address : { getAddress, getAddressDetail, putSuccess } } = createActions({
-    [GET_ADDRESS] : result => ({ address : result.data }),
+export const { addressList : {getAddress}} = createActions({
+    [GET_ADDRESS] : result => ({ addressList : result.data })
+})
+export const { address : { getAddressDetail, putSuccess } } = createActions({
+
     [GET_ADDRESS_DETAIL] : result => ({ address : result.data }),
     [PUT_SUCCESS] : () => ({ putSuccess : true }),
     [DELETE_SUCCESS] : () => ({ deleteSuccess : true })
