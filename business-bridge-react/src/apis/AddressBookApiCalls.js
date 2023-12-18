@@ -1,6 +1,5 @@
 import {authRequest, request} from "./Api";
 import {getAddress, getAddressDetail, putSuccess} from "../modules/AddressModule";
-import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 /* 1. 주소록 전체 조회 */
@@ -17,8 +16,8 @@ export const callAddressBookListAPI = ({currentPage = 1}) => {
         /* data와 status를 잘 받아왔다면 store에 저장한다. */
         if (result.status === 200) {
             dispatch(getAddress(result));
-        }
 
+        }
     }
 };
 

@@ -13,6 +13,30 @@
 }
 
 /* addressBook Nav --------------------------------- */
+.note-send-btn {
+    margin: 30px;
+    width: 80%;
+    height: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #6F6F6F;
+    border-radius: 10px;
+    transition: 0.5s;
+    cursor: pointer;
+    color: black;
+}
+
+.note-send-btn a {
+    color: black;
+    text-decoration: none;
+}
+
+.note-send-btn a:hover, .note-send-btn a:active, .note-send-btn a:focus {
+    color: #5549DD;
+    text-decoration: none;
+}
+
 .note-navbar-div {
     width: 400px;
     border-right: 1px solid darkgrey;
@@ -244,6 +268,194 @@
     border-radius: 5px;
     color: white;
 }
+
+/* 쪽지 발송  ----------------------------------------------------------*/
+.note-write-wrapper {
+    margin: 30px;
+}
+
+.note-write-body {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 70px;
+ }
+
+.note-write-header-list div{
+    margin-bottom: 70px;
+}
+
+.note-write-body-list input {
+    width: 1000px;
+    border: #ccc solid 1px;
+    background-color: white;
+    height: 40px;
+    padding: 0px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.note-write-body-list button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: #ccc solid 1px;
+    background-color : white;
+    padding: 7px;
+    border-radius: 3px;
+    color : #9a9a9a;
+    margin-bottom: 55px;
+}
+
+/* 사원 선택 시 사원 이름 */
+.selectEmplyName {
+    border: #ccc solid 1px;
+    border-radius: 5px;
+    padding: 7px;
+    width: 100px;
+    text-align: center;
+}
+
+/* 사원 선택 시 버튼 스타일 */
+.buttonWithSelectedName {
+    margin-left: -50px;
+}
+
+.note-write-body-list textarea {
+    width: 1000px;
+    height: 200px;
+    resize: none;
+    border: #ccc solid 1px;
+    background-color: white;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.note-send-btn-container {
+    display: flex;
+    text-space: center;
+    justify-content: center;
+}
+
+.note-send-btn-container button {
+    width: 90px;
+    height: 40px;
+    background-color: #5549DD;
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+
+/* byte 포함 */
+.note-input-byte {
+    margin-bottom: 30px;
+    font-size: 14px;
+    color: #9a9a9a;
+}
+
+
+/* 모달  ----------------------------------------------------------*/
+.customModal {
+    align-items: center;
+    width: 525px;
+    height: 600px;
+    margin: auto;
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(97, 81, 148, 0.1);
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.customOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(113, 109, 154, 0.5); /* 추가 */
+}
+
+.note-modal-search {
+    display: flex;
+    margin: 20px 0px 20px 0px;
+}
+
+.note-modal-select {
+    margin-right: 20px;
+    width: 80px;
+    height: 40px;
+    border-radius: 5px;
+    border: #ccc solid 1px;
+}
+
+.note-modal-input {
+    width: 250px;
+    border: #ccc solid 1px;
+    background-color: white;
+    margin-right: 20px;
+    height: 40px;
+    padding: 0px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.note-modal-searchBtn {
+    width: 70px;
+    height: 40px;
+    background-color: #5549DD;
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+
+.note-modal-list {
+    margin-top: 30px;
+    max-height: 380px;
+    overflow-y: auto;
+}
+
+/* 스크롤 바 전체 스타일 */
+.note-modal-list::-webkit-scrollbar {
+    width: 10px; /* 스크롤 바의 너비 */
+}
+
+/* 스크롤 바 트랙 (바탕) 스타일 */
+.note-modal-list::-webkit-scrollbar-track {
+    background: #e5e5e8; /* 스크롤 바 트랙의 배경색 */
+    border-radius: 10px;  /* 둥근 모서리 */
+}
+
+/* 스크롤 바 핸들 (움직이는 부분) 스타일 */
+.note-modal-list::-webkit-scrollbar-thumb {
+    background: #a39cf3; /* 스크롤 바 핸들의 색상 */
+    border-radius: 10px;  /* 둥근 모서리 */
+}
+
+/* 스크롤 바 핸들 : 호버 상태 */
+.note-modal-list::-webkit-scrollbar-thumb:hover {
+    background: #5549DD; /* 호버 시 스크롤 바 핸들의 색상 */
+}
+
+.note-modal-address-info {
+    display: flex;
+    border: #ccc solid 1px;
+    border-radius: 5px;
+    width: 420px;
+    height: 50px;
+    align-items: center;
+    margin-top: 15px;
+    background-color: white;
+}
+
+.note-modal-detail {
+    margin-left: 20px;
+    font-size: 14px;
+}
+
 
 /* 페이징 처리 ----------------------------------------------------------*/
 

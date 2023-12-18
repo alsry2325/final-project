@@ -16,7 +16,7 @@ function NoteSenderDetailItem({note}) {
             .then((response) => {
                 console.log("쪽지를 삭제하였습니다.")
                 toast.info("쪽지를 삭제하였습니다.", {
-                    onClose: () => navigate('/note/recipient', { replace: true })
+                    onClose: () => navigate('/note/sender', { replace: true })
                 });
             })
             .catch((error) => {

@@ -9,8 +9,6 @@ import {
 import PagingBar from "../../../components/common/PagingBar";
 import {useNavigate} from "react-router-dom";
 import NoteSenderList from "../../../components/lists/NoteSenderList";
-import {ToastContainer} from "react-toastify";
-
 
 function NoteSender() {
     const navigate = useNavigate();
@@ -24,6 +22,8 @@ function NoteSender() {
     useEffect(() => {
         dispatch(callNoteSenderListAPI({currentPage}));
     }, [dispatch, currentPage]);
+
+    console.log('발신자 notes : ', notes);
 
     const onSearchChangeHanlder = e => {
         setSearch(e.target.value);
