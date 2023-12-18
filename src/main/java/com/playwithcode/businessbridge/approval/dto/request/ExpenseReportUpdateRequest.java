@@ -20,7 +20,7 @@ public class ExpenseReportUpdateRequest {
     @NotNull
     private final Long totalExpenditure;        // 총지출금액
 
-    private final List<ExpenseReportDetailUpdateRequest> expenseReportDetailUpdateRequests; // 지출결의서 상세
+    private final List<ExpenseReportDetailUpdateRequest> details; // 지출결의서 상세
 
     private final DocStatusType docStatus;          // 문서 상태
 }

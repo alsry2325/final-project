@@ -59,7 +59,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/api/v1/sales").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/v1/sales/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/v1/sales/**").permitAll()
-                //.antMatchers("/emp/employee/findpassword").permitAll()
+                .antMatchers("/emp/employee/findpassword").permitAll()
                 .antMatchers(
                         "/emp/employee/employees/**",
                         "/emp/employee/check-employe/**",

@@ -413,7 +413,7 @@ public class ApprovalService {
 
         expenseReportDetailRepository.deleteAll(expenseReport.getExpenseReportDetail());
 
-        for(ExpenseReportDetailUpdateRequest expenseDetailUpdate : expenseReportUpdate.getExpenseReportDetailUpdateRequests()){
+        for(ExpenseReportDetailUpdateRequest expenseDetailUpdate : expenseReportUpdate.getDetails()){
             expenseReportDetails.add(ExpenseReportDetail.of(
                     expenseDetailUpdate.getItem(),
                     expenseDetailUpdate.getAmount(),
