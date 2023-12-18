@@ -45,7 +45,10 @@ function AddressBookModal({
                             <div className="note-modal-address-info" key={index}
                                  onClick={() => handleSelectRecipient(item.emplyCode, item.emplyName)}>
                                 <div className="note-modal-detail">
-                                    {item.emplyName} {item.departmentName} {item.positionName} {item.emplyEmail}
+                                    <img src={item.emplyPhoto}/>
+                                    <div className="note-modal-name">{item.emplyName}</div>
+                                    <div className="note-modal-deptName">{item.departmentName}</div>
+                                    <div className="note-modal-position">{item.positionName}</div>
                                 </div>
                             </div>
                         ))}
