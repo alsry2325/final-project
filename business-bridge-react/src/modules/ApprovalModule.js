@@ -21,13 +21,20 @@ const GET_APP_EMPLOYEES = 'approval/GET_APP_EMPLOYEES';
 const POST_BUSINESS_DRAFT = 'approval/POST_BUSINESS_DRAFT';
 const POST_EXPENSE_REPORT = 'approval/POST_EXPENSE_REPORT';
 
+const PATCH_COLLECT_APP = 'approval/PATCH_COLLECT_APP';
+const PATCH_APPROVE = 'approval/PATCH_APPROVE';
+const PATCH_PENDING = 'approval/PATCH_PENDING';
+
+const PUT_BUSINESS_DRAFT = 'approval/PUT_BUSINESS_DRAFT';
+const PUT_EXPENSE_REPORT = 'approval/PUT_EXPENSE_REPORT';
 
 /* 액션 함수 */         // 액션 객체를 만들어서 반환
 export const {approval :
     {getReceiveApps, getReceiveAppsByStatus, getUpcomingApps, getDraftApps, getDraftAppsByStatus,
     getDraftCollect, getTempStorage, getApproveApps, getApproveAppsByStatus,
     getBusinessDraftDetail, getExpenseReportDetail, getAppEmployees,
-    postBusinessDraft, postExpenseReport}}
+    postBusinessDraft, postExpenseReport, patchCollectApp, patchApprove, patchPending,
+    putBusinessDraft, putExpenseReport}}
     = createActions({
     [GET_RECEIVE_APPS] : result => ({ receiveAllApprovals : result.data}),
     [GET_RECEIVE_APPS_BY_STATUS] : result => ({receiveApprovalsBy : result.data}),
@@ -44,7 +51,14 @@ export const {approval :
     [GET_APP_EMPLOYEES] : result => ({allEmplys : result.data}),
 
     [POST_BUSINESS_DRAFT] : () => ({registBD : true}),
-    [POST_EXPENSE_REPORT] : () => ({registER : true})
+    [POST_EXPENSE_REPORT] : () => ({registER : true}),
+
+    [PATCH_COLLECT_APP] : () => ({appCollect : true}),
+    [PATCH_APPROVE] : () => ({appApprove : true}),
+    [PATCH_PENDING] : () => ({appPending : true}),
+
+    [PUT_BUSINESS_DRAFT] : () => ({updateBD : true}),
+    [PUT_EXPENSE_REPORT] : () => ({updateER : true})
 })
 
 /* 리듀서 */           // 액션을 받아서 처리할 때 어떻게 처리할지
@@ -60,9 +74,14 @@ const approvalReducer = handleActions({
     [GET_APPROVE_APPS_BY_STATUS] : (state, {payload}) => payload,
     [GET_BUSINESS_DRAFT_DETAIL] : (state, {payload}) => payload,
     [GET_EXPENSE_REPORT_DETAIL] : (state, {payload}) => payload,
-    [GET_APP_EMPLOYEES] : (state, {payload}) => payload,
+    [GET_APP_EMPLOYEES] : (state, {payload}) => ({...state, ...payload}),
     [POST_BUSINESS_DRAFT] : ( state, {payload} ) => payload,
     [POST_EXPENSE_REPORT] : ( state, {payload} ) => payload,
+    [PATCH_COLLECT_APP] : ( state, {payload} ) => payload,
+    [PATCH_APPROVE] : ( state, {payload} ) => payload,
+    [PATCH_PENDING] : ( state, {payload} ) => payload,
+    [PUT_BUSINESS_DRAFT] : ( state, {payload} ) => payload,
+    [PUT_EXPENSE_REPORT] :  ( state, {payload} ) => payload
 }, initialState);
 
 export default approvalReducer;

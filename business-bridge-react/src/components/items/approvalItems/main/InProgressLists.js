@@ -1,15 +1,22 @@
 import InProgressListItem from "./InProgressListItem";
 
-function InProgressLists({ data }){
+function InProgressLists({data}) {
+
 
     return (
         <>
             {/* 결재해야하는 건 반복, 없다면 없다는 텍스트 */}
             <div className="in-progress-box-list-div">
                 {
-                    data &&
-                    data.map(approval => <InProgressListItem key={approval.approvalCode} approval={approval}/>)
-                }
+                    data && data.length > 0 ? (
+                        data.map(approval =>
+                            <InProgressListItem
+                                key={approval.approvalCode}
+                                approval={approval}/>)
+
+                    ) : (
+                        <p>결재할 문서가 없습니다.</p>
+                    )}
             </div>
         </>
     );

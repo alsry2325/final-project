@@ -15,8 +15,7 @@ function ApprovalNavbar() {
         <>
             {appFormModal &&
                 <ApprovalFormModal
-                    setAppFormModal={setAppFormModal}
-                />
+                    setAppFormModal={setAppFormModal}/>
             }
             <div className="employeeRegistration-navbar-div">
                 <div className="employeeRegistration-btn"

@@ -22,14 +22,31 @@ function DraftApps() {
         navigate(`/approval/document/${approvalCode}`);
     }
 
+    // 문서 상태에 따른 조회 스타일
+    const getDivStyle = (docStatus) => {
+        let style={};
+
+        if(docStatus === '대기'){
+            style.backgroundColor = '#F8DA72'
+        }
+        if(docStatus === '진행중'){
+            style.backgroundColor = '#ABD378';
+        }
+        if(docStatus === '완료'){
+            style.backgroundColor = '#989898';
+        }
+        if(docStatus === '반려'){
+            style.backgroundColor = '#FF616B';
+        }
+        return style;
+    }
+
     return(
         <>
             <ToastContainer position="top-center"/>
             <div className="approval-div">
                 <h2 className="approval-title">기안 문서함</h2>
-                {
-                    draftApps &&
-                    <>
+
                         <div className="approval-tool-bar">
                             <ul className="tab-nav">
                                 <NavLink className="tab-item"
@@ -42,7 +59,7 @@ function DraftApps() {
                                 </NavLink>
                                 <NavLink className="tab-item"
                                          to="/approval/draft-approvals/PROCEEDING"
-                                         activeClassName="selected-tab">
+                                         activeclassname="selected-tab">
                                     <li id="tab-hold" className="AP">
                                         <span className="tab-text">진행중</span>
                                     </li>
@@ -50,20 +67,23 @@ function DraftApps() {
 
                                 <NavLink className="tab-item"
                                          to="/approval/draft-approvals/COMPLETE"
-                                         activeClassName="selected-tab">
+                                         activeclassname="selected-tab">
                                     <li id="tab-hold" className="AP">
-                                        <span className="tab-text">결재완료</span>
+                                        <span className="tab-text">완료</span>
                                     </li>
                                 </NavLink>
                                 <NavLink className="tab-item"
                                          to="/approval/draft-approvals/RETURN"
-                                         activeClassName="selected-tab">
+                                         activeclassname="selected-tab">
                                     <li id="tab-hold" className="AP">
                                         <span className="tab-text">반려</span>
                                     </li>
                                 </NavLink>
                             </ul>
                         </div>
+                {
+                    draftApps && draftApps.data.length > 0 ? (
+                    <>
                         <table className="sales-table approval-list-table">
                             <colgroup>
                                 <col width="10%"/>
@@ -88,7 +108,11 @@ function DraftApps() {
                                 <tr key={approval.approvalCode}
                                     onClick={() => onClickApproval(approval.approvalCode)}>
 
-                                    <td>{approval.docStatus}</td>
+                                    <td>
+                                        <div className="docStatus-div" style={getDivStyle(approval.docStatus)}>
+                                            {approval.docStatus}
+                                        </div>
+                                    </td>
                                     <td>{approval.docForm}</td>
                                     <td>{approval.title}</td>
                                     <td>{approval.fileCount}</td>
@@ -101,6 +125,35 @@ function DraftApps() {
                         </table>
                         <PagingBar pageInfo={draftApps.pageInfo} setCurrentPage={setCurrentPage}/>
                     </>
+                    ) : (
+                        <table className="sales-table approval-list-table">
+                            <colgroup>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="40%"/>
+                                <col width="10%"/>
+                                <col width="15%"/>
+                                <col width="15%"/>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>결재상태</th>
+                                <th>결재양식</th>
+                                <th>제목</th>
+                                <th>첨부</th>
+                                <th>문서번호</th>
+                                <th>기안일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colSpan={6}>
+                                        <div className="no-app-info">결재한 문서가 없습니다.</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    )
                 }
             </div>
         </>

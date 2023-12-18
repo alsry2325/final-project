@@ -22,14 +22,32 @@ function ApproveApps() {
         navigate(`/approval/document/${approvalCode}`);
     }
 
+    // 문서 상태에 따른 조회 스타일
+    const getDivStyle = (docStatus) => {
+        let style={};
+
+        if(docStatus === '대기'){
+            style.backgroundColor = '#F8DA72'
+        }
+        if(docStatus === '진행중'){
+            style.backgroundColor = '#ABD378';
+        }
+        if(docStatus === '완료'){
+            style.backgroundColor = '#989898';
+        }
+        if(docStatus === '반려'){
+            style.backgroundColor = '#FF616B';
+        }
+        return style;
+    }
+
+
     return(
         <>
             <ToastContainer position="top-center"/>
             <div className="approval-div">
                 <h2 className="approval-title">결재한 문서함</h2>
-                {
-                    approveApps &&
-                    <>
+
                         <div className="approval-tool-bar">
                             <ul className="tab-nav">
                                 <NavLink className="tab-item"
@@ -42,7 +60,7 @@ function ApproveApps() {
                                 </NavLink>
                                 <NavLink className="tab-item"
                                          to="/approval/approve-approvals/PROCEEDING"
-                                         activeClassName="selected-tab">
+                                         activeclassname="selected-tab">
                                     <li id="tab-hold" className="AP">
                                         <span className="tab-text">진행중</span>
                                     </li>
@@ -50,20 +68,71 @@ function ApproveApps() {
 
                                 <NavLink className="tab-item"
                                          to="/approval/approve-approvals/COMPLETE"
-                                         activeClassName="selected-tab">
+                                         activeclassname="selected-tab">
                                     <li id="tab-hold" className="AP">
-                                        <span className="tab-text">결재완료</span>
+                                        <span className="tab-text">완료</span>
                                     </li>
                                 </NavLink>
                                 <NavLink className="tab-item"
                                          to="/approval/approve-approvals/RETURN"
-                                         activeClassName="selected-tab">
+                                         activeclassname="selected-tab">
                                     <li id="tab-hold" className="AP">
                                         <span className="tab-text">반려</span>
                                     </li>
                                 </NavLink>
                             </ul>
                         </div>
+                {
+                    approveApps && approveApps.data.length > 0 ? (
+                    <>
+                        <table className="sales-table approval-list-table">
+                            <colgroup>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="30%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>결재상태</th>
+                                <th>결재양식</th>
+                                <th>기안자</th>
+                                <th>제목</th>
+                                <th>첨부</th>
+                                <th>문서번호</th>
+                                <th>기안일</th>
+                                <th>결재일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            { approveApps.data.map(approval => (
+                                <tr key={approval.approvalCode}
+                                    onClick={() => onClickApproval(approval.approvalCode)}>
+
+                                    <td>
+                                        <div className="docStatus-div" style={getDivStyle(approval.docStatus)}>
+                                            {approval.docStatus}
+                                        </div>
+                                    </td>
+                                    <td>{approval.docForm}</td>
+                                    <td>{approval.emplyName}</td>
+                                    <td>{approval.title}</td>
+                                    <td>{approval.fileCount}</td>
+                                    <td>{approval.docNo}</td>
+                                    <td>{format(new Date(approval.draftDateTime),'yy-MM-dd') }</td>
+                                    <td>{format(new Date(approval.approvalDateTime),'yy-MM-dd') }</td>
+                                </tr>
+                            ))
+                            }
+                            </tbody>
+                        </table>
+                        <PagingBar pageInfo={approveApps.pageInfo} setCurrentPage={setCurrentPage}/>
+                    </>
+                    ) : (
                         <table className="sales-table approval-list-table">
                             <colgroup>
                                 <col width="10%"/>
@@ -88,25 +157,14 @@ function ApproveApps() {
                             </tr>
                             </thead>
                             <tbody>
-                            { approveApps.data.map(approval => (
-                                <tr key={approval.approvalCode}
-                                    onClick={() => onClickApproval(approval.approvalCode)}>
-
-                                    <td>{approval.docStatus}</td>
-                                    <td>{approval.docForm}</td>
-                                    <td>{approval.emplyName}</td>
-                                    <td>{approval.title}</td>
-                                    <td>{approval.fileCount}</td>
-                                    <td>{approval.docNo}</td>
-                                    <td>{format(new Date(approval.draftDateTime),'yy-MM-dd') }</td>
-                                    <td>{format(new Date(approval.approvalDateTime),'yy-MM-dd') }</td>
+                                <tr>
+                                    <td colSpan={8}>
+                                        <div className="no-app-info">결재한 문서가 없습니다.</div>
+                                    </td>
                                 </tr>
-                            ))
-                            }
                             </tbody>
                         </table>
-                        <PagingBar pageInfo={approveApps.pageInfo} setCurrentPage={setCurrentPage}/>
-                    </>
+                    )
                 }
             </div>
         </>

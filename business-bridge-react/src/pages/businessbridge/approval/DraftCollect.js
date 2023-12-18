@@ -19,7 +19,7 @@ function DraftCollect() {
     }, [currentPage]);
 
     const onClickApproval = (approvalCode) => {
-        navigate(`/approval/document/${approvalCode}`);
+        navigate(`/approval/update/${approvalCode}`);
     }
 
     return(
@@ -28,9 +28,8 @@ function DraftCollect() {
             <div className="approval-div">
                 <h2 className="approval-title">기안 회수함</h2>
                 {
-                    draftCollect &&
+                    draftCollect && draftCollect.data.length > 0 ? (
                     <>
-
                         <table className="sales-table approval-list-table">
                             <colgroup>
                                 <col width="15%"/>
@@ -53,7 +52,9 @@ function DraftCollect() {
                                 <tr key={approval.approvalCode}
                                     onClick={() => onClickApproval(approval.approvalCode)}>
 
-                                    <td>{approval.docStatus}</td>
+                                    <td>
+                                        <div className="docStatus-div docStatus-collect">{approval.docStatus}</div>
+                                    </td>
                                     <td>{approval.docForm}</td>
                                     <td>{approval.title}</td>
                                     <td>{approval.fileCount}</td>
@@ -65,6 +66,33 @@ function DraftCollect() {
                         </table>
                         <PagingBar pageInfo={draftCollect.pageInfo} setCurrentPage={setCurrentPage}/>
                     </>
+                    ) : (
+                        <table className="sales-table approval-list-table">
+                            <colgroup>
+                                <col width="15%"/>
+                                <col width="15%"/>
+                                <col width="40%"/>
+                                <col width="10%"/>
+                                <col width="20%"/>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>결재상태</th>
+                                <th>결재양식</th>
+                                <th>제목</th>
+                                <th>첨부</th>
+                                <th>최종 작성일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colSpan={5}>
+                                        <div className="no-app-info">결재한 문서가 없습니다.</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    )
                 }
             </div>
         </>
