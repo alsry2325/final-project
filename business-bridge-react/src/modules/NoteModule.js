@@ -5,6 +5,7 @@ const initialState = {};
 
 /* 액션 타입 = 어떤 걸 요청할건지? */
 const GET_NOTE = 'notes/GET_NOTE';
+const GET_SENDER_NOTE = 'notes/GET_SENDER_NOTE';
 const GET_RECIPIENT_NOTE_DETAIL = 'note/GET_RECIPIENT_NOTE_DETAIL';
 const POST_SUCEESS = 'note'/'POST_SUCCESS';
 const PUT_SUCCESS = 'note/PUT_SUCCESS';

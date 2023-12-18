@@ -293,7 +293,6 @@
     padding: 0px;
     font-size: 14px;
     border-radius: 5px;
-    margin-bottom: 50px;
 }
 
 .note-write-body-list button {
@@ -308,6 +307,20 @@
     margin-bottom: 55px;
 }
 
+/* 사원 선택 시 사원 이름 */
+.selectEmplyName {
+    border: #ccc solid 1px;
+    border-radius: 5px;
+    padding: 7px;
+    width: 100px;
+    text-align: center;
+}
+
+/* 사원 선택 시 버튼 스타일 */
+.buttonWithSelectedName {
+    margin-left: -50px;
+}
+
 .note-write-body-list textarea {
     width: 1000px;
     height: 200px;
@@ -316,7 +329,6 @@
     background-color: white;
     font-size: 14px;
     border-radius: 5px;
-    margin-bottom: 20px;
 }
 
 .note-send-btn-container {
@@ -334,18 +346,26 @@
     color: white;
 }
 
+/* byte 포함 */
+.note-input-byte {
+    margin-bottom: 30px;
+    font-size: 14px;
+    color: #9a9a9a;
+}
+
+
 /* 모달  ----------------------------------------------------------*/
 .customModal {
     align-items: center;
-    width: 800px;
-    height: 400px;
+    width: 525px;
+    height: 600px;
     margin: auto;
     background: white;
-    padding: 20px;
+    padding: 40px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(97, 81, 148, 0.1);
     position: fixed;
-    top: 35%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -366,14 +386,14 @@
 
 .note-modal-select {
     margin-right: 20px;
-    width: 90px;
+    width: 80px;
     height: 40px;
     border-radius: 5px;
     border: #ccc solid 1px;
 }
 
 .note-modal-input {
-    width: 300px;
+    width: 250px;
     border: #ccc solid 1px;
     background-color: white;
     margin-right: 20px;
@@ -384,12 +404,56 @@
 }
 
 .note-modal-searchBtn {
-    width: 80px;
+    width: 70px;
     height: 40px;
     background-color: #5549DD;
     border: none;
     border-radius: 5px;
     color: white;
+}
+
+.note-modal-list {
+    margin-top: 30px;
+    max-height: 380px;
+    overflow-y: auto;
+}
+
+/* 스크롤 바 전체 스타일 */
+.note-modal-list::-webkit-scrollbar {
+    width: 10px; /* 스크롤 바의 너비 */
+}
+
+/* 스크롤 바 트랙 (바탕) 스타일 */
+.note-modal-list::-webkit-scrollbar-track {
+    background: #e5e5e8; /* 스크롤 바 트랙의 배경색 */
+    border-radius: 10px;  /* 둥근 모서리 */
+}
+
+/* 스크롤 바 핸들 (움직이는 부분) 스타일 */
+.note-modal-list::-webkit-scrollbar-thumb {
+    background: #a39cf3; /* 스크롤 바 핸들의 색상 */
+    border-radius: 10px;  /* 둥근 모서리 */
+}
+
+/* 스크롤 바 핸들 : 호버 상태 */
+.note-modal-list::-webkit-scrollbar-thumb:hover {
+    background: #5549DD; /* 호버 시 스크롤 바 핸들의 색상 */
+}
+
+.note-modal-address-info {
+    display: flex;
+    border: #ccc solid 1px;
+    border-radius: 5px;
+    width: 420px;
+    height: 50px;
+    align-items: center;
+    margin-top: 15px;
+    background-color: white;
+}
+
+.note-modal-detail {
+    margin-left: 20px;
+    font-size: 14px;
 }
 
 

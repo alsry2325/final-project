@@ -36,16 +36,20 @@ function AddressBookModal({
                     <button
                         onClick={handleSearch}
                         className="note-modal-searchBtn"
-                    >검색</button>
+                    >검색
+                    </button>
                 </div>
-                <div className="note-modal-list">
-                    <ul>
+                <div>
+                    <div className="note-modal-list">
                         {addressData && addressData.data && addressData.data.map((item, index) => (
-                            <li key={index} onClick={() => handleSelectRecipient(item.emplyCode)}>
-                                {item.emplyName} - {item.emplyEmail} - {item.emplyPhoneNumber}
-                            </li>
+                            <div className="note-modal-address-info" key={index}
+                                 onClick={() => handleSelectRecipient(item.emplyCode, item.emplyName)}>
+                                <div className="note-modal-detail">
+                                    {item.emplyName} {item.departmentName} {item.positionName} {item.emplyEmail}
+                                </div>
+                            </div>
                         ))}
-                    </ul>
+                    </div>
                 </div>
             </div>
         </Modal>

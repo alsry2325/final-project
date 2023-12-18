@@ -54,6 +54,7 @@ import NoteSenderDetail from "./pages/businessbridge/note/NoteSenderDetail";
 import EmployeeRegist from "./pages/businessbridge/employee/EmployeeRegist";
 import SalesRegistModal from "./components/modal/SalesRegistModal";
 import NoteWrite from "./pages/businessbridge/note/NoteWrite";
+import {ToastContainer} from "react-toastify";
 
 function App() {
   return (
