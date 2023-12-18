@@ -1,14 +1,14 @@
 import ApproverChoice from "../../items/approvalItems/ApproverChoice";
 import {useState} from "react";
 
-function ERWriteForm({ myPageInfo, form, setForm, fileInput }) {
+function ERWriteForm({myPageInfo, form, setForm, fileInput}) {
 
     const [fileUrl, setFileUrl] = useState('');
     const [attachedFiles, setAttachedFiles] = useState([]);
     const today = new Date();
-    const customDate = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`
+    const customDate = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
     const [detailsData, setDetailsData] = useState([
-        { item: '', amount: '', note: '' }
+        {item: '', amount: '', note: ''}
     ]);
 
 
@@ -22,7 +22,7 @@ function ERWriteForm({ myPageInfo, form, setForm, fileInput }) {
 
     // 지출 상세 내역 가공처리
     const addRow = () => {
-        setDetailsData([...detailsData, { item: '', amount: '', note: '' }]);
+        setDetailsData([...detailsData, {item: '', amount: '', note: ''}]);
     };
 
     const removeRow = (index) => {
@@ -37,7 +37,7 @@ function ERWriteForm({ myPageInfo, form, setForm, fileInput }) {
         setDetailsData(updatedDetails);
         setForm({
             ...form,
-            "expenseReportDetailCreateRequests" : detailsData
+            "expenseReportDetailCreateRequests": detailsData
         });
     };
 
@@ -78,7 +78,7 @@ function ERWriteForm({ myPageInfo, form, setForm, fileInput }) {
         setAttachedFiles(updatedFiles);
     };
 
-    return(
+    return (
         <>
             <div className="approval-doc-form-outline">
                 <div className="approval-header">
@@ -127,48 +127,48 @@ function ERWriteForm({ myPageInfo, form, setForm, fileInput }) {
                         </tr>
                         <tr>
                             <th className="app-table-info">내역</th>
-                            <td colSpan={"3"} style={{padding:"0"}}>
-                            <table className="ER-detail-table">
-                                <tbody>
-                                <tr>
-                                    <td className="app-table-info">적요</td>
-                                    <td className="app-table-info">금액</td>
-                                    <td className="app-table-info">비고</td>
-                                    <button onClick={addRow}>행추가</button>
-                                </tr>
-                                {detailsData.map((detail, index) => (
-                                    <tr key={index}>
-                                        <td>
-                                            <input
-                                                className={`ERdetail-input item-${index}`}
-                                                type="text"
-                                                value={detail.item}
-                                                onChange={(e) => handleDetailChange(e, index, 'item')}
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                className={`amount-${index}`}
-                                                type="text"
-                                                value={detail.amount}
-                                                onChange={(e) => handleDetailChange(e, index, 'amount')}
-                                            />
-                                        </td>
-                                        <td>
-                                            <input
-                                                className={`note-${index}`}
-                                                type="text"
-                                                value={detail.note}
-                                                onChange={(e) => handleDetailChange(e, index, 'note')}
-                                            />
-                                        </td>
-                                        <td>
-                                            <button onClick={() => removeRow(index)}>행 삭제</button>
-                                        </td>
+                            <td colSpan={"3"} style={{padding: "0"}}>
+                                <table className="ER-detail-table">
+                                    <tbody>
+                                    <tr>
+                                        <td className="app-table-info">적요</td>
+                                        <td className="app-table-info">금액</td>
+                                        <td className="app-table-info">비고</td>
+                                        <button className="add-row" onClick={addRow}>행추가</button>
                                     </tr>
-                                ))}
-                                </tbody>
-                            </table>
+                                    {detailsData.map((detail, index) => (
+                                        <tr key={index}>
+                                            <td>
+                                                <input
+                                                    className={`ERdetail-input item-${index}`}
+                                                    type="text"
+                                                    value={detail.item}
+                                                    onChange={(e) => handleDetailChange(e, index, 'item')}
+                                                />
+                                            </td>
+                                            <td>
+                                                <input
+                                                    className={`ERdetail-input amount-${index}`}
+                                                    type="text"
+                                                    value={detail.amount}
+                                                    onChange={(e) => handleDetailChange(e, index, 'amount')}
+                                                />
+                                            </td>
+                                            <td>
+                                                <input
+                                                    className={`ERdetail-input note-${index}`}
+                                                    type="text"
+                                                    value={detail.note}
+                                                    onChange={(e) => handleDetailChange(e, index, 'note')}
+                                                />
+                                            </td>
+                                            <td>
+                                                <button className="delet-row" onClick={() => removeRow(index)}>행삭제</button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
                             </td>
                         </tr>
                         </tbody>
@@ -182,40 +182,42 @@ function ERWriteForm({ myPageInfo, form, setForm, fileInput }) {
                         type="file"
                         name='approvalFile'
                         ref={fileInput}
-                        onChange={ onChangeFileUpload }
+                        onChange={onChangeFileUpload}
                         multiple        // 여러 파일 선택을 허용
                     />
-                    <div
-                        className="approval-file"
-                        onClick={ onClickFileUpload }
-                    >
-                        <img className="approval-attach-img"
-                             src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/9db9634b-1962-4ebf-89b8-7f0c327af689"/>
-                        파일 선택</div>
-                </div>
-                {
-                    fileUrl &&
-                    <>
-                        <div className="shorter-line-div"/>
-                        <div className="app-attach-files-div">
-                            {attachedFiles.map((fileName, index) => (
-                                <div key={index} className="app-file-name">
-                                    <img
-                                        className="cancel-attach"
-                                        src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/e5019604-ff4b-40b3-8bbd-cfe351fcfaae"
-                                        alt="cancel"
-                                        onClick={() => handleCancelFile(index)}
-                                    />
-                                    {fileName}
-                                </div>
-                            ))}
-
+                    <div className="approval-file">
+                        <div
+                            className="approval-file-add"
+                            onClick={onClickFileUpload}
+                        >
+                            <img className="approval-attach-img"
+                                 src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/9db9634b-1962-4ebf-89b8-7f0c327af689"/>
+                            파일 선택
                         </div>
-                    </>
-                }
+                        {
+                            fileUrl &&
+                            <>
+                                <div className="shorter-line-div"/>
+                                <div className="app-attach-files-div">
+                                    {attachedFiles.map((fileName, index) => (
+                                        <div key={index} className="app-file-name">
+                                            <img
+                                                className="cancel-attach"
+                                                src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/e5019604-ff4b-40b3-8bbd-cfe351fcfaae"
+                                                alt="cancel"
+                                                onClick={() => handleCancelFile(index)}
+                                            />
+                                            {fileName}
+                                        </div>
+                                    ))}
+                                </div>
+                            </>
+                        }
+                    </div>
+                </div>
             </div>
         </>
     );
 }
 
-export default ERWriteForm;
+                export default ERWriteForm;

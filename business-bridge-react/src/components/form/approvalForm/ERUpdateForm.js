@@ -1,5 +1,5 @@
-import ApproverChoice from "../../items/approvalItems/ApproverChoice";
 import {useEffect, useState} from "react";
+import ApproverUpdateER from "../../items/approvalItems/ApproverUpdateER";
 
 function ERUpdateForm({ expenseReport, form, setForm, fileInput }) {
 
@@ -13,9 +13,11 @@ function ERUpdateForm({ expenseReport, form, setForm, fileInput }) {
         // 컴포넌트가 마운트되었을 때 초기 값을 form 상태에 설정
         if (!form.title) {
             setForm({
-                // ...businessDraft,
+                // ...expenseReport,
                 title: expenseReport.title || '',
-                approvers: expenseReport.approvers || ''
+                approvers: expenseReport.approvers || '',
+                totalExpenditure: expenseReport.totalExpenditure || '',
+                details: expenseReport.details || ''
             });
         }
     }, [form, setForm]);
@@ -47,7 +49,7 @@ function ERUpdateForm({ expenseReport, form, setForm, fileInput }) {
         setDetailsData(updatedDetails);
         setForm({
             ...form,
-            "expenseReportDetailCreateRequests" : detailsData
+            "expenseReportDetailCreateRequests" : updatedDetails
         });
     };
 
@@ -88,13 +90,26 @@ function ERUpdateForm({ expenseReport, form, setForm, fileInput }) {
         setAttachedFiles(updatedFiles);
     };
 
+    const handleCancelViewFile = (index) => {
+// 기존의 attachFiles 배열에서 해당 인덱스의 파일을 제거
+        const updatedAttachFiles = [...expenseReport.attachFiles];
+        updatedAttachFiles.splice(index, 1);
+
+        // state 업데이트
+        setForm({
+            ...form,
+            attachFiles: updatedAttachFiles
+        });
+    };
+
+
     return(
         <>
             <div className="approval-doc-form-outline">
                 <div className="approval-header">
                     <h3 className="approval-form-name">지출결의서</h3>
                     <div className="approver-list">
-                        <ApproverChoice form={form} setForm={setForm}/>
+                        <ApproverUpdateER expenseReport={expenseReport} form={form} setForm={setForm}/>
                     </div>
                 </div>
 
@@ -146,9 +161,13 @@ function ERUpdateForm({ expenseReport, form, setForm, fileInput }) {
                                     <td className="app-table-info">적요</td>
                                     <td className="app-table-info">금액</td>
                                     <td className="app-table-info">비고</td>
-                                    <button onClick={addRow}>행추가</button>
+                                    <div>
+                                        <button onClick={addRow}>행추가</button>
+                                    </div>
                                 </tr>
-                                {detailsData.map((detail, index) => (
+                                {/* 기존 지출 상세 내역 조회 */}
+                                {expenseReport.details &&
+                                    expenseReport.details.map((detail, index) => (
                                     <tr key={index}>
                                         <td>
                                             <input
@@ -179,6 +198,39 @@ function ERUpdateForm({ expenseReport, form, setForm, fileInput }) {
                                         </td>
                                     </tr>
                                 ))}
+                                {detailsData.map((detail, index) => (
+                                    <tr key={index}>
+                                        <td>
+                                            <input
+                                                className={`ERdetail-input item-${index}`}
+                                                type="text"
+                                                value={detail.item}
+                                                onChange={(e) => handleDetailChange(e, index, 'item')}
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                className={`amount-${index}`}
+                                                type="text"
+                                                value={detail.amount}
+                                                onChange={(e) => handleDetailChange(e, index, 'amount')}
+                                            />
+                                        </td>
+                                        <td>
+                                            <input
+                                                className={`note-${index}`}
+                                                type="text"
+                                                value={detail.note}
+                                                onChange={(e) => handleDetailChange(e, index, 'note')}
+                                            />
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <button onClick={() => removeRow(index)}>행 삭제</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
                                 </tbody>
                             </table>
                             </td>
@@ -197,34 +249,48 @@ function ERUpdateForm({ expenseReport, form, setForm, fileInput }) {
                         onChange={ onChangeFileUpload }
                         multiple        // 여러 파일 선택을 허용
                     />
-                    <div
-                        className="approval-file"
-                        onClick={ onClickFileUpload }
-                    >
-                        <img className="approval-attach-img"
-                             src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/9db9634b-1962-4ebf-89b8-7f0c327af689"/>
-                        파일 선택</div>
-                </div>
-                {
-                    fileUrl &&
-                    <>
-                        <div className="shorter-line-div"/>
-                        <div className="app-attach-files-div">
-                            {attachedFiles.map((fileName, index) => (
-                                <div key={index} className="app-file-name">
-                                    <img
-                                        className="cancel-attach"
-                                        src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/e5019604-ff4b-40b3-8bbd-cfe351fcfaae"
-                                        alt="cancel"
-                                        onClick={() => handleCancelFile(index)}
-                                    />
-                                    {fileName}
-                                </div>
-                            ))}
-
+                    <div className="approval-file">
+                        <div
+                            className="approval-file-add"
+                            onClick={onClickFileUpload}
+                        >
+                            <img className="approval-attach-img"
+                                 src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/9db9634b-1962-4ebf-89b8-7f0c327af689"/>
+                            파일 선택
                         </div>
-                    </>
-                }
+                        {
+                            expenseReport.attachFiles &&
+                            <>
+                                <div className="shorter-line-div"/>
+                                <div className="app-attach-files-div">
+                                    {attachedFiles.map((fileName, index) => (
+                                        <div key={index} className="app-file-name">
+                                            <img
+                                                className="cancel-attach"
+                                                src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/e5019604-ff4b-40b3-8bbd-cfe351fcfaae"
+                                                alt="cancel"
+                                                onClick={() => handleCancelFile(index)}
+                                            />
+                                            {fileName}
+                                        </div>
+                                    ))}
+                                    {/* 기존 값 조회 */}
+                                    {expenseReport.attachFiles.map((file, index) => (
+                                        <div key={index} className="app-file-name">
+                                            <img
+                                                className="cancel-attach"
+                                                src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/e5019604-ff4b-40b3-8bbd-cfe351fcfaae"
+                                                alt="cancel"
+                                                onClick={() => handleCancelViewFile(index)}
+                                            />
+                                            {file.fileName}
+                                        </div>
+                                    ))}
+                                </div>
+                            </>
+                        }
+                    </div>
+                </div>
             </div>
         </>
     );

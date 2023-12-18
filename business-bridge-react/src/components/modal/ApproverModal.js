@@ -32,7 +32,6 @@ function ApproverModal({ setAppEmplyModal, onSelectedApprovers, existingApprover
         }
     };
 
-
     // 결재자에 선택 된 직원 삭제 버튼 클릭 시
     const removeSelectedEmployee = (empCode) => {
         const updatedSelection = selectedEmployees.filter(
@@ -41,7 +40,6 @@ function ApproverModal({ setAppEmplyModal, onSelectedApprovers, existingApprover
         setSelectedEmployees(updatedSelection);
     };
 
-    // 결재자 순서 변경 이벤트
 
     // 적용 클릭 시 상위 컴포넌트로 보냄
     const onClickUse = (selectedEmployees) => {
@@ -93,7 +91,7 @@ function ApproverModal({ setAppEmplyModal, onSelectedApprovers, existingApprover
                                         {selectedEmp.departmentName} <br/>
                                         &nbsp;&nbsp; {selectedEmp.emplyName} {selectedEmp.positionName}{" "}
                                     </div>
-                                    <button
+                                    <button className="app-delete"
                                         onClick={() => removeSelectedEmployee(selectedEmp.emplyCode)}
                                     >
                                         삭제
@@ -101,16 +99,18 @@ function ApproverModal({ setAppEmplyModal, onSelectedApprovers, existingApprover
                                 </div>
                             ))}
                         </div>
-                        <button className="app-up">&#9650;</button>
-                        <button className="app-down">&#9660;</button>
-                        <button className="app-cancle" onClick={onClickApproverCancle}>
-                            취소
-                        </button>
-                        <button
-                            className="app-use"
-                            onClick={() =>
-                                onClickUse(selectedEmployees)}
-                        >적용</button>
+                        <div className="app-button-div">
+                            {/*<button className="app-up">&#9650;</button>*/}
+                            {/*<button className="app-down">&#9660;</button>*/}
+                            <button className="app-cancel" onClick={onClickApproverCancle}>
+                                취소
+                            </button>
+                            <button
+                                className="app-use"
+                                onClick={() =>
+                                    onClickUse(selectedEmployees)}
+                            >적용</button>
+                        </div>
                     </div>
                 </div>
             </div>

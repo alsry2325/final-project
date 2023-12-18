@@ -47,9 +47,7 @@ function ApproveApps() {
             <ToastContainer position="top-center"/>
             <div className="approval-div">
                 <h2 className="approval-title">결재한 문서함</h2>
-                {
-                    approveApps &&
-                    <>
+
                         <div className="approval-tool-bar">
                             <ul className="tab-nav">
                                 <NavLink className="tab-item"
@@ -84,16 +82,19 @@ function ApproveApps() {
                                 </NavLink>
                             </ul>
                         </div>
+                {
+                    approveApps && approveApps.data.length > 0 ? (
+                    <>
                         <table className="sales-table approval-list-table">
                             <colgroup>
                                 <col width="10%"/>
                                 <col width="10%"/>
-                                <col width="5%"/>
-                                <col width="30%"/>
-                                <col width="5%"/>
                                 <col width="10%"/>
-                                <col width="15%"/>
-                                <col width="15%"/>
+                                <col width="30%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="10%"/>
                             </colgroup>
                             <thead>
                             <tr>
@@ -131,6 +132,39 @@ function ApproveApps() {
                         </table>
                         <PagingBar pageInfo={approveApps.pageInfo} setCurrentPage={setCurrentPage}/>
                     </>
+                    ) : (
+                        <table className="sales-table approval-list-table">
+                            <colgroup>
+                                <col width="10%"/>
+                                <col width="10%"/>
+                                <col width="5%"/>
+                                <col width="30%"/>
+                                <col width="5%"/>
+                                <col width="10%"/>
+                                <col width="15%"/>
+                                <col width="15%"/>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>결재상태</th>
+                                <th>결재양식</th>
+                                <th>기안자</th>
+                                <th>제목</th>
+                                <th>첨부</th>
+                                <th>문서번호</th>
+                                <th>기안일</th>
+                                <th>결재일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colSpan={8}>
+                                        <div className="no-app-info">결재한 문서가 없습니다.</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    )
                 }
             </div>
         </>

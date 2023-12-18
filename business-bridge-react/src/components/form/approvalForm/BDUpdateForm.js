@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {format} from "date-fns";
-import ApproverUpdate from "../../items/approvalItems/ApproverUpdate";
+import ApproverUpdateBD from "../../items/approvalItems/ApproverUpdateBD";
 
 function BDUpdateForm({businessDraft, form, setForm, fileInput}) {
 
@@ -78,7 +78,7 @@ function BDUpdateForm({businessDraft, form, setForm, fileInput}) {
                 <div className="approval-header">
                     <h3 className="approval-form-name">업무기안서</h3>
                     <div className="approver-list">
-                        <ApproverUpdate businessDraft={businessDraft} form={form} setForm={setForm}/>
+                        <ApproverUpdateBD businessDraft={businessDraft} form={form} setForm={setForm}/>
                     </div>
                 </div>
                 <div className="approval-body">

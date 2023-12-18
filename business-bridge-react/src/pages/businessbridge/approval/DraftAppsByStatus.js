@@ -46,9 +46,7 @@ function DraftAppsByStatus() {
             <ToastContainer position="top-center"/>
             <div className="approval-div">
                 <h2 className="approval-title">기안 문서함</h2>
-                {
-                    draftAppsBy &&
-                    <>
+
                         <div className="approval-tool-bar">
                             <ul className="tab-nav">
                                 <NavLink className="tab-item"
@@ -82,6 +80,9 @@ function DraftAppsByStatus() {
                                 </NavLink>
                             </ul>
                         </div>
+                {
+                    draftAppsBy && draftAppsBy.data.length > 0 ? (
+                    <>
                         <table className="sales-table approval-list-table">
                             <colgroup>
                                 <col width="10%"/>
@@ -123,6 +124,35 @@ function DraftAppsByStatus() {
                         </table>
                         <PagingBar pageInfo={draftAppsBy.pageInfo} setCurrentPage={setCurrentPage}/>
                     </>
+                    ) : (
+                        <table className="sales-table approval-list-table">
+                            <colgroup>
+                                <col width="10%"/>
+                                <col width="15%"/>
+                                <col width="40%"/>
+                                <col width="5%"/>
+                                <col width="15%"/>
+                                <col width="15%"/>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>결재상태</th>
+                                <th>결재양식</th>
+                                <th>제목</th>
+                                <th>첨부</th>
+                                <th>문서번호</th>
+                                <th>기안일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colSpan={6}>
+                                        <div className="no-app-info">결재한 문서가 없습니다.</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    )
                 }
             </div>
         </>

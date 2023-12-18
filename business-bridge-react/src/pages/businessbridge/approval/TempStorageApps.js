@@ -28,9 +28,8 @@ function TempStorageApps() {
             <div className="approval-div">
                 <h2 className="approval-title">임시 저장함</h2>
                 {
-                    tempStorages &&
+                    tempStorages && tempStorages.data.length > 0 ? (
                     <>
-
                         <table className="sales-table approval-list-table">
                             <colgroup>
                                 <col width="10%"/>
@@ -67,6 +66,33 @@ function TempStorageApps() {
                         </table>
                         <PagingBar pageInfo={tempStorages.pageInfo} setCurrentPage={setCurrentPage}/>
                     </>
+                    ) : (
+                        <table className="sales-table approval-list-table">
+                            <colgroup>
+                                <col width="10%"/>
+                                <col width="15%"/>
+                                <col width="35%"/>
+                                <col width="10%"/>
+                                <col width="20%"/>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>결재상태</th>
+                                <th>결재양식</th>
+                                <th>제목</th>
+                                <th>첨부</th>
+                                <th>최종 작성일</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colSpan={5}>
+                                        <div className="no-app-info">결재한 문서가 없습니다.</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    )
                 }
             </div>
         </>

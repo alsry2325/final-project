@@ -68,7 +68,9 @@ function BusinessDraftItem({businessDraft}) {
                         <div className="file-view-div">
                             {businessDraft.attachFiles.map((file, index) => (
                                 <div key={index} className="app-file-name">
-                                    <a href={file.fileUrl} download={file.fileName}>{file.fileName}</a>
+                                    <img className="app-file-down-img"
+                                        src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/dfa77b76-69a5-4734-a56f-382af648dedb"/>
+                                    <a className="app-attach-a" href={file.fileUrl} download={file.fileName}>{file.fileName}</a>
                                 </div>
                             ))}
                         </div>

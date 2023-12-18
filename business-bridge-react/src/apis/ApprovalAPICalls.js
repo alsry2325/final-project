@@ -220,7 +220,7 @@ export const callBusinessDraftDetailAPI = ({approvalCode}) => {
 
     return async (dispatch, getState) => {
         const result
-            = await request('GET',`/approval/document/businessDraft/${approvalCode}`);
+            = await request('GET', `/approval/document/businessDraft/${approvalCode}`);
 
         console.log('업무 기안서 상세 조회 : ', result);
 
@@ -235,7 +235,7 @@ export const callExpenseReportDetailAPI = ({approvalCode}) => {
 
     return async (dispatch, getState) => {
         const result
-            = await request('GET',`/approval/document/expenseReport/${approvalCode}`);
+            = await request('GET', `/approval/document/expenseReport/${approvalCode}`);
 
         console.log('지출결의서 상세 조회 : ', result);
 
@@ -367,6 +367,7 @@ export const callUpdateBDAPI = ({approvalCode, form, files, docStatus}) => {
 
         if(result.status === 201){
             dispatch(putBusinessDraft());
+            // toast.info('업무기안서 수정이 완료됐습니다.');
         }
     }
 }
@@ -385,6 +386,7 @@ export const callUpdateERAPI = ({approvalCode, form, files, docStatus}) => {
 
         if(result.status === 201){
             dispatch(putExpenseReport());
+            // toast.info('업무기안서 수정이 완료됐습니다.');
         }
     }
 }

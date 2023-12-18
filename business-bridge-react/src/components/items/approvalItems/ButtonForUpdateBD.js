@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {callUpdateBDAPI} from "../../../apis/ApprovalAPICalls";
 import {useEffect} from "react";
 
-function ButtonForUpdateBD({fileInput, form}) {
+function ButtonForUpdateBD({fileInput, form, approvalCode}) {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -21,7 +21,7 @@ function ButtonForUpdateBD({fileInput, form}) {
     const onClickTempStorage = () => {
         const result = window.confirm('임시저장 하시겠습니까?');
         if(result) {
-                dispatch(callUpdateBDAPI({form, files: fileInput.current.files, docStatus: "임시저장"}));
+                dispatch(callUpdateBDAPI({approvalCode, form, files: fileInput.current.files, docStatus: "임시저장"}));
         }
     }
 
@@ -29,7 +29,7 @@ function ButtonForUpdateBD({fileInput, form}) {
     const onClickApprove = () => {
         const result = window.confirm('결재 요청 하시겠습니까?');
         if(result) {
-                dispatch(callUpdateBDAPI({form, files: fileInput.current.files, docStatus: "대기"}));
+                dispatch(callUpdateBDAPI({approvalCode, form, files: fileInput.current.files, docStatus: "대기"}));
         }
     }
 

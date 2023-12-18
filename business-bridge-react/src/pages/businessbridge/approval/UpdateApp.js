@@ -24,19 +24,20 @@ function UpdateApp() {
         dispatch(callExpenseReportDetailAPI({approvalCode}))
     }, []);
 
+
     return(
         <>
             {businessDraft&&
                 <>
                     <h2 className="approval-title">{businessDraft.title}</h2>
-                    <ButtonForUpdateBD fileInput={fileInput} form={form}/>
+                    <ButtonForUpdateBD fileInput={fileInput} form={form} approvalCode={approvalCode}/>
                     <BDUpdateForm businessDraft={businessDraft} form={form} setForm={setForm} fileInput={fileInput}/>
                 </>
             }
             {expenseReport &&
                 <>
                     <h2 className="approval-title">{expenseReport.title}</h2>
-                    <ButtonForUpdateER fileInput={fileInput} form={form}/>
+                    <ButtonForUpdateER fileInput={fileInput} form={form} approvalCode={approvalCode}/>
                     <ERUpdateForm expenseReport={expenseReport} form={form} setForm={setForm} fileInput={fileInput}/>
                 </>
             }

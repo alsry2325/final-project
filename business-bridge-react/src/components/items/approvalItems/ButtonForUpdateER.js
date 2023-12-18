@@ -2,8 +2,9 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {callUpdateBDAPI, callUpdateERAPI} from "../../../apis/ApprovalAPICalls";
 import {useEffect} from "react";
+import {toast} from "react-toastify";
 
-function ButtonForUpdateER({fileInput, form}) {
+function ButtonForUpdateER({fileInput, form, approvalCode}) {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -13,7 +14,7 @@ function ButtonForUpdateER({fileInput, form}) {
     // 등록 성공시에 전자결재 홈으로 이동
     useEffect(() => {
         if (updateBD === true) {
-            navigate('/approval/home', {replace: true})        // navigate (-1) 할까,,
+            navigate('approval/home', {replace: true})        // navigate (-1) 할까,,
         }
     }, [updateBD]);
 
@@ -21,7 +22,8 @@ function ButtonForUpdateER({fileInput, form}) {
     const onClickTempStorage = () => {
         const result = window.confirm('임시저장 하시겠습니까?');
         if(result) {
-                dispatch(callUpdateERAPI({form, files: fileInput.current.files, docStatus: "임시저장"}));
+                dispatch(callUpdateERAPI({approvalCode, form, files: fileInput.current.files, docStatus: "임시저장"}));
+                navigate(-2);
         }
     }
 
@@ -29,7 +31,8 @@ function ButtonForUpdateER({fileInput, form}) {
     const onClickApprove = () => {
         const result = window.confirm('결재 요청 하시겠습니까?');
         if(result) {
-                dispatch(callUpdateERAPI({form, files: fileInput.current.files, docStatus: "대기"}));
+                dispatch(callUpdateERAPI({approvalCode, form, files: fileInput.current.files, docStatus: "대기"}));
+                navigate(-2)
         }
     }
 
