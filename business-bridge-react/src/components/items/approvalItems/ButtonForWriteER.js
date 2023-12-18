@@ -1,8 +1,8 @@
-import {Form, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {callRegistBusinessDraftAPI, callRegistExpenseReportAPI} from "../../../apis/ApprovalAPICalls";
+import {callRegistExpenseReportAPI} from "../../../apis/ApprovalAPICalls";
 import {useEffect} from "react";
-import {toast} from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
 
 function ButtonForWriteER({fileInput, form}) {
 
@@ -59,6 +59,7 @@ function ButtonForWriteER({fileInput, form}) {
 
     return (
         <>
+            <ToastContainer position="top-center" hideProgressBar={true}/>
             <div className="app-button-bar">
                 <div
                     className="back-to-list"
