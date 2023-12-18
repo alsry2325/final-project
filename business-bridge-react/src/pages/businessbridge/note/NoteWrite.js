@@ -32,7 +32,7 @@ function NoteWrite() {
     const [searchType, setSearchType] = useState('name');
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const addressData = useSelector(state => state.addressReducer.address);
+    const addressData = useSelector(state => state.addressReducer.addressList);
     const [selectedEmployeeName, setSelectedEmployeeName] = useState('');
 
     const openModal = () => {
