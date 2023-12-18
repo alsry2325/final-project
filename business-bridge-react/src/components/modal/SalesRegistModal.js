@@ -190,7 +190,7 @@ function SalesRegistModal({setIsOpen}) {
                                                 onClickSalesProductHandler()
                                             }
                                         >
-                                            상품검색
+                                            상품등록
                                         </button>
                                     </td>
                                 </tr>

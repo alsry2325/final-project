@@ -43,6 +43,10 @@ import AddressDetail from "./pages/businessbridge/addressBook/AddressDetail";
 import AddressAdminItem from "./components/items/AddressAdminItem";
 import EmployeeRegist from "./pages/businessbridge/employee/EmployeeRegist";
 import SalesRegistModal from "./components/modal/SalesRegistModal";
+import AccountList from "./pages/businessbridge/account/AccountList";
+import AccountDetail from "./pages/businessbridge/account/AccountDetail";
+import AccountRegist from "./pages/businessbridge/account/AccountRegist";
+import AccountModify from "./pages/businessbridge/account/AccountModify";
 
 function App() {
   return (
@@ -56,6 +60,7 @@ function App() {
                     <Route path="registrationList" element={ <EmployeeRegistrationList/>}/>
                     <Route path="registration" element={<EmployeeRegist/>}/>
                 </Route>
+
                 {/* 영업관리 시작*/}
                 <Route path="sales" element={<SalesLayout/>}>
                     <Route index element={ <Navigate to="/sales/salesList/0" replace/>}/>
@@ -64,8 +69,17 @@ function App() {
                     <Route path="sales-modify/:salesCode" element={ <SalesModify/> }/>
                     <Route path="salesStatistics" element={ <SalesStatistics/> }/>
                 </Route>
-
                 {/* 영업관리 끝*/}
+
+                {/* 거래처관리 시작*/}
+                <Route path="account" element={<SalesLayout/>}>
+                    <Route index element={ <Navigate to="/account/accountList/0" replace/>}/>
+                    <Route path="accountList/:departmentCode" element={ <AccountList/> }/>
+                    <Route path=":accountCode" element={ <AccountDetail/> }/>
+                    <Route path="account-modify/:accountCode" element={ <AccountModify/> }/>
+                </Route>
+
+                {/* 거래처관리 끝*/}
 
                 {/* == 전자결재 시작 == */}
                 <Route path="/approval" element={<ApprovalLayout/>}>
