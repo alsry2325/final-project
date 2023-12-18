@@ -27,14 +27,21 @@ function AddressDetail() {
     const onDeleteClick = () => {
         dispatch(deleteAddressAPI({ emplyCode }))
             .then((response) => {
-                console.log("주소록 삭제에 성공했습니다.")
+                console.log("주소록 삭제에 성공했습니다.");
                 toast.info("주소록 삭제가 완료 되었습니다.", {
-                    onClose: () => navigate('/addressBook/main', { replace: true })
+                    autoClose: 5000, /* toast 지속 시간 */
+                    onClose: () => {
+                        setTimeout(() => {
+                            navigate('/addressBook/main', { replace: true });
+                        }, 5000); /* 토스트가 사라진 이후 이동에 걸리는 시간 */
+                    }
                 });
             })
             .catch((error) => {
-                console.error("주소록 삭제에 실패했습니다", error)
-                toast.info("주소록 삭제에 실패 하였습니다.")
+                console.error("주소록 삭제에 실패했습니다", error);
+                toast.error("주소록 삭제에 실패 하였습니다.", {
+                    autoClose: 5000
+                });
             });
     };
 
@@ -59,13 +66,12 @@ function AddressDetail() {
                     <h1>주소록 상세조회</h1>
                 </div>
                 <hr/>
-                {
+                {       address &&
                         <div className="address-detail-div">
                             <AddressItem address={address} />
                         </div>
                 }
 
-                <ToastContainer hideProgressBar={true} position="top-center"/>
                 {
                     isAdmin() && (
                         <div className="address-btn-container">

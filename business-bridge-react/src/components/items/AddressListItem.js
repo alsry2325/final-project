@@ -1,7 +1,7 @@
 import {useNavigate} from "react-router-dom";
 
 function AddressListItem({
-                             address: {
+                             addressList: {
                                  emplyCode, emplyPhoto, emplyName, emplyPhoneNumber, emplyEmail, emplyInternalNumber,
                                  departmentName, positionName, createdAt
                              }
