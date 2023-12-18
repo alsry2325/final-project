@@ -2,9 +2,10 @@ import {NavLink} from "react-router-dom";
 
 function EmployeeRegistrationNavbar() {
 
+
     return (
             <div className="employeeRegistration-navbar-div">
-                <div className="employeeRegistration-btn"><strong>직원 등록</strong></div>
+                <div className="employeeRegistration-btn" ><strong>직원 등록</strong></div>
                 <ul className="employeeRegistration-navbar-ul">
                     <h3 className="main-title">사원관리</h3>
                     <li><NavLink to="/emp/employee/registration">사원등록</NavLink></li>

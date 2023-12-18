@@ -9,7 +9,7 @@ function EmployeeRegist() {
                 <div className="employeeRegistration-title">
                     <h2> 사원등록 </h2>
                 </div>
-                <div className="employeeRegist-area">
+                <div>
                     <EmployeeRegistItem/>
                 </div>
             </div>
