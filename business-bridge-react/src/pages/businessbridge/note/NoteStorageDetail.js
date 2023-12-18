@@ -28,6 +28,7 @@ function NoteStorageDetail() {
                 </div>
                 <hr/>
                 {
+                    note &&
                     <div className="note-detail-div">
                         <NoteStorageDetailItem note={note} />
                     </div>

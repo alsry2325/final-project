@@ -4,7 +4,11 @@ function NoteNavbar() {
 
     return (
         <div className="note-navbar-div">
-            <div className="employeeRegistration-btn"><strong>쪽지 발송</strong></div>
+            <div className="note-send-btn">
+                <NavLink to="/note/send">
+                    <strong>쪽지 발송</strong>
+                </NavLink>
+            </div>
             <ul className="note-navbar-ul">
                 <h3 className="main-title">받은 쪽지함</h3>
                 <li><NavLink to="/note/recipient">받은 쪽지함</NavLink></li>

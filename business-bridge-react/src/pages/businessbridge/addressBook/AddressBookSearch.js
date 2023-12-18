@@ -15,7 +15,7 @@ function AddressBookSearch() {
     const searchParams = new URLSearchParams(location.search);
     const searchOption = searchParams.get('searchOption') || 'name';
     const search = searchParams.get('search') || '';
-    const { address } = useSelector(state => state.addressReducer);
+    const { addressList } = useSelector(state => state.addressReducer);
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
@@ -31,10 +31,10 @@ function AddressBookSearch() {
     return (
         <div className="addressBook-div">
             <h1 className="addressBook-h1">주소록 검색</h1>
-            {address && (
+            {addressList && (
                 <>
-                    <AddressList data={address.data} />
-                    <PagingBar pageInfo={address.pageInfo} setCurrentPage={setCurrentPage} />
+                    <AddressList data={addressList.data} />
+                    <PagingBar pageInfo={addressList.pageInfo} setCurrentPage={setCurrentPage} />
                 </>
             )}
         </div>

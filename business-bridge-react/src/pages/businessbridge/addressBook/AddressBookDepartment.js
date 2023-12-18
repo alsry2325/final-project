@@ -9,7 +9,7 @@ function AddressBookDepartment() {
 
     const dispatch = useDispatch();
     const {departmentCode} = useParams();
-    const {address} = useSelector(state => state.addressReducer);
+    const {addressList} = useSelector(state => state.addressReducer);
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
@@ -34,15 +34,15 @@ function AddressBookDepartment() {
                 </div>
                 <hr/>
                 <>
-                    {address
+                    {addressList
                         &&
-                        <AddressList data = {address.data}/>
+                        <AddressList data = {addressList.data}/>
                     }
                 </>
             </div>
-            {address && (
+            {addressList && (
                 <div className="paging-bar-container">
-                    <PagingBar pageInfo={address.pageInfo} setCurrentPage={setCurrentPage}/>
+                    <PagingBar pageInfo={addressList.pageInfo} setCurrentPage={setCurrentPage}/>
                 </div>
             )}
         </>

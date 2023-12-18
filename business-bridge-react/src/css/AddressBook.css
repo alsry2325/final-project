@@ -123,8 +123,10 @@
 
 .address-information input {
     width : 170px;
+    height: 30px;
     background-color: white;
     border: 1px solid #ddd;
+    border-radius: 5px;
     padding: 20px;
 }
 
@@ -156,6 +158,12 @@
 
 /* 검색 ----------------------------------------------------------*/
 
+.search-box {
+    display: flex;
+    margin-top: 30px;
+    justify-content: center;
+}
+
 .address-search {
     display: flex;
 }
@@ -167,12 +175,6 @@
     border: #ccc solid 1px;
 }
 
-.search-box {
-    display: flex;
-    margin-top: 30px;
-    justify-content: center;
-}
-
 .address-input {
     width: 300px;
     border: #ccc solid 1px;
@@ -181,6 +183,7 @@
     height: 40px;
     padding: 0px;
     font-size: 14px;
+    border-radius: 5px;
 }
 
 .searchButton {
@@ -191,6 +194,7 @@
     border-radius: 5px;
     color: white;
 }
+
 
 /* 페이징 처리 ----------------------------------------------------------*/
 
