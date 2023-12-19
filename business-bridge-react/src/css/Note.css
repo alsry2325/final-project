@@ -1,3 +1,13 @@
+/* 노트 메인페이지 ---------------------------------- */
+.main-note-div {
+    width: auto;
+    height: 290px;
+}
+
+.main-note-wrapper-title {
+    margin : -3px 0px 2px 0px;
+}
+
 /* note - layout ---------------------------------- */
 .note-layout-div {
     display: flex;
@@ -12,7 +22,7 @@
     overflow: auto;
 }
 
-/* addressBook Nav --------------------------------- */
+/* note Nav --------------------------------- */
 .note-send-btn {
     margin: 30px;
     width: 80%;
@@ -141,8 +151,8 @@
 
 .noteInfolistItem img {
     display: flex;
-    height: 40px;
-    width: 40px;
+    height: 36px;
+    width: 36px;
     border-radius: 100%;
 }
 
@@ -342,7 +352,7 @@
     border-radius: 5px;
     border: #ccc solid 1px;
     background-color : white;
-    padding: 7px;
+    padding: 7px 10px;
     margin-top: -5px;
 }
 
@@ -382,7 +392,6 @@
     font-size: 14px;
     color: #9a9a9a;
 }
-
 
 /* 모달  ----------------------------------------------------------*/
 .customModal {
