@@ -1,3 +1,4 @@
+import './css/stylee.css';
 import './css/Sales.css';
 import './css/loginform.css';
 import './css/Header.css';
@@ -6,6 +7,7 @@ import './css/EmployeeRegistrationNavbar.css'
 import './css/approval.css';
 import './css/AddressBook.css'
 import './css/Note.css'
+import './css/MiniCalendar.css';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Login from "./pages/businessbridge/employee/Login";
@@ -51,6 +53,11 @@ import NoteTrashDetail from "./pages/businessbridge/note/NoteTrashDetail";
 import NoteSenderDetail from "./pages/businessbridge/note/NoteSenderDetail";
 import EmployeeRegist from "./pages/businessbridge/employee/EmployeeRegist";
 import SalesRegistModal from "./components/modal/SalesRegistModal";
+import UpdateApp from "./pages/businessbridge/approval/UpdateApp";
+import AccountList from "./pages/businessbridge/account/AccountList";
+import AccountDetail from "./pages/businessbridge/account/AccountDetail";
+import AccountRegist from "./pages/businessbridge/account/AccountRegist";
+import AccountModify from "./pages/businessbridge/account/AccountModify";
 import NoteWrite from "./pages/businessbridge/note/NoteWrite";
 import {ToastContainer} from "react-toastify";
 import EmployeeModify from "./pages/businessbridge/employee/EmployeeModify";
@@ -69,6 +76,7 @@ function App() {
                     <Route path="registration" element={ <EmployeeRegist loginCheck={true}/> }/>
                     <Route path="employee-modify/:emplyCode" element={ <EmployeeModify loginCheck={true}/> }/>
                 </Route>
+
                 {/* 영업관리 시작*/}
                 <Route path="sales" element={<SalesLayout/>}>
                     <Route index element={ <Navigate to="/sales/salesList/0" replace/>}/>
@@ -77,8 +85,17 @@ function App() {
                     <Route path="sales-modify/:salesCode" element={ <SalesModify/> }/>
                     <Route path="salesStatistics" element={ <SalesStatistics/> }/>
                 </Route>
-
                 {/* 영업관리 끝*/}
+
+                {/* 거래처관리 시작*/}
+                <Route path="account" element={<SalesLayout/>}>
+                    <Route index element={ <Navigate to="/account/accountList/0" replace/>}/>
+                    <Route path="accountList/:departmentCode" element={ <AccountList/> }/>
+                    <Route path=":accountCode" element={ <AccountDetail/> }/>
+                    <Route path="account-modify/:accountCode" element={ <AccountModify/> }/>
+                </Route>
+
+                {/* 거래처관리 끝*/}
 
                 {/* == 전자결재 시작 == */}
                 <Route path="/approval" element={<ApprovalLayout/>}>
@@ -98,6 +115,9 @@ function App() {
                         <Route path="businessDraft" element={<WriteBusinessDraft/>}/>
                         <Route path="expenseReport" element={<WriteExpenseReport/>}/>
                     </Route>
+
+                    <Route path="update/:approvalCode" element={<UpdateApp/>}/>
+
                 </Route>
                 {/* == 전자결재 끝 == */}
 

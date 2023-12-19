@@ -45,6 +45,7 @@ export const callProgressRegistAPI = ({ registRequest }) => {
     }
 }
 
+
 //영업 상세조회
 export const callSalesAPI = ({ salesCode }) => {
 

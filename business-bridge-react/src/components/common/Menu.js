@@ -50,7 +50,8 @@ function Menu() {
                         </NavLink>
                     </li>
                     <li className="NavbarElement">
-                        <NavLink className="link" to="/approval/home">
+                        {/*<NavLink className="link" to="/approval/home">*/}
+                        <NavLink className="Link" to="/approval/receive-approvals/all">
                             전자결재
                         </NavLink>
                     </li>

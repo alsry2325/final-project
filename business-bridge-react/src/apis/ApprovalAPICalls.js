@@ -1,16 +1,26 @@
-import async from "async";
 import {authRequest, request} from "./Api";
 import {
     getAppEmployees,
-    getApproveApps, getApproveAppsByStatus, getBusinessDraftDetail,
+    getApproveApps,
+    getApproveAppsByStatus,
+    getBusinessDraftDetail,
     getDraftApps,
-    getDraftAppsByStatus, getDraftCollect, getExpenseReportDetail,
+    getDraftAppsByStatus,
+    getDraftCollect,
+    getExpenseReportDetail,
     getReceiveApps,
-    getReceiveAppsByStatus, getTempStorage,
-    getUpcomingApps, postBusinessDraft, postExpenseReport
+    getReceiveAppsByStatus,
+    getTempStorage,
+    getUpcomingApps,
+    patchApprove,
+    patchCollectApp,
+    patchPending,
+    postBusinessDraft,
+    postExpenseReport,
+    putBusinessDraft,
+    putExpenseReport
 } from "../modules/ApprovalModule";
 import {toast} from "react-toastify";
-import {useNavigate} from "react-router-dom";
 
 /* 받은 결재 목록 조회 - 전체 */
 export const callReceiveApprovalsListAPI = ({currentPage}) => {
@@ -210,7 +220,7 @@ export const callBusinessDraftDetailAPI = ({approvalCode}) => {
 
     return async (dispatch, getState) => {
         const result
-            = await request('GET',`/approval/document/businessDraft/${approvalCode}`);
+            = await request('GET', `/approval/document/businessDraft/${approvalCode}`);
 
         console.log('업무 기안서 상세 조회 : ', result);
 
@@ -225,7 +235,7 @@ export const callExpenseReportDetailAPI = ({approvalCode}) => {
 
     return async (dispatch, getState) => {
         const result
-            = await request('GET',`/approval/document/expenseReport/${approvalCode}`);
+            = await request('GET', `/approval/document/expenseReport/${approvalCode}`);
 
         console.log('지출결의서 상세 조회 : ', result);
 
@@ -282,6 +292,101 @@ export const callRegistExpenseReportAPI = ({ form, files, docStatus}) => {
 
         if(result.status === 201){
             dispatch(postExpenseReport());
+        }
+    }
+}
+
+/* 기안 회수 */
+export const callCollectAppAPI = ({ approvalCode }) => {
+
+    return async (dispatch, getState) => {
+
+        try {
+            const result = await authRequest.patch(`/approval/collect/${approvalCode}`);
+            console.log('기안 회수 result : ', result);
+
+            if(result.status === 201) {
+                dispatch(patchCollectApp());
+                toast.info("문서가 회수되었습니다.")
+            }
+        } catch (error) {
+            console.error('기안 회수 오류:', error);
+        }
+    }
+}
+
+/* 결재 승인, 반려 */
+export const callApproveAppAPI = ({approvalCode, approvalStatus, approvalOpinion}) => {
+
+    return async (dispath, getState) => {
+        const result
+            = await authRequest.patch(`/approval/confirm/${approvalCode}`, JSON.stringify({approvalStatus, approvalOpinion}),
+            {
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+            })
+        console.log('결재 승인 API result : ', result);
+
+        try{
+        if(result.status === 201) {
+            dispath(patchApprove());
+            toast.info("결재가 완료되었습니다.")
+        }
+        } catch (error) {
+            console.error('결재 승인 오류 : ', error)
+        }
+    }
+}
+
+/* 결재 보류 */
+export const callAppPendingAPI = ({approvalCode}) => {
+
+    return async (dispatch, getState) => {
+        const result = await authRequest.patch(`/approval/pending/${approvalCode}`);
+        console.log("결재 보류 API result : ", result);
+
+        if(result.status === 201) {
+            dispatch(patchPending());
+            toast.info("결재를 보류했습니다.")
+        }
+    }
+}
+
+/* 업무기안서 수정 */
+export const callUpdateBDAPI = ({approvalCode, form, files, docStatus}) => {
+
+    form.docStatus = docStatus;
+    const formData = new FormData();
+    formData.append("businessDraftUpdate", new Blob([JSON.stringify(form)], {type : 'application/json'}));
+    Array.from(files).forEach(file => formData.append("attachFiles", file));
+
+    return async(dispatch, getState) => {
+        const result = await authRequest.put(`/approval/update/businessDraft/${approvalCode}`, formData);
+        console.log("업무기안서 수정 API result : ", result);
+
+        if(result.status === 201){
+            dispatch(putBusinessDraft());
+            // toast.info('업무기안서 수정이 완료됐습니다.');
+        }
+    }
+}
+
+/* 지출결의서 수정 */
+export const callUpdateERAPI = ({approvalCode, form, files, docStatus}) => {
+
+    form.docStatus = docStatus;
+    const formData = new FormData();
+    formData.append("expenseReportUpdate", new Blob([JSON.stringify(form)], {type : 'application/json'}));
+    Array.from(files).forEach(file => formData.append("attachFiles", file));
+
+    return async(dispatch, getState) => {
+        const result = await authRequest.put(`/approval/update/expenseReport/${approvalCode}`, formData);
+        console.log("지출결의서 수정 API result : ", result);
+
+        if(result.status === 201){
+            dispatch(putExpenseReport());
+            // toast.info('업무기안서 수정이 완료됐습니다.');
         }
     }
 }

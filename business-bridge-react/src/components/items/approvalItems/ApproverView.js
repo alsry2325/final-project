@@ -1,5 +1,3 @@
-import {format} from "date-fns";
-
 function ApproverView({approver}) {
 
     return(
@@ -19,7 +17,7 @@ function ApproverView({approver}) {
                         {approver.approvalStatus === "반려" && (
                             <>
                                 <img className="approval-status-img"
-                                    src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/73124b4a-4ecc-4b55-a3a0-db5bae578983"
+                                    src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/087acf05-20a8-47eb-ba42-4fabfb924207"
                                      alt="반려"
                                 />
                             </>

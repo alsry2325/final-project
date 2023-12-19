@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { callAppEmployeeAPI } from "../../apis/ApprovalAPICalls";
 import {useNavigate} from "react-router-dom";
 
-function ApproverModal({ setAppEmplyModal, onSelectedApprovers }) {
+function ApproverModal({ setAppEmplyModal, onSelectedApprovers, existingApprovers }) {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { allEmplys } = useSelector((state) => state.approvalReducer);
-    const [selectedEmployees, setSelectedEmployees] = useState([]);
+    const [selectedEmployees, setSelectedEmployees] = useState(existingApprovers || []);
 
     useEffect(() => {
         dispatch(callAppEmployeeAPI());
@@ -32,7 +32,6 @@ function ApproverModal({ setAppEmplyModal, onSelectedApprovers }) {
         }
     };
 
-
     // 결재자에 선택 된 직원 삭제 버튼 클릭 시
     const removeSelectedEmployee = (empCode) => {
         const updatedSelection = selectedEmployees.filter(
@@ -41,9 +40,8 @@ function ApproverModal({ setAppEmplyModal, onSelectedApprovers }) {
         setSelectedEmployees(updatedSelection);
     };
 
-    // 결재자 순서 변경 이벤트
 
-    // 적용 클릭 시 선택 된 결재자 반복조회
+    // 적용 클릭 시 상위 컴포넌트로 보냄
     const onClickUse = (selectedEmployees) => {
         onSelectedApprovers({selectedEmployees});
         setAppEmplyModal(false);
@@ -75,7 +73,8 @@ function ApproverModal({ setAppEmplyModal, onSelectedApprovers }) {
                                         key={appEmp.emplyCode}
                                         onClick={() => onClickEmployee(appEmp.emplyCode)}
                                     >
-                                        {appEmp.departmemtName} {appEmp.emplyName} {appEmp.positionName}
+                                        {appEmp.departmentName} <br/>
+                                        &nbsp;&nbsp; {appEmp.emplyName} {appEmp.positionName}
                                     </div>
                                 ))}
                         </div>
@@ -89,9 +88,10 @@ function ApproverModal({ setAppEmplyModal, onSelectedApprovers }) {
                                     className="choosen-emp-btn-div"
                                 >
                                     <div className="app-employee">
-                                        {selectedEmp.departmemtName} {selectedEmp.emplyName} {selectedEmp.positionName}{" "}
+                                        {selectedEmp.departmentName} <br/>
+                                        &nbsp;&nbsp; {selectedEmp.emplyName} {selectedEmp.positionName}{" "}
                                     </div>
-                                    <button
+                                    <button className="app-delete"
                                         onClick={() => removeSelectedEmployee(selectedEmp.emplyCode)}
                                     >
                                         삭제
@@ -99,16 +99,18 @@ function ApproverModal({ setAppEmplyModal, onSelectedApprovers }) {
                                 </div>
                             ))}
                         </div>
-                        <button className="app-up">&#9650;</button>
-                        <button className="app-down">&#9660;</button>
-                        <button className="app-cancle" onClick={onClickApproverCancle}>
-                            취소
-                        </button>
-                        <button
-                            className="app-use"
-                            onClick={() =>
-                                onClickUse(selectedEmployees)}
-                        >적용</button>
+                        <div className="app-button-div">
+                            {/*<button className="app-up">&#9650;</button>*/}
+                            {/*<button className="app-down">&#9660;</button>*/}
+                            <button className="app-cancel" onClick={onClickApproverCancle}>
+                                취소
+                            </button>
+                            <button
+                                className="app-use"
+                                onClick={() =>
+                                    onClickUse(selectedEmployees)}
+                            >적용</button>
+                        </div>
                     </div>
                 </div>
             </div>
