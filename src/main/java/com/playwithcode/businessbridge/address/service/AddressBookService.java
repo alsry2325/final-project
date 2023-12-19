@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
@@ -51,14 +52,15 @@ public class AddressBookService {
 
     /* 1. 주소록 사원 전체 조회 */
     @Transactional(readOnly = true)
-    public Page<AddressBookResponse> getAllAddressBook(final Integer page) {
+    public Page<AddressBookResponse> getAllAddressBook(@RequestParam(defaultValue = "1") final Integer page) {
         Page<AddressBook> addressBooks = addressBookRepository.findAll(getPageable(page));
         return addressBooks.map(addressBook -> AddressBookResponse.from(addressBook));
     }
 
     /* 2. 주소록 부서별 조회 */
     @Transactional(readOnly = true)
-    public Page<AddressBookResponse> getDepartmentAddressBook(final Integer page, final Long departmentCode) {
+    public Page<AddressBookResponse> getDepartmentAddressBook(
+            @RequestParam(defaultValue = "1") final Integer page, final Long departmentCode) {
         Page<AddressBook> addressBooks = addressBookRepository.findByDepartmentDepartmentCode(getPageable(page), departmentCode);
         return addressBooks.map(addressBook -> AddressBookResponse.from(addressBook));
     }
@@ -74,31 +76,31 @@ public class AddressBookService {
     }
 
     /* 4. 직원 수정(관리자) */
-    public void update(final Long emplyCode, final MultipartFile emplyImg, final AddressBookUpdateRequest addressBookRequest) {
+    public void update(final Long emplyCode/*, final MultipartFile emplyImg*/, final AddressBookUpdateRequest addressBookRequest) {
 
         AddressBook addressBook = addressBookRepository.findByEmplyCode(emplyCode)
                 .orElseThrow(() -> new NotFoundException(NOT_FOUND_EMPLY_CODE));
 
-        Department department = departmentRepository.findById(addressBookRequest.getDepartmentCode())
-                .orElseThrow(() -> new NotFoundException(NOT_FOUND_DEPARTMENT_CODE));
-
-        Position position = positionRepository.findById(addressBookRequest.getPositionCode())
-                .orElseThrow(() -> new NotFoundException(NOT_FOUND_POSITION_CODE));
+//        Department department = departmentRepository.findById(addressBookRequest.getDepartmentCode())
+//                .orElseThrow(() -> new NotFoundException(NOT_FOUND_DEPARTMENT_CODE));
+//
+//        Position position = positionRepository.findById(addressBookRequest.getPositionCode())
+//                .orElseThrow(() -> new NotFoundException(NOT_FOUND_POSITION_CODE));
 
         /* 이미지 처리 로직 */
-        if(emplyImg != null) {
-            String replaceFileName = FileUploadUtils.saveFile(IMAGE_DIR, getRandomName(), emplyImg);
-            FileUploadUtils.deleteFile(IMAGE_DIR, addressBook.getEmplyPhoto().replace(IMAGE_URL, ""));
-            addressBook.updateEmplyPhoto(IMAGE_URL + replaceFileName);
-        }
+//        if(emplyImg != null) {
+//            String replaceFileName = FileUploadUtils.saveFile(IMAGE_DIR, getRandomName(), emplyImg);
+//            FileUploadUtils.deleteFile(IMAGE_DIR, addressBook.getEmplyPhoto().replace(IMAGE_URL, ""));
+//            addressBook.updateEmplyPhoto(IMAGE_URL + replaceFileName);
+//        }
 
         /* Entity 정보 변경 */
         addressBook.update(
                 addressBookRequest.getEmplyName(),
                 addressBookRequest.getEmplyOffice(),
                 addressBookRequest.getEmplyEmail(),
-                department,
-                position,
+//                department,
+//                position,
                 addressBook.getEmplyPhoneNumber(),
                 addressBook.getEmplyInternalNumber()
         );

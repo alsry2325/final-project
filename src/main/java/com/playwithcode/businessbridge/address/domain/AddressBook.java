@@ -79,13 +79,13 @@ public class AddressBook {
     }
 
     public void update(String emplyName, String emplyOffice, String emplyEmail,
-                       Department department, Position position, String emplyPhoneNumber,
+                      /* Department department, Position position,*/ String emplyPhoneNumber,
                        String emplyInternalNumber) {
         this.emplyName = emplyName;
         this.emplyOffice = emplyOffice;
         this.emplyEmail = emplyEmail;
-        this.department = department;
-        this. position = position;
+/*        this.department = department;
+        this. position = position;*/
         this.emplyPhoneNumber = emplyPhoneNumber;
         this.emplyInternalNumber = emplyInternalNumber;
     }
