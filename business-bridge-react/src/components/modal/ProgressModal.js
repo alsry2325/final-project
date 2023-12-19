@@ -75,7 +75,7 @@ function ProgressModal({setProgressModal, salesCode, refreshProgressModal, setRe
                     <div className="modal">
                         <div className="modal-container">
                             <div className="progress-modal-div">
-                                <h1>진행내역</h1>
+                                <h2 className='sales-h2'>진행내역</h2>
                                 <div className="form-groups">
                                     <div className="form-group">
                                         <label htmlFor="latestDateConsultation">최근 상담일</label>
@@ -132,13 +132,13 @@ function ProgressModal({setProgressModal, salesCode, refreshProgressModal, setRe
                                         </div>
                                     ))}
                                 </div>
+
                                 <button
-                                    className="sales-button"
+                                    className="sales-progress-button"
                                     onClick={ onClickClose }
                                 >
                                     닫기
                                 </button>
-
                             </div>
                         </div>
                     </div>

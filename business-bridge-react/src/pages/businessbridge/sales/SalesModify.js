@@ -215,7 +215,7 @@ function SalesModify () {
                                     readOnly={true}
                                 />
                                 <button
-                                    className="review-write-button"
+                                    className="sales-button"
                                     onClick={() =>
                                         onClickSalesProductHandler()
                                     }
