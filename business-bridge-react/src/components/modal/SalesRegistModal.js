@@ -219,7 +219,7 @@ function SalesRegistModal({setIsOpen}) {
                                     className="sales-button"
                                     onClick={ onClickSalesRegistrationHandler }
                                 >
-                                    영업 등록
+                                    영업등록
                                 </button>
                             </div>
                         </div>
