@@ -7,7 +7,6 @@ function Salesstatistics() {
                 <h3>영업통계</h3>
             </div>
             <div className="main-statistics-div">
-                통계영역
             </div>
         </div>
     );

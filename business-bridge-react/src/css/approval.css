@@ -509,8 +509,12 @@ ul.tab-nav {
     height: 300px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
+}
+
+.no-app-main {
+    margin: auto;
 }
 
 .in-progress-approval-div {
