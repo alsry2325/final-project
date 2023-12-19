@@ -1,6 +1,6 @@
 import BDWriteForm from "../../../components/form/approvalForm/BDWriteForm";
 import {useEffect, useRef, useState} from "react";
-import {callEmployeeAPI} from "../../../apis/EmployeeAPICalls";
+import {callLoginEmployeeAPI} from "../../../apis/EmployeeAPICalls";
 import {useDispatch, useSelector} from "react-redux";
 import ButtonForWriteBD from "../../../components/items/approvalItems/ButtonForWriteBD";
 
@@ -12,7 +12,7 @@ function WriteBusinessDraft() {
     const fileInput = useRef();
 
     useEffect(() => {
-        dispatch(callEmployeeAPI())
+        dispatch(callLoginEmployeeAPI())
     }, []);
 
     return(
