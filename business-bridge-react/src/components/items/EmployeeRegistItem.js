@@ -1,8 +1,7 @@
 import {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {callEmployeeRegistAPI} from "../../apis/EmployeeAPICalls";
+import {callEmployeeRegistAPI, callLoginEmployeeAPI} from "../../apis/EmployeeAPICalls";
 import {ToastContainer} from "react-toastify";
-import {postEmployeeSuccess} from "../../modules/EmployeeModule";
 import {useNavigate} from "react-router-dom";
 
 function EmployeeRegistItem() {
@@ -21,7 +20,10 @@ function EmployeeRegistItem() {
     };
     const [form, setForm] = useState(initialFormState);
     const dispatch = useDispatch();
-    const memberReducer = useSelector(state => state.memberReducer);
+    const { memberReducer }= useSelector(state => state.memberReducer);
+    useEffect(() => {
+        dispatch(callLoginEmployeeAPI());
+    }, []);
 
     useEffect(() => {
         if ( memberReducer.postEmployeeSuccess === true){

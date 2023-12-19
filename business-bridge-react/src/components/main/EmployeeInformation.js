@@ -1,19 +1,24 @@
 import SideCalendar from "./SideCalendar";
+import {useEffect} from "react";
+import { callLoginEmployeeAPI} from "../../apis/EmployeeAPICalls";
+import {useDispatch, useSelector} from "react-redux";
+import EmployeeInformationItem from "../items/EmployeeInformationItem";
 
 function EmployeeInformation(){
 
+    const dispatch = useDispatch();
+    const { myPageInfo } = useSelector(state => state.memberReducer);
+
+    useEffect(() => {
+        dispatch(callLoginEmployeeAPI());
+    }, []);
     return(
 
             <div className="main-employee-area">
-                <div className="main-employeeInformation-cover">
-                    <div className="main-Image-area">
-                        <img src="/images/employee-image.png" alt="employeephoto"/>
-                    </div>
-                    <div>
-                        <h2>정민교</h2>
-                        <span>영업팀/사원</span>
-                    </div>
-                </div>
+                {
+                    myPageInfo &&
+                    <EmployeeInformationItem myPageInfo={ myPageInfo }/>
+                }
                 <div className="main-mailImage-cover">
                         <SideCalendar/>
                 </div>
