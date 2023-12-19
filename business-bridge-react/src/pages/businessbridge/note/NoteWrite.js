@@ -34,6 +34,7 @@ function NoteWrite() {
     const [searchResults, setSearchResults] = useState([]);
     const addressData = useSelector(state => state.addressReducer.addressList);
     const [selectedEmployeeName, setSelectedEmployeeName] = useState('');
+    const [selectedEmployeePhoto, setSelectedEmployeePhoto] = useState('');
 
     const openModal = () => {
         setModalIsOpen(true);
@@ -49,12 +50,13 @@ function NoteWrite() {
         }
     };
 
-    const handleSelectRecipient = (recipient, employeeName,) => {
+    const handleSelectRecipient = (recipient, employeeName, employeePhoto) => {
         setNoteData({...noteData, recipient});
-        /* 선택된 사원 이름으로 업데이트 한다. */
         setSelectedEmployeeName(employeeName);
+        setSelectedEmployeePhoto(employeePhoto); // 사진 URL을 상태에 저장
         setModalIsOpen(false);
     };
+
 
     /* 바이트 크기 계산 */
     const [byteSize, setByteSize] = useState(0);
@@ -141,12 +143,13 @@ function NoteWrite() {
                                 <div className="note-input-byte">{byteSize}/200 byte</div>
 
                                 <div className="note-write-body">
-                                    {selectedEmployeeName &&
-                                        <div className="selectEmplyName">{selectedEmployeeName}</div>}
-                                    <button type="button"
-                                            className={`note-write-body ${selectedEmployeeName ? "buttonWithSelectedName" : ""}`}
-                                            onClick={openModal}>주소록 검색
-                                    </button>
+                                    {(selectedEmployeePhoto || selectedEmployeeName) && (
+                                        <div className="note-select-container">
+                                            {selectedEmployeePhoto && <img src={selectedEmployeePhoto} alt="Employee" className="selected-employee-photo" />}
+                                            {selectedEmployeeName && <div className="selectEmplyName">{selectedEmployeeName}</div>}
+                                        </div>
+                                    )}
+                                    <button type="button" className={`note-write-body ${selectedEmployeeName ? "buttonWithSelectedName" : ""}`} onClick={openModal}>주소록 검색</button>
                                 </div>
 
                                 <textarea
@@ -171,7 +174,7 @@ function NoteWrite() {
             </div>
 
             <AddressBookModal
-                handleSelectRecipient={(recipientCode) => handleSelectRecipient(recipientCode, /* 선택된 사원 이름 */)}
+                handleSelectRecipient={(recipientCode, emplyName) => handleSelectRecipient(recipientCode, emplyName, /* 사원 사진 URL */)}
                 isOpen={modalIsOpen}
                 onRequestClose={() => setModalIsOpen(false)}
                 searchType={searchType}

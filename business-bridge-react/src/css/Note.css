@@ -212,6 +212,13 @@
     margin-bottom: 50px;
 }
 
+.selected-employee-photo {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    margin-right: 10px;
+}
+
 .note-body-list {
     margin-bottom: 50px;
 }
@@ -327,13 +334,16 @@
     margin-bottom: 55px;
 }
 
-/* 사원 선택 시 사원 이름 */
-.selectEmplyName {
-    border: #ccc solid 1px;
+/* 사원 선택 시 사원 박스 */
+.note-select-container {
+    display: flex;
+    width: auto;
+    align-items: center;
     border-radius: 5px;
+    border: #ccc solid 1px;
+    background-color : white;
     padding: 7px;
-    width: 100px;
-    text-align: center;
+    margin-top: -5px;
 }
 
 /* 사원 선택 시 버튼 스타일 */

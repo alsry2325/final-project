@@ -43,7 +43,8 @@ function AddressBookModal({
                     <div className="note-modal-list">
                         {addressData && addressData.data && addressData.data.map((item, index) => (
                             <div className="note-modal-address-info" key={index}
-                                 onClick={() => handleSelectRecipient(item.emplyCode, item.emplyName)}>
+                                 onClick={() => handleSelectRecipient(item.emplyCode, item.emplyName, item.emplyPhoto)}
+                            >
                                 <div className="note-modal-detail">
                                     <img src={item.emplyPhoto}/>
                                     <div className="note-modal-name">{item.emplyName}</div>
