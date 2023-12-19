@@ -51,6 +51,7 @@ import NoteTrashDetail from "./pages/businessbridge/note/NoteTrashDetail";
 import NoteSenderDetail from "./pages/businessbridge/note/NoteSenderDetail";
 import EmployeeRegist from "./pages/businessbridge/employee/EmployeeRegist";
 import SalesRegistModal from "./components/modal/SalesRegistModal";
+import UpdateApp from "./pages/businessbridge/approval/UpdateApp";
 import AccountList from "./pages/businessbridge/account/AccountList";
 import AccountDetail from "./pages/businessbridge/account/AccountDetail";
 import AccountRegist from "./pages/businessbridge/account/AccountRegist";
@@ -112,6 +113,9 @@ function App() {
                         <Route path="businessDraft" element={<WriteBusinessDraft/>}/>
                         <Route path="expenseReport" element={<WriteExpenseReport/>}/>
                     </Route>
+
+                    <Route path="update/:approvalCode" element={<UpdateApp/>}/>
+
                 </Route>
                 {/* == 전자결재 끝 == */}
 

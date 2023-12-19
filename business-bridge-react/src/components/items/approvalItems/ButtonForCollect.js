@@ -1,11 +1,35 @@
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {callCollectAppAPI} from "../../../apis/ApprovalAPICalls";
+import {useEffect} from "react";
+import {ToastContainer} from "react-toastify";
 
-function ButtonForCollect() {
+function ButtonForCollect({businessDraft, expenseReport}) {
 
+    const {approvalCode} = useParams();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const {appCollect} = useSelector((state) => state.approvalReducer);
+
+    useEffect(() => {
+        if(appCollect === true) {
+            navigate(`/approval/update/${approvalCode}`, {replace: true})
+        }
+    }, [appCollect]);
+
+
+    const onClickCollectApp = () => {
+        const result = window.confirm('회수 하시겠습니까?')
+        if(result) {
+            dispatch(callCollectAppAPI({approvalCode}));
+            navigate(-1);
+        }
+
+    }
 
     return (
         <>
+            <ToastContainer/>
             <div className="app-button-bar">
                 <div
                     className="back-to-list"
@@ -17,11 +41,11 @@ function ButtonForCollect() {
                     목록으로
                 </div>
 
-                {/*기안문서함 - 회수*/
-                    // ((isDrafter && businessDraft.approvalOpinion == null)  ||
-                    // (isDrafter && expenseReport.approvalOpinion == null)) &&
+                {
                     <div className="approval-button-div">
-                        <button className="app-button">회수</button>
+                        <button
+                            onClick={onClickCollectApp}
+                            className="app-button">회수</button>
                     </div>
                 }
             </div>
