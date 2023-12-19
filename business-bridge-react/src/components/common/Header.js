@@ -48,11 +48,11 @@ function Header({clicked, isClicked}){
                            쪽지
                        </NavLink>
                    </li>
-                   <li className="NavElements">
-                       <NavLink className="Link" to="/contact-us">
-                           캘린더
-                       </NavLink>
-                   </li>
+                   {/*<li className="NavElements">*/}
+                   {/*    <NavLink className="Link" to="/contact-us">*/}
+                   {/*        캘린더*/}
+                   {/*    </NavLink>*/}
+                   {/*</li>*/}
                    <li className="NavElements">
                        {/*<NavLink className="Link" to="/approval/home">*/}
                        <NavLink className="Link" to="/approval/receive-approvals/all">

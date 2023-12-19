@@ -24,11 +24,11 @@ function Menu() {
                     <li className="NavbarElement">
                         <strong>{myPageInfo.emplyName}{myPageInfo.position}</strong>
                     </li>
-                    <li className="NavbarElement">
-                        <NavLink className="link" to="/">
-                            홈
-                        </NavLink>
-                    </li>
+                    {/*<li className="NavbarElement">*/}
+                    {/*    <NavLink className="link" to="/">*/}
+                    {/*        홈*/}
+                    {/*    </NavLink>*/}
+                    {/*</li>*/}
                     <li className="NavbarElement">
                         <NavLink className="link" to="/about-us">
                             주소록
@@ -39,16 +39,16 @@ function Menu() {
                             쪽지
                         </NavLink>
                     </li>
-                    <li className="NavbarElement">
-                        <NavLink className="link" to="/sign-in">
-                           캘린더
-                        </NavLink>
-                    </li>
-                    <li className="NavbarElement">
-                        <NavLink className="link" to="/sign-in">
-                            공지사항
-                        </NavLink>
-                    </li>
+                    {/*<li className="NavbarElement">*/}
+                    {/*    <NavLink className="link" to="/sign-in">*/}
+                    {/*       캘린더*/}
+                    {/*    </NavLink>*/}
+                    {/*</li>*/}
+                    {/*<li className="NavbarElement">*/}
+                    {/*    <NavLink className="link" to="/sign-in">*/}
+                    {/*        공지사항*/}
+                    {/*    </NavLink>*/}
+                    {/*</li>*/}
                     <li className="NavbarElement">
                         {/*<NavLink className="link" to="/approval/home">*/}
                         <NavLink className="Link" to="/approval/receive-approvals/all">
