@@ -14,7 +14,6 @@ function NoteRecipeientList() {
     }, [dispatch, currentPage]);
 
     return (
-
         <>
             <div className="main-note-div">
                 <div className="main-note-wrapper-title">
@@ -28,11 +27,11 @@ function NoteRecipeientList() {
                     <div className="noteListHeader">받은 날짜</div>
                 </div>
                 <hr/>
-                <>
-                    {displayedNotes.length > 0 &&
-                        <NoteList data={displayedNotes}/>
-                    }
-                </>
+                {
+                    displayedNotes.length > 0 ?
+                        <NoteList data={displayedNotes}/> :
+                        <div className="no-notes-message">받은 쪽지가 없습니다.</div>
+                }
             </div>
         </>
     );
