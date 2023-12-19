@@ -24,8 +24,8 @@ function InProgressListItem({approval : {approvalCode, docStatus, title, emplyNa
          return style;
      }
 
-     const onClickApprove = (approvalCode) => {
-         navigate(`/approval/document/${approvalCode}`)
+     const onClickApprove = () => {
+         navigate(`/approval/document/${approvalCode}`);
      }
 
     return(
@@ -40,7 +40,7 @@ function InProgressListItem({approval : {approvalCode, docStatus, title, emplyNa
                 <div className="IP-draftTime">기안일 : {format(new Date(draftDateTime),'yy-MM-dd') }</div>
                 <div className="IP-docForm">결재양식 : {docForm}</div>
                 <div
-                    onClick={onClickApprove(approvalCode)}
+                    onClick={onClickApprove}
                     className="IP-approve bob-on-hover">결재하기
                 </div>
             </div>

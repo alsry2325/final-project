@@ -12,6 +12,7 @@ function AddressAdminItem({address}) {
     const dispatch = useDispatch();
 
     const [editedAddress, setEditedAddress] = useState({
+        emplyPhoto : addressData?.emplyPhoto || '',
         emplyName: addressData?.emplyName || '',
         emplyOffice: addressData?.emplyOffice || '',
         emplyEmail: addressData?.emplyEmail || '',
@@ -37,6 +38,7 @@ function AddressAdminItem({address}) {
     const handleModifyAddress = async () => {
         try {
             const {
+                emplyPhoto,
                 emplyName,
                 emplyOffice,
                 emplyEmail,
@@ -48,6 +50,7 @@ function AddressAdminItem({address}) {
                 departmentCode
             } = editedAddress;
             const addressBookUpdateRequest = {
+                emplyPhoto,
                 emplyName,
                 emplyOffice,
                 emplyEmail,

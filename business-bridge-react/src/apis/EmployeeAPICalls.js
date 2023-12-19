@@ -2,7 +2,7 @@ import {authRequest, request} from "./Api";
 import {saveToken} from "../utils/TokenUtils";
 import {
     getEmployee,
-    getEmployees,
+    getEmployees, getLoginEmployee,
     getMyPage,
     getSerachEmployees,
     loginFailure,
@@ -46,6 +46,22 @@ export const callEmployeeAPI = () => {
             // console.log('callMemberAPI result : ', result);
             if (result.status === 200) {
                 dispatch(getMyPage(result));
+            }
+        } catch (error) {
+            console.error('Error in callEmployeeAPI:', error);
+        }
+    }
+}
+
+export const callLoginEmployeeAPI = () => {
+
+    return async (dispatch, getState) => {
+
+        try {
+            const result = await authRequest.get("/emp/employee/mypage");
+            // console.log('callMemberAPI result : ', result);
+            if (result.status === 200) {
+                dispatch(getLoginEmployee(result));
             }
         } catch (error) {
             console.error('Error in callEmployeeAPI:', error);

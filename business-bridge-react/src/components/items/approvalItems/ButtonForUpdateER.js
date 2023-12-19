@@ -20,19 +20,33 @@ function ButtonForUpdateER({fileInput, form, approvalCode}) {
 
     // 임시저장 클릭 시에 docStatus가 "임시저장"
     const onClickTempStorage = () => {
+
+        if(form.approvers == null){
+            toast.warning('결재자를 다시 선택해주세요.');
+            return false;
+        }
         const result = window.confirm('임시저장 하시겠습니까?');
         if(result) {
                 dispatch(callUpdateERAPI({approvalCode, form, files: fileInput.current.files, docStatus: "임시저장"}));
-                navigate(-2);
+            navigate('/approval/temp-storages');
+            // setTimeout(() => {
+            //     window.location.reload();
+            // }, 0);
+            toast.info('임시저장 되었습니다.');
         }
     }
 
     // 결재요청 클릭 시에 docStatus가 "대기"
     const onClickApprove = () => {
+        if(form.approvers == null){
+            toast.warning('결재자를 다시 선택해주세요.');
+            return false;
+        }
         const result = window.confirm('결재 요청 하시겠습니까?');
         if(result) {
                 dispatch(callUpdateERAPI({approvalCode, form, files: fileInput.current.files, docStatus: "대기"}));
-                navigate(-2)
+                navigate('/approval/draft-approvals/all');
+                toast.info('결재 요청 되었습니다.');
         }
     }
 

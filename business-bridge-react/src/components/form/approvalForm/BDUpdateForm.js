@@ -17,6 +17,10 @@ function BDUpdateForm({businessDraft, form, setForm, fileInput}) {
                 approvers: businessDraft.approvers || ''
             });
         }
+        // 파일 목록을 업데이트한 후, 파일 인풋에도 반영
+        const updatedFileUrls = businessDraft.attachFiles.map(file => file.fileUrl);
+        setFileUrl(updatedFileUrls);
+        setAttachedFiles(businessDraft.attachFiles.map(file => file.fileName));
     }, [businessDraft, form, setForm]);
 
     // 입력 양식 값 변경 시 state 수정
@@ -70,6 +74,8 @@ function BDUpdateForm({businessDraft, form, setForm, fileInput}) {
         const updatedFileUrls = updatedFiles.map((fileName, i) => fileUrl[i]);
         setFileUrl(updatedFileUrls);
     };
+
+
 
 
     return (
@@ -160,17 +166,17 @@ function BDUpdateForm({businessDraft, form, setForm, fileInput}) {
                                         </div>
                                     ))}
                                     {/* 기존 값 조회 */}
-                                    {businessDraft.attachFiles.map((file, index) => (
-                                        <div key={index} className="app-file-name">
-                                            <img
-                                                className="cancel-attach"
-                                                src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/e5019604-ff4b-40b3-8bbd-cfe351fcfaae"
-                                                alt="cancel"
-                                                onClick={() => handleCancelFile(index)}
-                                            />
-                                            {file.fileName}
-                                        </div>
-                                    ))}
+                                    {/*{businessDraft.attachFiles.map((file, index) => (*/}
+                                    {/*    <div key={index} className="app-file-name">*/}
+                                    {/*        <img*/}
+                                    {/*            className="cancel-attach"*/}
+                                    {/*            src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/e5019604-ff4b-40b3-8bbd-cfe351fcfaae"*/}
+                                    {/*            alt="cancel"*/}
+                                    {/*            onClick={() => handleCancelFile(index)}*/}
+                                    {/*        />*/}
+                                    {/*        {file.fileName}*/}
+                                    {/*    </div>*/}
+                                    {/*))}*/}
                                 </div>
                             </>
                         }

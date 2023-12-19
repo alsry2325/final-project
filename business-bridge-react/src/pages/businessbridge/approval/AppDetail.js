@@ -1,13 +1,12 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {callBusinessDraftDetailAPI, callExpenseReportDetailAPI} from "../../../apis/ApprovalAPICalls";
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import BusinessDraftItem from "../../../components/items/approvalItems/BusinessDraftItem";
 import ExpenseReportItem from "../../../components/items/approvalItems/ExpenseReportItem";
-import {callEmployeeAPI} from "../../../apis/EmployeeAPICalls";
+import { callLoginEmployeeAPI} from "../../../apis/EmployeeAPICalls";
 import ButtonForApprover from "../../../components/items/approvalItems/ButtonForApprover";
 import ButtonForCollect from "../../../components/items/approvalItems/ButtonForCollect";
-import memberReducer from "../../../modules/EmployeeModule";
 
 function AppDetail() {
 
@@ -27,7 +26,7 @@ function AppDetail() {
     }, []);
 
     useEffect(() => {
-        dispatch(callEmployeeAPI())
+        dispatch(callLoginEmployeeAPI())
     }, []);
 
 

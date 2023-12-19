@@ -16,7 +16,7 @@ function NoteDetailItem({note}) {
             .then((response) => {
                 console.log("쪽지 보관에 성공하였습니다.")
                 toast.info("쪽지를 보관함으로 이동하였습니다.", {
-                    onClose: () => navigate('/note/storage', { replace: true })
+                    onClose: () => navigate('/note/storage', {replace: true})
                 });
             })
             .catch((error) => {
@@ -30,7 +30,7 @@ function NoteDetailItem({note}) {
             .then((response) => {
                 console.log("쪽지 휴지통으로 이동하였습니다.")
                 toast.info("쪽지를 휴지통으로 이동하였습니다.", {
-                    onClose: () => navigate('/note/trash', { replace: true })
+                    onClose: () => navigate('/note/trash', {replace: true})
                 });
             })
             .catch((error) => {
@@ -38,7 +38,7 @@ function NoteDetailItem({note}) {
                 toast.info("쪽지 삭제에 실패하였습니다.")
             });
     };
-    
+
 
     return (
 
@@ -54,7 +54,7 @@ function NoteDetailItem({note}) {
                 </div>
                 <div className="note-detail-body">
                     <div className="note-body-list">{note.noteTitle}</div>
-                    <div className="note-body-list">{note.senderName}</div>
+                        <div className="note-body-list">{note.senderName}</div>
                     <div className="note-body-list">{note.recipientName}</div>
                     <div className="note-body-list">{note.sentAt}</div>
                     <div className="note-body-list">{note.readAt}</div>
