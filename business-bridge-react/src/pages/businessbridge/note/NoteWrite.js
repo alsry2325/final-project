@@ -49,7 +49,7 @@ function NoteWrite() {
         }
     };
 
-    const handleSelectRecipient = (recipient, employeeName) => {
+    const handleSelectRecipient = (recipient, employeeName,) => {
         setNoteData({...noteData, recipient});
         /* 선택된 사원 이름으로 업데이트 한다. */
         setSelectedEmployeeName(employeeName);
