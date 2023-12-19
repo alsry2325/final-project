@@ -32,14 +32,18 @@ public class SalesItem {
     @ManyToOne
     @JoinColumn(name = "productCode")
     private Product product;
-
-    public SalesItem(Sales sales, Product product) {
+    
+    @Column(nullable = false)
+    private String productNote; 	//비고
+    
+    public SalesItem(Sales sales, Product product, String productNote) {
         this.sales = sales;
         this.product = product;
+        this.productNote = productNote;
     }
 
-    public static SalesItem of(final Sales sales, final Product product) {
-        return new SalesItem(sales, product);
+    public static SalesItem of(final Sales sales, final Product product, final String productNote) {
+        return new SalesItem(sales, product, productNote);
     }
 
 }

@@ -27,7 +27,7 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     Page<Product> findByProductNameContainsAndProductState(Pageable pageable, String productName, ProductStateType productState);
 
    // 상품 상세 조회 - productCode로 상품 1개 조회, 주문 불가 상품 제외
-    Optional<Product> findByProductCodeAndProductState(BigInteger productCode, ProductStateType productState);
+    Optional<Product> findByProductCodeAndProductState(Long productCode, ProductStateType productState);
 
   //  상품상세 조회 -productCode로 상품1개 조회, 주문불가 상품 포함
     Optional<Product> findByProductCodeAndProductStateNot(Long productCode, ProductStateType productState);

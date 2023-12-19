@@ -17,7 +17,7 @@ public class BusinessDraftUpdateRequest {
     @NotBlank
     private final String title;                     // 제목
     @NotEmpty
-    private final List<Long> approvers;        // 결재자들
+    private final List<Long> approvers;             // 결재자들
 
     private final DocStatusType docStatus;          // 문서 상태
 }

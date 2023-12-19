@@ -26,6 +26,7 @@ public class SalesListResponse {
     private final LocalDateTime createdAt;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private final LocalDateTime modifiedAt;
+    private final String productName;
     
     public static SalesListResponse from(Sales sales) {
         return new SalesListResponse(
@@ -38,7 +39,8 @@ public class SalesListResponse {
     		sales.getSalesStatus(),
     		sales.getCustomerRating(),
     		sales.getCreatedAt(),
-    		sales.getModifiedAt()
+    		sales.getModifiedAt(),
+    		sales.getProduct().getProductName()
         );
     }
 }

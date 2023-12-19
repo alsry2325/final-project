@@ -2,6 +2,8 @@ package com.playwithcode.businessbridge.sales.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -34,10 +36,10 @@ public class Progress {
     private String specialNote;	 //특이사항
 
     @Column(nullable = false, updatable = false)
-    private LocalDateTime latestDateConsultation;	//최근 상담일자
+    private String latestDateConsultation;	//최근 상담일자
 
     @Column(nullable = false, updatable = false)
-    private LocalDateTime nextDayConsultation;	//다음 상담일자
+    private String nextDayConsultation;	//다음 상담일자
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -50,29 +52,23 @@ public class Progress {
     
     public Progress(
 		Sales sales
-		, String status
 		, String state
-		, String specialNote
-		, LocalDateTime latestDateConsultation
-		, LocalDateTime nextDayConsultation
+		, String latestDateConsultation
+		, String nextDayConsultation
 	) {
         this.sales = sales;
-    	this.status = status;
         this.state = state;
-        this.specialNote = specialNote;
         this.latestDateConsultation = latestDateConsultation;
         this.nextDayConsultation = nextDayConsultation;
     }
 
     public static Progress of(
 		final Sales sales
-		, final String status
 		, final String state
-		, final String specialNote
-		, final LocalDateTime latestDateConsultation
-		, final LocalDateTime nextDayConsultation
+		, final String latestDateConsultation
+		, final String nextDayConsultation
 	) {
-    	return new Progress(sales, status, state, specialNote, latestDateConsultation, nextDayConsultation);
+    	return new Progress(sales, state, latestDateConsultation, nextDayConsultation);
     }
 
 }

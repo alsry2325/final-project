@@ -8,14 +8,17 @@ import com.playwithcode.businessbridge.member.domain.type.TmpryPwdStus;
 import com.playwithcode.businessbridge.position.domain.Position;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
+import static com.playwithcode.businessbridge.member.domain.type.EmplyRole.USER;
 import static com.playwithcode.businessbridge.member.domain.type.EmplyStatus.JOIN;
 import static com.playwithcode.businessbridge.member.domain.type.TmpryPwdStus.TEMPORARY;
 import static javax.persistence.EnumType.STRING;
@@ -27,6 +30,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Getter
 @NoArgsConstructor(access = PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
+@ToString
 public class Employee {
 
     @Id
@@ -70,16 +74,67 @@ public class Employee {
     @Enumerated(value = STRING)
     @Column(nullable = false)
     private TmpryPwdStus tmpryPwdStus= TEMPORARY ; //임시번호상태
+
     @Enumerated(value = STRING)
     @Column(nullable = false)
-    private EmplyRole emplyRole; //권한
+    private EmplyRole emplyRole = USER; //권한
 
     private  LocalDateTime retirementDate; //퇴사일
 
     private  String refreshToken; //리프레쉬토큰
 
+
+
+    public Employee(String emplyId, String emplyPassword, String emplyName, String emplyPhoneNumber, String emplyEmail, String emplyInternalNumber, Department department, Position position, String emplyPhoto) {
+        this.emplyId = emplyId;
+        this.emplyPassword = emplyPassword;
+        this.emplyName = emplyName;
+        this.emplyPhoneNumber = emplyPhoneNumber;
+        this.emplyEmail = emplyEmail;
+        this.emplyInternalNumber = emplyInternalNumber;
+        this.department = department;
+        this.position = position;
+        this.emplyPhoto = emplyPhoto;
+    }
+
+    public static Employee of(
+            final String emplyId,
+            final String emplyPassword,
+            final String emplyName,
+            final String emplyPhoneNumber,
+            final String emplyEmail,
+            final String emplyInternalNumber,
+            final Department department,
+            final Position position,
+            final String emplyPhoto
+    ) {
+
+      return new Employee(
+              emplyId,
+              emplyPassword,
+              emplyName,
+              emplyPhoneNumber,
+              emplyEmail,
+              emplyInternalNumber,
+              department,
+              position,
+              emplyPhoto
+        );
+    }
+
     public void updateRefreshToken(String refreshToken) {
         //기존에 있던걸 변경
         this.refreshToken = refreshToken;
     }
+
+    public void updatePassword(String pw,TmpryPwdStus state) {
+        this.emplyPassword = pw;
+        this.tmpryPwdStus = state;
+    }
+
+    public void update(Department department,Position position) {
+            this.department = department;
+            this.position = position;
+    }
+
 }
