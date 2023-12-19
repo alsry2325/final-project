@@ -508,6 +508,9 @@ ul.tab-nav {
 .in-progress-box-list-div {
     height: 300px;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 .in-progress-approval-div {
