@@ -16,8 +16,6 @@ function NoteNavbar() {
             </ul>
             <ul className="note-navbar-ul">
                 <h3 className="main-title">보낸 쪽지함</h3>
-                <img className="main-icon" src="/images/edit1.png" alt="My Image" />
-                <img src="/images/settings 1.png" alt="My Image" />
                 <li><NavLink to="/note/sender">보낸 쪽지함</NavLink></li>
             </ul>
             <ul className="note-navbar-ul">
