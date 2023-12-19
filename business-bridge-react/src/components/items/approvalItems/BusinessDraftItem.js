@@ -50,7 +50,7 @@ function BusinessDraftItem({businessDraft}) {
                             <td colSpan={"3"}
                                 style={{height:"300px"}}
                             >
-                                {businessDraft.businessDraftContent}
+                                <textarea readOnly={true} className="businessDraftContent">{businessDraft.businessDraftContent}</textarea>
                             </td>
                         </tr>
                         </tbody>

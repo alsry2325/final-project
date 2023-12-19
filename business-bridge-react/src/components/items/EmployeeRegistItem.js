@@ -1,8 +1,7 @@
 import {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {callEmployeeRegistAPI} from "../../apis/EmployeeAPICalls";
+import {callEmployeeRegistAPI, callLoginEmployeeAPI} from "../../apis/EmployeeAPICalls";
 import {ToastContainer} from "react-toastify";
-import {postEmployeeSuccess} from "../../modules/EmployeeModule";
 import {useNavigate} from "react-router-dom";
 
 function EmployeeRegistItem() {
@@ -21,16 +20,19 @@ function EmployeeRegistItem() {
     };
     const [form, setForm] = useState(initialFormState);
     const dispatch = useDispatch();
-    const memberReducer = useSelector(state => state.memberReducer);
+    const { postEmployeeSuccess }= useSelector(state => state.memberReducer);
+    useEffect(() => {
+        dispatch(callLoginEmployeeAPI());
+    }, []);
 
     useEffect(() => {
-        if ( memberReducer.postEmployeeSuccess === true){
+        if ( postEmployeeSuccess === true){
             // 입력 필드 초기화
             imageInput.current.value = null;
             setForm(initialFormState); // initialFormState는 초기 폼 상태로 설정된 값이어야 합니다.
             navigate('/emp/employee/registrationList', { replace : true })
         }
-    }, [memberReducer.postEmployeeSuccess]);
+    }, [postEmployeeSuccess]);
     /* 이미지 업로드 버튼 클릭 시 input type file이 클릭 되도록 하는 이벤트 */
     const onClickImageUpload = () => {
 

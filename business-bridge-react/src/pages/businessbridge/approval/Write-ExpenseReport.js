@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from "react";
-import {callEmployeeAPI} from "../../../apis/EmployeeAPICalls";
+import {callLoginEmployeeAPI} from "../../../apis/EmployeeAPICalls";
 import {useDispatch, useSelector} from "react-redux";
 import ERWriteForm from "../../../components/form/approvalForm/ERWriteForm";
 import ButtonForWriteER from "../../../components/items/approvalItems/ButtonForWriteER";
@@ -12,7 +12,7 @@ function WriteExpenseReport() {
     const fileInput = useRef();
 
     useEffect(() => {
-        dispatch(callEmployeeAPI())
+        dispatch(callLoginEmployeeAPI())
     }, []);
 
     return(
