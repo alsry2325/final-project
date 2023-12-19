@@ -107,22 +107,22 @@
 
 .noteListHeader:nth-child(1) {
     width: 100px;
-    margin-right: 10px;
+    margin-right: 58px;
 }
 
 .noteListHeader:nth-child(2) {
     width: 100px;
-    margin-right: 20px;
+    margin-right: 29px;
 }
 
 .noteListHeader:nth-child(3) {
     width: 150px;
-    margin-right: 40px;
+    margin-right: 60px;
 }
 
 .noteListHeader:nth-child(4) {
     width: 400px;
-    margin-right: 40px;
+    margin-right: 10px;
 }
 
 /* 바디 */
@@ -139,28 +139,48 @@
     margin-right: 20px;
 }
 
+.noteInfolistItem img {
+    display: flex;
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+}
+
+/* 이미지 */
 .noteInfolistItem:nth-child(1) {
     width: 100px;
-    margin-right: 20px;
+    margin-right: -45px;
 }
 
+/* 이름 */
 .noteInfolistItem:nth-child(2) {
-    width: 100px;
-    margin-right: 30px;
+    width: 120px;
+    margin-right: -5px;
 }
 
+/* 부서 */
 .noteInfolistItem:nth-child(3) {
-    width: 150px;
-    margin-right: 50px;
+    width: 120px;
 }
 
+/* 제목 */
 .noteInfolistItem:nth-child(4) {
+    width: 200px;
+}
+
+/* 내용 */
+.noteInfolistItem:nth-child(5) {
     width: 400px;
-    margin-right: 50px;
+}
+
+/* 받은 날짜 */
+.noteInfolistItem:nth-child(6) {
+    width: 170px;
 }
 
 .noteInfoButtonContainer {
-    margin-left: 80px;
+    display: flex;
+    margin-left: 0px;
 }
 
 .noteInfoButtonContainer button {
