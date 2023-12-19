@@ -59,7 +59,7 @@ function ElectronicPayment() {
                         <span>기안일: 2023-11-14</span>
                     </div>
                     <div className="main-Progress-area-title">
-                        <span>결제 양식: 휴가 신청서</span>
+                        <span>결제 양식: 휴가 신청서ㄴㅇㄴㅇ</span>
                     </div>
                     <div className="main-Progress-area-btn">
                         <h3>결제하기</h3>
