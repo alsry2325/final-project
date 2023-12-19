@@ -1,11 +1,12 @@
 <h1 align="center">BusinessBridge(영업 그룹웨어)</h1>
-<p align="center"><img align="center" width=50% height=50% src="https://github.com/HEXKEY-project/travelmaker/assets/85326632/9112fdff-c838-4028-9df7-d531d579918d"> </p>
+<p align="center"><img align="center" width=50% height=50% src="
+"> </p>
 
-<p align="center">많은 사람들은 즐거운 여행을 계획합니다. </p>
+<p align="center">현대적인 영업관리를 위한 그룹웨어 통합 플랫폼 개발 프로젝트 </p>
 
-<p align="center">하지만 막상 어떤 것을 챙겨야 할지, 어떻게 준비해야 할지 막막하기 마련입니다. </p>
+<h3 align="center"> 프로젝트 목표</h3>
 
-<p align="center">여행지에 도착해서도 챙기지 못한 것들이 생각나기 십상입니다. </p>
+<p align="center">이 프로젝트의 핵심 목표는 현대적이고 효율적인 영업관리를 위해 그룹웨어를 효과적으로 활용하는 것입니다. 그룹웨어 통합 플랫폼을 개발하고 도입함으로써, 영업팀은 업무 프로세스를 최적화하고 팀 간의 원활한 소통과 협업을 강화합니다. </p>
 
 <p align="center">오직 편안하고 즐거운 여행이 되도록,  </p>
 
