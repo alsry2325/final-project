@@ -11,8 +11,6 @@ function AddressBookNavbar() {
             </ul>
             <ul className="addressBook-navbar-ul">
                 <h3 className="main-title">부서 주소록</h3>
-                <img className="main-icon" src="/images/edit1.png" alt="My Image"/>
-                <img src="/images/settings 1.png" alt="My Image"/>
                 <li><NavLink to="/addressBook/department/1">영업본부</NavLink></li>
                 <li><NavLink to="/addressBook/department/2/">경영관리본부</NavLink></li>
                 <li><NavLink to="/addressBook/department/3/">마케팅본부</NavLink></li>

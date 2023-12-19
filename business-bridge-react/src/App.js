@@ -1,3 +1,4 @@
+import './css/stylee.css';
 import './css/Sales.css';
 import './css/loginform.css';
 import './css/Header.css';
@@ -6,6 +7,7 @@ import './css/EmployeeRegistrationNavbar.css'
 import './css/approval.css';
 import './css/AddressBook.css'
 import './css/Note.css'
+import './css/MiniCalendar.css';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Login from "./pages/businessbridge/employee/Login";

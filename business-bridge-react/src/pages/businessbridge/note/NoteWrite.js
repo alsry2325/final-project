@@ -32,7 +32,7 @@ function NoteWrite() {
     const [searchType, setSearchType] = useState('name');
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const addressData = useSelector(state => state.addressReducer.address);
+    const addressData = useSelector(state => state.addressReducer.addressList);
     const [selectedEmployeeName, setSelectedEmployeeName] = useState('');
 
     const openModal = () => {
@@ -49,7 +49,7 @@ function NoteWrite() {
         }
     };
 
-    const handleSelectRecipient = (recipient, employeeName) => {
+    const handleSelectRecipient = (recipient, employeeName,) => {
         setNoteData({...noteData, recipient});
         /* 선택된 사원 이름으로 업데이트 한다. */
         setSelectedEmployeeName(employeeName);

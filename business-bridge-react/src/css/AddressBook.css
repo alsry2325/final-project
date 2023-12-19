@@ -62,10 +62,13 @@
     margin : 20px 0px 20px 20px;
 }
 
+.addressInfoBox {
+    font-size: 14px;
+}
+
 .addressInfolist {
     display: flex;
     flex-direction: row;
-    gap: 10px;
 }
 
 .addressInfolistItem {
@@ -77,6 +80,52 @@
     margin-left: 20px;
 }
 
+.addressInfolistItem img {
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+}
+
+/* 사진 오른쪽 여백 */
+.addressInfolist .addressInfolistItem:nth-child(1) {
+    margin-right: -115px;
+}
+
+.addressInfolist .addressInfolistItem:nth-child(2) {
+    margin-left: 20px;
+}
+
+/* 부서 왼쪽 여백 */
+.addressInfolist .addressInfolistItem:nth-child(3) {
+    margin-left: -10px;
+}
+
+/* 개인 번호 왼쪽 여백 */
+.addressInfolist .addressInfolistItem:nth-child(4) {
+    margin-left: 30px;
+}
+
+/* 이메일 왼쪽 여백*/
+.addressInfolist .addressInfolistItem:nth-child(5) {
+    margin-left: 35px;
+}
+
+/* 사내 번호 왼쪽 여백 */
+.addressInfolist .addressInfolistItem:nth-child(6) {
+    margin-left: 65px;
+}
+
+/* 직급 왼쪽 여백 */
+.addressInfolist .addressInfolistItem:nth-child(7) {
+    margin-left: 20px;
+}
+
+/* 입사일 왼쪽 여백 */
+.addressInfolist .addressInfolistItem:nth-child(8) {
+    margin-left: -35px;
+}
+
+
 .addressInfolistHeader {
     width: 150px;
     height: 50px;
@@ -85,6 +134,36 @@
     align-items: center;
     margin-left: 20px;
     font-weight: bolder;
+}
+
+/* 헤더 부서 */
+.addressInfolist .addressInfolistHeader:nth-child(2) {
+    margin-left: 40px;
+}
+
+/*헤더 개인 번호*/
+.addressInfolist .addressInfolistHeader:nth-child(3) {
+    margin-left: 30px;
+}
+
+/* 헤더 이메일 */
+.addressInfolist .addressInfolistHeader:nth-child(4) {
+    margin-left: 38px;
+}
+
+/* 헤더 사내 번호 */
+.addressInfolist .addressInfolistHeader:nth-child(5) {
+    margin-left: 60px;
+}
+
+/* 헤더 직급 */
+.addressInfolist .addressInfolistHeader:nth-child(6) {
+    margin-left: 26px;
+}
+
+/* 헤더 입사일 */
+.addressInfolist .addressInfolistHeader:nth-child(7) {
+    margin-left: -37px;
 }
 
 
@@ -117,8 +196,9 @@
 }
 
 .address-information img {
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
+    border-radius: 10px;
 }
 
 .address-information input {

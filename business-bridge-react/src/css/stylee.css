@@ -1,0 +1,132 @@
+.main-area {
+    padding: 30px 40px;
+    width: 100%;
+    height: 100vh; /* 화면 높이를 100%로 채우도록 설정 */
+    background-color: #F0F4FA;
+    display: flex;
+}
+
+.main-employee-area{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+.main-Image-area > img {
+    border-radius: 100px;
+}
+.main-employeeInformation-cover {
+    background-color: white;
+    width: 90%;
+    height: 380px;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0 0.188em 1.550em rgb(219, 211, 211);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+}
+.main-mailImage-cover {
+    background-color: white;
+    width: 90%;
+    height: 0;
+    border-radius: 10px;
+    box-shadow: 0 0.188em 1.550em rgb(156, 156, 156);  /* 색상변경 할수도있음 */
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 20px;
+}
+/* 쪽지css */
+.main-NoteRecipeientList-area{
+    width: 100%;
+}
+
+.main-noteList {
+    display: flex;
+    gap: 10px;
+    margin-left: 20px;
+}
+
+.main-note-div{
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0.188em 1.550em rgb(219, 211, 211);
+}
+
+.main-note-wrapper-title{
+    text-align: left;
+    margin: 20px;
+}
+
+
+/* 영업통계 */
+.main-sales-statistics-area{
+    width: 100%;
+}
+
+.main-sales-div {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0.188em 1.550em rgb(219, 211, 211);
+
+}
+
+.main-statistics-div{
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+/* 전자결제 */
+.main-electronic-payment-area{
+
+    display: flex; /* 혹시 몰라서 만듬*/
+}
+
+.main-electronicpayment-area {
+    display: flex;
+    margin-top: 20px;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.main-electronicpayment-cover  {
+    background-color: white;
+    width: 300px;
+    height: 300px;
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0 0.188em 1.550em rgb(219, 211, 211);
+    display: flex;
+    flex-direction: column;
+}
+
+.main-Progress-area{
+    width: 70px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #ABD378;
+    color: white;
+}
+
+.main-Progress-area-title {
+    margin-left: 20px;
+    margin-top: 15px;
+}
+
+.main-Progress-area-btn {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    color: #5549DD;
+}

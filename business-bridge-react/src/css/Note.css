@@ -444,7 +444,7 @@
     display: flex;
     border: #ccc solid 1px;
     border-radius: 5px;
-    width: 420px;
+    width: 400px;
     height: 50px;
     align-items: center;
     margin-top: 15px;
@@ -454,7 +454,35 @@
 .note-modal-detail {
     margin-left: 20px;
     font-size: 14px;
+    display: flex;
+    align-items: center;
 }
+
+.note-modal-detail img {
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+    margin-right: 15px;
+}
+
+.note-modal-name {
+    font-weight: bolder;
+    width: 90px;
+    margin-right: 15px;
+}
+
+.note-modal-deptName {
+    width: 120px;
+    margin-right: 20px;
+}
+
+.note-modal-position {
+    width: 70px;
+}
+
+
+
+
 
 
 /* 페이징 처리 ----------------------------------------------------------*/
