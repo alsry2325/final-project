@@ -4,7 +4,7 @@ import {GiHamburgerMenu} from "react-icons/gi";
 import {useEffect, useState} from "react";
 import {isAdmin, isLogin, removeToken} from "../../utils/TokenUtils";
 import {useDispatch, useSelector} from "react-redux";
-import {callEmployeeAPI} from "../../apis/EmployeeAPICalls";
+import {callEmployeeAPI, callLoginEmployeeAPI} from "../../apis/EmployeeAPICalls";
 import MenuTest from "./MenuTest";
 function Header({clicked, isClicked}){
 
@@ -12,7 +12,7 @@ function Header({clicked, isClicked}){
     const [isMenuVisible, setMenuVisible] = useState(false);
     const { myPageInfo } = useSelector(state => state.memberReducer);
     useEffect(() => {
-        dispatch(callEmployeeAPI());
+        dispatch(callLoginEmployeeAPI());
     }, []);
 
     const handleClicked = () => {
