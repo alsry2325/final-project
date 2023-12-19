@@ -31,9 +31,9 @@ function MyPage() {
                 </div>
                 <div className="myPage-div-line">
                 </div>
-                <>
-                    추후 업데이트
-                </>
+                {/*<>*/}
+                {/*    추후 업데이트*/}
+                {/*</>*/}
             </div>
         </>
     );
