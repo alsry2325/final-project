@@ -5,6 +5,8 @@ import com.playwithcode.businessbridge.common.paging.Pagenation;
 import com.playwithcode.businessbridge.common.paging.PagingButtonInfo;
 import com.playwithcode.businessbridge.common.paging.PagingResponse;
 import com.playwithcode.businessbridge.jwt.CustomUser;
+import com.playwithcode.businessbridge.note.domain.Note;
+import com.playwithcode.businessbridge.note.dto.request.NoteRecipientStatusRequest;
 import com.playwithcode.businessbridge.note.dto.request.NoteSendRequest;
 import com.playwithcode.businessbridge.note.dto.response.NoteResponse;
 import com.playwithcode.businessbridge.note.dto.response.NoteResponseWithEmplyName;
@@ -15,6 +17,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
+import java.net.URI;
 
 import static com.playwithcode.businessbridge.common.exception.type.ExceptionCode.NOT_FOUND_NOTE_NO;
 
@@ -184,7 +190,7 @@ public class NoteController {
         return ResponseEntity.ok(pagingResponse);
     }
 
-    /* 13. 수신자 쪽지 상세 조회 */
+    /* 13. 수신자 쪽지 상세 조회(일반) */
     @GetMapping("/notes/recipient/{noteNo}")
     public ResponseEntity<NoteResponse> getRecipientNoteinfo(
             @PathVariable final Long noteNo,
@@ -195,7 +201,29 @@ public class NoteController {
         return ResponseEntity.ok(noteResponse);
     }
 
-    /* 14. 발신자 쪽지 상세 조회 */
+    /* 14. 수신자 쪽지 상세 조회(보관) */
+    @GetMapping("/notes/recipient/storage/{noteNo}")
+    public ResponseEntity<NoteResponse> getRecipientStorageinfo(
+            @PathVariable final Long noteNo,
+            @AuthenticationPrincipal CustomUser customUser) {
+
+        final NoteResponse noteResponse = noteService.getRecipientStorageNoteinfo(customUser, noteNo);
+
+        return ResponseEntity.ok(noteResponse);
+    }
+
+    /* 15. 수신자 쪽지 상세 조회(휴지통)*/
+    @GetMapping("/notes/recipient/trash/{noteNo}")
+    public ResponseEntity<NoteResponse> getRecipientTrashinfo(
+            @PathVariable final Long noteNo,
+            @AuthenticationPrincipal CustomUser customUser) {
+
+        final NoteResponse noteResponse = noteService.getRecipientTrashNoteinfo(customUser, noteNo);
+
+        return ResponseEntity.ok(noteResponse);
+    }
+
+    /* 16. 발신자 쪽지 상세 조회 */
     @GetMapping("/notes/sender/{noteNo}")
     public ResponseEntity<NoteResponse> getSenderNoteinfo(
             @PathVariable final Long noteNo,
@@ -206,6 +234,60 @@ public class NoteController {
         return ResponseEntity.ok(noteResponse);
     }
 
+    /* 17. 수신자 쪽지 상태 변경(보관) */
+    @PutMapping("/notes/recipient/statusStorage/{noteNo}")
+    public ResponseEntity<Void> updateRecipientStorage(@PathVariable final Long noteNo) {
+
+        noteService.updateRecipientStorage(noteNo);
+
+        return  ResponseEntity.ok().build();
+    }
+
+    /* 18. 수신자 쪽지 상태 변경(휴지통) */
+    @PutMapping("/notes/recipient/statusTrash/{noteNo}")
+    public ResponseEntity<Void> updateRecipientTrash(@PathVariable final Long noteNo) {
+
+        noteService.updateRecipientTrash(noteNo);
+
+        return  ResponseEntity.ok().build();
+    }
+
+    /* 19. 수신자 쪽지 상태 변경(일반) */
+    @PutMapping("/notes/recipient/statusNormal/{noteNo}")
+    public ResponseEntity<Void> updateRecipientNormal(@PathVariable final Long noteNo) {
+
+        noteService.updateRecipientNormal(noteNo);
+
+        return  ResponseEntity.ok().build();
+    }
+
+    /* 20. 수신자 쪽지 상태 변경(삭제) */
+    @PutMapping("/notes/recipient/statusDelete/{noteNo}")
+    public ResponseEntity<Void> updateRecipientDelete(@PathVariable final Long noteNo) {
+
+        noteService.updateRecipientDelete(noteNo);
+
+        return  ResponseEntity.ok().build();
+    }
+
+    /* 21. 발신자 쪽지 상태 변경(삭제) */
+    @PutMapping("/notes/sender/statusDelete/{noteNo}")
+    public ResponseEntity<Void> updateSenderDelete(@PathVariable final Long noteNo) {
+
+        noteService.updateSenderDelete(noteNo);
+
+        return  ResponseEntity.ok().build();
+    }
+
+    /* 22. 쪽지 읽은 날짜 업데이트(상세보기를 눌렀을 때) */
+    @PutMapping("/notes/readAt/{noteNo}")
+    public ResponseEntity<Void> updateReadAt(@PathVariable final Long noteNo) {
+
+        noteService.updateReadAt(noteNo);
+
+        return ResponseEntity.ok().build();
+    }
+
 
 
     /* 쪽지 삭제 */
@@ -213,6 +295,8 @@ public class NoteController {
     *  1. 내 화면에서는 쪽지가 삭제된다.
     *  2. 수신자 상태와 발신자 상태를 모두 비교한다.
     *  3. 비교된 상태가 전부 DELETE라면 DB에서 삭제한다. */
+
+
 
     @DeleteMapping("/notes/{noteNo}")
     public ResponseEntity<Void> deleteNoteBySenderAndRecipient(@PathVariable Long noteNo) {
