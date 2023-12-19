@@ -4,14 +4,11 @@
 <p align="center">현대적인 영업관리를 위한 그룹웨어 통합 플랫폼 개발 프로젝트 </p>
 
 <h3 align="center"> 프로젝트 목표</h3>
+<p align="center">프로젝트의 주된 목표는 현대적이고 효율적인 영업관리를 위해 그룹웨어를 효과적으로 활용하는 것입니다. </p>
 
-<p align="center">이 프로젝트의 핵심 목표는 현대적이고 효율적인 영업관리를 위해 그룹웨어를 효과적으로 활용하는 것입니다. </p>
+<p align="center"> "비즈니스브릿지"라는 그룹웨어 통합 플랫폼을 개발하고 도입함으로써, 영업팀은 업무 프로세스를 최적화하고 </p> 
 
-<p align="center">그룹웨어 통합 플랫폼을 개발하고 도입함으로써,  </p>
-
-<p align="center"> 영업팀은 업무 프로세스를 최적화하고 팀 간의 원활한 소통과 협업을 강화합니다. </p> 
-
-<p align="center">영업관리 그룹웨어  "비즈니스브릿지" 입니다. </p>
+<p align="center"> 팀 간의 원활한 소통과 협업을 강화할 수 있습니다.</p>
 <br>
 
 <h3 align="center"> 프로젝트 제작 배경</h3>
@@ -26,9 +23,9 @@
 
 
 
-|                                         상품&재고                                          |                                         장바구니&결제                                           |                                        로그인&회원가입                                           |                                         회원관리&배송관리                                          |                                       공지사항                                        |                                        메인화면&리뷰                                          |       
-| :--------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------: | 
-| <img src="https://avatars.githubusercontent.com/u/138549251?v=4" width=400px alt="김김"/> | <img src="https://avatars.githubusercontent.com/u/125981939?v=4" width=400px alt="바다"/> | <img src="https://avatars.githubusercontent.com/u/138549291?v=4" width=400px alt="삭정"/> | <img src="https://avatars.githubusercontent.com/u/85326632?v=4" width=400px alt="샐리"> | <img src="https://avatars.githubusercontent.com/u/138549033?v=4" width=400px alt="썬"> | <img src="https://avatars.githubusercontent.com/u/138549384?v=4" width=400px alt="유조"> |
-|                       [오형민](https://github.com/hyungmino)                              |                            [김용민](https://github.com/kingnongmeel)                          |                            [황주희](https://github.com/ctmeou)                          |                          [정민교](https://github.com/alsry2325)                           |                         [김지상](https://github.com/kzeesang)                         |                            [김미경](https://github.com/kim-mi-kyoung)                            |                 
+|                                         쪽지&주소록                                          |                                       전자결제                                          |                                        로그인&사원관리                                           |                                        고객관리&거래처관리                                         |                                       상품관리                           |       
+| :--------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------: | 
+| <img src="https://avatars.githubusercontent.com/u/136221446?v=4" width=400px alt="김김"/> | <img src="https://avatars.githubusercontent.com/u/138549058?v=4" width=400px alt="바다"/> | <img src="https://avatars.githubusercontent.com/u/85326632?v=4" width=400px alt="삭정"/> | <img src="https://avatars.githubusercontent.com/u/138549126?v=4" width=400px alt="샐리"> | <img src="https://avatars.githubusercontent.com/u/101682547?v=4" width=400px alt="썬">  | 
+|                       [양슬기](https://github.com/asoong2)                            |                            [주서현](https://github.com/jooseohyeon)                         |                            [정민교](https://github.com/alsry2325)                          |                          [정수현](https://github.com/wjdtngus3)                           |                         [이소정](https://github.com/spehil)                        |                     
 
 
