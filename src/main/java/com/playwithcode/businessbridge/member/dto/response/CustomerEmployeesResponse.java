@@ -31,8 +31,8 @@ public class CustomerEmployeesResponse {
                 employee.getEmplyName(),
                 employee.getEmplyOffice(),
                 employee.getEmplyEmail(),
-                employee.getPosition().getPositionName(),
                 employee.getDepartment().getDepartmentName(),
+                employee.getPosition().getPositionName(),
                 employee.getEmplyInternalNumber(),
                 employee.getEmplyPhoneNumber()
         );
