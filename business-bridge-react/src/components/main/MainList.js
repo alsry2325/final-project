@@ -7,6 +7,7 @@ function NoteRecipeientList() {
     const dispatch = useDispatch();
     const {notes} = useSelector(state => state.noteReducer);
     const [currentPage, setCurrentPage] = useState(1);
+    const displayedNotes = notes && notes.data ? notes.data.slice(0, 3) : [];
 
     useEffect(() => {
         dispatch(callNoteRecipientListAPI({currentPage}));
@@ -28,9 +29,8 @@ function NoteRecipeientList() {
                 </div>
                 <hr/>
                 <>
-                    {notes
-                        &&
-                        <NoteList data={notes.data}/>
+                    {displayedNotes.length > 0 &&
+                        <NoteList data={displayedNotes}/>
                     }
                 </>
             </div>
