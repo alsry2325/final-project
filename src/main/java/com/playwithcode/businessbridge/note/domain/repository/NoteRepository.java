@@ -32,19 +32,22 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     /* 7. 발신자명 기준 검색 */
     @Query("SELECT n FROM Note n " +
             "WHERE n.recipient.emplyCode = :emplyCode " +
-            "AND LOWER(n.sender.emplyName) LIKE LOWER(CONCAT('%', :emplyName, '%'))")
+            "AND LOWER(n.sender.emplyName) LIKE LOWER(CONCAT('%', :emplyName, '%'))" +
+            "AND n.recipientStatus = 'RCVR_NORMAL'")
     Page<Note> findBySenderEmplyNameContains(Pageable pageable, String emplyName, @Param("emplyCode") Long emplyCode);
 
     /* 8. 쪽지 제목 기준 검색 */
     @Query("SELECT n FROM Note n " +
             "WHERE n.recipient.emplyCode = :emplyCode " +
-            "AND LOWER(n.noteTitle) LIKE LOWER(CONCAT('%', :noteTitle, '%'))")
+            "AND LOWER(n.noteTitle) LIKE LOWER(CONCAT('%', :noteTitle, '%'))"+
+            "AND n.recipientStatus = 'RCVR_NORMAL'")
     Page<Note> findByNoteTitleContains(Pageable pageable, String noteTitle, @Param("emplyCode") Long emplyCode);
 
     /* 9. 쪽지 내용 기준 검색 */
     @Query("SELECT n FROM Note n " +
             "WHERE n.recipient.emplyCode = :emplyCode " +
-            "AND LOWER(n.noteContent) LIKE LOWER(CONCAT('%', :noteContent, '%'))")
+            "AND LOWER(n.noteContent) LIKE LOWER(CONCAT('%', :noteContent, '%'))"+
+            "AND n.recipientStatus = 'RCVR_NORMAL'")
     Page<Note> findByNoteContentContains(Pageable pageable, String noteContent, @Param("emplyCode") Long emplyCode);
 
 
@@ -53,29 +56,37 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     /* 10. 수신자명 기준 검색 */
     @Query("SELECT n FROM Note n " +
             "WHERE n.sender.emplyCode = :emplyCode " +
-            "AND LOWER(n.recipient.emplyName) LIKE LOWER(CONCAT('%', :emplyName, '%'))")
+            "AND LOWER(n.recipient.emplyName) LIKE LOWER(CONCAT('%', :emplyName, '%'))" +
+            "AND n.senderStatus = 'SNDR_NORMAL'")
     Page<Note> findByRecipientEmplyNameContains(Pageable pageable, String emplyName, @Param("emplyCode") Long emplyCode);
 
     /* 11. 쪽지 제목 기준 검색 */
     @Query("SELECT n FROM Note n " +
             "WHERE n.sender.emplyCode = :emplyCode " +
-            "AND LOWER(n.noteTitle) LIKE LOWER(CONCAT('%', :noteTitle, '%'))")
+            "AND LOWER(n.noteTitle) LIKE LOWER(CONCAT('%', :noteTitle, '%'))" +
+            "AND n.senderStatus = 'SNDR_NORMAL'")
     Page<Note> findBySenderNoteTitleContains(Pageable pageable, String noteTitle, @Param("emplyCode") Long emplyCode);
 
     /* 12. 쪽지 내용 기준 검색 */
     @Query("SELECT n FROM Note n " +
             "WHERE n.sender.emplyCode = :emplyCode " +
-            "AND LOWER(n.noteContent) LIKE LOWER(CONCAT('%', :noteContent, '%'))")
+            "AND LOWER(n.noteContent) LIKE LOWER(CONCAT('%', :noteContent, '%'))" +
+            "AND n.senderStatus = 'SNDR_NORMAL'")
     Page<Note> findBySenderNoteContentContains(Pageable pageable, String noteContent, @Param("emplyCode") Long emplyCode);
 
 
     /* 쪽지 상세 조회  -----------------------------------------------------------------------------------------------*/
 
     /* 13. 수신자 쪽지 상세 조회 */
-    Optional<Note> findByRecipientEmplyCodeAndNoteNoAndRecipientStatusNot(Long emplyCode, Long noteNo, RecipientStatus recipientStatus);
+    Optional<Note> findByRecipientEmplyCodeAndNoteNoAndRecipientStatus(Long emplyCode, Long noteNo, RecipientStatus recipientStatus);
 
     /* 14. 발신자 쪽지 상세 조회 */
     Optional<Note> findBySenderEmplyCodeAndNoteNoAndRecipientStatusNot(Long emplyCode, Long noteNo, RecipientStatus recipientStatus);
+
+    /* 15. 수신자 노트 상태 변경(보관) */
+    Optional<Note> findByNoteNo(Long noteNo);
+
+
 
 
     /* 쪽지 삭제(DB 삭제, 수신자 삭제 = 발신자 삭제 ) -------------------------------------------------------------------*/

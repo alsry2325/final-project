@@ -7,6 +7,8 @@ import com.playwithcode.businessbridge.member.domain.Employee;
 import com.playwithcode.businessbridge.member.domain.repository.EmployeeRepository;
 import com.playwithcode.businessbridge.note.domain.Note;
 import com.playwithcode.businessbridge.note.domain.repository.NoteRepository;
+import com.playwithcode.businessbridge.note.domain.type.SenderStatus;
+import com.playwithcode.businessbridge.note.dto.request.NoteRecipientStatusRequest;
 import com.playwithcode.businessbridge.note.dto.request.NoteSendRequest;
 import com.playwithcode.businessbridge.note.dto.response.NoteResponse;
 import com.playwithcode.businessbridge.note.dto.response.NoteResponseWithEmplyName;
@@ -19,8 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.playwithcode.businessbridge.note.domain.type.RecipientStatus.*;
-import static com.playwithcode.businessbridge.note.domain.type.SenderStatus.SNDR_NORMAL;
-import static com.playwithcode.businessbridge.note.domain.type.SenderStatus.SNDR_TRASH;
+import static com.playwithcode.businessbridge.note.domain.type.SenderStatus.*;
 
 @Service
 @RequiredArgsConstructor
@@ -162,17 +163,34 @@ public class NoteService {
         return notes.map(note -> NoteResponseWithEmplyName.from(note));
     }
 
-    /* 13. 수신자 쪽지 상세 조회 */
+    /* 13. 수신자 쪽지 상세 조회(일반) */
     @Transactional(readOnly = true)
     public NoteResponse getRecipientNoteinfo(CustomUser customUser, final Long noteNo) {
 
-        Note note = noteRepository.findByRecipientEmplyCodeAndNoteNoAndRecipientStatusNot(customUser.getEmplyCode(), noteNo, RCVR_DELETE)
+        Note note = noteRepository.findByRecipientEmplyCodeAndNoteNoAndRecipientStatus(customUser.getEmplyCode(), noteNo, RCVR_NORMAL)
                 .orElseThrow(() -> new NotFoundException(ExceptionCode.NOT_FOUND_NOTE_NO));
 
         return NoteResponse.from(note);
     }
 
-    /* 14. 발신자 쪽지 상세 조회 */
+    /* 14. 수신자 쪽지 상세 조회(보관) */
+    public NoteResponse getRecipientStorageNoteinfo(CustomUser customUser, Long noteNo) {
+
+        Note note = noteRepository.findByRecipientEmplyCodeAndNoteNoAndRecipientStatus(customUser.getEmplyCode(), noteNo, RCVR_STORAGE)
+                .orElseThrow(() -> new NotFoundException(ExceptionCode.NOT_FOUND_NOTE_NO));
+
+        return NoteResponse.from(note);
+    }
+
+    /* 15. 수신자 쪽지 상세 조회(휴지통) */
+    public NoteResponse getRecipientTrashNoteinfo(CustomUser customUser, Long noteNo) {
+        Note note = noteRepository.findByRecipientEmplyCodeAndNoteNoAndRecipientStatus(customUser.getEmplyCode(), noteNo, RCVR_TRASH)
+                .orElseThrow(() -> new NotFoundException(ExceptionCode.NOT_FOUND_NOTE_NO));
+
+        return NoteResponse.from(note);
+    }
+
+    /* 16. 발신자 쪽지 상세 조회 */
     @Transactional(readOnly = true)
     public NoteResponse getSenderNoteinfo(CustomUser customUser, final Long noteNo) {
 
@@ -182,12 +200,71 @@ public class NoteService {
         return NoteResponse.from(note);
     }
 
+    /* 17. 수신자 쪽지 상태 변경(보관) */
+    public void updateRecipientStorage(final Long noteNo) {
+
+        Note note = noteRepository.findByNoteNo(noteNo)
+                .orElseThrow(() -> new NotFoundException(ExceptionCode.NOT_FOUND_NOTE_NO));
+
+        note.updateRecipientStorage();
+    }
+
+    /* 18. 수신자 쪽지 상태 변경(휴지통) */
+    public void updateRecipientTrash(Long noteNo) {
+        Note note = noteRepository.findByNoteNo(noteNo)
+                .orElseThrow(() -> new NotFoundException(ExceptionCode.NOT_FOUND_NOTE_NO));
+
+        note.updateRecipientTrash();
+    }
+
+    /* 19. 수신자 쪽지 상태 변경(일반) */
+    public void updateRecipientNormal(Long noteNo) {
+        Note note = noteRepository.findByNoteNo(noteNo)
+                .orElseThrow(() -> new NotFoundException(ExceptionCode.NOT_FOUND_NOTE_NO));
+
+        note.updateRecipientNormal();
+    }
+
+    /* 20. 수신자 쪽지 상태 변경(삭제) */
+    public void updateRecipientDelete(Long noteNo) {
+        Note note = noteRepository.findByNoteNo(noteNo)
+                .orElseThrow(() -> new NotFoundException(ExceptionCode.NOT_FOUND_NOTE_NO));
+
+        note.updateRecipientDelete();
+
+        /* 발신자 상태 체크 후, SNDR_DELETE라면 쪽지를 DB에서 삭제한다. */
+        if (note.getSenderStatus() == SNDR_DELETE) {
+            noteRepository.delete(note);
+        }
+    }
+
+    /* 21. 발신자 쪽지 상태 변경(삭제) */
+    public void updateSenderDelete(Long noteNo) {
+        Note note = noteRepository.findByNoteNo(noteNo)
+                .orElseThrow(() -> new NotFoundException(ExceptionCode.NOT_FOUND_NOTE_NO));
+
+        note.updateSenderDelete();
+
+        /* 발신자 상태 체크 후, SNDR_DELETE라면 쪽지를 DB에서 삭제한다. */
+        if (note.getRecipientStatus() == RCVR_DELETE) {
+            noteRepository.delete(note);
+        }
+    }
+
+    /* 22. 쪽지 읽은 날짜 업데이트(상세보기를 눌렀을 때) */
+    public void updateReadAt(Long noteNo) {
+        Note note = noteRepository.findByNoteNo(noteNo)
+                .orElseThrow(() -> new NotFoundException(ExceptionCode.NOT_FOUND_NOTE_NO));
+
+        note.updateReadAt();
+    }
+
     /* 쪽지 삭제(DB 삭제) */
     public boolean deleteNoteBySenderAndRecipient(Long noteNo) {
         Note note = noteRepository.findById(noteNo).orElse(null);
 
-        if (note != null && note.getSenderStatus() == SNDR_TRASH &&
-                note.getRecipientStatus() == RCVR_TRASH) {
+        if (note != null && note.getSenderStatus() == SNDR_DELETE &&
+                note.getRecipientStatus() == RCVR_DELETE) {
             deleteNoteFromDB(note);
             return true;
         }
@@ -197,6 +274,7 @@ public class NoteService {
     private void deleteNoteFromDB(Note note) {
         noteRepository.delete(note);
     }
+
 
 
 }
