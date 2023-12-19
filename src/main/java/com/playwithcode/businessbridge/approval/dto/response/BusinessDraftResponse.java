@@ -35,6 +35,7 @@ public class BusinessDraftResponse {
         // 결재자에 대한 정보를 가공하는 처리
         List<Map<String,String>> approvers = businessDraft.getApproval().getApproverMember().stream().map(approver ->{
             Map<String, String> resultMap =  new HashMap<>();
+            resultMap.put("emplyCode", String.valueOf(approver.getApproverMember().getEmplyCode()));
             resultMap.put("positionName", approver.getApproverMember().getPosition().getPositionName());
             resultMap.put("approverId", approver.getApproverMember().getEmplyId());
             resultMap.put("approverName", approver.getApproverMember().getEmplyName());
