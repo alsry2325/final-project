@@ -22,7 +22,7 @@ function ProductManagement(){
     return(
 
             <div className="management-div">
-                상품목록
+                <h2 className="approval-title product-title">상품목록</h2>
 
                 {
                     adminProducts &&

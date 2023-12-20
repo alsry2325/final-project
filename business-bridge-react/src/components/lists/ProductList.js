@@ -7,7 +7,7 @@ function  ProductList({data}){
 
             <div className="product-div">
 
-                <table className="Product-information">
+                <table className="Product-information sales-table">
                     <thead>
                     <tr>
                         <td style={{backgroundColor: '#F1F0F6'}}>상품코드</td>

@@ -8,6 +8,7 @@ import './css/approval.css';
 import './css/AddressBook.css'
 import './css/Note.css'
 import './css/MiniCalendar.css';
+import './css/Products.css';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Login from "./pages/businessbridge/employee/Login";
