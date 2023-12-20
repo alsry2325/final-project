@@ -20,7 +20,7 @@ function SalesStatistics() {
                 salesStatistics &&
                 <>
                     <div className="sales-div">
-                                <h1>월별 실적 통계</h1>
+                                <h1>실적 통계</h1>
                                 <table className="sales-table">
                                     <colgroup>
                                         <col width="15%" />

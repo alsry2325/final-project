@@ -6,8 +6,7 @@ function MyPageNavbar() {
 
         <div className="salesRegistration-navbar-div">
             <div className="cusRelationMangement">
-                <img src='/images/sales-handshacke.png'/>
-                <h1 className="cusRelationMangement-h1">고객 관리</h1>
+                <h2 className="cusRelationMangement-h1">고객 관리</h2>
             </div>
             <div className="salesRegistration-btn"><strong>영업 관리</strong></div>
             <ul className="employeeRegistration-navbar-ul">
@@ -20,7 +19,7 @@ function MyPageNavbar() {
             </ul>
             <ul className="employeeRegistration-navbar-ul">
                 <h3 className="main-title">영업통계</h3>
-                <li><NavLink to="/sales/salesStatistics">월별 통계</NavLink></li>
+                <li><NavLink to="/sales/salesStatistics">실적 통계</NavLink></li>
             </ul>
             {/*<ul className="employeeRegistration-navbar-ul">*/}
             {/*    <h3 className="main-title">자유롭게</h3>*/}

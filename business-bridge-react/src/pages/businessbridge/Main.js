@@ -8,6 +8,7 @@ import {useEffect, useState} from "react";
 import {callReceiveApprovalsListAPI} from "../../apis/ApprovalAPICalls";
 import InProgressLists from "../../components/items/approvalItems/main/InProgressLists";
 import {callEmployeeAPI} from "../../apis/EmployeeAPICalls";
+import {callsalesStatisticsAPI} from "../../apis/SalesAPICalls";
 
 
 function Main(){
@@ -16,9 +17,11 @@ function Main(){
     const [currentPage, setCurrentPage] = useState(1);
     const { receiveAllApprovals } = useSelector(state => state.approvalReducer);   //모듈에 정의한 key값
 
+
     useEffect(() => {
         dispatch(callReceiveApprovalsListAPI({currentPage}));
     }, [currentPage]);
+
 
     return(
         <>
