@@ -4,16 +4,15 @@ import {GiHamburgerMenu} from "react-icons/gi";
 import {useEffect, useState} from "react";
 import {isAdmin, isLogin, removeToken} from "../../utils/TokenUtils";
 import {useDispatch, useSelector} from "react-redux";
-import {callEmployeeAPI} from "../../apis/EmployeeAPICalls";
+import {callEmployeeAPI, callLoginEmployeeAPI} from "../../apis/EmployeeAPICalls";
 import MenuTest from "./MenuTest";
 function Header({clicked, isClicked}){
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isMenuVisible, setMenuVisible] = useState(false);
     const { myPageInfo } = useSelector(state => state.memberReducer);
     useEffect(() => {
-        dispatch(callEmployeeAPI());
+        dispatch(callLoginEmployeeAPI());
     }, []);
 
     const handleClicked = () => {
@@ -45,27 +44,23 @@ function Header({clicked, isClicked}){
                        </NavLink>
                    </li>
                    <li className="NavElements">
-                       <NavLink className="Link" to="/contact-us">
+                       <NavLink className="Link" to="/note/recipient">
                            쪽지
                        </NavLink>
                    </li>
+                   {/*<li className="NavElements">*/}
+                   {/*    <NavLink className="Link" to="/contact-us">*/}
+                   {/*        캘린더*/}
+                   {/*    </NavLink>*/}
+                   {/*</li>*/}
                    <li className="NavElements">
-                       <NavLink className="Link" to="/contact-us">
-                           캘린더
-                       </NavLink>
-                   </li>
-                   <li className="NavElements">
-                       <NavLink className="Link" to="/contact-us">
-                           공지사항
-                       </NavLink>
-                   </li>
-                   <li className="NavElements">
-                       <NavLink className="Link" to="/approval/home">
+                       {/*<NavLink className="Link" to="/approval/home">*/}
+                       <NavLink className="Link" to="/approval/receive-approvals/all">
                            전자결재
                        </NavLink>
                    </li>
                    <li className="NavElements">
-                       <NavLink className="Link" to="/sales/salesList/1">
+                       <NavLink className="Link" to="/sales/salesList/0">
                            고객관계관리
                        </NavLink>
                    </li>

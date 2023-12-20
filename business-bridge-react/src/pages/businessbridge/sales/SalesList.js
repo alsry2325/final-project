@@ -4,22 +4,26 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
 import {callSalesListAPI} from "../../../apis/SalesAPICalls";
 import PagingBar from "../../../components/common/PagingBar";
+import SalesRegistModal from "../../../components/modal/SalesRegistModal";
 
 
 function SalesList() {
 
     const dispatch = useDispatch();
     const { salesStatus } = useParams();
-    const { salesList } = useSelector(state => state.salesReducer);
+    const { salesList, postSuccess } = useSelector(state => state.salesReducer);
     const [currentPage, setCurrentPage] = useState(1);
     const [schType, setSchType] = useState("");
     const [schText, setSchText] = useState("");
     const navigate = useNavigate();
+    const [isRegistModalOpen, setIsRegistModalOpen] = useState(false);
+    const openRegistModal = () => setIsRegistModalOpen(true);
+    const closeRegistModal = () => setIsRegistModalOpen(false);
 
     //목록 api 호출
     useEffect(() => {
         dispatch(callSalesListAPI( {schType, schText, salesStatus, currentPage}) );
-    }, [salesStatus, currentPage]);
+    }, [postSuccess , salesStatus, currentPage]);
 
     const onClickTableTr = (salesCode) => {
         navigate(`/sales/${salesCode}`);
@@ -38,6 +42,19 @@ function SalesList() {
         navigate('/sales/sales-regist');
     }
 
+
+    /* 진행도에 따른 버튼색 추가*/
+    const getButtonClass = (status) => {
+        switch(status) {
+            case '접수':
+                return 'sales-list-button-received'; // '접수' 상태에 대한 클래스
+            case '진행':
+                return 'sales-list-button-progress'; // '진행' 상태에 대한 클래스
+            case '완결':
+                return 'sales-list-button-complete'; // '완료' 상태에 대한 클래스
+        }
+    }
+
     return (
         <>
             <ToastContainer hideProgressBar={true} position="top-center"/>
@@ -45,11 +62,13 @@ function SalesList() {
                 salesList &&
                 <>
                     <div className="sales-div">
-                        <h1 className="sales-title">영업 목록</h1>
+                        <div className="sales-h1">
+                            <h1>영업 목록</h1>
+                        </div>
                         <div className="search-div"  style={{ float: "right" }}>
                         <select name="schType" id="schType" onChange={(e) => {
                             const value = e.target.value;
-                            if(value == ""){
+                            if(value === ""){
                                 document.getElementById('schText').value = "";
                             }
                             setSchType(value);
@@ -71,8 +90,8 @@ function SalesList() {
                         }}>검색</button>
                         </div>
                         <button
-                            className="sales-regist-button"
-                            onClick={ onClickSalesInsert }>영업등록
+                            className="sales-button"
+                            onClick={ openRegistModal }>영업등록
                         </button>
                         <table className="sales-table">
                             <colgroup>
@@ -87,10 +106,10 @@ function SalesList() {
                             </colgroup>
                             <thead>
                             <tr>
-                                <th>GRADE</th>
+                                <th>영업등급</th>
                                 <th>영업담당</th>
                                 <th>회사명</th>
-                                <th>진행내용</th>
+                                <th>영업내용</th>
                                 <th>유형</th>
                                 <th>영업형태</th>
                                 <th>영업품목</th>
@@ -110,7 +129,7 @@ function SalesList() {
                                     <td>{sales.salesWay}</td>
                                     <td>{sales.productName}</td>
                                     <td>
-                                        <button className="sales-list-button">
+                                        <button className={`${getButtonClass(sales.salesStatus)}`}>
                                             {sales.salesStatus}
                                         </button>
                                     </td>
@@ -120,9 +139,12 @@ function SalesList() {
                             </tbody>
                         </table>
                     </div>
+
                     <PagingBar pageInfo={salesList.pageInfo} setCurrentPage={setCurrentPage}/>
                 </>
             }
+            {isRegistModalOpen &&
+                <SalesRegistModal setIsOpen={setIsRegistModalOpen} />}
         </>
     );
 }

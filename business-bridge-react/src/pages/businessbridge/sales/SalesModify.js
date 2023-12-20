@@ -107,26 +107,17 @@ function SalesModify () {
                 sales = {sales}
             />
         }
-        <div>
-            <div className="product-button-div">
-                <button
-                    onClick={ () => navigate(-1) }
-                >
-                    돌아가기
-                </button>
-                <button
-                    onClick={ onClickSalesUpdateHandler }
-                >
-                    수정하기
-                </button>
-            </div>
-            <div className="sales-modify-section">
+        <div className="sales-detail-container">
+            <div className="sales-infos">
                 <input type="hidden" name="productCode" id="productCode" onChange={ onChangeHandler } value={form.productCode || ''}/>
-                <div className="sales-modify-info-div">
-                    <table className="sales-regist-table">
+                <div className="sales-detail-info">
+                    <div className="sales-h2">
+                        <h2>영업관리 수정</h2>
+                    </div>
+                    <table>
                         <tbody>
                         <tr>
-                            <td><label>영업상태</label></td>
+                            <td style={{backgroundColor: '#F1F0F6'}}>영업상태</td>
                             <td>
                                 <select
                                     className="sales-modify__select"
@@ -140,13 +131,12 @@ function SalesModify () {
                                     <option value='완결'>완결</option>
                                 </select>
                             </td>
-                        </tr>
-                        <tr>
-                            <td><label>영업형태</label></td>
+                            <td style={{backgroundColor: '#F1F0F6'}}>영업형태</td>
                             <td>
-                                <select 
-                                    id='salesType' 
-                                    name='salesType' 
+                                <select
+                                    className="sales-modify__select"
+                                    id='salesType'
+                                    name='salesType'
                                     value={form.salesType}
                                     onChange={e => setForm({ ...form, salesType: e.target.value })}
                                 >
@@ -154,9 +144,56 @@ function SalesModify () {
                                     <option value='방문영업'>방문영업</option>
                                 </select>
                             </td>
+                            <td style={{backgroundColor: '#F1F0F6'}}>영업유형</td>
+                            <td>
+                                <input
+                                    className="sales-input"
+                                    name='salesWay'
+                                    id='salesWay'
+                                    onChange={ onChangeHandler }
+                                    value={form.salesWay || ''}
+                                />
+                            </td>
                         </tr>
                         <tr>
-                            <td><label>거래처명</label></td>
+                            <td style={{backgroundColor: '#F1F0F6'}}>영업담당자</td>
+                            <td>
+                                <input
+                                    placeholder='로그인정보의 사원명'
+                                    name='salesMember'
+                                    className="sales-input"
+                                    onChange={ onChangeHandler }
+                                    value={form.salesMember || ''}
+                                />
+                            </td>
+                            <td style={{backgroundColor: '#F1F0F6'}}>영업등급</td>
+                            <td>
+                                <select
+                                    className="sales-modify__select"
+                                    id='customerRating'
+                                    name='customerRating'
+                                    value={form.customerRating}
+                                    onChange={e => setForm({ ...form, customerRating: e.target.value })}
+                                >
+                                    <option value='A'>A</option>
+                                    <option value='B'>B</option>
+                                    <option value='C'>C</option>
+                                    <option value='D'>D</option>
+                                </select>
+                            </td>
+                            <td style={{backgroundColor: '#F1F0F6'}}>부서명</td>
+                            <td>
+                                <input
+                                    placeholder='로그인정보의 부서명'
+                                    className="sales-input"
+                                    name='memberName'
+                                    onChange={ onChangeHandler }
+                                    value={form.departmentName || ''}
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style={{backgroundColor: '#F1F0F6'}}>거래처명</td>
                             <td>
                             <input
                                     placeholder='거래처명'
@@ -167,62 +204,10 @@ function SalesModify () {
                                     value={form.accountName || ''}
                                 />
                             </td>
-                        </tr>
-                        <tr>
-                            <td><label>영업담당</label></td>
-                            <td>
-                            <input
-                                    placeholder='로그인정보의 사원명'
-                                    name='salesMember'
+                            <td style={{backgroundColor: '#F1F0F6'}}>상품명</td>
+                            <td colSpan='3'>
+                                <input
                                     className="sales-input"
-                                    onChange={ onChangeHandler }
-                                    value={form.salesMember || ''}
-                            />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label>Grade</label></td>
-                            <td>
-                                <select 
-                                    id='customerRating' 
-                                    name='customerRating' 
-                                    value={form.customerRating}
-                                    onChange={e => setForm({ ...form, customerRating: e.target.value })}
-                                >
-                                    <option value='A'>A</option>
-                                    <option value='B'>B</option>
-                                    <option value='C'>C</option>
-                                    <option value='D'>D</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label>영업유형</label></td>
-                            <td>
-                            <input
-                                    name='salesWay'
-                                    id='salesWay'
-                                    onChange={ onChangeHandler }
-                                    value={form.salesWay || ''}
-                            />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label>부서명</label></td>
-                            <td>
-                            <input
-                                    placeholder='로그인정보의 부서명'
-                                    className="sales-input"
-                                    name='memberName'
-                                    onChange={ onChangeHandler }
-                                    value={form.departmentName || ''}
-                            />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label>상품 명</label></td>
-                            <td>
-                            <input
                                     placeholder='상품명'
                                     name='productName' id='productName'
                                     value={form.productName || ''}
@@ -230,7 +215,7 @@ function SalesModify () {
                                     readOnly={true}
                                 />
                                 <button
-                                    className="review-write-button"
+                                    className="sales-button"
                                     onClick={() =>
                                         onClickSalesProductHandler()
                                     }
@@ -240,8 +225,8 @@ function SalesModify () {
                             </td>
                         </tr>
                         <tr>
-                            <td><label>영업 이름</label></td>
-                            <td>
+                            <td style={{backgroundColor: '#F1F0F6'}}>영업내용</td>
+                            <td colSpan='5'>
                                 <textarea
                                     className="textarea-style"
                                     name='salesName' id='salesName'
@@ -252,6 +237,22 @@ function SalesModify () {
                         </tr>
                         </tbody>
                     </table>
+                    <div className="sales-detail-buttons">
+                        <div className="product-button-div">
+                            <button
+                                className='sales-button'
+                                onClick={ () => navigate(-1) }
+                            >
+                                돌아가기
+                            </button>
+                            <button
+                                className='sales-button'
+                                onClick={ onClickSalesUpdateHandler }
+                            >
+                                수정하기
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

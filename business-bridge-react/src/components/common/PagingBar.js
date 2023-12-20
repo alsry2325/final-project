@@ -13,36 +13,38 @@ function PagingBar({ pageInfo, setCurrentPage }) {
     return (
         <ul className="paging-ul">
             <li>
-                <button
+                <div
                     className="paging-btn"
                     onClick={ () => setCurrentPage(pageInfo.currentPage - 1) }
                     disabled={ pageInfo.currentPage <= 1 }
                 >
-                    &lt;
-                </button>
+                    <img src="/images/arrow-point-to-right.png"/>
+                </div>
             </li>
             {
                 pageNumber.map(num => (
                     <li key={num}>
-                        <button
+                        <div
                             className="paging-btn"
-                            style={ pageInfo.currentPage === num ? { backgroundColor : 'orange'} : null }
+                            style={ pageInfo.currentPage === num ? { backgroundColor : '#C9C5F0 '} : null }
                             onClick={ () => setCurrentPage(num) }
                             disabled={ pageInfo.currentPage === num }
                         >
                             {num}
-                        </button>
+                        </div>
                     </li>
                 ))
             }
             <li>
-                <button
+                <div
                     className="paging-btn"
-                    onClick={ () => setCurrentPage(pageInfo.currentPage + 1) }
+
+                    onClick={ () =>
+                        setCurrentPage(pageInfo.currentPage + 1) }
                     disabled={ pageInfo.currentPage >= pageInfo.maxPage }
                 >
-                    &gt;
-                </button>
+                    <img src="/images/arrow-point-to-right2.png"/>
+                </div>
             </li>
         </ul>
     );

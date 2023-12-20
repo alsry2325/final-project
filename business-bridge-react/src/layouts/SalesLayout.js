@@ -1,5 +1,5 @@
 import {Outlet} from "react-router-dom";
-import SalesNavbar from "../components/common/SalesNavbar";
+import SalesNavbar from "../components/nav/SalesNavbar";
 import {useState} from "react";
 
 

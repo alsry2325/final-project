@@ -12,7 +12,7 @@ function ApprovalOpinionItem({ opinion }) {
     return (
             <div className="app-opinion-div">
                 <div className="approver-img">
-                    <img src={opinion.approverImg}/>
+                    <img className="opinion-profile-img" src={opinion.approverImg}/>
                 </div>
                 <div className="approver-name">
                     {opinion.approverName}

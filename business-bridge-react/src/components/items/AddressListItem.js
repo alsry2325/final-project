@@ -1,7 +1,7 @@
 import {useNavigate} from "react-router-dom";
 
 function AddressListItem({
-                             address: {
+                             addressList: {
                                  emplyCode, emplyPhoto, emplyName, emplyPhoneNumber, emplyEmail, emplyInternalNumber,
                                  departmentName, positionName, createdAt
                              }
@@ -18,10 +18,12 @@ function AddressListItem({
 
     return (
         <div
-            className = "addressInfoBox"
-            onClick = { onClickAddressHandler }
+            className="addressInfoBox"
+            onClick={onClickAddressHandler}
         >
             <div className="addressInfolist">
+                <div className="addressInfolistItem">{emplyPhoto &&
+                    <img src={emplyPhoto} alt={"사원 이미지"}/>}</div>
                 <div className="addressInfolistItem">{emplyName}</div>
                 <div className="addressInfolistItem">{departmentName}</div>
                 <div className="addressInfolistItem">{emplyPhoneNumber}</div>

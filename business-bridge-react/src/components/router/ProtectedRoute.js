@@ -19,6 +19,11 @@ function ProtectedRoute({ loginCheck, authCheck, children }) {
         /* 로그인 하면 볼 수 없는 기능 (로그인) */
         return !isLogin() ? children : <Navigate to="/"/>
     }
+    if(loginCheck) {
+        /* 로그인 해야만 볼 수 있는 기능 (메인페이지등등) */
+        console.log(loginCheck)
+        return isLogin() ? children : <Navigate to="/emp/employee/registration"/>
+    }
 
 }
 

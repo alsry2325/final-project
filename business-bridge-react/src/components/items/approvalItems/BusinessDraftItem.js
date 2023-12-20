@@ -50,7 +50,7 @@ function BusinessDraftItem({businessDraft}) {
                             <td colSpan={"3"}
                                 style={{height:"300px"}}
                             >
-                                {businessDraft.businessDraftContent}
+                                <textarea readOnly={true} className="businessDraftContent">{businessDraft.businessDraftContent}</textarea>
                             </td>
                         </tr>
                         </tbody>
@@ -60,11 +60,23 @@ function BusinessDraftItem({businessDraft}) {
                 <div className="approval-file-div">
                     <h5>파일첨부</h5>
                     <div className="approval-file">
-                        <img className="approval-attach-img"
-                             src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/9db9634b-1962-4ebf-89b8-7f0c327af689"/>
-                        첨부파일 {businessDraft.attachFile.length}개
+                        <div className="approval-file-add">
+                            <img className="approval-attach-img"
+                                 src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/9db9634b-1962-4ebf-89b8-7f0c327af689"/>
+                            첨부파일 {businessDraft.attachFiles.length}개
+                        </div>
+                        <div className="file-view-div">
+                            {businessDraft.attachFiles.map((file, index) => (
+                                <div key={index} className="app-file-name">
+                                    <img className="app-file-down-img"
+                                        src="https://github.com/Business-Bridge/businessbridge-front-end/assets/138549058/dfa77b76-69a5-4734-a56f-382af648dedb"/>
+                                    <a className="app-attach-a" href={file.fileUrl} download={file.fileName}>{file.fileName}</a>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
+
                 <div className="shorter-line-div"></div>
                 {
                     businessDraft.approvers &&

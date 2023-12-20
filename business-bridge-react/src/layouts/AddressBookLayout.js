@@ -10,8 +10,6 @@ function AddressBookLayout () {
     const[clicked,isClicked] = useState(false)
     return (
         <>
-            <Header clicked={clicked} isClicked={isClicked}/>
-            {clicked?<Menu/>:null}
             <div className="addressBook-layout-div">
                 <AddressBookNavbar/>
                 <main className="addressBook-main">

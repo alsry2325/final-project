@@ -14,17 +14,23 @@ import {toast} from "react-toastify";
 export const callSalesRegistAPI = ({ registRequest }) => {
     console.log("영업등록 보내기전의 값");
     console.log(registRequest);
+
     return async (dispatch, getState) => {
-        const result = await request('POST' , `/api/v1/sales`
-            , {'Content-Type' : 'application/json'}
+
+        const result = await authRequest.post(`/api/v1/sales`
             , registRequest
-        )
+            , {'Content-Type' : 'application/json'}
+        ).catch(e => {
+                console.log(e.response.status);
+            }
+        );
 
         console.log('callSalesRegistAPI result.status >>>>>>>>>>>>> '+result.status);
         if(result.status === 201) {
             dispatch(postSuccess());
             toast.info("영업 등록이 완료 되었습니다.");
         }
+
     }
 }
 
@@ -33,10 +39,14 @@ export const callProgressRegistAPI = ({ registRequest }) => {
     console.log("진행내역 보내기전의 값");
     console.log(registRequest);
     return async (dispatch, getState) => {
-        const result = await request('POST' , `/api/v1/progress`
-            , {'Content-Type' : 'application/json'}
+
+        const result = await authRequest.post(`/api/v1/progress`
             , registRequest
-        )
+            , {'Content-Type' : 'application/json'}
+        ).catch(e => {
+                console.log(e.response.status);
+            }
+        );
         console.log('callProgressRegistAPI result.status >>>>>>>>>>>>> '+result.status);
         if(result.status === 201) {
             dispatch(postSuccess());
@@ -50,9 +60,15 @@ export const callSalesAPI = ({ salesCode }) => {
 
     return async (dispatch, getState) => {
 
-        const result = await request('GET',`/api/v1/sales/${salesCode}`);
-        console.log('callSalesAPI result : ', result);
-        if(result.status === 200) {
+        const result = await authRequest.get(`/api/v1/sales/${salesCode}`,
+            {
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+            }).catch(e => {
+            console.log(e);
+        });
+        if(result?.status === 200) {
             dispatch(getSales(result));
         }
     }
@@ -65,11 +81,7 @@ export const callSalesModifyAPI = ({ salesCode, modifyRequest }) => {
     console.log(modifyRequest);
 
     return async (dispatch, getState) => {
-
-        const result = await request('PUT',`/api/v1/sales/${salesCode}`
-            , {'Content-Type' : 'application/json'}
-            , modifyRequest);
-
+        const result = await authRequest.put(`/api/v1/sales/${salesCode}`, modifyRequest);
         console.log('callSalesModifyAPI result : ', result);
         if(result.status === 201) {
             dispatch(putSuccess());
@@ -80,13 +92,8 @@ export const callSalesModifyAPI = ({ salesCode, modifyRequest }) => {
 
 //영업 삭제
 export const callSalesDeleteAPI = ({ salesCode}) => {
-
     return async (dispatch, getState) => {
-
-        const result = await request('DELETE',`/api/v1/sales/${salesCode}`
-            , {'Content-Type' : 'application/json'}
-        );
-
+        const result = await authRequest.delete(`/api/v1/sales/${salesCode}`);
         console.log('callSalesDeleteAPI result : ', result);
         if(result.status === 201) {
             dispatch(deleteSuccess());
@@ -100,16 +107,24 @@ export const callSalesListAPI = ({salesStatus, currentPage = 1, schType, schText
 
     console.log("목록 조회하기전 받은 파라미터");
     console.log("요청 URL >>>>>>>>>>>> :" +`/api/v1/sales/salesList/${salesStatus}?page=${currentPage}&schType=${schType}&schText=${schText}`);
-    return async (dispatch, getState) => {
 
-        const result = await request('GET', `/api/v1/sales/salesList/${salesStatus}?page=${currentPage}&schType=${schType}&schText=${schText}`);
-        
+    return async (dispatch, getState) => {
+        const result = await authRequest.get(`/api/v1/sales/salesList/${salesStatus}?page=${currentPage}&schType=${schType}&schText=${schText}`,
+            {
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+            }).catch(e => {
+            console.log(e);
+        });
+
         console.log('callSalesListAPI result : ', result);
 
-        if(result.status === 200) {
+        if(result?.status === 200) {
             dispatch(getSalesList(result));
         }
     }
+
 };
 
 //상품 목록
@@ -118,9 +133,15 @@ export const callSalesProductListAPI = () => {
     console.log("목록 조회하기전 받은 파라미터");
     console.log("요청 URL >>>>>>>>>>>> :" +`/api/v1/sales/productList`);
     return async (dispatch, getState) => {
+        const result = await authRequest.get(`/api/v1/sales/productList`,
+            {
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+            }).catch(e => {
+            console.log(e);
+        });
 
-        const result = await request('GET', `/api/v1/sales/productList`);
-        
         console.log('callSalesProductListAPI result : ', result);
 
         if(result.status === 200) {
@@ -137,8 +158,15 @@ export const callsalesStatisticsAPI = () => {
     console.log("요청 URL >>>>>>>>>>>> :" +`/api/v1/sales/salesStatistics/all`);
     return async (dispatch, getState) => {
 
-        const result = await request('GET', `/api/v1/sales/salesStatistics/all`);
-        
+        const result = await authRequest.get(`/api/v1/sales/salesStatistics/all`,
+            {
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+            }).catch(e => {
+            console.log(e);
+        });
+
         console.log('callsalesStatisticsAPI result : ', result);
 
         if(result.status === 200) {
