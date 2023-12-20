@@ -14,8 +14,10 @@ public class NoteResponseWithEmplyName {
     private final Long noteNo;
     private final Long sender;
     private final String senderName;
+    private final String senderPhoto;
     private final Long recipient;
     private final String recipientName;
+    private final String recipientPhoto;
     private final String senderDepartmentName;
     private final String recipientDepartmentName;
     private final String noteTitle;
@@ -30,8 +32,10 @@ public class NoteResponseWithEmplyName {
                 note.getNoteNo(),
                 note.getSender().getEmplyCode(),
                 note.getSender().getEmplyName(),
+                note.getSender().getEmplyPhoto(),
                 note.getRecipient().getEmplyCode(),
                 note.getRecipient().getEmplyName(),
+                note.getRecipient().getEmplyPhoto(),
                 note.getSender().getDepartment().getDepartmentName(),
                 note.getRecipient().getDepartment().getDepartmentName(),
                 note.getNoteTitle(),
