@@ -10,7 +10,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import static com.playwithcode.businessbridge.product.domain.type.ProductStateType.SALES;
 import static javax.persistence.EnumType.STRING;
@@ -52,11 +54,11 @@ public class Product {
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    private Date productRegDt;
+    private LocalDateTime productRegDt;
 
     @LastModifiedDate
     @Column(nullable = false)
-    private Date productModifDt;
+    private LocalDateTime productModifDt;
 
 
     @Column(nullable = false)
@@ -84,6 +86,7 @@ public class Product {
         this.productNum = productNum;
         this.productNote = productNote;
     }
+
 
 
     public static Product of(

@@ -5,6 +5,8 @@ import com.playwithcode.businessbridge.common.paging.PagingButtonInfo;
 import com.playwithcode.businessbridge.common.paging.PagingResponse;
 import com.playwithcode.businessbridge.product.domain.type.EstimateType;
 
+import com.playwithcode.businessbridge.product.dto.request.EstimateCreateRequest;
+import com.playwithcode.businessbridge.product.dto.request.ProductCreateRequest;
 import com.playwithcode.businessbridge.product.dto.response.EstimateListResponse;
 import com.playwithcode.businessbridge.product.service.EstimateService;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +14,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
+import java.net.URI;
+import java.util.List;
 
 
 @RestController
@@ -59,6 +65,21 @@ public class EstimateController {
 
         return ResponseEntity.ok(pagingResponse);
     }
+
+    //견적서 등록
+    @PostMapping("/estimates/")
+    public ResponseEntity<Void>save(@RequestPart @Valid final EstimateCreateRequest estimateRequest,
+                                    @RequestPart final List<MultipartFile> attachments) {
+
+        final Long estimateCode = estimateService.save(attachments,estimateRequest);
+
+
+
+        return ResponseEntity.created(URI.create("estimate/regist/" + estimateCode)).build();
+    }
+
+
+    //견적서 수정
 
 
 
