@@ -1,0 +1,23 @@
+/*-----관리자 목록조회 ------------*/
+
+
+.products-layout-div {
+    display: flex;
+    height: 100vh;
+}
+
+.approval-title {
+    margin: 30px 50px;
+}
+.management-div {
+    width: 90%;
+    margin: auto;
+}
+
+.product-title {
+    margin-left: -15px;
+}
+
+.products {
+    width: 100%;
+}

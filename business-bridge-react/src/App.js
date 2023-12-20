@@ -8,6 +8,7 @@ import './css/approval.css';
 import './css/AddressBook.css'
 import './css/Note.css'
 import './css/MiniCalendar.css';
+import './css/Products.css';
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Login from "./pages/businessbridge/employee/Login";
@@ -21,6 +22,7 @@ import EmployeeRegistrationList from "./pages/businessbridge/employee/EmployeeRe
 import SalesLayout from "./layouts/SalesLayout";
 import SalesList from "./pages/businessbridge/sales/SalesList";
 import SalesDetail from "./pages/businessbridge/sales/SalesDetail";
+import SalesRegist from "./pages/businessbridge/sales/SalesRegist";
 import SalesModify from "./pages/businessbridge/sales/SalesModify";
 import SalesStatistics from "./pages/businessbridge/sales/SalesStatistics";
 import ApprovalLayout from "./layouts/ApprovalLayout";
@@ -61,6 +63,13 @@ import AccountModify from "./pages/businessbridge/account/AccountModify";
 import NoteWrite from "./pages/businessbridge/note/NoteWrite";
 import {ToastContainer} from "react-toastify";
 import EmployeeModify from "./pages/businessbridge/employee/EmployeeModify";
+import ProductManagement from "./pages/businessbridge/products/admin/ProductManagement";
+import ProductLayout from "./layouts/ProductsLayout";
+import React from "react";
+import CategoryMain from "./pages/businessbridge/products/employee/CategoryMain";
+import ProductRegist from "./pages/businessbridge/products/admin/ProductRegist";
+import ProductMain from "./pages/businessbridge/products/employee/ProductMain";
+
 
 function App() {
   return (
@@ -120,6 +129,20 @@ function App() {
 
                 </Route>
                 {/* == 전자결재 끝 == */}
+                {/* == 상품관리 == */}
+                <Route path="products" element={<ProtectedRoute loginCheck={true}><ProductLayout/></ProtectedRoute>}>
+                    <Route path="employee" element={<ProtectedRoute loginCheck={true}><ProductMain/></ProtectedRoute>}/>
+                    <Route path="management/productState/:productState" element={<ProtectedRoute authCheck={true}><ProductManagement/></ProtectedRoute>} />
+                    <Route path="categories/:productCategory" element={<CategoryMain/>}/>
+                    <Route path="regist" element={<ProtectedRoute authCheck={true}><ProductRegist/></ProtectedRoute>}/>
+                </Route>
+                {/* == 상품관리 끝== */}
+            </Route>
+
+            <Route path="/emp/employee">
+                <Route path="login" element={ <ProtectedRoute loginCheck={false}><Login/></ProtectedRoute> }/>
+                <Route path="findpassword" element={ <ProtectedRoute loginCheck={false}><FindPassword/></ProtectedRoute> }/>
+            </Route>
 
                 <Route path="addressBook" element={ <ProtectedRoute loginCheck={true}><AddressBookLayout/></ProtectedRoute>}>
                     <Route path="main" element={ <ProtectedRoute loginCheck={true}> <AddressBookMain/> </ProtectedRoute>}/>
@@ -141,16 +164,18 @@ function App() {
                     <Route path="send" element={<ProtectedRoute loginCheck={true}> <NoteWrite/></ProtectedRoute>}/>
                 </Route>
 
-            </Route>
-            <Route path="/emp/employee">
-                <Route path="login" element={ <ProtectedRoute loginCheck={false}><Login/></ProtectedRoute> }/>
-                <Route path="findpassword" element={ <ProtectedRoute loginCheck={false}><FindPassword/></ProtectedRoute> }/>
-            </Route>
 
-            <Route path="/*" element={<Error/>}/>
 
-        </Routes>
-      </BrowserRouter>
+
+          <Route path="/emp/employee">
+              <Route path="login" element={ <ProtectedRoute loginCheck={false}><Login/></ProtectedRoute> }/>
+              <Route path="findpassword" element={ <ProtectedRoute loginCheck={false}><FindPassword/></ProtectedRoute> }/>
+          </Route>
+
+          <Route path="/*" element={<Error/>}/>
+
+      </Routes>
+</BrowserRouter>
   );
 }
 

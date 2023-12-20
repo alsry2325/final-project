@@ -5,10 +5,11 @@ import approvalReducer from "./ApprovalModule";
 import addressReducer from "./AddressModule";
 import accountReducer from "./AccountModule";
 import noteReducer from "./NoteModule";
+import productReducer from "./ProductModule";
 
 
 const rootReducer = combineReducers({
-    memberReducer, salesReducer, approvalReducer, addressReducer, accountReducer, noteReducer
+    memberReducer, salesReducer, approvalReducer, addressReducer, accountReducer, noteReducer,  productReducer
 });
 
 export default rootReducer;

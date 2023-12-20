@@ -70,7 +70,7 @@ function Header({clicked, isClicked}){
                        </NavLink>
                    </li>
                    { isAdmin() &&  <li className="NavElements">
-                       <NavLink className="Link" to="/contact-us">
+                       <NavLink className="Link" to="/products/management/productState/sales">
                            상품 관리
                        </NavLink>
                    </li>}
