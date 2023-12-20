@@ -18,7 +18,7 @@ function MyPageNavbar() {
 
             </ul>
             <ul className="employeeRegistration-navbar-ul">
-                <h3 className="main-title">영업통계</h3>
+                <h3 className="main-title">영업 통계</h3>
                 <li><NavLink to="/sales/salesStatistics">실적 통계</NavLink></li>
             </ul>
             {/*<ul className="employeeRegistration-navbar-ul">*/}
