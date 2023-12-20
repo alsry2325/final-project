@@ -19,10 +19,10 @@ public class AddressBookUpdateRequest {
     private final String emplyOffice;
     @NotNull
     private final String emplyEmail;
-    @NotNull
-    private final Long departmentCode;
-    @NotNull
-    private final Long positionCode;
+//    @NotNull
+//    private final Long departmentCode;
+//    @NotNull
+//    private final Long positionCode;
     @NotNull
     private final String emplyPhoneNumber;
 

@@ -1,6 +1,7 @@
 package com.playwithcode.businessbridge.approval.dto.response;
 
 import com.playwithcode.businessbridge.approval.domain.ExpenseReport;
+import com.playwithcode.businessbridge.approval.domain.type.DocStatusType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,8 @@ import java.util.stream.Collectors;
 @Getter
 public class ExpenseReportResponse {
 
+    private final Long approvalCode;                            // 전자결재 코드
+    private final DocStatusType docStatus;                      // 문서 진행 상태
     private final String title;                                 // 제목
     private final String docForm;                               // 문서 양식
     private final List<Map<String, String>> approvers;          // 결재자 정보
@@ -24,7 +27,7 @@ public class ExpenseReportResponse {
     private final Long docNo;                                    // 문서 번호
     private final Long totalExpenditure;                        // 총지출 금액
     private final List<Map<String, String>> details;            // 지출결의 상세
-    private final List<Map<String, String>> attachFiles;    // 첨부파일
+    private final List<Map<String, String>> attachFiles;        // 첨부파일
 
     public static ExpenseReportResponse from(final ExpenseReport expenseReport){
 
@@ -70,6 +73,8 @@ public class ExpenseReportResponse {
         }).collect(Collectors.toList());
 
         return new ExpenseReportResponse(
+                expenseReport.getApproval().getApprovalCode(),
+                expenseReport.getApproval().getDocStatus(),
                 expenseReport.getApproval().getTitle(),
                 expenseReport.getApproval().getDocForm().getValue(),
                 approvers,

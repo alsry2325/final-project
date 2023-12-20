@@ -13,7 +13,8 @@ import javax.persistence.*;
 
 import java.time.LocalDateTime;
 
-import static com.playwithcode.businessbridge.note.domain.type.RecipientStatus.RCVR_NORMAL;
+import static com.playwithcode.businessbridge.note.domain.type.RecipientStatus.*;
+import static com.playwithcode.businessbridge.note.domain.type.SenderStatus.SNDR_DELETE;
 import static com.playwithcode.businessbridge.note.domain.type.SenderStatus.SNDR_NORMAL;
 import static javax.persistence.EnumType.STRING;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -62,4 +63,30 @@ public class Note {
 
     private LocalDateTime recipientTrashAt;       // 수신자 휴지통 이후 삭제 (완전 삭제)
 
+    /* 쪽지 상태값 변화 로직 */
+    public void updateRecipientStorage() {
+        this.recipientStatus = RCVR_STORAGE;
+    }
+
+    public void updateRecipientTrash() {
+        this.recipientStatus = RCVR_TRASH;
+    }
+
+    public void updateRecipientNormal() {
+        this.recipientStatus = RCVR_NORMAL;
+    }
+
+    public void updateRecipientDelete() {
+        this.recipientStatus = RCVR_DELETE;
+    }
+
+    public void updateSenderDelete() {
+        this.senderStatus = SNDR_DELETE;
+    }
+
+    public void updateReadAt() {
+        if (this.readAt == null) {
+            this.readAt = LocalDateTime.now();
+        }
+    }
 }
