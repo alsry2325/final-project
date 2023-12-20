@@ -12,7 +12,7 @@ function InProgressLists({data}) {
                         <InProgressListItem key={approval.approvalCode} approval={approval} />
                     ))
                 ) : (
-                    <p>결재할 문서가 없습니다.</p>
+                    <p className="no-app-main">결재할 문서가 없습니다.</p>
                 )}
             </div>
         </>

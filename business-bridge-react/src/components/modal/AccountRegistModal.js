@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {callAccountRegistAPI} from "../../apis/AccountAPICalls";
 import SalesProductModal from "./SalesProductModal";
 import SalesRegistModal from "./SalesRegistModal";
+import {callEmployeeAPI} from "../../apis/EmployeeAPICalls";
 
 function AccountRegistModal({setIsOpen}){
     const [salesProductModal, setSalesProductModal] = useState(false);
@@ -11,6 +12,7 @@ function AccountRegistModal({setIsOpen}){
     const [form, setForm] = useState({});
     const dispatch = useDispatch();
     const { postSuccess } = useSelector(state => state.accountReducer);
+    const { myPageInfo } = useSelector(state => state.memberReducer);
 
     useEffect(() => {
         //등록시 커래처 메인으로 이동함
@@ -19,6 +21,11 @@ function AccountRegistModal({setIsOpen}){
             navigate('/account/accountList/0', { replace : true });
         }
     }, [postSuccess, setIsOpen]);
+
+    useEffect(() => {
+        dispatch(callEmployeeAPI())
+    }, []);
+
 
     /* 상품검색 모달창 오픈 */
     const onClickSalesProductHandler = () => {
@@ -105,11 +112,11 @@ function AccountRegistModal({setIsOpen}){
                             <tbody>
                             <tr>
                                 <th className="sales-registModal-table"
-                                    colSpan="2">거래처등록
+                                    colSpan="2">거래처 등록
                                 </th>
                             </tr>
                             <tr>
-                                <td><label>거래처명</label></td>
+                                <td><label>거래처 명</label></td>
                                 <td>
                                     <input
                                         placeholder='거래처명'
@@ -142,10 +149,10 @@ function AccountRegistModal({setIsOpen}){
                                 </td>
                             </tr>
                             <tr>
-                                <td><label>사업자번호</label></td>
+                                <td><label>사업자 번호</label></td>
                                 <td>
                                     <input
-                                        placeholder='사업자번호'
+                                        placeholder=' "-" 빼고 입력해주세요'
                                         name='businessLicenseNumber'
                                         id='businessLicenseNumber'
                                         className="sales-input"
@@ -157,6 +164,7 @@ function AccountRegistModal({setIsOpen}){
                                 <td><label>거래처 담당자</label></td>
                                 <td>
                                     <input
+                                        value={ myPageInfo.emplyName }
                                         className="sales-input"
                                         name='accountManager'
                                         id='accountManager'

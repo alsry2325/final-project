@@ -16,6 +16,7 @@ function AppDetail() {
     const {expenseReport} = useSelector(state => state.approvalReducer);
     const {myPageInfo} = useSelector(state => state.memberReducer);
 
+
     useEffect(() => {
         dispatch(callBusinessDraftDetailAPI({approvalCode}))
     }, []);

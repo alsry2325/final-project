@@ -246,7 +246,7 @@
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
-    max-width: 500px; /* 적절한 최대 너비 설정 */
+
 }
 
 /* mypage ----------------------------------------------------------------------- */
@@ -256,7 +256,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: auto;
 }
 
 .sales-layout-div {
@@ -317,6 +316,45 @@
     background-color: #C9C5F0;
 }
 
+/*sales Modal*/
+.sales-modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.sales-modal-container{
+    position: absolute;
+    width: 400px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+    z-index: 1000;
+}
+
+.sales-product-review-modal-div{
+    width: 400px;
+    height: 550px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    border: solid 1px black;
+    border-radius: 25px;
+    overflow: auto;
+}
 
 
 /* review modal ------------------------------------------------------------------------------------------------ */
@@ -333,39 +371,42 @@
 /*    z-index: 100;*/
 /*}*/
 
-
-.modal-container{
-    position: absolute;
-    width: 400px;
-    padding: 10px;
-    text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-    z-index: 1000;
-}
+/*.modal-container{*/
+/*    position: absolute;*/
+/*    width: 400px;*/
+/*    padding: 10px;*/
+/*    text-align: center;*/
+/*    border-radius: 10px;*/
+/*    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);*/
+/*    z-index: 1000;*/
+/*}*/
 .progress-form{
     text-align: left;
+    border: 1px solid #ddd; /* 부드러운 회색 테두리 */
+    border-radius: 10px; /* 둥근 모서리 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 박스 그림자 */
+    padding: 15px; /* 내부 패딩 */
 }
 
 .progress-Name{
     margin-left: 20px;
 }
 
-.product-review-modal-div{
-    width: 400px;
-    height: 550px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-    background-color: white;
-    border: solid 1px black;
-    border-radius: 25px;
-    overflow: auto;
-}
+/*.product-review-modal-div{*/
+/*    width: 400px;*/
+/*    height: 550px;*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    background-color: white;*/
+/*    border: solid 1px black;*/
+/*    border-radius: 25px;*/
+/*    overflow: auto;*/
+/*}*/
 
 .product-review-modal-div input {
     margin-top: 5px;
@@ -458,7 +499,19 @@ sales-h1 {
     cursor: pointer;
     font-size: .875rem;
 }
-
+/* 버튼 div*/
+.sales-progress-button{
+    padding: .5rem 1rem;
+    border-radius: .25rem;
+    border: none;
+    color: #fff;
+    background-color: #563CB1;
+    margin-right: .5rem;
+    cursor: pointer;
+    font-size: .875rem;
+    margin-left: 140px;
+    margin-top : 10px;
+}
 
 .sales-button:hover {
     background-color: #0069d9;

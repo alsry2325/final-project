@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 import SalesProductModal from "./SalesProductModal";
 import {callSalesRegistAPI} from "../../apis/SalesAPICalls";
+import {callEmployeeAPI} from "../../apis/EmployeeAPICalls";
 
 function SalesRegistModal({setIsOpen}) {
 
@@ -13,6 +14,7 @@ function SalesRegistModal({setIsOpen}) {
     const [form, setForm] = useState({});
     const dispatch = useDispatch();
     const { postSuccess } = useSelector(state => state.salesReducer);
+    const { myPageInfo } = useSelector(state => state.memberReducer);
 
     useEffect(() => {
         //등록시 영업 메인으로 이동한다.
@@ -21,6 +23,11 @@ function SalesRegistModal({setIsOpen}) {
             navigate('/sales/salesList/0', { replace : true });
         }
     }, [postSuccess, setIsOpen]);
+
+    useEffect(() => {
+        dispatch(callEmployeeAPI())
+    }, []);
+
 
     /* 상품검색 모달창 오픈 */
     const onClickSalesProductHandler = () => {
@@ -94,7 +101,6 @@ function SalesRegistModal({setIsOpen}) {
             <div>
 
 
-
             <div className="modal-overlay">
                 <div className="modal-content">
                     <div className="sales-regist-section">
@@ -132,10 +138,12 @@ function SalesRegistModal({setIsOpen}) {
                                     <td><label>영업담당</label></td>
                                     <td>
                                         <input
+                                            value={ myPageInfo.emplyName }
                                             placeholder='로그인정보'
                                             name='memberName'
                                             className="sales-input"
                                             onChange={ onChangeHandler }
+                                            readOnly
                                         />
                                     </td>
                                 </tr>
@@ -166,10 +174,12 @@ function SalesRegistModal({setIsOpen}) {
                                     <td><label>부서명</label></td>
                                     <td>
                                         <input
+                                            value={ myPageInfo.department }
                                             className="sales-input"
                                             placeholder='로그인정보'
                                             name='departmentName'
                                             onChange={ onChangeHandler }
+                                            readOnly
                                         />
                                     </td>
                                 </tr>
@@ -219,7 +229,7 @@ function SalesRegistModal({setIsOpen}) {
                                     className="sales-button"
                                     onClick={ onClickSalesRegistrationHandler }
                                 >
-                                    영업 등록
+                                    영업등록
                                 </button>
                             </div>
                         </div>

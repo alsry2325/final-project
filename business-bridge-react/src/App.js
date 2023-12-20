@@ -78,21 +78,21 @@ function App() {
                 </Route>
 
                 {/* 영업관리 시작*/}
-                <Route path="sales" element={<SalesLayout/>}>
-                    <Route index element={ <Navigate to="/sales/salesList/0" replace/>}/>
-                    <Route path="salesList/:salesStatus" element={ <SalesList/> }/>
-                    <Route path=":salesCode" element={ <SalesDetail/> }/>
-                    <Route path="sales-modify/:salesCode" element={ <SalesModify/> }/>
-                    <Route path="salesStatistics" element={ <SalesStatistics/> }/>
+                <Route path="sales" element={<ProtectedRoute loginCheck={true}><SalesLayout/></ProtectedRoute>}>
+                    <Route index element={ <ProtectedRoute loginCheck={true}><Navigate to="/sales/salesList/0" replace/></ProtectedRoute>}/>
+                    <Route path="salesList/:salesStatus" element={ <ProtectedRoute loginCheck={true}><SalesList/></ProtectedRoute>}/>
+                    <Route path=":salesCode" element={ <ProtectedRoute loginCheck={true}><SalesDetail/></ProtectedRoute>}/>
+                    <Route path="sales-modify/:salesCode" element={ <ProtectedRoute loginCheck={true}><SalesModify/></ProtectedRoute>}/>
+                    <Route path="salesStatistics" element={ <ProtectedRoute loginCheck={true}><SalesStatistics/></ProtectedRoute>}/>
                 </Route>
                 {/* 영업관리 끝*/}
 
                 {/* 거래처관리 시작*/}
-                <Route path="account" element={<SalesLayout/>}>
-                    <Route index element={ <Navigate to="/account/accountList/0" replace/>}/>
-                    <Route path="accountList/:departmentCode" element={ <AccountList/> }/>
-                    <Route path=":accountCode" element={ <AccountDetail/> }/>
-                    <Route path="account-modify/:accountCode" element={ <AccountModify/> }/>
+                <Route path="account" element={<ProtectedRoute loginCheck={true}><SalesLayout/></ProtectedRoute>}>
+                    <Route index element={ <ProtectedRoute loginCheck={true}><Navigate to="/account/accountList/0" replace/></ProtectedRoute>}/>
+                    <Route path="accountList/:departmentCode" element={ <ProtectedRoute loginCheck={true}><AccountList/></ProtectedRoute> }/>
+                    <Route path=":accountCode" element={<ProtectedRoute loginCheck={true}> <AccountDetail/> </ProtectedRoute>}/>
+                    <Route path="account-modify/:accountCode" element={<ProtectedRoute loginCheck={true}> <AccountModify/></ProtectedRoute>}/>
                 </Route>
 
                 {/* 거래처관리 끝*/}
