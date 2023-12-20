@@ -55,10 +55,6 @@ public class SecurityConfig {
                 // 이 때 OPTIONS 메서드로 서버에 사전 요청을 보내 권한을 확인함 permitAll(): 비로그인 형태에서도 볼수있게
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/emp/employee/findpassword").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/v1/sales/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/v1/sales").permitAll()
-                .antMatchers(HttpMethod.PUT, "/api/v1/sales/**").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/v1/sales/**").permitAll()
                 .antMatchers("/emp/employee/findpassword").permitAll()
                 .antMatchers(
                         "/emp/employee/employees/**",

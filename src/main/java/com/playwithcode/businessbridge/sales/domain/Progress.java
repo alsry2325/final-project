@@ -2,7 +2,6 @@ package com.playwithcode.businessbridge.sales.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -45,6 +44,7 @@ public class Progress {
     @Column(nullable = false, updatable = false)
     private LocalDateTime registrationDate;	//등록일
     
+    //진행내역관리 테이블과 N:1 관계 설정
     @JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="salesCode")

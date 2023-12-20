@@ -3,7 +3,6 @@ import com.playwithcode.businessbridge.sales.domain.Sales;
 import com.playwithcode.businessbridge.sales.dto.response.SalesStatisticsListResponse;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -12,11 +11,8 @@ import org.springframework.data.repository.query.Param;
 
 
 public interface SalesRepository extends JpaRepository<Sales, Long>, JpaSpecificationExecutor<Sales> {
-	
-    /* 1. 영업 상세 조회 - salesCode로 영업 1개 조회 */
-    Optional<Sales> findBySalesCode(Long salesCode);
 
-    /* 2. 월별 실적 순위 통계 목록 , JPQL 방식사용, 파라미터는 월*/
+    /* 1. 월별 실적 순위 통계 목록 , JPQL 방식사용, 파라미터는 월*/
     @Query(value =
 		"SELECT"+
 		"	ts.sales_member"+
@@ -25,7 +21,7 @@ public interface SalesRepository extends JpaRepository<Sales, Long>, JpaSpecific
 		" 	, tp.position_name"+			
     	"	, date_format(ts.modified_at, '%Y%m') AS mon"+
     	"	, COUNT(*) AS count"+
-		"	, DENSE_RANK() OVER (PARTITION BY date_format(ts.modified_at, '%Y%m') ORDER BY COUNT(*) DESC) AS sales_rank"+
+    	"	, DENSE_RANK() OVER (PARTITION BY date_format(ts.modified_at, '%Y%m') ORDER BY COUNT(*) DESC) AS sales_rank"+
     	" FROM tbl_sales AS ts"+
     	" INNER JOIN tbl_employee AS te"+
     	" ON ts.sales_member = te.emply_code"+

@@ -1,10 +1,7 @@
 package com.playwithcode.businessbridge.sales.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.playwithcode.businessbridge.product.domain.Product;
-import com.playwithcode.businessbridge.sales.domain.Progress;
 import com.playwithcode.businessbridge.sales.domain.Sales;
-import com.playwithcode.businessbridge.sales.domain.SalesItem;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

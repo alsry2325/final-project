@@ -18,7 +18,7 @@ public class SalesProductListResponse {
     private final String productStandard;
     private final Long productCnt;
     private final Long productPrice;
-    private final  Long provideValue;
+    private final Long provideValue;
     private final Long taxCnt;
     
     public static SalesProductListResponse from(final Product product) {

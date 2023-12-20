@@ -5,14 +5,12 @@ import com.playwithcode.businessbridge.product.domain.Product;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -57,22 +55,19 @@ public class Sales {
     @Column(nullable = false)
     private LocalDateTime modifiedAt; //수정일
 
+    //사원테이블과 테이블과 N:1 관계 설정
     @ManyToOne
     @JoinColumn(name = "salesMember")
     private Employee employee;
-
-    //영업품목관리 테이블과 1:N 관계 설정
-	//@OneToMany(mappedBy = "sales",fetch = FetchType.LAZY)
-    //private List<SalesItem> salesItemList;
 	
     //진행내역관리 테이블과 1:N 관계 설정
 	@OneToMany(mappedBy = "sales",fetch = FetchType.LAZY)
     private List<Progress> progressList;
 	
+	//상품 테이블과 N:1 관계설정
     @ManyToOne
     @JoinColumn(name = "productCode")
     private Product product;
-
     
     public Sales(String salesName, String salesType, String accountName, String salesWay, String salesStatus, String customerRating, Employee employee, Product product) {
         this.salesName = salesName;

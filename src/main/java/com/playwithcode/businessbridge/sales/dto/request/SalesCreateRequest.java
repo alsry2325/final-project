@@ -4,15 +4,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
-import java.math.BigInteger;
-import java.util.List;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import com.playwithcode.businessbridge.product.domain.Product;
-import com.playwithcode.businessbridge.sales.domain.Progress;
-import com.playwithcode.businessbridge.sales.domain.SalesItem;
 
 
 @RequiredArgsConstructor
