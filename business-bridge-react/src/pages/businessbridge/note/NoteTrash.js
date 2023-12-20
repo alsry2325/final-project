@@ -1,12 +1,12 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
     callNoteTrashListAPI
 } from "../../../apis/NoteApiCalls";
 import PagingBar from "../../../components/common/PagingBar";
 import {useNavigate} from "react-router-dom";
-import {ToastContainer} from "react-toastify";
 import NoteTrashList from "../../../components/lists/NoteTrashList";
+import {ToastContainer} from "react-toastify";
 
 
 function NoteStorage() {
@@ -23,6 +23,7 @@ function NoteStorage() {
 
     return (
         <>
+            <ToastContainer hideProgressBar={true} position="top-center"/>
             <div className="note-div">
                 <div className="note-wrapper">
                     <h1 className="note-h1">휴지통</h1>

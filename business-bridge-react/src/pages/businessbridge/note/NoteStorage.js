@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
     callNoteStorageListAPI
@@ -24,6 +24,7 @@ function NoteStorage() {
 
     return (
         <>
+            <ToastContainer hideProgressBar={true} position="top-center"/>
             <div className="note-div">
                 <div className="note-wrapper">
                     <h1 className="note-h1">중요 쪽지함</h1>

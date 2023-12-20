@@ -527,8 +527,10 @@
     width: 70px;
 }
 
-
-
+/* 추가 요소 */
+.recover-button {
+    visibility: hidden;
+}
 
 
 

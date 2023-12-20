@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
     callNoteRecipientListAPI,
@@ -47,6 +47,7 @@ function NoteRecipeient() {
 
     return (
         <>
+            <ToastContainer hideProgressBar={true} position="top-center"/>
             <div className="note-div">
                 <div className="note-wrapper">
                     <h1 className="note-h1">받은 쪽지함</h1>

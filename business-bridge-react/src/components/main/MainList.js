@@ -1,7 +1,8 @@
 import NoteList from "../lists/NoteList";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {callNoteRecipientListAPI} from "../../apis/NoteApiCalls";
+import {ToastContainer} from "react-toastify";
 
 function NoteRecipeientList() {
     const dispatch = useDispatch();
@@ -15,6 +16,7 @@ function NoteRecipeientList() {
 
     return (
         <>
+            <ToastContainer hideProgressBar={true} position="top-center"/>
             <div className="main-note-div">
                 <div className="main-note-wrapper-title">
                     <h3>쪽지함</h3>

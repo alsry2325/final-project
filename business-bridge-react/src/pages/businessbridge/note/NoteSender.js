@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
     callNoteSenderListAPI,
@@ -9,6 +9,7 @@ import {
 import PagingBar from "../../../components/common/PagingBar";
 import {useNavigate} from "react-router-dom";
 import NoteSenderList from "../../../components/lists/NoteSenderList";
+import {ToastContainer} from "react-toastify";
 
 function NoteSender() {
     const navigate = useNavigate();
@@ -47,6 +48,7 @@ function NoteSender() {
 
     return (
         <>
+            <ToastContainer hideProgressBar={true} position="top-center"/>
             <div className="note-div">
                 <div className="note-wrapper">
                     <h1 className="note-h1">보낸 쪽지함</h1>
