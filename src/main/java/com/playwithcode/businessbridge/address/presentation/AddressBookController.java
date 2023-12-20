@@ -57,10 +57,10 @@ public class AddressBookController {
     /* 4. 주소록 수정(관리자) */
     @PutMapping("/address-book/{emplyCode}")
     public ResponseEntity<Void> update(@PathVariable final Long emplyCode,
-                                       @RequestPart @Valid final AddressBookUpdateRequest addressBookRequest,
-                                       @RequestPart(required = false) final MultipartFile emplyImg) {
+                                       @Valid @RequestBody AddressBookUpdateRequest addressBookRequest
+                                      /* @RequestPart(required = false) final MultipartFile emplyImg*/) {
 
-        addressBookService.update(emplyCode, emplyImg, addressBookRequest);
+        addressBookService.update(emplyCode/*, emplyImg*/, addressBookRequest);
 
         return ResponseEntity.created(URI.create("/address-management/" + emplyCode)).build();
     }

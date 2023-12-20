@@ -1,23 +1,26 @@
 package com.playwithcode.businessbridge.member.presentation;
 
 
+import com.playwithcode.businessbridge.common.paging.Pagenation;
+import com.playwithcode.businessbridge.common.paging.PagingButtonInfo;
+import com.playwithcode.businessbridge.common.paging.PagingResponse;
 import com.playwithcode.businessbridge.jwt.CustomUser;
-import com.playwithcode.businessbridge.member.domain.Employee;
 import com.playwithcode.businessbridge.member.dto.request.EmployeePwUpdateRequest;
 import com.playwithcode.businessbridge.member.dto.request.EmployeeRegistrationRequest;
+import com.playwithcode.businessbridge.member.dto.request.EmployeeUpdateRequest;
+import com.playwithcode.businessbridge.member.dto.response.CustomerEmployeesResponse;
 import com.playwithcode.businessbridge.member.dto.response.MypageResponse;
 import com.playwithcode.businessbridge.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.util.Optional;
+import java.net.URI;
 
 
 @RestController
@@ -38,7 +41,7 @@ public class MemberController {
     }
 
     /* 마이페이지 비밀번호 수정*/
-    @PutMapping("/modify-Password")
+    @PutMapping("/modify-password")
     public ResponseEntity<Void> modifyPassword(@AuthenticationPrincipal final CustomUser customUser,
                                                @RequestBody @Valid final EmployeePwUpdateRequest pwUpdateRequest){
 
@@ -47,6 +50,40 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    /*검색 사원목록 조회(관리자)*/
+    @GetMapping("/employees/search")
+    public ResponseEntity<PagingResponse> getAdminEmployees(@RequestParam(defaultValue = "1") final Integer page,
+                                                            @RequestParam(required = false) final String emplyName,
+                                                            @RequestParam(required = false) final String departmentName,
+                                                            @RequestParam(required = false) final String positionName){
+
+        final Page<CustomerEmployeesResponse> employees = memberService.getEmployeesAndDepartmentNameAndPositionName(page, emplyName,departmentName,positionName);
+        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(employees);
+        final PagingResponse pagingResponse = PagingResponse.of(employees.getContent(), pagingButtonInfo);
+
+        return ResponseEntity.ok(pagingResponse);
+    }
+
+    /* 사원목록 조회(관리자)*/
+    @GetMapping("/employees")
+    public ResponseEntity<PagingResponse> getEmployees(@RequestParam(defaultValue = "1") final Integer page){
+
+        final Page<CustomerEmployeesResponse> employees = memberService.getEmployees(page);
+        final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(employees);
+        final PagingResponse pagingResponse = PagingResponse.of(employees.getContent(), pagingButtonInfo);
+
+        return ResponseEntity.ok(pagingResponse);
+    }
+
+    
+    /* 사원 조회(관리자)*/
+    @GetMapping("/check-employe/{emplyCode}")
+    public ResponseEntity<CustomerEmployeesResponse> getEmployee(@PathVariable final Long emplyCode){
+
+        CustomerEmployeesResponse  employeesResponse = memberService.getEmployee(emplyCode);
+
+        return ResponseEntity.ok(employeesResponse);
+    }
 
     /* 사원 등록(관리자) */
     @PostMapping("/register-and-send-email")
@@ -58,6 +95,16 @@ public class MemberController {
             memberService.mailSend(employeeRegistrationRequest, tempPassword);
 
             return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+    
+    /* 사원 수정(관리자) */
+    @PutMapping("/employee-modify/{emplyCode}")
+    public ResponseEntity<Void> modifyEmploye(@PathVariable final Long emplyCode,
+                                              @RequestBody @Valid final EmployeeUpdateRequest employeeUpdateRequest){
+
+        memberService.DepartmentAndPositionUpdate(emplyCode,employeeUpdateRequest);
+
+        return ResponseEntity.created(URI.create("/employee-modify/" + emplyCode)).build();
     }
     
 

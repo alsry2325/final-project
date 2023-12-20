@@ -1,15 +1,16 @@
 package com.playwithcode.businessbridge.sales.domain;
 
 import com.playwithcode.businessbridge.member.domain.Employee;
+import com.playwithcode.businessbridge.product.domain.Product;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -54,19 +55,21 @@ public class Sales {
     @Column(nullable = false)
     private LocalDateTime modifiedAt; //수정일
 
+    //사원테이블과 테이블과 N:1 관계 설정
     @ManyToOne
     @JoinColumn(name = "salesMember")
     private Employee employee;
-
-    //영업품목관리 테이블과 1:N 관계 설정
-	@OneToMany(mappedBy = "sales",fetch = FetchType.LAZY)
-    private List<SalesItem> salesItemList;
 	
     //진행내역관리 테이블과 1:N 관계 설정
 	@OneToMany(mappedBy = "sales",fetch = FetchType.LAZY)
     private List<Progress> progressList;
+	
+	//상품 테이블과 N:1 관계설정
+    @ManyToOne
+    @JoinColumn(name = "productCode")
+    private Product product;
     
-    public Sales(String salesName, String salesType, String accountName, String salesWay, String salesStatus, String customerRating, Employee employee, List<SalesItem> salesItemList, List<Progress> progressList) {
+    public Sales(String salesName, String salesType, String accountName, String salesWay, String salesStatus, String customerRating, Employee employee, Product product) {
         this.salesName = salesName;
         this.salesType = salesType;
         this.accountName = accountName;
@@ -74,12 +77,9 @@ public class Sales {
         this.salesWay = salesWay;
         this.customerRating = customerRating;
         this.employee = employee;
-        this.salesItemList = salesItemList;
-        this.progressList = progressList;
+        this.product = product;
     }
 
-    //dto에서
-    //of란? dto To Entity
     public static Sales of(
 		final String salesName
 		, final String salesType
@@ -88,10 +88,9 @@ public class Sales {
 		, final String salesStatus
 		, final String customerRating
 		, final Employee employee
-		, final List<SalesItem> salesItemList
-		, final List<Progress> progressList
+		, final Product product
 	) {
-        return new Sales(salesName, salesType, accountName, salesWay, salesStatus, customerRating, employee, salesItemList, progressList);
+        return new Sales(salesName, salesType, accountName, salesWay, salesStatus, customerRating, employee, product);
     }
     
     /* 영업수정 */
@@ -102,8 +101,7 @@ public class Sales {
 		, String accountName
 		, String customerRating
 		, String salesStatus
-		, List<SalesItem> salesItemList
-		, List<Progress> progressList
+		, Product product
 	) {
 		this.salesName = salesName;
 		this.salesType = salesType;
@@ -111,8 +109,7 @@ public class Sales {
 		this.accountName = accountName;
 		this.customerRating = customerRating;
 		this.salesStatus = salesStatus;
-		this.salesItemList = salesItemList;
-		this.progressList = progressList;
+		this.product = product;
     }
 
 }

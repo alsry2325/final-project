@@ -55,8 +55,14 @@ public class SecurityConfig {
                 // 이 때 OPTIONS 메서드로 서버에 사전 요청을 보내 권한을 확인함 permitAll(): 비로그인 형태에서도 볼수있게
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/emp/employee/findpassword").permitAll()
-                //.antMatchers("/api/v1/products-management/**", "/api/v1/products/**").hasRole("ADMIN") //어드민이라는 역할만 인증 인가되어야만 수행할수 있는곳
-                //.anyRequest().authenticated() //그외 다른 기능들은 로그인 된 상태에서만 사용가능
+                .antMatchers("/emp/employee/findpassword").permitAll()
+                .antMatchers(
+                        "/emp/employee/employees/**",
+                        "/emp/employee/check-employe/**",
+                        "/emp/employee/register-and-send-email",
+                        "/emp/employee/employee-modify/**"
+                ).hasRole("ADMIN") //어드민이라는 역할만 인증 인가되어야만 수행할수 있는곳
+//                .anyRequest().authenticated() //그외 다른 기능들은 로그인 된 상태에서만 사용가능
                 .and()
                 // 로그인 필터 설정
                 .addFilterBefore(customUsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class) //기본필터 앞에 커스텀 필터를 끼워넣음
@@ -81,7 +87,7 @@ public class SecurityConfig {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         // 로컬 React에서 오는 요청은 허용한다.
         corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "PUT", "POST", "DELETE"));
+        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "PUT", "POST", "PATCH" ,"DELETE"));
         corsConfiguration.setAllowedHeaders(Arrays.asList(
                 "Access-Control-Allow-Origin", "Access-Control-Allow-Headers",
                 "Content-Type", "Authorization", "X-Requested-With", "Access-Token", "Refresh-Token"));

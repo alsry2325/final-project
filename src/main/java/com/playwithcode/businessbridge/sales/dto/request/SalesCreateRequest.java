@@ -4,12 +4,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
-import java.util.List;
-
 import javax.validation.constraints.NotBlank;
-
-import com.playwithcode.businessbridge.sales.domain.Progress;
-import com.playwithcode.businessbridge.sales.domain.SalesItem;
+import javax.validation.constraints.NotNull;
 
 
 @RequiredArgsConstructor
@@ -29,9 +25,7 @@ public class SalesCreateRequest {
     private String customerRating; //고객등급
     @NotBlank
     private String salesStatus = "접수";     
-    
-    private List<SalesItem> salesItemList;	//상품목록
-
-    private List<Progress> progressList;	//진행내역목록
+    @NotNull
+    private Long productCode;		//상품코드
     
 }

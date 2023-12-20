@@ -24,8 +24,8 @@ public class MypageResponse {
     private final String department;  //부서
     private final String emplyInternalNumber;  //사내번호
     private final String emplyPhoneNumber;   //사원개인폰
-    private final LocalDateTime createdAt;
-    private final LocalDateTime retirementDate;
+    private final LocalDateTime createdAt;      //입사일
+    private final LocalDateTime retirementDate; //퇴사일
 
     public static MypageResponse from(Employee employee) {
         return new MypageResponse(

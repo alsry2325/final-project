@@ -12,6 +12,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Getter
 public class DraftListResponse {
 
+    private final Long approvalCode;                // 전자결재 코드
     private final String docStatus;                 // 문서 상태
     private final String docForm;                   // 문서 양식
     private final String title;                     // 제목
@@ -22,12 +23,13 @@ public class DraftListResponse {
     public static DraftListResponse from(final Approval approval){
 
         return new DraftListResponse(
+                approval.getApprovalCode(),
                 approval.getDocStatus().getValue(),
                 approval.getDocForm().getValue(),
                 approval.getTitle(),
                 approval.getFile().size(),
                 approval.getDocNo(),
-                approval.getDraftDateTime()
+                approval.getRegistDateTime()
         );
     }
 }

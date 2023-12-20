@@ -9,12 +9,14 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public class AllEmployeeResponse {
 
+    private final Long emplyCode;               // 사번
     private final String departmentName;        // 부서명
     private final String emplyName;             // 직원이름
     private final String positionName;          // 직급명
 
     public static AllEmployeeResponse from(final Employee employee){
         return new AllEmployeeResponse(
+                employee.getEmplyCode(),
                 employee.getDepartment().getDepartmentName(),
                 employee.getEmplyName(),
                 employee.getPosition().getPositionName()

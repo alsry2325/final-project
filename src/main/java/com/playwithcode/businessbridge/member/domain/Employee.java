@@ -1,7 +1,6 @@
 package com.playwithcode.businessbridge.member.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.playwithcode.businessbridge.department.domain.Department;
 import com.playwithcode.businessbridge.member.domain.type.EmplyRole;
 import com.playwithcode.businessbridge.member.domain.type.EmplyStatus;
@@ -9,11 +8,13 @@ import com.playwithcode.businessbridge.member.domain.type.TmpryPwdStus;
 import com.playwithcode.businessbridge.position.domain.Position;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -29,6 +30,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Getter
 @NoArgsConstructor(access = PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
+@ToString
 public class Employee {
 
     @Id
@@ -125,7 +127,14 @@ public class Employee {
         this.refreshToken = refreshToken;
     }
 
-    public void updatePassword(String pw) {
+    public void updatePassword(String pw,TmpryPwdStus state) {
         this.emplyPassword = pw;
+        this.tmpryPwdStus = state;
     }
+
+    public void update(Department department,Position position) {
+            this.department = department;
+            this.position = position;
+    }
+
 }

@@ -15,7 +15,13 @@ public class NoteResponse {
 
     private final Long noteNo;
     private final Long recipient;
+    private final String recipientName;
+    private final String recipientPhoto;
     private final Long sender;
+    private final String senderName;
+    private final String senderPhoto;
+    private final String recipientDepartmentName;
+    private final String senderDepartmentName;
     private final String noteTitle;
     private final String noteContent;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -33,7 +39,13 @@ public class NoteResponse {
         return new NoteResponse(
                 note.getNoteNo(),
                 note.getRecipient().getEmplyCode(),
+                note.getRecipient().getEmplyName(),
+                note.getRecipient().getEmplyPhoto(),
                 note.getSender().getEmplyCode(),
+                note.getSender().getEmplyName(),
+                note.getSender().getEmplyPhoto(),
+                note.getRecipient().getDepartment().getDepartmentName(),
+                note.getSender().getDepartment().getDepartmentName(),
                 note.getNoteTitle(),
                 note.getNoteContent(),
                 note.getSentAt(),
