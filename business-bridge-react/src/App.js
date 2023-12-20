@@ -72,111 +72,130 @@ import ProductMain from "./pages/businessbridge/products/employee/ProductMain";
 
 
 function App() {
-  return (
-      <BrowserRouter>
-        <Routes>
-            <Route path="/" element={ <ProtectedRoute loginCheck={true}><Layout/></ProtectedRoute> }>
-                <Route index element={<Main/>}/>
-                {/* 마이페이지 */}
-                <Route path="emp/employee/mypage" element={  <MyPage/> }/>
-                {/* 사원관리 */}
-                <Route path="emp/employee" element={ <EmployeeRegistrationLayout authCheck={true}/>}>
-                    <Route path="registrationList" element={  <EmployeeRegistrationList loginCheck={true}/>}/>
-                    <Route path="registration" element={ <EmployeeRegist loginCheck={true}/> }/>
-                    <Route path="employee-modify/:emplyCode" element={ <EmployeeModify loginCheck={true}/> }/>
-                </Route>
-
-                {/* 영업관리 시작*/}
-                <Route path="sales" element={<ProtectedRoute loginCheck={true}><SalesLayout/></ProtectedRoute>}>
-                    <Route index element={ <ProtectedRoute loginCheck={true}><Navigate to="/sales/salesList/0" replace/></ProtectedRoute>}/>
-                    <Route path="salesList/:salesStatus" element={ <ProtectedRoute loginCheck={true}><SalesList/></ProtectedRoute>}/>
-                    <Route path=":salesCode" element={ <ProtectedRoute loginCheck={true}><SalesDetail/></ProtectedRoute>}/>
-                    <Route path="sales-modify/:salesCode" element={ <ProtectedRoute loginCheck={true}><SalesModify/></ProtectedRoute>}/>
-                    <Route path="salesStatistics" element={ <ProtectedRoute loginCheck={true}><SalesStatistics/></ProtectedRoute>}/>
-                </Route>
-                {/* 영업관리 끝*/}
-
-                {/* 거래처관리 시작*/}
-                <Route path="account" element={<ProtectedRoute loginCheck={true}><SalesLayout/></ProtectedRoute>}>
-                    <Route index element={ <ProtectedRoute loginCheck={true}><Navigate to="/account/accountList/0" replace/></ProtectedRoute>}/>
-                    <Route path="accountList/:departmentCode" element={ <ProtectedRoute loginCheck={true}><AccountList/></ProtectedRoute> }/>
-                    <Route path=":accountCode" element={<ProtectedRoute loginCheck={true}> <AccountDetail/> </ProtectedRoute>}/>
-                    <Route path="account-modify/:accountCode" element={<ProtectedRoute loginCheck={true}> <AccountModify/></ProtectedRoute>}/>
-                </Route>
-
-                {/* 거래처관리 끝*/}
-
-                {/* == 전자결재 시작 == */}
-                <Route path="/approval" element={<ApprovalLayout/>}>
-                    <Route path="home" element={<AppMain/>}/>
-                    <Route path="receive-approvals/all" element={<ReceiveApps/>}/>
-                    <Route path="receive-approvals/:approvalStatus" element={<ReceiveAppsByStatus/>}/>
-                    <Route path="upcoming-approvals" element={<UpcomingApps/>}/>
-                    <Route path="draft-approvals/all" element={<DraftApps/>}/>
-                    <Route path="draft-approvals/:docStatus" element={<DraftAppsByStatus/>} />
-                    <Route path="draft-collects" element={<DraftCollect/>}/>
-                    <Route path="temp-storages" element={<TempStorageApps/>}/>
-                    <Route path="approve-approvals/all" element={<ApproveApps/>}/>
-                    <Route path="approve-approvals/:docStatus" element={<ApproveAppsByStatus/>}/>
-
-                    <Route path="document/:approvalCode" element={<AppDetail/>} />
-                    <Route path="write">
-                        <Route path="businessDraft" element={<WriteBusinessDraft/>}/>
-                        <Route path="expenseReport" element={<WriteExpenseReport/>}/>
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<ProtectedRoute loginCheck={true}><Layout/></ProtectedRoute>}>
+                    <Route index element={<Main/>}/>
+                    {/* 마이페이지 */}
+                    <Route path="emp/employee/mypage" element={<MyPage/>}/>
+                    {/* 사원관리 */}
+                    <Route path="emp/employee" element={<EmployeeRegistrationLayout authCheck={true}/>}>
+                        <Route path="registrationList" element={<EmployeeRegistrationList loginCheck={true}/>}/>
+                        <Route path="registration" element={<EmployeeRegist loginCheck={true}/>}/>
+                        <Route path="employee-modify/:emplyCode" element={<EmployeeModify loginCheck={true}/>}/>
                     </Route>
 
-                    <Route path="update/:approvalCode" element={<UpdateApp/>}/>
+                    {/* 영업관리 시작*/}
+                    <Route path="sales" element={<ProtectedRoute loginCheck={true}><SalesLayout/></ProtectedRoute>}>
+                        <Route index element={<ProtectedRoute loginCheck={true}><Navigate to="/sales/salesList/0"
+                                                                                          replace/></ProtectedRoute>}/>
+                        <Route path="salesList/:salesStatus"
+                               element={<ProtectedRoute loginCheck={true}><SalesList/></ProtectedRoute>}/>
+                        <Route path=":salesCode"
+                               element={<ProtectedRoute loginCheck={true}><SalesDetail/></ProtectedRoute>}/>
+                        <Route path="sales-modify/:salesCode"
+                               element={<ProtectedRoute loginCheck={true}><SalesModify/></ProtectedRoute>}/>
+                        <Route path="salesStatistics"
+                               element={<ProtectedRoute loginCheck={true}><SalesStatistics/></ProtectedRoute>}/>
+                    </Route>
+                    {/* 영업관리 끝*/}
 
+                    {/* 거래처관리 시작*/}
+                    <Route path="account" element={<ProtectedRoute loginCheck={true}><SalesLayout/></ProtectedRoute>}>
+                        <Route index element={<ProtectedRoute loginCheck={true}><Navigate to="/account/accountList/0"
+                                                                                          replace/></ProtectedRoute>}/>
+                        <Route path="accountList/:departmentCode"
+                               element={<ProtectedRoute loginCheck={true}><AccountList/></ProtectedRoute>}/>
+                        <Route path=":accountCode"
+                               element={<ProtectedRoute loginCheck={true}> <AccountDetail/> </ProtectedRoute>}/>
+                        <Route path="account-modify/:accountCode"
+                               element={<ProtectedRoute loginCheck={true}> <AccountModify/></ProtectedRoute>}/>
+                    </Route>
+
+                    {/* 거래처관리 끝*/}
+
+                    {/* == 전자결재 시작 == */}
+                    <Route path="/approval" element={<ApprovalLayout/>}>
+                        <Route path="home" element={<AppMain/>}/>
+                        <Route path="receive-approvals/all" element={<ReceiveApps/>}/>
+                        <Route path="receive-approvals/:approvalStatus" element={<ReceiveAppsByStatus/>}/>
+                        <Route path="upcoming-approvals" element={<UpcomingApps/>}/>
+                        <Route path="draft-approvals/all" element={<DraftApps/>}/>
+                        <Route path="draft-approvals/:docStatus" element={<DraftAppsByStatus/>}/>
+                        <Route path="draft-collects" element={<DraftCollect/>}/>
+                        <Route path="temp-storages" element={<TempStorageApps/>}/>
+                        <Route path="approve-approvals/all" element={<ApproveApps/>}/>
+                        <Route path="approve-approvals/:docStatus" element={<ApproveAppsByStatus/>}/>
+
+                        <Route path="document/:approvalCode" element={<AppDetail/>}/>
+                        <Route path="write">
+                            <Route path="businessDraft" element={<WriteBusinessDraft/>}/>
+                            <Route path="expenseReport" element={<WriteExpenseReport/>}/>
+                        </Route>
+
+                        <Route path="update/:approvalCode" element={<UpdateApp/>}/>
+
+                    </Route>
+                    {/* == 전자결재 끝 == */}
+
+                    {/* == 상품관리 == */}
+                    <Route path="products"
+                           element={<ProtectedRoute loginCheck={true}><ProductLayout/></ProtectedRoute>}>
+                        <Route path="employee"
+                               element={<ProtectedRoute loginCheck={true}><ProductMain/></ProtectedRoute>}/>
+                        <Route path="management/productState/:productState"
+                               element={<ProtectedRoute authCheck={true}><ProductManagement/></ProtectedRoute>}/>
+                        <Route path="categories/:productCategory" element={<CategoryMain/>}/>
+                        <Route path="regist"
+                               element={<ProtectedRoute authCheck={true}><ProductRegist/></ProtectedRoute>}/>
+                    </Route>
+                    {/* == 상품관리 끝== */}
+
+                    <Route path="addressBook"
+                           element={<ProtectedRoute loginCheck={true}><AddressBookLayout/></ProtectedRoute>}>
+                        <Route path="main"
+                               element={<ProtectedRoute loginCheck={true}> <AddressBookMain/> </ProtectedRoute>}/>
+                        <Route path="department/:departmentCode" element={<AddressBookDepartment/>}/>
+                        <Route path=":emplyCode" element={<AddressDetail/>}/>
+                        <Route
+                            path="addressAdmin/:emplyCode"
+                            element={<ProtectedRoute authCheck={true}> <AddressAdminItem/> </ProtectedRoute>}/>
+                    </Route>
+
+                    <Route path="note" element={<ProtectedRoute loginCheck={true}><NoteLayout/></ProtectedRoute>}>
+                        <Route path="recipient"
+                               element={<ProtectedRoute loginCheck={true}> <NoteRecipeient/> </ProtectedRoute>}/>
+                        <Route path="sender"
+                               element={<ProtectedRoute loginCheck={true}> <NoteSender/> </ProtectedRoute>}/>
+                        <Route path="storage"
+                               element={<ProtectedRoute loginCheck={true}> <NoteStorage/> </ProtectedRoute>}/>
+                        <Route path="trash"
+                               element={<ProtectedRoute loginCheck={true}> <NoteTrash/> </ProtectedRoute>}/>
+                        <Route path="recipient/:noteNo"
+                               element={<ProtectedRoute loginCheck={true}> <NoteRecipientDetail/> </ProtectedRoute>}/>
+                        <Route path="recipient/storage/:noteNo"
+                               element={<ProtectedRoute loginCheck={true}> <NoteStorageDetail/> </ProtectedRoute>}/>
+                        <Route path="recipient/trash/:noteNo"
+                               element={<ProtectedRoute loginCheck={true}> <NoteTrashDetail/> </ProtectedRoute>}/>
+                        <Route path="sender/:noteNo"
+                               element={<ProtectedRoute loginCheck={true}> <NoteSenderDetail/> </ProtectedRoute>}/>
+                        <Route path="send" element={<ProtectedRoute loginCheck={true}> <NoteWrite/></ProtectedRoute>}/>
+                    </Route>
                 </Route>
-                {/* == 전자결재 끝 == */}
-                {/* == 상품관리 == */}
-                <Route path="products" element={<ProtectedRoute loginCheck={true}><ProductLayout/></ProtectedRoute>}>
-                    <Route path="employee" element={<ProtectedRoute loginCheck={true}><ProductMain/></ProtectedRoute>}/>
-                    <Route path="management/productState/:productState" element={<ProtectedRoute authCheck={true}><ProductManagement/></ProtectedRoute>} />
-                    <Route path="categories/:productCategory" element={<CategoryMain/>}/>
-                    <Route path="regist" element={<ProtectedRoute authCheck={true}><ProductRegist/></ProtectedRoute>}/>
-                </Route>
-                {/* == 상품관리 끝== */}
-            </Route>
 
-            <Route path="/emp/employee">
-                <Route path="login" element={ <ProtectedRoute loginCheck={false}><Login/></ProtectedRoute> }/>
-                <Route path="findpassword" element={ <ProtectedRoute loginCheck={false}><FindPassword/></ProtectedRoute> }/>
-            </Route>
-
-                <Route path="addressBook" element={ <ProtectedRoute loginCheck={true}><AddressBookLayout/></ProtectedRoute>}>
-                    <Route path="main" element={ <ProtectedRoute loginCheck={true}> <AddressBookMain/> </ProtectedRoute>}/>
-                    <Route path="department/:departmentCode" element={ <AddressBookDepartment/> }/>
-                    <Route path=":emplyCode" element={ <AddressDetail/> }/>
-                    <Route
-                        path="addressAdmin/:emplyCode" element={<ProtectedRoute authCheck={true}> <AddressAdminItem/> </ProtectedRoute>}/>
-                </Route>
-
-                <Route path="note" element={ <ProtectedRoute loginCheck={true}><NoteLayout/></ProtectedRoute>}>
-                    <Route path="recipient" element={ <ProtectedRoute loginCheck={true}> <NoteRecipeient/> </ProtectedRoute> }/>
-                    <Route path="sender" element={ <ProtectedRoute loginCheck={true}> <NoteSender/> </ProtectedRoute> }/>
-                    <Route path="storage" element={ <ProtectedRoute loginCheck={true}> <NoteStorage/> </ProtectedRoute>} />
-                    <Route path="trash" element={ <ProtectedRoute loginCheck={true}> <NoteTrash/> </ProtectedRoute>} />
-                    <Route path="recipient/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteRecipientDetail/> </ProtectedRoute>}/>
-                    <Route path="recipient/storage/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteStorageDetail/> </ProtectedRoute>}/>
-                    <Route path="recipient/trash/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteTrashDetail/> </ProtectedRoute>}/>
-                    <Route path="sender/:noteNo" element={ <ProtectedRoute loginCheck={true}> <NoteSenderDetail/> </ProtectedRoute>}/>
-                    <Route path="send" element={<ProtectedRoute loginCheck={true}> <NoteWrite/></ProtectedRoute>}/>
+                <Route path="/emp/employee">
+                    <Route path="login" element={<ProtectedRoute loginCheck={false}><Login/></ProtectedRoute>}/>
+                    <Route path="findpassword"
+                           element={<ProtectedRoute loginCheck={false}><FindPassword/></ProtectedRoute>}/>
                 </Route>
 
 
+                <Route path="/*" element={<Error/>}/>
 
-
-          <Route path="/emp/employee">
-              <Route path="login" element={ <ProtectedRoute loginCheck={false}><Login/></ProtectedRoute> }/>
-              <Route path="findpassword" element={ <ProtectedRoute loginCheck={false}><FindPassword/></ProtectedRoute> }/>
-          </Route>
-
-          <Route path="/*" element={<Error/>}/>
-
-      </Routes>
-</BrowserRouter>
-  );
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;
