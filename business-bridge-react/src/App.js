@@ -8,7 +8,7 @@ import './css/AddressBook.css'
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Login from "./pages/businessbridge/employee/Login";
-import Main from "./pages/businessbridge/Main";
+
 import FindPassword from "./pages/businessbridge/employee/FindPassword";
 import ProtectedRoute from "./components/router/ProtectedRoute";
 import Error from "./pages/error/Error";
@@ -42,13 +42,18 @@ import AddressDetail from "./pages/businessbridge/addressBook/AddressDetail";
 import AddressAdminItem from "./components/items/AddressAdminItem";
 import ProductManagement from "./pages/businessbridge/products/admin/ProductManagement";
 import ProductLayout from "./layouts/ProductsLayout";
+import React from "react";
+import CategoryMain from "./pages/businessbridge/products/employee/CategoryMain";
+import ProductRegist from "./pages/businessbridge/products/admin/ProductRegist";
+import ProductMain from "./pages/businessbridge/products/employee/ProductMain";
+
 
 function App() {
   return (
       <BrowserRouter>
         <Routes>
             <Route path="/" element={ <ProtectedRoute loginCheck={true}><Layout/></ProtectedRoute> }>
-                <Route index element={<Main/>}/>
+                <Route index element={<tMain/>}/>
                 {/* 마이페이지*/}
                 <Route path="emp/employee/mypage" element={  <MyPage/> }/>
                 <Route path="emp/employee" element={ <EmployeeRegistrationLayout/>}>
@@ -88,8 +93,13 @@ function App() {
                 </Route>
                 {/* == 전자결재 끝 == */}
                 {/* == 상품관리 == */}
-                <Route path="products" element={<ProtectedRoute authCheck={true}><ProductLayout/></ProtectedRoute>}>
-                    <Route path="management/productState/:productState" element={<ProductManagement/>} />
+                <Route path="products" element={<ProtectedRoute loginCheck={true}><ProductLayout/></ProtectedRoute>}>
+                    <Route path="employee" element={<ProtectedRoute loginCheck={true}><ProductMain/></ProtectedRoute>}/>
+                    <Route path="management/productState/:productState" element={<ProtectedRoute authCheck={true}><ProductManagement/></ProtectedRoute>} />
+                    <Route path="categories/:productCategory" element={<CategoryMain/>}/>
+                    <Route path="regist" element={<ProtectedRoute authCheck={true}><ProductRegist/></ProtectedRoute>}/>
+
+
                 </Route>
                 {/* == 상품관리 끝== */}
             </Route>

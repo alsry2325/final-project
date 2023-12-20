@@ -1,70 +1,51 @@
 import {useParams} from "react-router-dom";
-import {callProductListAPI} from "../../../../apis/ProductAPICalls";
-import {callSalesListAPI} from "../../../../apis/SalesAPICalls";
+import {callAdminProductListAPI } from "../../../../apis/ProductAPICalls";
+
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import ProductList from "../../../../components/lists/ProductList";
+import PagingBar from "../../../../components/common/PagingBar";
+import {ToastContainer} from "react-toastify";
 
 function ProductManagement(){
 
     const { productState } = useParams();
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
-    const { products } = useSelector(state => state.productReducer);
-    console.log(products);
+    const { adminProducts } = useSelector(state => state.productReducer);
+    console.log(adminProducts);
 
     useEffect(() => {
-        dispatch(callProductListAPI({currentPage}));
-    }, []);
+        dispatch(callAdminProductListAPI({currentPage, productState}));
+    }, [currentPage]);
 
     return(
-            <>
+
             <div className="management-div">
                 상품목록
-            </div>
+
                 {
-                    products && <ProductList data={products.data}/>
+                    adminProducts &&
+
+                    <>
+                        <ToastContainer hideProgressBar={true} position="top-center"/>
+                    <ProductList data={adminProducts.data}/>
+                    <PagingBar pageInfo={adminProducts.pageInfo} setCurrentPage={setCurrentPage}/>
+                    </>
                 }
-
-
-{/*
-
-                <div className="productState-sales">
-                    판매
-                </div>
-
-                <div className="productState-discontinued">
-                    판매중지
-                </div>
-
-
-
-                <div className="search-div"  style={{ float: "right" }}>
-                    <select name="product-search" id="product-search">
-                        <option value="">전체</option>
-                        <option value="productName">상품명</option>
-                    </select>
-                    <input type="text" name="search-" id="schText" placeholder="검색어" />
-                    <button type="button">검색</button>
-                </div>
-
-                <div>
-                    <div>상품코드</div>
-                    <div>상품명</div>
-                    <div>수량</div>
-                    <div>단가</div>
-                    <div>세액</div>
-                    <div>공급가액</div>
-                    <div>비고</div>
-                </div>
-
-*/}
+            </div>
 
 
 
 
 
-            </>
+
+
+
+
+
+
+
 
 
     );

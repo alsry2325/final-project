@@ -1,10 +1,11 @@
 import {useEffect, useState} from "react";
 import {callProductListAPI} from "../../../../apis/ProductAPICalls";
 import {useDispatch, useSelector} from "react-redux";
-import productReducer from "../../../../modules/ProductModule";
-import ProductList from "../../../../components/lists/ProductList";
 
-function Main(){
+import ProductList from "../../../../components/lists/ProductList";
+import PagingBar from "../../../../components/common/PagingBar";
+
+function ProductMain(){
 
 
     const dispatch = useDispatch();
@@ -16,7 +17,7 @@ function Main(){
     useEffect(() => {
         //모든 상품에 대한 정보 요청
         dispatch(callProductListAPI({currentPage}));
-    }, []);
+    }, [currentPage]);
 
     return(
 
@@ -25,6 +26,9 @@ function Main(){
                 &&
                 <>
                     <ProductList data={products.data}/>
+                    <PagingBar pageInfo={products.pageInfo} setCurrentPage={setCurrentPage}/>
+
+
 
                 </>
             }
@@ -39,4 +43,4 @@ function Main(){
 
     );
 }
-export default Main;
+export default ProductMain;

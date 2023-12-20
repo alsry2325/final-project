@@ -52,7 +52,7 @@ export const callSalesAPI = ({ salesCode }) => {
 
         const result = await request('GET',`/api/v1/sales/${salesCode}`);
         console.log('callSalesAPI result : ', result);
-        if(result?.status === 200) {
+        if(result.status === 200) {
             dispatch(getSales(result));
         }
     }

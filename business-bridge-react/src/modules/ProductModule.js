@@ -7,25 +7,33 @@ const initialState = {};
 /*액션타입*/
 
 //상품 목록요청
+const GET_ADMIN_PRODUCTS = 'product/GET_ADMIN_PRODUCTS';
+const POST_SUCCESS = 'product/POST_SUCCESS';
 const GET_PRODUCTS = 'product/GET_PRODUCTS';
+
 
 
 
 /*액션함수 */
 
-export const {product : {getProducts} } = createActions({
+export const {product : {getAdminProducts, postSuccess, getProducts} } = createActions({
 
-   [GET_PRODUCTS] : result => ({ products : result.data})
+   [GET_ADMIN_PRODUCTS] : result => ({ adminProducts : result.data}),
+    [POST_SUCCESS] : () => ({ postSuccess : true }),
+    [GET_PRODUCTS] : result => ({ products : result.data}),
+
 });
 
 
 
 
-/*리튜서*/
+/*리듀서*/
 
 const productReducer = handleActions({
 
-    [GET_PRODUCTS] : ( state, {payload}) => payload
+    [GET_ADMIN_PRODUCTS] : ( state, {payload}) => payload,
+    [POST_SUCCESS] : (state, { payload }) => payload,
+    [GET_PRODUCTS] : ( state, {payload}) => payload,
 }, initialState);
 
 
