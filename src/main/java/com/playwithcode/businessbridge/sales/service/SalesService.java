@@ -99,9 +99,8 @@ public class SalesService {
      *  위에서 생성한 of 생성자를 jpa에서 제공하는 save 메서드를 이용하여 저장한다.
      */
     public Long save(final SalesCreateRequest salesCreateRequest, CustomUser customUser) {
-    	
-    	Long memberCode = (long) 1;
-    	Employee employee = employeeRepository.findById(memberCode)
+
+    	Employee employee = employeeRepository.findById(customUser.getEmplyCode())
         .orElseThrow(() -> new NotFoundException(ACCESS_DENIED));
 
         Product product = productRepository.findByProductCodeAndProductState(salesCreateRequest.getProductCode() , ProductStateType.SALES)

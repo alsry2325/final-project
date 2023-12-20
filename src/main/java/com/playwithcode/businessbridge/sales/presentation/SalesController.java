@@ -47,10 +47,12 @@ public class SalesController {
             @RequestParam(defaultValue = "1") final Integer page, @PathVariable final Integer salesStatus
             , @RequestParam(required = false) String schType
             , @RequestParam(required = false) String schText
+            , @AuthenticationPrincipal final CustomUser customUser
 		) {
         
     	log.info("METHOD GET /api/v1/salesList/{}",salesStatus);
         log.info("진행도 검색 타입 : {}",SalesStatus.from(salesStatus).name());
+        log.info("customUser : "+customUser.getEmplyCode());
         
         final Page<SalesListResponse> salesList = salesService.getSalesList(page, SalesStatus.from(salesStatus).name(), schType, schText);
         final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(salesList);

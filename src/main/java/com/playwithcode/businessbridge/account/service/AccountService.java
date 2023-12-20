@@ -79,10 +79,9 @@ public class AccountService {
     
     /* 4. 거래처 등록 */
     public Long save(final AccountCreateRequest accountCreateRequest, CustomUser customUser) {
-    	
-    	Long memberCode = (long) 1;
-    	Employee employee = employeeRepository.findById(memberCode)
-        .orElseThrow(() -> new NotFoundException(ACCESS_DENIED));
+
+        Employee employee = employeeRepository.findById(customUser.getEmplyCode())
+                .orElseThrow(() -> new NotFoundException(ACCESS_DENIED));
 
         Product product = productRepository.findByProductCodeAndProductState(accountCreateRequest.getProductCode() , ProductStateType.SALES)
                 .orElseThrow(() -> new NotFoundException(ACCESS_DENIED));
