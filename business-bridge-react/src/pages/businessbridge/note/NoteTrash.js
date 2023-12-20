@@ -5,7 +5,6 @@ import {
 } from "../../../apis/NoteApiCalls";
 import PagingBar from "../../../components/common/PagingBar";
 import {useNavigate} from "react-router-dom";
-import {ToastContainer} from "react-toastify";
 import NoteTrashList from "../../../components/lists/NoteTrashList";
 
 
