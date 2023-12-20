@@ -68,7 +68,6 @@ function NoteStorageItem({note}) {
 
     return (
         <>
-            <ToastContainer hideProgressBar={true} position="top-center"/>
             <div
                 className="noteInfoBox"
                 onClick={onClickNoteHandler}

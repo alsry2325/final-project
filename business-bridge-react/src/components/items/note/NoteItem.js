@@ -86,7 +86,6 @@ function NoteItem({note}) {
 
     return (
         <>
-            <ToastContainer hideProgressBar={true} position="top-center"/>
             <div className="noteInfoBox" onClick={onClickNoteHandler}>
                 <div className="noteInfolist">
                     <div className="noteInfolistItem">{senderPhoto &&
