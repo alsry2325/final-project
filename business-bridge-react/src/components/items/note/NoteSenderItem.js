@@ -1,9 +1,29 @@
 import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {callModifySenderStatusDeleteAPI} from "../../../apis/NoteApiCalls";
+import {toast} from "react-toastify";
+import React from "react";
 
 function NoteSenderItem({ note }) {
 
     const navigate = useNavigate();
     const { noteNo } = note;
+    const dispatch = useDispatch();
+
+    const onDeleteClick = (event) => {
+        event.stopPropagation();
+        dispatch(callModifySenderStatusDeleteAPI({noteNo}))
+            .then((response) => {
+                console.log("쪽지를 삭제하였습니다.")
+                toast.info("쪽지를 삭제하였습니다.", {
+                    onClose: () => navigate('/note/sender', { replace: true })
+                });
+            })
+            .catch((error) => {
+                console.error("쪽지 삭제에 실패하였습니다.", error)
+                toast.info("쪽지 삭제에 실패하였습니다.")
+            });
+    };
 
     const onClickNoteHandler = () => {
         navigate(`/note/sender/${noteNo}`)
@@ -29,6 +49,7 @@ function NoteSenderItem({ note }) {
     const displayContent = truncateString(note.noteContent, 78);
 
     return (
+        <>
         <div
             className = "noteInfoBox"
             onClick = { onClickNoteHandler }
@@ -41,9 +62,14 @@ function NoteSenderItem({ note }) {
                 <div className="noteInfolistItem">{displayTitle}</div>
                 <div className="noteInfolistItem">{displayContent}</div>
                 <div className="noteInfolistItem">{note.readAt||'아직 읽지 않음'}</div>
+                <div className="noteInfoButtonContainer">
+                    <button className="recover-button">복구</button>
+                    <button onClick={onDeleteClick}>삭제</button>
+                </div>
             </div>
             <hr/>
         </div>
+        </>
     );
 }
 
