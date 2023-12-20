@@ -36,7 +36,7 @@ public class ProductController {
 
     //1.상품 목록 조회 - 페이징, 주문 불가 상품 제외(사원)
 
-    @GetMapping("/products")
+    @GetMapping("/products/employee")
     public ResponseEntity<PagingResponse> getProductList(@RequestParam(defaultValue = "1") final Integer page){
 
 
@@ -68,6 +68,8 @@ public class ProductController {
     @GetMapping("/products/categories/{productCategory}")
     public ResponseEntity<PagingResponse> getProductsByCategory(
             @RequestParam(defaultValue = "1") final Integer page, @PathVariable final ProductCategoryType productCategory){
+
+        log.info("GET /api/v1/products/categories/{}",productCategory);
 
         final Page<CustomerProductsResponse> products = productService.getProductsByCategory(page, productCategory);
         final PagingButtonInfo pagingButtonInfo = Pagenation.getPagingButtonInfo(products);
