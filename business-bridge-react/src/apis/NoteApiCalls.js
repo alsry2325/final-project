@@ -1,4 +1,4 @@
-import {getNote, getRecipientNoteDetail, postSuccess, putSuccess} from "../modules/NoteModule";
+import {getNote, getRecipientNoteDetail, getSenderNoteDetail, postSuccess, putSuccess} from "../modules/NoteModule";
 import {authRequest, request} from "./Api";
 
 /* 1. 받은 쪽지함 조회 */
@@ -175,7 +175,7 @@ export const callNoteSenderDetailAPI = ({noteNo}) => {
         console.log('callNoteSenderDetailAPI result : ', result);
 
         if (result.status === 200) {
-            dispatch(getRecipientNoteDetail(result));
+            dispatch(getSenderNoteDetail(result));
         }
     }
 };

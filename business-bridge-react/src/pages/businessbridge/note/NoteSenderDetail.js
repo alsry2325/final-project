@@ -2,8 +2,6 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect} from "react";
 import {callNoteSenderDetailAPI} from "../../../apis/NoteApiCalls";
-import NoteDetailItem from "../../../components/items/note/NoteDetailItem";
-import {isAdmin} from "../../../utils/TokenUtils";
 import {toast, ToastContainer} from "react-toastify";
 import NoteSenderDetailItem from "../../../components/items/note/NoteSenderDetailItem";
 
@@ -23,6 +21,8 @@ function NoteSenderDetail() {
         <>
             <ToastContainer hideProgressBar={true} position="top-center"/>
 
+            {note &&
+
             <div className="note-info">
                 <div className="note-h1">
                     <h1>보낸 쪽지 상세보기</h1>
@@ -34,6 +34,8 @@ function NoteSenderDetail() {
                     </div>
                 }
             </div>
+
+            }
         </>
     )
 }
