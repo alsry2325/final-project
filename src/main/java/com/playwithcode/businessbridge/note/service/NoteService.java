@@ -194,7 +194,7 @@ public class NoteService {
     @Transactional(readOnly = true)
     public NoteResponse getSenderNoteinfo(CustomUser customUser, final Long noteNo) {
 
-        Note note = noteRepository.findBySenderEmplyCodeAndNoteNoAndRecipientStatusNot(customUser.getEmplyCode(), noteNo, RCVR_DELETE)
+        Note note = noteRepository.findBySenderEmplyCodeAndNoteNo(customUser.getEmplyCode(), noteNo)
                 .orElseThrow(() -> new NotFoundException(ExceptionCode.NOT_FOUND_NOTE_NO));
 
         return NoteResponse.from(note);

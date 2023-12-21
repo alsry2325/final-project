@@ -81,7 +81,7 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     Optional<Note> findByRecipientEmplyCodeAndNoteNoAndRecipientStatus(Long emplyCode, Long noteNo, RecipientStatus recipientStatus);
 
     /* 14. 발신자 쪽지 상세 조회 */
-    Optional<Note> findBySenderEmplyCodeAndNoteNoAndRecipientStatusNot(Long emplyCode, Long noteNo, RecipientStatus recipientStatus);
+    Optional<Note> findBySenderEmplyCodeAndNoteNo(Long emplyCode, Long noteNo);
 
     /* 15. 수신자 노트 상태 변경(보관) */
     Optional<Note> findByNoteNo(Long noteNo);
