@@ -48,11 +48,6 @@ function Header({clicked, isClicked}){
                            쪽지
                        </NavLink>
                    </li>
-                   {/*<li className="NavElements">*/}
-                   {/*    <NavLink className="Link" to="/contact-us">*/}
-                   {/*        캘린더*/}
-                   {/*    </NavLink>*/}
-                   {/*</li>*/}
                    <li className="NavElements">
                        {/*<NavLink className="Link" to="/approval/home">*/}
                        <NavLink className="Link" to="/approval/receive-approvals/all">
@@ -62,11 +57,6 @@ function Header({clicked, isClicked}){
                    <li className="NavElements">
                        <NavLink className="Link" to="/sales/salesList/0">
                            고객관계관리
-                       </NavLink>
-                   </li>
-                   <li className="NavElements">
-                       <NavLink className="Link"  to="/contact-us">
-                           견적서 관리
                        </NavLink>
                    </li>
                    { isAdmin() &&  <li className="NavElements">

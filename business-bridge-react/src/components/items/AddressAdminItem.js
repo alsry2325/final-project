@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {modifyAddressAPI} from "../../apis/AddressBookApiCalls";
 import {toast, ToastContainer} from "react-toastify";
-import {useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {putSuccess} from "../../modules/AddressModule";
 
@@ -10,6 +10,7 @@ function AddressAdminItem({address}) {
     const location = useLocation();
     const {addressData} = location.state;
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [editedAddress, setEditedAddress] = useState({
         emplyPhoto : addressData?.emplyPhoto || '',
@@ -34,45 +35,25 @@ function AddressAdminItem({address}) {
         });
     };
 
-    /* 주소록 수정 */
     const handleModifyAddress = async () => {
         try {
-            const {
-                emplyPhoto,
-                emplyName,
-                emplyOffice,
-                emplyEmail,
-                emplyPhoneNumber,
-                emplyInternalNumber,
-                positionName,
-                departmentName,
-                positionCode,
-                departmentCode
-            } = editedAddress;
-            const addressBookUpdateRequest = {
-                emplyPhoto,
-                emplyName,
-                emplyOffice,
-                emplyEmail,
-                emplyPhoneNumber,
-                emplyInternalNumber,
-                positionName,
-                departmentName,
-                positionCode,
-                departmentCode
-            };
-
             await dispatch(modifyAddressAPI({
                 emplyCode: addressData.emplyCode,
                 addressBookUpdateRequest: editedAddress
             }));
-            toast.info("주소록 수정이 완료되었습니다.");
+
+            // 수정 성공 토스트 메시지 표시
+            toast.info("주소록 수정이 완료되었습니다.", {
+                autoClose: 1000,
+                onClose: () => {
+                    navigate(`/addressBook/${addressData.emplyCode}`);
+                }
+            });
         } catch (error) {
             console.error("주소록 수정에 실패했습니다", error);
             toast.error("주소록 수정에 실패했습니다.");
         }
     };
-
 
     return (
         <>

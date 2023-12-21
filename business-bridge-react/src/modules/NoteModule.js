@@ -1,12 +1,14 @@
 import {createActions, handleActions} from "redux-actions";
 
 /* 초기값 */
-const initialState = {};
+const initialState = {
+    note : {}
+};
 
 /* 액션 타입 = 어떤 걸 요청할건지? */
 const GET_NOTE = 'notes/GET_NOTE';
-const GET_SENDER_NOTE = 'notes/GET_SENDER_NOTE';
 const GET_RECIPIENT_NOTE_DETAIL = 'note/GET_RECIPIENT_NOTE_DETAIL';
+const GET_SENDER_NOTE_DETAIL = 'note/GET_SENDER_NOTE_DETAIL';
 const POST_SUCEESS = 'note'/'POST_SUCCESS';
 const PUT_SUCCESS = 'note/PUT_SUCCESS';
 
@@ -15,8 +17,9 @@ export const { notes : { getNote} } = createActions({
     [GET_NOTE] : result => ({ notes : result.data })
 });
 
-export const { note : { getRecipientNoteDetail, postSuccess, putSuccess} } = createActions({
+export const { note : { getRecipientNoteDetail, getSenderNoteDetail, postSuccess, putSuccess} } = createActions({
     [GET_RECIPIENT_NOTE_DETAIL] : result => ({ note : result.data }),
+    [GET_SENDER_NOTE_DETAIL] : result => ({ note : result.data}),
     [POST_SUCEESS] : () => ({postSuccess : true}),
     [PUT_SUCCESS] : () => ({putSuccess : true})
 });
@@ -26,6 +29,7 @@ export const { note : { getRecipientNoteDetail, postSuccess, putSuccess} } = cre
 const noteReducer = handleActions({
     [GET_NOTE]: (state, { payload }) => ({ ...state, ...payload }),
     [GET_RECIPIENT_NOTE_DETAIL]: (state, { payload }) => ({ ...state, ...payload }),
+    [GET_SENDER_NOTE_DETAIL] : (state, { payload }) => ({ ...state, ...payload }),
     [POST_SUCEESS] : (state, { payload }) => ({ ...state, ...payload }),
     [PUT_SUCCESS] : (state, { payload }) => ({ ...state, ...payload })
 
