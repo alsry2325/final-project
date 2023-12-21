@@ -43,7 +43,7 @@
 
 - GitHub
   - BackEnd
-    
+    https://github.com/Business-Bridge/businessbridge-back-end.git
   - FrontEnd
     https://github.com/Business-Bridge/businessbridge-front-end.git
 
