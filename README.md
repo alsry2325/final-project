@@ -43,9 +43,9 @@
 
 - GitHub
   - BackEnd
-    https://github.com/Classy-Potatoes/Server_Classy-Groupware
+    
   - FrontEnd
-    https://github.com/Classy-Potatoes/Front_Classy-Groupware
+    https://github.com/Business-Bridge/businessbridge-front-end.git
 
 
 <br>
