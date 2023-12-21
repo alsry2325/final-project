@@ -18,6 +18,36 @@
 <p align="center">- 영업 그룹웨어프로젝트를 통해 영업 팀은 더욱 개인화된 서비스를 제공하고 고객과의 관계를 강화할수 있다 </p>
 <p align="center">- 따라서 프로젝트로 “영업관리 그룹웨어”을 제작 하기로 결정</p>
 
+## ⚙️ 개발환경
+- 운영체제 : Windows 10 64bit
+- 버전관리 : Github
+- 개발도구 : IntelliJ IDEA
+- 빌드툴 : Gradle
+- 프로그래밍 언어 : Java 11 JDK11, javaScript
+- 마크업 언어 : HTML, CSS3
+- 라이브러리 : React,Chart.js
+- 프레임워크 : Spring Boot, JPA
+- 오픈API : kakaoMap
+- 데이터베이스 : MySQL
+- SQL 개발 툴 : MySQL Workbench 8.0 CE
+- 모델링 툴 : DA#Modeler5
+
+
+## 📌 주요 기능(임시)
+추후 추가
+
+## 🔗: 프로젝트 산출물
+- Notion
+  https://majestic-marble-13c.notion.site/ea604a7712c54f8c82bd7472c1fef199?pvs=4
+<br>
+
+- GitHub
+  - BackEnd
+    https://github.com/Classy-Potatoes/Server_Classy-Groupware
+  - FrontEnd
+    https://github.com/Classy-Potatoes/Front_Classy-Groupware
+
+
 <br>
 <h2 align="center">  :two_men_holding_hands: 팀원 소개</h2>
 
@@ -28,18 +58,3 @@
 | <img src="https://avatars.githubusercontent.com/u/136221446?v=4" width=400px alt="김김"/> | <img src="https://avatars.githubusercontent.com/u/138549058?v=4" width=400px alt="바다"/> | <img src="https://avatars.githubusercontent.com/u/85326632?v=4" width=400px alt="삭정"/> | <img src="https://avatars.githubusercontent.com/u/138549126?v=4" width=400px alt="샐리"> | <img src="https://avatars.githubusercontent.com/u/101682547?v=4" width=400px alt="썬">  | 
 |                       [양슬기](https://github.com/asoong2)                            |                            [주서현](https://github.com/jooseohyeon)                         |                            [정민교](https://github.com/alsry2325)                          |                          [정수현](https://github.com/wjdtngus3)                           |                         [이소정](https://github.com/spehil)                        |                     
 
-## ⚙️ 개발환경(임시)
-- 운영체제 : 
-- 버전관리 : Github
-- 개발도구 : 
-- 빌드툴 : Gradle
-- 프로그래밍 언어 : Java 11 JDK11, javaScript
-- 마크업 언어 : HTML, CSS3
-- 라이브러리 : jquery-3.6
-- 프레임워크 : Spring Boot 2.7.16 , Mybatis
-- 데이터베이스 : Oracle 18c
-- SQL 개발 툴 : SQL Developer
-- 모델링 툴 : DA#Modeler5
-
-# 📌 주요 기능(임시)
-추후 추가
