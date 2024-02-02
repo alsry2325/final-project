@@ -1,0 +1,804 @@
+
+
+
+
+/* Sales List 수정중 */
+.sales-list-button{
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    background-color: #3498db;
+    color: white;
+    margin-top: 10px;
+    align-self: flex-end;
+}
+/* 영업진행도 상태 - 접수 */
+.sales-list-button-received{
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    background-color: #3498db;
+    color: white;
+    margin-top: 10px;
+    align-self: flex-end;
+}
+
+/* 영업진행도 상태 - 진행 */
+.sales-list-button-progress{
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    background-color: #04B431;
+    color: white;
+    margin-top: 10px;
+    align-self: flex-end;
+}
+
+/* 영업진행도 상태 - 완료 */
+.sales-list-button-complete{
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    background-color: #FF0000;
+    color: white;
+    margin-top: 10px;
+    align-self: flex-end;
+}
+
+/* sales 공통 css----------------------------------------------------------------- */
+.sales-h1{
+    margin-top: 10px;
+    text-align: left;
+}
+
+.sales-h2{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+.sales-title{
+    margin-bottom: 10px;
+}
+
+ .sales-div{
+    margin-top: 20px;
+     width: 90%;
+}
+
+ .sales-table {
+     width: 100%;
+     border-collapse: collapse;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     border-radius: 8px;
+     overflow: hidden;
+ }
+
+ .sales-table th, .sales-table td {
+     padding: 15px;
+     text-align: center;
+     border-bottom: 1px solid #ddd;
+ }
+
+ .sales-table th {
+     background-color: #f5f5f5;
+ }
+
+ .sales-table tr:hover {
+     background-color: #f9f9f9;
+ }
+
+
+ /* 영업등록  및 영업 검색 CSS ----------------------------------------------------------------------- */
+
+.sales-regist-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* 사진에서 사용된 폰트에 맞춰서 설정 */
+    color: #333;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    max-width: 800px; /* 필요에 따라 조정 */
+    margin: 20px auto;
+}
+
+.sales-regist-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* 테이블 스타일 */
+.sales-regist-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.sales-regist-table td,
+.sales-regist-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+.sales-registModal-table{
+    background-color: #f9f9f9;
+    font-weight: bold;
+    text-align: center;
+    font-size: x-large;
+}
+/* 테이블 헤더 스타일 */
+.sales-regist-table th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+}
+
+/* 입력 필드 스타일 */
+.sales-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+/* 버튼 스타일 */
+.sales-button {
+    background-color: #4CAF50; /* 적절한 색상으로 변경 */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.sales-button:hover {
+    background-color: #45a049; /* 호버 효과 색상 */
+}
+
+/* 텍스트 에어리어 스타일 */
+.textarea-style {
+    width: 100%;
+    height: 100px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    resize: vertical; /* 사용자가 세로 크기 조정 가능하도록 설정 */
+}
+
+
+.search-div {
+     display: flex;
+     justify-content: flex-end;
+     margin-bottom: 20px;
+ }
+
+ /* 검색 조건 select */
+ .search-div select {
+     margin-right: 10px;
+     padding: 12px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     font-size: 14px;
+     flex-shrink: 1;
+     flex-basis: auto;
+     box-sizing: border-box;
+     width: 120px;
+ }
+
+ /* 검색어 입력 input */
+ .search-div input {
+     margin-right: 10px;
+     padding: 12px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     font-size: 14px;
+     flex-shrink: 1;
+     flex-basis: auto;
+     box-sizing: border-box;
+     width: 200px;
+     height: 48px;
+ }
+
+ /* 검색 버튼 button */
+ .search-div button {
+     padding: 12px;
+     border: none;
+     border-radius: 5px;
+     font-size: 14px;
+     background-color: #563CB1;
+     color: #fff;
+     cursor: pointer;
+     transition: background-color 0.3s;
+ }
+
+ .search-div button:hover {
+     background-color: #2d87cb;
+ }
+
+ .sales-buttons{
+     align-items: center;
+     display: grid;
+ }
+
+/* 영업등록모달 css*/
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 검은색 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+
+}
+
+/* mypage ----------------------------------------------------------------------- */
+.sales-main {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sales-layout-div {
+    display: flex;
+    height: 100vh;
+}
+
+/* mypage navbar */
+.mypage-navbar-div {
+    min-width: 200px;
+    border-right: 1px solid black;
+}
+
+.mypage-navbar-ul {
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    list-style:none;
+    padding-left:0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.mypage-navbar-ul li {
+    width: 100%;
+    padding-left: 20px;
+    height: auto;    
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.mypage-navbar-ul a {
+    text-decoration: none;
+    color: black;
+}
+
+/* paging bar ------------------------------------------------------------------------ */
+
+.paging-ul {
+    display: flex;
+    list-style-type : none;
+    margin-top: 30px;
+    justify-content: center;    /* 지우면 안돼ㅠ */
+}
+
+.paging-btn{
+    margin: 5px;
+    background-color: white;
+    width: 22px;
+    text-align: center;
+    border-radius: 5px;
+
+}
+
+.paging-btn:hover{
+    cursor: pointer;
+    background-color: #C9C5F0;
+}
+
+/*sales Modal*/
+.sales-modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.sales-modal-container{
+    position: absolute;
+    width: 400px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+    z-index: 1000;
+}
+
+.sales-product-review-modal-div{
+    width: 400px;
+    height: 550px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    border: solid 1px black;
+    border-radius: 25px;
+    overflow: auto;
+}
+
+
+/* review modal ------------------------------------------------------------------------------------------------ */
+/*.modal{*/
+/*    position: fixed;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    background-color: rgba(0, 0, 0, 0.4);*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    z-index: 100;*/
+/*}*/
+
+/*.modal-container{*/
+/*    position: absolute;*/
+/*    width: 400px;*/
+/*    padding: 10px;*/
+/*    text-align: center;*/
+/*    border-radius: 10px;*/
+/*    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);*/
+/*    z-index: 1000;*/
+/*}*/
+.progress-form{
+    text-align: left;
+    border: 1px solid #ddd; /* 부드러운 회색 테두리 */
+    border-radius: 10px; /* 둥근 모서리 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 박스 그림자 */
+    padding: 15px; /* 내부 패딩 */
+}
+
+.progress-Name{
+    margin-left: 20px;
+}
+
+/*.product-review-modal-div{*/
+/*    width: 400px;*/
+/*    height: 550px;*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    background-color: white;*/
+/*    border: solid 1px black;*/
+/*    border-radius: 25px;*/
+/*    overflow: auto;*/
+/*}*/
+
+.product-review-modal-div input {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 30px;
+    width: 90%;
+    border-radius: 25px;
+    text-indent: 1.2em;
+}
+
+.product-review-modal-div textarea {
+    width: 90%;
+    height: 70%;
+    resize: none;
+    border-radius: 20px;
+    text-indent: 1em;
+}
+
+.product-review-modal-div button {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 30px;
+    width: 250px;
+    border-radius: 25px;
+    background-color: white;
+    font-weight: bold;
+}
+
+
+/* SalesRegsit.css */
+
+.sales-regist-container {
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    max-width: 500px;
+    margin: 1rem auto;
+}
+
+sales-h1 {
+    color: #333;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: left
+}
+
+/* 테이블 스타일링 */
+.sales-regist-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+
+.sales-regist-table td {
+    padding: .5rem;
+}
+
+.sales-regist-table td:first-child {
+    color: #333;
+    font-weight: 600;
+}
+
+/* 입력 필드 스타일링 */
+.sales-input, .sales-select, .textarea-style {
+    width: 100%;
+    padding: .75rem;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    margin-bottom: 1rem;
+    font-size: .875rem;
+}
+
+/* 셀렉트 박스 화살표 스타일링 */
+.sales-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-size: 1.25rem;
+}
+
+/* 버튼 스타일링 */
+.sales-button {
+    padding: .5rem 1rem;
+    border-radius: .25rem;
+    border: none;
+    color: #fff;
+    background-color: #563CB1;
+    margin-right: .5rem;
+    cursor: pointer;
+    font-size: .875rem;
+}
+/* 버튼 div*/
+.sales-progress-button{
+    padding: .5rem 1rem;
+    border-radius: .25rem;
+    border: none;
+    color: #fff;
+    background-color: #563CB1;
+    margin-right: .5rem;
+    cursor: pointer;
+    font-size: .875rem;
+    margin-left: 140px;
+    margin-top : 10px;
+}
+
+.sales-button:hover {
+    background-color: #0069d9;
+}
+
+/* 특수 버튼 스타일링 */
+.sales-button.cancel {
+    background-color: #6c757d;
+}
+
+.sales-button.cancel:hover {
+    background-color: #5a6268;
+}
+
+.sales-regist-section {
+        margin-top: 1rem;
+    }
+
+/*salesDetail CSS*/
+
+.sales-detail-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.1);
+    max-width: 80%;
+    margin: 40px auto;
+    width: 100%;
+}
+
+
+
+.sales-regist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+
+.sales-detail-header button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+}
+
+.sales-detail-header button:hover {
+    background-color: #0056b3;
+}
+
+.sales-detail-info {
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.sales-detail-info table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.sales-detail-info td {
+    padding: 8px;
+    border: 1px solid #eaeaea;
+}
+
+.sales-detail-info td:first-child {
+    font-weight: bold;
+    background-color: #f8f8f8;
+}
+
+.form-groups {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input[type='date'],
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group textarea {
+    height: 120px;
+    resize: vertical;
+}
+.sales-detail-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.sales-detail-button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    background-color: #28a745;
+    color: white;
+    margin-top: 10px;
+    align-self: flex-end;
+}
+
+.sales-detail-button:hover {
+    background-color: #218838;
+}
+
+.sales-detail-progress {
+    margin-top: 20px;
+}
+
+.sales-detail-info td {
+    border: 1px solid #ddd;
+    width: 200px;
+    height: 50px;
+}
+
+/*salesModify CSS*/
+/* 컨테이너 스타일 */
+.sales-modify__container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.1);
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+/* 상단 버튼 그룹 스타일 */
+.sales-modify__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+/* 버튼 스타일 */
+.sales-modify__button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.sales-modify__button--back {
+    background-color: #6c757d;
+    color: white;
+}
+
+.sales-modify__button--submit {
+    background-color: #007bff;
+    color: white;
+}
+
+/* 테이블 스타일 */
+.sales-modify__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.sales-modify__table td {
+    padding: 8px;
+    border: 1px solid #eaeaea;
+}
+
+.sales-modify__table-label {
+    background-color: #f8f8f8;
+    font-weight: bold;
+}
+
+/* 인풋 박스와 셀렉트 박스 스타일 */
+.sales-modify__input,
+.sales-modify__select,
+.sales-modify__textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.sales-modify__textarea {
+    height: 100px; /* 조절 가능 */
+    resize: vertical;
+}
+
+/* 버튼 스타일 (상품검색 버튼 등) */
+.sales-modify__button--small {
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: white;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .sales-modify__container {
+        width: 90%;
+        padding: 10px;
+    }
+
+    .sales-modify__buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sales-modify__button {
+        margin-bottom: 10px;
+    }
+}
+
+
+/* 영업네비바 틀 */
+.salesRegistration-navbar-div {
+    width: 350px;
+    border-right: 1px solid darkgrey;
+}
+/* 고객관계 네비 제목 */
+.cusRelationMangement {
+    display: flex;
+    margin: 30px;
+}
+
+.cusRelationMangement-h1{
+    margin-top: 10px;
+}
+/* 영업네비바 커스텀*/
+.salesRegistration-btn {
+    margin: 30px;
+    width: 80%;
+    height: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #6F6F6F;
+    border-radius: 10px;
+    transition: 0.5s;
+    cursor: pointer;
+    color: black;
+}
+
+.salesRegistration-btns{
+    display: flex;
+}
+
+
+/*!*진행내용(예약일정, 진행내역) css*!*/
+/*.progress-modal-div{*/
+/*    width: 400px;*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    background-color: white;*/
+/*    border: solid 1px black;*/
+/*    border-radius: 25px;*/
+/*}*/
+
+
+.progress-modal-div {
+    width: 400px;
+    height: 600px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 20px; /* 패딩 증가 */
+    background-color: #f8f8f8; /* 부드러운 배경색 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 섬세한 그림자 */
+    border-radius: 15px; /* 둥근 모서리 */
+    font-family: 'Arial', sans-serif; /* 일관된 글꼴 */
+    overflow: auto;
+}

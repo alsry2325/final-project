@@ -1,0 +1,127 @@
+.Nav{
+    /*justify-content: center;*/
+    text-align: center;
+    background-color: #5549DD;
+    padding: 30px 75px  30px 75px;
+}
+.main-Image{
+    width: 35px;
+    height: 40px;
+    margin-right: 3px;
+}
+.NavbarWrapper{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+}
+.NavLogo{
+    float: left;
+    font-size: 25px;
+    font-weight: 900;
+    margin: -8px 2px 1px 15px;
+    transition: 0.2s ease-in;
+}
+
+.NavElements{
+    display: inline;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    font-weight: 200;
+    padding: 10px 15px 10px 15px;
+    margin-right: 50px;
+}
+
+
+.NavName{
+    color: white;
+    float: right;
+    border-radius: 20px;
+    padding: 10px;
+    margin: -10px 2px 1px 2px;
+
+}
+
+.Link{
+    text-decoration: none;
+    color: darkgrey;
+}
+
+.Image-myPage{
+    position: relative;
+    width: 50px; /* 이미지의 너비 조절 */
+    height: 50px; /* 이미지의 높이 조절 */
+    border-radius: 50%; /* 50%로 설정하여 동그랗게 만듭니다 */
+    object-fit: cover; /* 이미지의 비율을 유지하면서 동그랗게 만듭니다 */
+}
+.Link:hover{
+    cursor: pointer;
+    color: white;
+    border-radius: 20px;
+    transition: 0.5ms;
+
+}
+.active{
+    cursor: pointer;
+    color: white;
+    border-radius: 20px;
+    transition: 0.5ms;
+
+}
+.Icon{
+    display: none;
+    font-size: 25px;
+    cursor: pointer;
+    color: white;
+}
+@media screen and (max-width: 1200px){
+    .Nav{
+        padding: 25px 0px  25px 20px;
+    }
+    .NavElements{
+        display: none;
+    }
+    .Image-myPage{
+        display: none;
+    }
+    .NavName{
+        display: none;
+    }
+    .Icon{
+        display: inline;
+        position: relative;
+        left: 35%;
+    }
+    .NavLogo{
+        margin: 0;
+        transition: 0.2s ease-in-out;
+    }
+}
+/* 메뉴로 바뀔 때*/
+.menu{
+    position: absolute;
+    width: 150px;
+    height: 100px;
+    background-color: white;
+    border-radius: 20px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: darkgrey;
+}
+
+.menu-Link{
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    margin-top: 12px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.menu-Link:hover{
+    cursor: pointer;
+    background-color: #b4b4b4;
+    transition: 0.5ms;
+}

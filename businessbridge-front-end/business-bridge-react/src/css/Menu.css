@@ -1,0 +1,64 @@
+.Navbars{
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: darkgrey;
+    padding-bottom: 20px;
+    position: relative;
+    float: right;
+    width: 30%;
+    border-radius: 10px;
+    box-shadow: 0 0.188em 1.550em rgb(156, 156, 156);
+    transition: 0.2s ease-in-out;
+}
+@media screen and (min-width:1400px){
+    .Navbars{
+        display: none;
+    }
+}
+.NavbarWrappers{
+    list-style-type: none;
+}
+
+.NavbarElement{
+    margin-top: 10px;
+    padding:10px;
+    justify-content: center;
+    text-align: center;
+}
+
+
+
+.link{
+    text-decoration: none;
+    color:black;
+}
+.link:hover{
+    color: black;
+    background-color: darkgrey;
+    border-radius: 20px;
+    width: auto;
+    height: auto;
+    padding: 10px 50px 10px 50px;
+
+}
+.active.Menu{
+    color: black;
+
+}
+
+.Menu-Image-myPage{
+    width: 100px; /* 이미지의 너비 조절 */
+    height: 100px; /* 이미지의 높이 조절 */
+    border-radius: 50%; /* 50%로 설정하여 동그랗게 만듭니다 */
+    object-fit: cover; /* 이미지의 비율을 유지하면서 동그랗게 만듭니다 */
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.NavImage{
+    margin: auto;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+}
