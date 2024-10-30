@@ -1,5 +1,6 @@
 <h1 align="center">BusinessBridge(영업 그룹웨어)</h1>
-<p align="center"><img align="center" width=40% height=50% src="https://github.com/alsry2325/todo-app/assets/85326632/514785fc-7cfd-4a7d-b588-bc6d7f57468b"> </p>
+<p align="center"><img align="center" width=40% height=50% src="![image](https://github.com/user-attachments/assets/76d9d451-ae6c-4dc8-a4e4-0041f3d5e8af)
+"> </p>
 
 <p align="center">현대적인 영업관리를 위한 그룹웨어 통합 플랫폼 개발 프로젝트 </p>
 
