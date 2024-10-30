@@ -1,5 +1,5 @@
 <h1 align="center">BusinessBridge(영업 그룹웨어)</h1>
-<p align="center"><img align="center" width=40% height=50% src="![logo](https://github.com/user-attachments/assets/0a032770-62c6-4bdb-8146-09e9340ecd27)"> </p>
+<p align="center"><img align="center" width=40% height=50% src="https://github.com/user-attachments/assets/0a032770-62c6-4bdb-8146-09e9340ecd27"> </p>
 
 <p align="center">현대적인 영업관리를 위한 그룹웨어 통합 플랫폼 개발 프로젝트 </p>
 
